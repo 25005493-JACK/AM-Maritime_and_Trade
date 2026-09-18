@@ -1,0 +1,11 @@
+SHIPPING INSTRUCTION (SI)
+=========================================
+SI Ref: APEX-1049
+Shipper: Asia Pacific Exports Ltd, Shanghai, China
+Consignee: California Freight Services, Los Angeles, USA
+Notify Party: US Import Agency LLC, Los Angeles
+Port of Loading: Shanghai (CNSHA)
+Port of Discharge: Los Angeles (USLAX)
+Container Count: 5 containers
+Gross Weight: 45000 kg
+=========================================

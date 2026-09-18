@@ -1,0 +1,17 @@
+DRAFT BILL OF LADING (BL)
+=========================================
+B/L No: MSC-BL-880199214
+Booking Reference: BK-99214
+Vessel: MSC ISABELLA  Voyage: 240E
+
+Shipper: Global Traders Inc, 100 Logistics Way, Singapore 608501
+Consignee: European Distribution Ltd, Industrial Area, Rotterdam, Netherlands
+Notify Party: Euro Logistics BV, Harbor Boulevard 12, Rotterdam, Netherlands
+Load Port: Singapore (SGSIN)
+Discharge Port: Rotterdam (NLRTM)
+
+CARGO DETAILS:
+Container Count: 4 containers
+Total Gross Weight: 22000.00 kg
+Description: High Tech Electronic Equipment & Accessories
+=========================================

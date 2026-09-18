@@ -1,0 +1,14 @@
+DRAFT BILL OF LADING (BL)
+=========================================
+B/L No: EVER-BL-554100
+Booking Reference: PL-5541
+Vessel: EVERSMART Voyage: v.012W
+
+Shipper: Pacific Logistics Ltd, Jurong East, Singapore
+Consignee: Trans-Atlantic Trading Co, Hamburg, Germany
+Notify Party: Trans-Atlantic Customs Brokerage, Hamburg
+Load Port: Singapore (SGSIN)
+Discharge Port: Hamburg (DEHAM)
+Container Count: 2 containers
+Gross Weight: 18500 kg
+=========================================

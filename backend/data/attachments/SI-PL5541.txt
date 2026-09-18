@@ -1,0 +1,14 @@
+SHIPPING INSTRUCTION (SI)
+=========================================
+SI Reference: SI-PL5541
+Booking No: PL-5541
+Vessel / Voyage: EVERSMART / v.012W
+
+SHIPPER: Pacific Logistics Ltd, Jurong East, Singapore
+CONSIGNEE: Trans-Atlantic Trading Co, Hamburg, Germany
+NOTIFY PARTY: Trans-Atlantic Customs Brokerage, Hamburg
+PORT OF LOADING: Singapore (SGSIN)
+PORT OF DISCHARGE: Hamburg (DEHAM)
+CONTAINER COUNT: 2 containers
+GROSS WEIGHT: 18500 kg
+=========================================

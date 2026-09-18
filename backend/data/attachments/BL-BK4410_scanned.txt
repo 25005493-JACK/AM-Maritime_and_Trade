@@ -1,0 +1,11 @@
+[OCR SCAN RESULT - QUALITY SCORE: 0.34]
+DRAFT BILL OF LADING
+Shipper: Fast Freight GmbH, Hamburg, Germany
+Consignee: Tokyo Import Corp, Tokyo, Japan
+Notify Party: Nippon Logistics KK, Tokyo
+Port of Loading: Hamburg (DEHAM)
+Port of Discharge: Tokyo (JPTYO)
+Container Count: 1 container
+GROSS WEIGHT: [ERROR: OCR_CORRUPTED_STREAM_UNCERTAIN_WEIGHT_VALUE_0x99A?] kg
+[WARNING: Document text illegible near weight line - low confidence score]
+=========================================

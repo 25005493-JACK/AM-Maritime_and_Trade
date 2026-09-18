@@ -1,0 +1,17 @@
+SHIPPING INSTRUCTION (SI)
+=========================================
+SI Reference: SI-2026-8801
+Booking No: BK-99214
+Vessel / Voyage: MSC ISABELLA / v.240E
+
+SHIPPER: Global Traders Inc, 100 Logistics Way, Singapore 608501
+CONSIGNEE: European Distribution Ltd, Industrial Area, Rotterdam, Netherlands
+NOTIFY PARTY: Euro Logistics BV, Harbor Boulevard 12, Rotterdam, Netherlands
+PORT OF LOADING: Singapore (SGSIN)
+PORT OF DISCHARGE: Rotterdam (NLRTM)
+
+CONTAINER SUMMARY:
+- Total Containers: 3 containers (3 x 40' High Cube)
+- Gross Weight: 22000 kg (22.0 Metric Tons)
+- Cargo Description: High Tech Electronic Equipment & Accessories
+=========================================

@@ -1,0 +1,177 @@
+[
+  {
+    "id": "MSG-001",
+    "sender": "docs@globaltraders.com",
+    "recipient": "ops@maritime-line.com",
+    "subject": "Urgent: Draft BL verification for SI #SI-2026-8801 - MSC ISABELLA v.240E",
+    "timestamp": "2026-09-18T09:15:00Z",
+    "body": "Hello Operations Team,\n\nPlease find attached our Shipping Instruction (SI-2026-8801) and the draft Bill of Lading received from the carrier for booking BK-99214. Kindly check and confirm if all details match prior to final BL printing.\n\nBest regards,\nSarah Jenkins\nGlobal Traders Inc.",
+    "attachments": [
+      {
+        "filename": "SI-2026-8801.txt",
+        "doc_type": "SI",
+        "path": "backend/data/attachments/SI-2026-8801.txt"
+      },
+      {
+        "filename": "Draft_BL_8801.txt",
+        "doc_type": "BL",
+        "path": "backend/data/attachments/Draft_BL_8801.txt"
+      }
+    ],
+    "vessel": "MSC ISABELLA",
+    "voyage": "v.240E",
+    "company": "Global Traders Inc"
+  },
+  {
+    "id": "MSG-002",
+    "sender": "shipping@pacificlogistics.sg",
+    "recipient": "ops@maritime-line.com",
+    "subject": "Draft BL Check - Booking PL-5541 - EVERSMART v.012W",
+    "timestamp": "2026-09-18T10:30:00Z",
+    "body": "Dear Shipping Desk,\n\nAttaching SI and draft BL for PL-5541. Please cross check the 7 standard fields and advise if ready for release.\n\nThank you,\nPacific Logistics",
+    "attachments": [
+      {
+        "filename": "SI-PL5541.txt",
+        "doc_type": "SI",
+        "path": "backend/data/attachments/SI-PL5541.txt"
+      },
+      {
+        "filename": "BL-PL5541.txt",
+        "doc_type": "BL",
+        "path": "backend/data/attachments/BL-PL5541.txt"
+      }
+    ],
+    "vessel": "EVERSMART",
+    "voyage": "v.012W",
+    "company": "Pacific Logistics Ltd"
+  },
+  {
+    "id": "MSG-003",
+    "sender": "logistics@asiapacific-export.com",
+    "recipient": "ops@maritime-line.com",
+    "subject": "SI vs Draft BL Verification - APEX-1049 - MAERSK MC-KINNEY v.401S",
+    "timestamp": "2026-09-18T11:05:00Z",
+    "body": "Hi Team,\n\nPlease compare the attached Shipping Instruction APEX-1049 against Draft BL #MBL-77312. Note that POL might be listed as Load Port in draft.\n\nRegards,\nDavid Chen",
+    "attachments": [
+      {
+        "filename": "SI-APEX1049.txt",
+        "doc_type": "SI",
+        "path": "backend/data/attachments/SI-APEX1049.txt"
+      },
+      {
+        "filename": "BL-MBL77312.txt",
+        "doc_type": "BL",
+        "path": "backend/data/attachments/BL-MBL77312.txt"
+      }
+    ],
+    "vessel": "MAERSK MC-KINNEY",
+    "voyage": "v.401S",
+    "company": "Asia Pacific Exports"
+  },
+  {
+    "id": "MSG-004",
+    "sender": "ops@fastfreight.de",
+    "recipient": "ops@maritime-line.com",
+    "subject": "BL Verification Request - Scanned Draft BL - BK-4410",
+    "timestamp": "2026-09-18T12:20:00Z",
+    "body": "Hi Ops,\n\nSending over SI file and scanned draft BL image output for BK-4410. Please verify fields.\n\nBest,\nFast Freight GmbH",
+    "attachments": [
+      {
+        "filename": "SI-BK4410.txt",
+        "doc_type": "SI",
+        "path": "backend/data/attachments/SI-BK4410.txt"
+      },
+      {
+        "filename": "BL-BK4410_scanned.txt",
+        "doc_type": "BL",
+        "path": "backend/data/attachments/BL-BK4410_scanned.txt"
+      }
+    ],
+    "vessel": "CMA CGM ANTOINE",
+    "voyage": "v.991N",
+    "company": "Fast Freight GmbH"
+  },
+  {
+    "id": "MSG-005",
+    "sender": "admin@transworld.co.uk",
+    "recipient": "ops@maritime-line.com",
+    "subject": "Review Request - Draft BL TW-3029 (Missing Notify Party)",
+    "timestamp": "2026-09-18T13:40:00Z",
+    "body": "Dear Ops,\n\nPlease verify draft BL TW-3029 against attached SI. Notice that notify party section was left blank on draft BL by carrier agent.\n\nThanks,\nTransworld Shipping",
+    "attachments": [
+      {
+        "filename": "SI-TW3029.txt",
+        "doc_type": "SI",
+        "path": "backend/data/attachments/SI-TW3029.txt"
+      },
+      {
+        "filename": "BL-TW3029.txt",
+        "doc_type": "BL",
+        "path": "backend/data/attachments/BL-TW3029.txt"
+      }
+    ],
+    "vessel": "OOCL HONG KONG",
+    "voyage": "v.108E",
+    "company": "Transworld Shipping"
+  },
+  {
+    "id": "MSG-006",
+    "sender": "chartering@oceanic-trade.com",
+    "recipient": "booking@maritime-line.com",
+    "subject": "Enquiry of sailing schedule and space - Shanghai to Rotterdam Q4",
+    "timestamp": "2026-09-18T14:10:00Z",
+    "body": "Good day,\n\nWe would like to enquire about vessel sailing schedules and available container capacity from Shanghai (CNSHA) to Rotterdam (NLRTM) for October 2026.\n\nRegards,\nOceanic Trade Corp",
+    "attachments": [],
+    "vessel": "N/A",
+    "voyage": "N/A",
+    "company": "Oceanic Trade Corp"
+  },
+  {
+    "id": "MSG-007",
+    "sender": "trucking@portlogistics.com",
+    "recipient": "depot@maritime-line.com",
+    "subject": "Request for early container pick up - Booking BK-99214 Depot B",
+    "timestamp": "2026-09-18T14:45:00Z",
+    "body": "Hi Team,\n\nDriver requested early gate-in and container pickup for 3x 40ft High Cube containers at Depot B tomorrow 08:00 AM.\n\nBest,\nDriver Ops",
+    "attachments": [],
+    "vessel": "MSC ISABELLA",
+    "voyage": "v.240E",
+    "company": "Global Traders Inc"
+  },
+  {
+    "id": "MSG-008",
+    "sender": "vessel-ops@portauthority.sg",
+    "recipient": "ops@maritime-line.com",
+    "subject": "Issue of arrival notice to Consignee - MSC ISABELLA v.240E ETA Singapore",
+    "timestamp": "2026-09-18T15:30:00Z",
+    "body": "Notice to Shipping Line:\n\nMSC ISABELLA v.240E is scheduled to berth at Pasir Panjang Terminal Berth 4 on Sep 22, 2026. Please issue arrival notices to consignees.\n\nPort Control",
+    "attachments": [],
+    "vessel": "MSC ISABELLA",
+    "voyage": "v.240E",
+    "company": "Port Authority"
+  },
+  {
+    "id": "MSG-009",
+    "sender": "billing@maritime-line.com",
+    "recipient": "finance@globaltraders.com",
+    "subject": "Invoice preparation and collection of payment - Inv #INV-2026-904",
+    "timestamp": "2026-09-18T16:00:00Z",
+    "body": "Dear Customer,\n\nPlease find attached freight invoice INV-2026-904 for shipment BK-99214. Remittance due within 7 days.\n\nAccounts Receivable",
+    "attachments": [],
+    "vessel": "MSC ISABELLA",
+    "voyage": "v.240E",
+    "company": "Global Traders Inc"
+  },
+  {
+    "id": "MSG-010",
+    "sender": "promo@maritimesupplies-discount.com",
+    "recipient": "ops@maritime-line.com",
+    "subject": "Exclusive 50% discount on office stationery & marine safety gear!",
+    "timestamp": "2026-09-18T16:15:00Z",
+    "body": "Super Sale! Buy marine safety gear and office supplies now at half price! Click here to claim coupon.",
+    "attachments": [],
+    "vessel": "N/A",
+    "voyage": "N/A",
+    "company": "Unknown"
+  }
+]

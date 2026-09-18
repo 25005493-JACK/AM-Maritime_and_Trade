@@ -1,0 +1,11 @@
+DRAFT BILL OF LADING (BL)
+=========================================
+B/L No: MBL-77312
+Shipper: Asia Pacific Trading Corp, Shanghai, China
+Consignee: California Freight Services, Los Angeles, USA
+Notify Party: US Import Agency LLC, Los Angeles
+Load Port: Shanghai (CNSHA)
+Discharge Port: Long Beach (USLGB)
+Container Count: 5 containers
+Gross Weight: 45000 kg
+=========================================

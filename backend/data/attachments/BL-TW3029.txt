@@ -1,0 +1,11 @@
+DRAFT BILL OF LADING (BL)
+=========================================
+B/L No: TW-BL-3029
+Shipper: Transworld Shipping Ltd, London, UK
+Consignee: Orient Express Trading, Hong Kong
+Notify Party: [NOT SPECIFIED / BLANK]
+Load Port: Felixstowe (GBFXT)
+Discharge Port: Hong Kong (HKHKG)
+Container Count: 2 containers
+Gross Weight: 31000 kg
+=========================================

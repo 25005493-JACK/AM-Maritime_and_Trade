@@ -1,0 +1,11 @@
+SHIPPING INSTRUCTION (SI)
+=========================================
+SI Ref: TW-3029
+Shipper: Transworld Shipping Ltd, London, UK
+Consignee: Orient Express Trading, Hong Kong
+Notify Party: Maritime Customs Services HK, Central Hong Kong
+Port of Loading: Felixstowe (GBFXT)
+Port of Discharge: Hong Kong (HKHKG)
+Container Count: 2 containers
+Gross Weight: 31000 kg
+=========================================

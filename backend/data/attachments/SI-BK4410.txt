@@ -1,0 +1,11 @@
+SHIPPING INSTRUCTION (SI)
+=========================================
+SI Ref: SI-BK4410
+Shipper: Fast Freight GmbH, Hamburg, Germany
+Consignee: Tokyo Import Corp, Tokyo, Japan
+Notify Party: Nippon Logistics KK, Tokyo
+Port of Loading: Hamburg (DEHAM)
+Port of Discharge: Tokyo (JPTYO)
+Container Count: 1 container
+Gross Weight: 12400 kg
+=========================================
