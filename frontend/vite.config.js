@@ -11,7 +11,23 @@ export default defineConfig({
         target: 'http://localhost:8000',
         changeOrigin: true
       },
+      '/shipments': {
+        target: 'http://localhost:8000',
+        changeOrigin: true
+      },
       '/submit': {
+        target: 'http://localhost:8000',
+        changeOrigin: true
+      },
+      '/emails': {
+        target: 'http://localhost:8000',
+        changeOrigin: true
+      },
+      '/attachments': {
+        target: 'http://localhost:8000',
+        changeOrigin: true
+      },
+      '/sample_submission': {
         target: 'http://localhost:8000',
         changeOrigin: true
       }

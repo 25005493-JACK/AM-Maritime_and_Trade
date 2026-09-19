@@ -6,6 +6,7 @@ import HumanReviewModal from './components/HumanReviewModal.jsx';
 import AnalyticsDashboard from './components/AnalyticsDashboard.jsx';
 import SelfEvaluationView from './components/SelfEvaluationView.jsx';
 import VesselCalendar from './components/VesselCalendar.jsx';
+import TimelineWheel from './components/TimelineWheel.jsx';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('inbox');
@@ -216,6 +217,10 @@ export default function App() {
           />
         )}
 
+        {activeTab === 'timeline' && (
+          <TimelineWheel />
+        )}
+
         {activeTab === 'calendar' && (
           <VesselCalendar
             calendarData={calendarData}
@@ -234,7 +239,7 @@ export default function App() {
             </p>
             <div className="grid grid-cols-2 gap-4">
               {emails
-                .filter((e) => e.verification?.status === 'HUMAN_REVIEW_REQUIRED')
+                .filter((e) => e.verification?.status === 'NEEDS_REVIEW' || e.verification?.status === 'HUMAN_REVIEW_REQUIRED')
                 .map((email) => (
                   <div key={email.id} className="glass-card p-4 rounded-xl border border-amber-500/40">
                     <div className="flex items-center justify-between mb-2">
