@@ -7,9 +7,18 @@ import AnalyticsDashboard from './components/AnalyticsDashboard.jsx';
 import SelfEvaluationView from './components/SelfEvaluationView.jsx';
 import VesselCalendar from './components/VesselCalendar.jsx';
 import TimelineWheel from './components/TimelineWheel.jsx';
+import OcrDashboard from './components/OcrDashboard.jsx';
+import { Download } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('inbox');
+  const [activeTab, setActiveTab] = useState(
+    () => window.location.pathname === '/dashboard' ? 'ocr_dashboard' : 'inbox'
+  );
+  const [theme, setTheme] = useState(() => {
+    const initial = window.localStorage.getItem('averish-theme') === 'light' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = initial;
+    return initial;
+  });
   const [emails, setEmails] = useState([]);
   const [selectedEmailId, setSelectedEmailId] = useState(null);
   const [emailDetail, setEmailDetail] = useState(null);
@@ -29,6 +38,28 @@ export default function App() {
   // Calendar State
   const [calendarData, setCalendarData] = useState(null);
   const [selectedPort, setSelectedPort] = useState('ALL');
+  const isOcrDashboard = activeTab === 'ocr_dashboard';
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem('averish-theme', theme);
+  }, [theme]);
+
+  const navigateTo = (tab) => {
+    setActiveTab(tab);
+    const nextPath = tab === 'ocr_dashboard' ? '/dashboard' : '/';
+    if (window.location.pathname !== nextPath) {
+      window.history.pushState({}, '', nextPath);
+    }
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setActiveTab(window.location.pathname === '/dashboard' ? 'ocr_dashboard' : 'inbox');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Fetch emails list
   const fetchEmails = async () => {
@@ -163,10 +194,11 @@ export default function App() {
   };
 
   useEffect(() => {
+    if (isOcrDashboard) return;
     fetchEmails();
     fetchAnalytics();
     fetchCalendar('ALL');
-  }, []);
+  }, [isOcrDashboard]);
 
   useEffect(() => {
     if (selectedEmailId) {
@@ -175,12 +207,14 @@ export default function App() {
   }, [selectedEmailId]);
 
   return (
-    <div className="flex h-screen w-full bg-slate-950 text-slate-100 font-sans overflow-hidden">
+    <div className="flex h-dvh w-full min-w-0 bg-slate-950 text-slate-100 font-sans overflow-hidden">
       {/* Navigation Sidebar */}
       <Sidebar
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={navigateTo}
         stats={analytics?.summary_stats}
+        theme={theme}
+        onToggleTheme={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}
         onRefresh={() => {
           fetchEmails();
           fetchAnalytics();
@@ -196,10 +230,10 @@ export default function App() {
               emails={emails}
               selectedEmailId={selectedEmailId}
               onSelectEmail={(id) => setSelectedEmailId(id)}
-              onOpenInspector={() => setActiveTab('inspector')}
+              onOpenInspector={() => navigateTo('inspector')}
             />
             {/* Embedded Inspector Panel on Wide Screens */}
-            <div className="hidden xl:flex w-[42rem] min-w-[420px] border-l border-slate-800">
+            <div className="hidden 2xl:flex w-[min(36vw,34rem)] min-w-[360px] border-l border-slate-800">
               <SplitScreenInspector
                 emailDetail={emailDetail}
                 onOpenOverrideModal={() => setShowOverrideModal(true)}
@@ -218,7 +252,7 @@ export default function App() {
         )}
 
         {activeTab === 'timeline' && (
-          <TimelineWheel />
+          <TimelineWheel theme={theme} />
         )}
 
         {activeTab === 'calendar' && (
@@ -233,11 +267,24 @@ export default function App() {
 
         {activeTab === 'human_review' && (
           <div className="flex-1 p-6 overflow-y-auto bg-slate-950">
-            <h2 className="text-lg font-bold text-slate-100 mb-2">Human-in-the-Loop Review Queue</h2>
-            <p className="text-xs text-slate-400 mb-6">
-              Messages escalated due to damaged OCR text, missing required fields, or low confidence extraction.
-            </p>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="flex items-start justify-between gap-4 mb-6">
+              <div>
+                <h2 className="text-lg font-bold text-slate-100 mb-2">Human-in-the-Loop Review Queue</h2>
+                <p className="text-xs text-slate-400">
+                  Messages escalated due to damaged OCR text, missing required fields, or low confidence extraction.
+                </p>
+              </div>
+              <a
+                href="/api/review-decisions/export"
+                download="reviewer-decisions.csv"
+                className="shrink-0 inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold transition"
+                title="Download reviewer decision log"
+              >
+                <Download className="w-4 h-4" />
+                <span>Export Decision Log</span>
+              </a>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {emails
                 .filter((e) => e.verification?.status === 'NEEDS_REVIEW' || e.verification?.status === 'HUMAN_REVIEW_REQUIRED')
                 .map((email) => (
@@ -267,6 +314,10 @@ export default function App() {
 
         {activeTab === 'analytics' && (
           <AnalyticsDashboard analytics={analytics} />
+        )}
+
+        {activeTab === 'ocr_dashboard' && (
+          <OcrDashboard />
         )}
 
         {activeTab === 'benchmark' && (
