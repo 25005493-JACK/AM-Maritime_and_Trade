@@ -10,10 +10,12 @@ import {
   Calendar as CalendarIcon,
   FileSpreadsheet,
   GitGraph,
-  ScanText
+  ScanText,
+  Sun,
+  Moon
 } from 'lucide-react';
 
-export default function Sidebar({ activeTab, setActiveTab, stats, onRefresh }) {
+export default function Sidebar({ activeTab, setActiveTab, stats, onRefresh, theme, onToggleTheme }) {
   const navItems = [
     { id: 'inbox', label: 'Inbox & Triage', icon: Inbox, count: stats?.total_emails },
     { id: 'inspector', label: 'SI vs BL Inspector', icon: FileCheck2, count: stats?.comparison_requests },
@@ -73,6 +75,16 @@ export default function Sidebar({ activeTab, setActiveTab, stats, onRefresh }) {
 
       {/* System Status Footer */}
       <div className="p-4 border-t border-slate-800/80 bg-slate-900/40">
+        <button
+          type="button"
+          onClick={onToggleTheme}
+          aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+          aria-pressed={theme === 'light'}
+          className="mb-4 flex w-full items-center justify-center gap-2 rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 text-xs font-semibold text-slate-200 transition hover:bg-slate-700/70"
+        >
+          {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          {theme === 'dark' ? 'Light theme' : 'Dark theme'}
+        </button>
         <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
           <div className="flex items-center space-x-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>

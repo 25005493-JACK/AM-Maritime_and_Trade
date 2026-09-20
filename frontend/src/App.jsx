@@ -13,6 +13,9 @@ export default function App() {
   const [activeTab, setActiveTab] = useState(
     () => window.location.pathname === '/dashboard' ? 'ocr_dashboard' : 'inbox'
   );
+  const [theme, setTheme] = useState(
+    () => window.localStorage.getItem('averish-theme') === 'light' ? 'light' : 'dark'
+  );
   const [emails, setEmails] = useState([]);
   const [selectedEmailId, setSelectedEmailId] = useState(null);
   const [emailDetail, setEmailDetail] = useState(null);
@@ -33,6 +36,11 @@ export default function App() {
   const [calendarData, setCalendarData] = useState(null);
   const [selectedPort, setSelectedPort] = useState('ALL');
   const isOcrDashboard = activeTab === 'ocr_dashboard';
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem('averish-theme', theme);
+  }, [theme]);
 
   const navigateTo = (tab) => {
     setActiveTab(tab);
@@ -202,6 +210,8 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={navigateTo}
         stats={analytics?.summary_stats}
+        theme={theme}
+        onToggleTheme={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}
         onRefresh={() => {
           fetchEmails();
           fetchAnalytics();
@@ -239,7 +249,7 @@ export default function App() {
         )}
 
         {activeTab === 'timeline' && (
-          <TimelineWheel />
+          <TimelineWheel theme={theme} />
         )}
 
         {activeTab === 'calendar' && (

@@ -24,8 +24,16 @@ const STAGE_CONFIG = {
   sent:    { label: 'Sent',         color: '#34d399', dot: '#10b981', bg: 'rgba(52,211,153,0.12)',  border: 'rgba(52,211,153,0.35)' },
 };
 
-function getStage(key) {
-  return STAGE_CONFIG[key] || STAGE_CONFIG.bl;
+const LIGHT_STAGE_COLORS = {
+  all: '#475569', si: '#4338ca', bl: '#0369a1', draft: '#6d28d9',
+  compare: '#9a3412', review: '#92400e', sent: '#047857'
+};
+
+function getStage(key, theme) {
+  const stage = STAGE_CONFIG[key] || STAGE_CONFIG.bl;
+  return theme === 'light'
+    ? { ...stage, color: LIGHT_STAGE_COLORS[key] || LIGHT_STAGE_COLORS.bl }
+    : stage;
 }
 
 function formatTime(ts) {
@@ -121,7 +129,7 @@ function DocumentPreview({ doc }) {
 /* ─────────────────────────────────────────────
    MAIN COMPONENT: TimelineWheel
 ───────────────────────────────────────────── */
-export default function TimelineWheel() {
+export default function TimelineWheel({ theme }) {
   const [shipments, setShipments] = useState([]);
   const [loadingShipments, setLoadingShipments] = useState(true);
   const [shipmentError, setShipmentError] = useState(null);
@@ -255,7 +263,7 @@ export default function TimelineWheel() {
   }, [shipments, selectedShipmentId]);
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-[#070a12] text-slate-100 font-sans overflow-hidden">
+    <div className="flex-1 flex flex-col h-full bg-slate-950 text-slate-100 font-sans overflow-hidden">
       {/* ══ HEADER ══ */}
       <div className="px-6 py-4 border-b border-slate-800/80 bg-slate-900/40 flex flex-wrap items-center justify-between gap-4">
         <div>
@@ -383,7 +391,7 @@ export default function TimelineWheel() {
           >
             {filteredShipments.map(s => {
               const isSelected = s.shipment_id === selectedShipmentId;
-              const stage = getStage(s.latest_stage);
+              const stage = getStage(s.latest_stage, theme);
               const needsYou = Boolean(s.needs_review);
 
               return (
@@ -460,7 +468,7 @@ export default function TimelineWheel() {
       </div>
 
       {/* ══ DETAIL PANEL BELOW ══ */}
-      <div className="flex-1 overflow-y-auto p-6 flex flex-col min-h-0 bg-[#070a12]">
+      <div className="flex-1 overflow-y-auto p-6 flex flex-col min-h-0 bg-slate-950">
         {/* Detail Panel Header */}
         {selectedShipmentId ? (
           <div className="mb-6 p-4 rounded-2xl bg-slate-900/70 border border-slate-800 flex flex-wrap items-center justify-between gap-4 shadow-md">
