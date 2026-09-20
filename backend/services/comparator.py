@@ -141,7 +141,20 @@ class DocumentComparator:
             si_val = si_extracted[f]
             bl_val = bl_extracted[f]
 
-            is_match, formatted_si, formatted_bl = self._compare_single_field(f, si_val, bl_val)
+            is_match, formatted_si, formatted_bl, match_meta = self._compare_single_field(f, si_val, bl_val)
+
+            match_type = match_meta.get("match_type", "EXACT" if is_match else "MISMATCH")
+            is_fmt_diff = match_meta.get("is_formatting_difference", False)
+            norm_notes = match_meta.get("normalization_notes")
+
+            if not is_match:
+                diff_summary = f"SI: {formatted_si} / BL: {formatted_bl}"
+            elif match_type == "FUZZY":
+                diff_summary = f"Matched (Fuzzy Match: {norm_notes})" if norm_notes else "Matched (Fuzzy Match)"
+            elif is_fmt_diff or match_type == "NORMALIZED":
+                diff_summary = f"Matched (Normalized: {norm_notes})" if norm_notes else "Matched (Normalized)"
+            else:
+                diff_summary = "Matched (Exact)"
 
             item = {
                 "field_key": f,
@@ -149,7 +162,10 @@ class DocumentComparator:
                 "si_value": formatted_si,
                 "bl_value": formatted_bl,
                 "is_match": is_match,
-                "diff_summary": f"SI: {formatted_si} / BL: {formatted_bl}" if not is_match else "Matched"
+                "match_type": match_type,
+                "normalization_notes": norm_notes,
+                "is_formatting_difference": is_fmt_diff,
+                "diff_summary": diff_summary
             }
             matrix.append(item)
 
@@ -263,39 +279,314 @@ class DocumentComparator:
             "reference_no": ref_no
         }
 
+    # ── UN/LOCODE Port Lookup Table ────────────────────────────────────────────
+    # Maps common port variations, codes, and abbreviations to a canonical name.
+    PORT_CANONICAL = {
+        # India
+        "innsa": "nhava sheva india", "nhava sheva": "nhava sheva india", "jnpt": "nhava sheva india",
+        "inmaa": "chennai india", "chennai": "chennai india", "madras": "chennai india",
+        "inbom": "mumbai india", "mumbai": "mumbai india", "bombay": "mumbai india",
+        "inmun": "mundra india", "mundra": "mundra india",
+        "intut": "tuticorin india", "tuticorin": "tuticorin india",
+        # China
+        "cnntg": "nantong china", "nantong": "nantong china",
+        "cnsha": "shanghai china", "shanghai": "shanghai china",
+        "cnszx": "shenzhen china", "shenzhen": "shenzhen china", "shekou": "shenzhen china",
+        "cntao": "qingdao china", "qingdao": "qingdao china",
+        "cnngb": "ningbo china", "ningbo": "ningbo china",
+        "cntxg": "xingang china", "xingang": "xingang china", "tianjin": "xingang china",
+        "cndlc": "dalian china", "dalian": "dalian china",
+        "cnxmn": "xiamen china", "xiamen": "xiamen china",
+        # Southeast Asia
+        "sgsin": "singapore", "singapore": "singapore",
+        "mypen": "penang malaysia", "penang": "penang malaysia",
+        "mypkg": "port klang malaysia", "port klang": "port klang malaysia",
+        "mypas": "pasir gudang malaysia", "pasir gudang": "pasir gudang malaysia",
+        "idbua": "buatan indonesia", "buatan": "buatan indonesia",
+        "idblw": "belawan indonesia", "belawan": "belawan indonesia",
+        "idjkt": "jakarta indonesia", "jakarta": "jakarta indonesia", "tanjung priok": "jakarta indonesia",
+        "vnsgn": "hochiminh city vietnam", "hochiminh": "hochiminh city vietnam", "ho chi minh": "hochiminh city vietnam",
+        "vnhph": "haiphong vietnam", "haiphong": "haiphong vietnam", "hai phong": "haiphong vietnam",
+        "phceb": "cebu philippines", "cebu": "cebu philippines",
+        "phmnl": "manila philippines", "manila": "manila philippines",
+        "thlch": "laem chabang thailand", "laem chabang": "laem chabang thailand",
+        # Middle East
+        "aejea": "jebel ali uae", "jebel ali": "jebel ali uae",
+        "aedxb": "dubai uae", "dubai": "dubai uae",
+        "aeauh": "abu dhabi uae", "abu dhabi": "abu dhabi uae",
+        "bhruf": "bahrain", "bahrain": "bahrain",
+        "iqbsr": "basrah iraq", "basrah": "basrah iraq", "umm qasr": "basrah iraq",
+        # Africa
+        "gncky": "conakry guinea", "conakry": "conakry guinea",
+        "kemba": "mombasa kenya", "mombasa": "mombasa kenya",
+        "tzdar": "dar es salaam tanzania", "dar es salaam": "dar es salaam tanzania",
+        "zader": "durban south africa", "durban": "durban south africa",
+        "egpsd": "port said egypt", "port said": "port said egypt",
+        # Europe
+        "nlrtm": "rotterdam netherlands", "rotterdam": "rotterdam netherlands",
+        "deham": "hamburg germany", "hamburg": "hamburg germany",
+        "gbfxt": "felixstowe uk", "felixstowe": "felixstowe uk",
+        "itgoa": "genoa italy", "genoa": "genoa italy",
+        "esvlc": "valencia spain", "valencia": "valencia spain",
+        "beanr": "antwerp belgium", "antwerp": "antwerp belgium",
+        "frleh": "le havre france", "le havre": "le havre france",
+        # Americas
+        "uslax": "los angeles usa", "los angeles": "los angeles usa",
+        "usnyc": "new york usa", "new york": "new york usa",
+        "ussav": "savannah usa", "savannah": "savannah usa",
+        "ushou": "houston usa", "houston": "houston usa",
+        "brssz": "santos brazil", "santos": "santos brazil",
+        # East Asia
+        "jptyo": "tokyo japan", "tokyo": "tokyo japan",
+        "jpyok": "yokohama japan", "yokohama": "yokohama japan",
+        "hkhkg": "hong kong", "hong kong": "hong kong",
+        "krpus": "busan south korea", "busan": "busan south korea", "pusan": "busan south korea",
+        "twkhh": "kaohsiung taiwan", "kaohsiung": "kaohsiung taiwan",
+        # Israel
+        "ilash": "ashdod israel", "ashdod": "ashdod israel",
+        "ilhfa": "haifa israel", "haifa": "haifa israel",
+        # Oceania
+        "ausyd": "sydney australia", "sydney": "sydney australia",
+        "aumel": "melbourne australia", "melbourne": "melbourne australia",
+    }
+
+    # ── Legal Suffix Normalization Map ────────────────────────────────────────
+    LEGAL_SUFFIXES = [
+        (re.compile(r'\bpte\.?\s*ltd\.?\b', re.I), 'PTE LTD'),
+        (re.compile(r'\bsdn\.?\s*bhd\.?\b', re.I), 'SDN BHD'),
+        (re.compile(r'\bfz[\s-]*llc\.?\b', re.I), 'FZ-LLC'),
+        (re.compile(r'\bp\.?t\.?e\.?\s+l\.?t\.?d\.?\b', re.I), 'PTE LTD'),
+        (re.compile(r'\bgmbh\b', re.I), 'GMBH'),
+        (re.compile(r'\bltd\.?\b', re.I), 'LTD'),
+        (re.compile(r'\binc\.?\b', re.I), 'INC'),
+        (re.compile(r'\bllc\.?\b', re.I), 'LLC'),
+        (re.compile(r'\bcorp\.?\b', re.I), 'CORP'),
+        (re.compile(r'\buab\b', re.I), 'UAB'),
+        (re.compile(r'\bfze\.?\b', re.I), 'FZE'),
+    ]
+
     def _compare_single_field(self, field_key: str, si_val: Any, bl_val: Any) -> tuple:
+        """
+        Multi-tier comparison returning (is_match, formatted_si, formatted_bl, match_meta).
+        match_meta = { match_type, normalization_notes, is_formatting_difference }
+        """
         if si_val is None or bl_val is None:
-            return (False, str(si_val or "MISSING"), str(bl_val or "MISSING"))
+            meta = {"match_type": "MISSING", "normalization_notes": "One or both values missing", "is_formatting_difference": False}
+            return (False, str(si_val or "MISSING"), str(bl_val or "MISSING"), meta)
 
         if field_key == "container_count":
-            try:
-                si_int = int(si_val)
-                bl_int = int(bl_val)
-                return (si_int == bl_int, str(si_int), str(bl_int))
-            except (ValueError, TypeError):
-                return (False, str(si_val), str(bl_val))
+            return self._compare_container_count(si_val, bl_val)
 
         if field_key == "gross_weight_kg":
-            try:
-                si_float = float(si_val)
-                bl_float = float(bl_val)
-                is_match = abs(si_float - bl_float) <= 0.5
-                return (is_match, f"{si_float:,.2f} kg", f"{bl_float:,.2f} kg")
-            except (ValueError, TypeError):
-                return (False, str(si_val), str(bl_val))
+            return self._compare_weight(si_val, bl_val)
 
-        # Port comparison
         if field_key in ["port_of_loading", "port_of_discharge"]:
-            norm_si = self._normalize_port(str(si_val))
-            norm_bl = self._normalize_port(str(bl_val))
-            is_match = (norm_si == norm_bl) or (norm_si in norm_bl) or (norm_bl in norm_si)
-            return (is_match, str(si_val), str(bl_val))
+            return self._compare_port(si_val, bl_val)
 
         # String fields: shipper, consignee, notify_party
-        norm_si = self._normalize_str(str(si_val))
-        norm_bl = self._normalize_str(str(bl_val))
-        is_match = norm_si == norm_bl
-        return (is_match, str(si_val), str(bl_val))
+        return self._compare_company_name(si_val, bl_val)
+
+    def _compare_container_count(self, si_val: Any, bl_val: Any) -> tuple:
+        try:
+            si_int = int(re.search(r'(\d+)', str(si_val)).group(1)) if not isinstance(si_val, int) else si_val
+            bl_int = int(re.search(r'(\d+)', str(bl_val)).group(1)) if not isinstance(bl_val, int) else bl_val
+            if si_int == bl_int:
+                is_normalized = (str(si_val).strip() != str(bl_val).strip())
+                meta = {
+                    "match_type": "NORMALIZED" if is_normalized else "EXACT",
+                    "normalization_notes": "Container packaging descriptor stripped" if is_normalized else None,
+                    "is_formatting_difference": is_normalized
+                }
+                return (True, str(si_int), str(bl_int), meta)
+            else:
+                meta = {"match_type": "MISMATCH", "normalization_notes": f"SI has {si_int}, BL has {bl_int}", "is_formatting_difference": False}
+                return (False, str(si_int), str(bl_int), meta)
+        except (ValueError, TypeError, AttributeError):
+            meta = {"match_type": "MISMATCH", "normalization_notes": "Could not parse container count as integer", "is_formatting_difference": False}
+            return (False, str(si_val), str(bl_val), meta)
+
+    def _parse_weight(self, val: Any) -> tuple:
+        """Parses a weight value into (float_in_kg, was_converted_from_mt)."""
+        if isinstance(val, (int, float)):
+            return float(val), False
+        s = str(val).lower().replace(',', '').strip()
+        m = re.search(r'([\d\.]+)', s)
+        if not m:
+            raise ValueError(f"No numeric weight found in {val}")
+        num = float(m.group(1))
+        if "metric ton" in s or " mt" in s or s.endswith("mt") or " mts" in s:
+            return num * 1000.0, True
+        return num, False
+
+    def _compare_weight(self, si_val: Any, bl_val: Any) -> tuple:
+        try:
+            si_float, si_was_mt = self._parse_weight(si_val)
+            bl_float, bl_was_mt = self._parse_weight(bl_val)
+
+            # Check if one is in MT and other in KG
+            notes = None
+            if si_was_mt or bl_was_mt:
+                notes = "Weight converted from MT to KG (×1000)"
+            elif si_float > 0 and bl_float > 0:
+                ratio = max(si_float, bl_float) / min(si_float, bl_float)
+                if 950 <= ratio <= 1050:
+                    if si_float < bl_float:
+                        si_float *= 1000.0
+                        notes = "SI value converted from MT to KG (×1000)"
+                    else:
+                        bl_float *= 1000.0
+                        notes = "BL value converted from MT to KG (×1000)"
+
+            is_match = abs(si_float - bl_float) <= 0.5
+            if is_match and notes:
+                match_type = "NORMALIZED"
+            elif is_match:
+                match_type = "EXACT"
+            else:
+                match_type = "MISMATCH"
+
+            meta = {
+                "match_type": match_type,
+                "normalization_notes": notes,
+                "is_formatting_difference": match_type == "NORMALIZED"
+            }
+            return (is_match, f"{si_float:,.2f} kg", f"{bl_float:,.2f} kg", meta)
+        except (ValueError, TypeError):
+            meta = {"match_type": "MISMATCH", "normalization_notes": "Could not parse weight as number", "is_formatting_difference": False}
+            return (False, str(si_val), str(bl_val), meta)
+
+    def _compare_port(self, si_val: Any, bl_val: Any) -> tuple:
+        si_str = str(si_val)
+        bl_str = str(bl_val)
+        si_canonical = self._canonicalize_port(si_str)
+        bl_canonical = self._canonicalize_port(bl_str)
+
+        if si_canonical == bl_canonical:
+            # Determine if it was an exact raw match or needed normalization
+            si_norm_basic = self._normalize_str(si_str)
+            bl_norm_basic = self._normalize_str(bl_str)
+            if si_norm_basic == bl_norm_basic:
+                meta = {"match_type": "EXACT", "normalization_notes": None, "is_formatting_difference": False}
+            else:
+                notes = "Port code/name variants normalized to same port"
+                if "(" in si_str or "(" in bl_str:
+                    notes = "UN/LOCODE stripped for comparison"
+                meta = {"match_type": "NORMALIZED", "normalization_notes": notes, "is_formatting_difference": True}
+            return (True, si_str, bl_str, meta)
+
+        # Check substring containment as fallback (e.g., "NHAVA SHEVA" in "NHAVA SHEVA, INDIA")
+        if si_canonical and bl_canonical:
+            if si_canonical in bl_canonical or bl_canonical in si_canonical:
+                meta = {"match_type": "NORMALIZED", "normalization_notes": "Partial port name match (substring)", "is_formatting_difference": True}
+                return (True, si_str, bl_str, meta)
+
+        meta = {"match_type": "MISMATCH", "normalization_notes": f"Different ports: {si_canonical} vs {bl_canonical}", "is_formatting_difference": False}
+        return (False, si_str, bl_str, meta)
+
+    def _compare_company_name(self, si_val: Any, bl_val: Any) -> tuple:
+        si_str = str(si_val)
+        bl_str = str(bl_val)
+
+        # Tier 1: Exact normalized match
+        si_norm = self._normalize_str(si_str)
+        bl_norm = self._normalize_str(bl_str)
+        if si_norm == bl_norm:
+            meta = {"match_type": "EXACT", "normalization_notes": None, "is_formatting_difference": False}
+            return (True, si_str, bl_str, meta)
+
+        # Tier 2: Canonical normalization (strip address, normalize legal suffixes)
+        si_canon = self._canonicalize_company(si_str)
+        bl_canon = self._canonicalize_company(bl_str)
+        if si_canon == bl_canon:
+            notes = "Address/formatting stripped; company names match"
+            meta = {"match_type": "NORMALIZED", "normalization_notes": notes, "is_formatting_difference": True}
+            return (True, si_str, bl_str, meta)
+
+        # Tier 3: Fuzzy token matching (Jaccard similarity)
+        si_tokens = set(si_canon.split())
+        bl_tokens = set(bl_canon.split())
+        if si_tokens and bl_tokens:
+            intersection = si_tokens & bl_tokens
+            union = si_tokens | bl_tokens
+            jaccard = len(intersection) / len(union) if union else 0.0
+
+            if jaccard >= 0.85:
+                notes = f"Fuzzy match ({jaccard:.0%} token overlap)"
+                meta = {"match_type": "FUZZY", "normalization_notes": notes, "is_formatting_difference": False}
+                return (True, si_str, bl_str, meta)
+
+            # Check if core company name (without suffix) is the same
+            si_core = self._strip_legal_suffix(si_canon)
+            bl_core = self._strip_legal_suffix(bl_canon)
+            if si_core and bl_core and si_core == bl_core:
+                notes = "Same company name, different legal entity suffixes"
+                meta = {"match_type": "NORMALIZED", "normalization_notes": notes, "is_formatting_difference": True}
+                return (True, si_str, bl_str, meta)
+
+            # Check containment (one is substring of the other after normalization)
+            if len(si_core) > 5 and len(bl_core) > 5:
+                if si_core in bl_core or bl_core in si_core:
+                    longer = max(si_core, bl_core, key=len)
+                    shorter = min(si_core, bl_core, key=len)
+                    ratio = len(shorter) / len(longer)
+                    if ratio >= 0.6:
+                        notes = f"Company name containment match ({ratio:.0%})"
+                        meta = {"match_type": "FUZZY", "normalization_notes": notes, "is_formatting_difference": False}
+                        return (True, si_str, bl_str, meta)
+
+        meta = {"match_type": "MISMATCH", "normalization_notes": None, "is_formatting_difference": False}
+        return (False, si_str, bl_str, meta)
+
+    def _canonicalize_port(self, s: str) -> str:
+        """Resolve a port string to a canonical form using LOCODE lookup."""
+        s_lower = s.lower().strip()
+        # Extract LOCODE in parentheses e.g., "(INNSA)" → "innsa"
+        locode_match = re.search(r'\(([A-Z]{5})\)', s, re.I)
+        if locode_match:
+            code = locode_match.group(1).lower()
+            if code in self.PORT_CANONICAL:
+                return self.PORT_CANONICAL[code]
+
+        # Strip parenthetical LOCODE and punctuation for name-based lookup
+        cleaned = re.sub(r'\([^)]*\)', '', s_lower)
+        cleaned = re.sub(r'[\.,\-\/\\_\:\;]', ' ', cleaned)
+        cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+
+        # Try full cleaned string
+        if cleaned in self.PORT_CANONICAL:
+            return self.PORT_CANONICAL[cleaned]
+
+        # Try city name only (first part before comma)
+        city = cleaned.split(',')[0].strip() if ',' in cleaned else cleaned
+        if city in self.PORT_CANONICAL:
+            return self.PORT_CANONICAL[city]
+
+        return cleaned
+
+    def _canonicalize_company(self, s: str) -> str:
+        """Normalize company name: strip address, normalize legal suffixes."""
+        # Strip everything after address indicators (first semicolon or newline with address pattern)
+        s = s.split('\n')[0]  # Take first line only
+        s = re.sub(r'\s*;\s*.*$', '', s)  # Strip after first semicolon
+        s = re.sub(r'\s+(?:\d+\s+(?:JALAN|STREET|ROAD|AVENUE|BLVD|BOULEVARD|PLAZA|TOWER|LEVEL|FLOOR|#\d|SUITE|LOT|BLOCK|NO\.))\b.*$', '', s, flags=re.I)
+
+        # Remove "ON BEHALF OF ..." or "C/O ..." clauses
+        s = re.sub(r'\s*\b(?:O/B|ON\s+BEHALF\s+OF|C/O|CARE\s+OF)\b.*$', '', s, flags=re.I)
+
+        # Normalize legal suffixes
+        for pat, replacement in self.LEGAL_SUFFIXES:
+            s = pat.sub(replacement, s)
+
+        # Standard normalization
+        s = s.upper()
+        s = re.sub(r'[\.,\-\/\\_\(\)\:\;]', ' ', s)
+        s = re.sub(r'\s+', ' ', s).strip()
+        return s
+
+    def _strip_legal_suffix(self, s: str) -> str:
+        """Remove legal entity suffixes for core name comparison."""
+        s = re.sub(r'\b(?:PTE LTD|SDN BHD|FZ-LLC|FZE|GMBH|LTD|INC|LLC|CORP|UAB|CO|COMPANY)\b', '', s, flags=re.I)
+        return re.sub(r'\s+', ' ', s).strip()
 
     def _normalize_str(self, s: str) -> str:
         s = s.lower()
@@ -325,12 +616,16 @@ class DocumentComparator:
             si_v = si_extracted.get(f) if si_extracted else None
             bl_v = bl_extracted.get(f) if bl_extracted else None
             diff_label = "Comparison Halted (Missing Documents)" if is_gate_failure else f"Review Required ({review_reason})"
+            m_type = "PENDING" if is_gate_failure else ("MISSING" if (si_v is None or bl_v is None) else "REVIEW")
             matrix.append({
                 "field_key": f,
                 "field_name": self.FIELD_LABELS[f],
                 "si_value": str(si_v or "N/A"),
                 "bl_value": str(bl_v or "N/A"),
                 "is_match": False,
+                "match_type": m_type,
+                "normalization_notes": f"Review required: {review_reason}",
+                "is_formatting_difference": False,
                 "diff_summary": diff_label
             })
 

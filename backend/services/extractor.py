@@ -17,9 +17,9 @@ class DocumentExtractor:
     """
 
     HEADER_MAP = [
-        (re.compile(r'^(?:shipper/exporter|shipper\s*\([^\)]*\)|shipper)\s*[:\-\)]?\s*', re.I), 'shipper'),
+        (re.compile(r'^(?:shipper/exporter|shipper\s*\([^\)]*\)|shipper|exporter)\s*[:\-\)]?\s*', re.I), 'shipper'),
         (re.compile(r'^(?:consignee\s*\([^\)]*\)|consignee\s*/\s*importer|to\s*the\s*order\s*of|consignee)\s*[:\-\)]?\s*', re.I), 'consignee'),
-        (re.compile(r'^(?:notify\s*party/intermediate\s*consignee|notify\s*party\s*\([^\)]*\)|notify\s*party|notify)\s*[:\-\)]?\s*', re.I), 'notify_party'),
+        (re.compile(r'^(?:notify\s*party/intermediate\s*consignee|notify\s*party\s*\([^\)]*\)|notify\s*party|notify\s*address|notify)\s*[:\-\)]?\s*', re.I), 'notify_party'),
         (re.compile(r'^(?:port\s*of\s*loading\s*\([^\)]*\)|port\s*of\s*loading|load\s*port|pol|place\s*of\s*loading)\s*[:\-\)]?\s*', re.I), 'port_of_loading'),
         (re.compile(r'^(?:port\s*of\s*discharge\s*\([^\)]*\)|port\s*of\s*discharge|discharge\s*port|pod|place\s*of\s*delivery|place\s*of\s*discharge|port\s*of\s*unloading)\s*[:\-\)]?\s*', re.I), 'port_of_discharge'),
         (re.compile(r'^(?:no\.\s*of\s*containers\s*or\s*packages|no\.\s*of\s*containers|total\s*containers|container\s*summary|container\s*count|containers)\s*[:\-\)]?\s*', re.I), 'container_count'),
@@ -177,7 +177,7 @@ class DocumentExtractor:
         val_clean = val_clean.replace('|', ' ')
         val_clean = re.sub(r'\s+', ' ', val_clean).strip()
 
-        if not val_clean or val_clean.upper() in ["BLANK", "[BLANK]", "[MISSING]", "N/A", "TBA"] or "____" in val_clean:
+        if not val_clean or val_clean.upper() in ["BLANK", "[BLANK]", "[MISSING]", "N/A", "NA", "TBA", "NONE", "NULL", "UNKNOWN", "UNSPECIFIED"] or "____" in val_clean or val_clean.strip() in ["-", "--", "---", "...", "."]:
             return None
 
         if field_name == "container_count":
