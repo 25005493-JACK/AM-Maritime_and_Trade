@@ -80,12 +80,12 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
   return (
     <div className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950">
       {/* Search & Filter Header */}
-      <div className="p-4 border-b border-slate-800 glass-panel space-y-3">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center space-x-2">
+      <div className="p-3.5 border-b border-slate-800 glass-panel space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center space-x-2 min-w-0">
             <h2 className="text-lg font-bold text-slate-100 flex items-center space-x-2">
               <Layers className="w-5 h-5 text-cyan-400" />
-              <span>Shipping Operations Inbox</span>
+              <span className="truncate">Shipping Operations Inbox</span>
             </h2>
             <span className="text-xs bg-slate-800 text-cyan-400 font-mono px-2 py-0.5 rounded border border-slate-700">
               {filteredEmails.length} of {emails.length} emails
@@ -93,7 +93,7 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
           </div>
 
           {/* Quick Search */}
-          <div className="relative w-72">
+          <div className="relative w-full sm:w-72 sm:ml-auto">
             <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
             <input
               type="text"
@@ -127,8 +127,8 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
         </div>
 
         {/* Status Quick Filter Bar & Pagination Status */}
-        <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-800/60">
-          <div className="flex items-center space-x-2">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs pt-1 border-t border-slate-800/60">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="text-slate-500 font-medium">Verification Status:</span>
             {[
               { id: 'ALL', label: 'All Statuses' },

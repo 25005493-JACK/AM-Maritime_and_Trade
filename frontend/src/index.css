@@ -27,12 +27,12 @@ html, body, #root {
 
 
 html {
-  font-size: 17.5px;
+  font-size: 16px;
 }
 
 @media (min-width: 1600px) {
   html {
-    font-size: 18.5px;
+    font-size: 16.5px;
   }
 }
 
@@ -48,7 +48,7 @@ body {
   color: #f8fafc;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: hidden;
 }
 
