@@ -27,7 +27,8 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
     { id: 'SI_REQUEST', label: 'SI Requests', countId: 'SI_REQUEST' },
     { id: 'INVOICE_QUERY', label: 'Invoices & Billing', countId: 'INVOICE_QUERY' },
     { id: 'GENERAL', label: 'General Operations', countId: 'GENERAL' },
-    { id: 'SPAM', label: 'Spam', countId: 'SPAM' }
+    { id: 'SPAM', label: 'Spam', countId: 'SPAM' },
+    { id: 'OTHERS', label: 'Others', countId: 'OTHERS' }
   ];
 
   const filteredEmails = useMemo(() => {
@@ -36,8 +37,14 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
       const matchesSearch = textStr.includes(searchTerm.toLowerCase().trim());
 
       const emailCat = email.classification?.category || '';
-      const matchesCategory = 
-        selectedCategory === 'ALL' || emailCat === selectedCategory;
+      let matchesCategory = false;
+      if (selectedCategory === 'ALL') {
+        matchesCategory = true;
+      } else if (selectedCategory === 'OTHERS') {
+        matchesCategory = emailCat === 'OTHERS' || emailCat === 'OTHER' || !['BL_COMPARISON', 'SI_REQUEST', 'INVOICE_QUERY', 'GENERAL', 'SPAM'].includes(emailCat);
+      } else {
+        matchesCategory = emailCat === selectedCategory;
+      }
 
       let matchesStatus = true;
       const stat = email.verification?.status || '';
@@ -86,7 +93,7 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
           </div>
 
           {/* Quick Search */}
-          <div className="relative w-80">
+          <div className="relative w-72">
             <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
             <input
               type="text"
@@ -222,6 +229,7 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
                       category === 'SI_REQUEST' ? 'bg-sky-950 text-sky-300 border-sky-700' :
                       category === 'INVOICE_QUERY' ? 'bg-purple-950 text-purple-300 border-purple-700' :
                       category === 'SPAM' ? 'bg-rose-950 text-rose-300 border-rose-700' :
+                      category === 'OTHERS' || category === 'OTHER' ? 'bg-amber-950/60 text-amber-300 border-amber-700' :
                       'bg-slate-800 text-slate-300 border-slate-700'
                     }`}>
                       {category}

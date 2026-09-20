@@ -49,6 +49,34 @@ export default function HumanReviewModal({ emailDetail, onClose, onSaveOverride 
     gross_weight_kg: existingBL.gross_weight_kg ?? (blExtracted.gross_weight_kg || '')
   });
 
+  const mismatchFields = verif.defect_fields || [];
+  const reviewSummary = verif.summary_message || 'AI flagged the comparison for human review.';
+  const confidenceLabel = verif.review_reason ? 'Low confidence' : mismatchFields.length > 2 ? 'Moderate confidence' : 'High confidence';
+  const confidenceTone = verif.review_reason ? 'text-amber-300 border-amber-500/40 bg-amber-950/30' : mismatchFields.length > 2 ? 'text-yellow-300 border-yellow-500/40 bg-yellow-950/20' : 'text-emerald-300 border-emerald-500/40 bg-emerald-950/20';
+
+  const fieldInsights = (verif.field_matrix || []).map((row) => {
+    const isMismatch = !row.is_match;
+    const reason = isMismatch
+      ? (verif.review_reason === 'missing_attachment'
+          ? 'Missing attachment prevents safe comparison'
+          : (verif.review_reason === 'missing_value'
+              ? 'Critical field missing or unreadable'
+              : (verif.review_reason === 'unreadable'
+                  ? 'Scan or OCR quality is low for this field'
+                  : 'Field values differ after normalization')))
+      : 'Aligned after extraction and normalization';
+
+    return {
+      key: row.field_key,
+      label: row.field_name,
+      isMismatch,
+      reason,
+      siValue: row.si_value,
+      blValue: row.bl_value,
+      diffSummary: row.diff_summary
+    };
+  }).filter((row) => row.isMismatch || verif.review_reason);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSaveOverride(email.id, siForm, blForm);
@@ -99,6 +127,51 @@ export default function HumanReviewModal({ emailDetail, onClose, onSaveOverride 
               </div>
             </div>
           )}
+
+          <div className="p-4 rounded-xl border border-slate-700 bg-slate-900/80 space-y-4">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.18em] text-cyan-400 font-semibold">AI review summary</p>
+                <h4 className="text-sm font-semibold text-slate-100 mt-1">Why this was flagged</h4>
+              </div>
+              <span className={`px-2.5 py-1 rounded-full text-[11px] font-mono border ${confidenceTone}`}>
+                {confidenceLabel}
+              </span>
+            </div>
+
+            <p className="text-xs text-slate-300 leading-relaxed">{reviewSummary}</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {fieldInsights.length > 0 ? fieldInsights.map((item) => (
+                <div key={item.key} className="rounded-xl border border-slate-800 bg-slate-950/80 p-3">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">{item.label}</span>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono border ${item.isMismatch ? 'border-rose-500/40 bg-rose-950/30 text-rose-300' : 'border-emerald-500/40 bg-emerald-950/20 text-emerald-300'}`}>
+                      {item.isMismatch ? 'Mismatch' : 'Aligned'}
+                    </span>
+                  </div>
+
+                  <div className="space-y-1.5 text-[11px] text-slate-300">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-slate-500">SI</span>
+                      <span className="font-mono text-slate-200 truncate max-w-[11rem]">{item.siValue}</span>
+                    </div>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-slate-500">BL</span>
+                      <span className="font-mono text-slate-200 truncate max-w-[11rem]">{item.blValue}</span>
+                    </div>
+                    <div className="pt-1 border-t border-slate-800 text-amber-300">
+                      {item.reason}
+                    </div>
+                  </div>
+                </div>
+              )) : (
+                <div className="md:col-span-2 rounded-xl border border-emerald-500/30 bg-emerald-950/20 p-3 text-xs text-emerald-300">
+                  No field-level discrepancy was detected. The system is showing a low-risk comparison with no evidence of a material mismatch.
+                </div>
+              )}
+            </div>
+          </div>
 
           {/* Side-by-Side Override Inputs */}
           <div className="grid grid-cols-2 gap-6">

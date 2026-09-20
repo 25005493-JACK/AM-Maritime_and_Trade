@@ -8,6 +8,7 @@ import SelfEvaluationView from './components/SelfEvaluationView.jsx';
 import VesselCalendar from './components/VesselCalendar.jsx';
 import TimelineWheel from './components/TimelineWheel.jsx';
 import OcrDashboard from './components/OcrDashboard.jsx';
+import { Download } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState(
@@ -204,7 +205,7 @@ export default function App() {
   }, [selectedEmailId]);
 
   return (
-    <div className="flex h-screen bg-slate-950 text-slate-100 font-sans overflow-hidden">
+    <div className="flex h-screen w-full bg-slate-950 text-slate-100 font-sans overflow-hidden">
       {/* Navigation Sidebar */}
       <Sidebar
         activeTab={activeTab}
@@ -220,9 +221,9 @@ export default function App() {
       />
 
       {/* Main Active Tab Container */}
-      <main className="flex-1 flex overflow-hidden">
+      <main className="flex-1 flex min-w-0 overflow-hidden">
         {activeTab === 'inbox' && (
-          <div className="flex-1 flex">
+          <div className="flex-1 flex min-w-0">
             <InboxFeed
               emails={emails}
               selectedEmailId={selectedEmailId}
@@ -230,7 +231,7 @@ export default function App() {
               onOpenInspector={() => navigateTo('inspector')}
             />
             {/* Embedded Inspector Panel on Wide Screens */}
-            <div className="hidden xl:flex w-1/2 border-l border-slate-800">
+            <div className="hidden xl:flex w-[42rem] min-w-[420px] border-l border-slate-800">
               <SplitScreenInspector
                 emailDetail={emailDetail}
                 onOpenOverrideModal={() => setShowOverrideModal(true)}
@@ -264,10 +265,23 @@ export default function App() {
 
         {activeTab === 'human_review' && (
           <div className="flex-1 p-6 overflow-y-auto bg-slate-950">
-            <h2 className="text-lg font-bold text-slate-100 mb-2">Human-in-the-Loop Review Queue</h2>
-            <p className="text-xs text-slate-400 mb-6">
-              Messages escalated due to damaged OCR text, missing required fields, or low confidence extraction.
-            </p>
+            <div className="flex items-start justify-between gap-4 mb-6">
+              <div>
+                <h2 className="text-lg font-bold text-slate-100 mb-2">Human-in-the-Loop Review Queue</h2>
+                <p className="text-xs text-slate-400">
+                  Messages escalated due to damaged OCR text, missing required fields, or low confidence extraction.
+                </p>
+              </div>
+              <a
+                href="/api/review-decisions/export"
+                download="reviewer-decisions.csv"
+                className="shrink-0 inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold transition"
+                title="Download reviewer decision log"
+              >
+                <Download className="w-4 h-4" />
+                <span>Export Decision Log</span>
+              </a>
+            </div>
             <div className="grid grid-cols-2 gap-4">
               {emails
                 .filter((e) => e.verification?.status === 'NEEDS_REVIEW' || e.verification?.status === 'HUMAN_REVIEW_REQUIRED')

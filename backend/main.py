@@ -1,6 +1,8 @@
 import sys
 import os
 import re
+import csv
+import io
 from pathlib import Path
 from typing import Dict, Any, Optional, List
 
@@ -247,6 +249,25 @@ def apply_human_override(payload: Dict[str, Any] = Body(...)):
         )
 
     return {"status": "success", "updated_verification": res}
+
+@app.get("/api/review-decisions/export")
+def export_review_decisions():
+    """Export human correction events as a reviewer audit CSV."""
+    decisions = event_logger.get_review_decisions()
+    columns = [
+        "shipment_id", "email_id", "timestamp", "reviewer_name", "field",
+        "original_ai_value", "corrected_value", "flagged_by", "linked_event_id"
+    ]
+    output = io.StringIO()
+    writer = csv.DictWriter(output, fieldnames=columns)
+    writer.writeheader()
+    writer.writerows(decisions)
+
+    return Response(
+        content=output.getvalue(),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=reviewer-decisions.csv"}
+    )
 
 @app.get("/api/analytics")
 def get_analytics():

@@ -45,21 +45,37 @@ class DocumentComparator:
         email_metadata: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         
+        has_human_override = bool(overrides)
+        # Collect the set of fields explicitly provided by the human reviewer
+        overridden_fields = set()
+        if has_human_override:
+            for field in overrides.get("si_overrides", {}):
+                if field in self.FIELDS:
+                    overridden_fields.add(field)
+            for field in overrides.get("bl_overrides", {}):
+                if field in self.FIELDS:
+                    overridden_fields.add(field)
+
         # Pre-Comparison Attachment Gate (Must validate required documents before comparison)
         gate = self._check_pre_comparison_gate(si_text, bl_text, email_metadata)
-        if not gate["passed"]:
+        if not gate["passed"] and not has_human_override:
             return self._build_needs_review_result(
                 review_reason="missing_attachment",
                 message=f"Pre-comparison gate failed: Expected 2 documents (SI & draft BL), but received {gate['attachment_count']} attachment(s). Comparison halted to prevent ungrounded decision.",
                 recommended_action=gate["operational_response_draft"],
                 pre_comparison_gate=gate
             )
+        # If gate failed but human override exists, force gate to pass so comparison proceeds
+        if not gate["passed"] and has_human_override:
+            gate = {**gate, "passed": True, "comparison_possible": True,
+                    "escalation_reason": None,
+                    "recommended_action": "Human reviewer provided field values; proceeding with override-based comparison."}
 
-        si_extracted = extractor.extract_fields(si_text, doc_type_hint="SI")
-        bl_extracted = extractor.extract_fields(bl_text, doc_type_hint="BL")
+        si_extracted = extractor.extract_fields(si_text, doc_type_hint="SI") if si_text.strip() else {f: None for f in self.FIELDS}
+        bl_extracted = extractor.extract_fields(bl_text, doc_type_hint="BL") if bl_text.strip() else {f: None for f in self.FIELDS}
 
         # Apply Human-in-the-loop overrides if present
-        if overrides:
+        if has_human_override:
             for field, val in overrides.get("si_overrides", {}).items():
                 if field in self.FIELDS:
                     si_extracted[field] = val
@@ -68,6 +84,11 @@ class DocumentComparator:
                 if field in self.FIELDS:
                     bl_extracted[field] = val
                     bl_extracted["missing_fields"] = [f for f in bl_extracted.get("missing_fields", []) if f != field]
+            # Clear structural flags when human has reviewed and overridden
+            si_extracted.pop("is_wrong_doc_type", None)
+            bl_extracted.pop("is_wrong_doc_type", None)
+            si_extracted.pop("is_unreadable", None)
+            bl_extracted.pop("is_unreadable", None)
 
         # 1. Check wrong document type
         if si_extracted.get("is_wrong_doc_type") or bl_extracted.get("is_wrong_doc_type"):
@@ -92,8 +113,12 @@ class DocumentComparator:
 
         # 3. Check missing required values
         missing_fields = set(si_extracted.get("missing_fields", []) + bl_extracted.get("missing_fields", []))
-        # Also check None
+        # Also check None, but skip fields that the human reviewer has explicitly overridden
         for f in self.FIELDS:
+            if f in overridden_fields:
+                # Human reviewer provided this value — skip the None check
+                missing_fields.discard(f)
+                continue
             if si_extracted.get(f) is None or bl_extracted.get(f) is None:
                 missing_fields.add(f)
 
