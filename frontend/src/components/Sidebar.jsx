@@ -9,17 +9,19 @@ import {
   RefreshCw,
   Calendar as CalendarIcon,
   FileSpreadsheet,
-  GitGraph
+  GitGraph,
+  ScanText
 } from 'lucide-react';
 
 export default function Sidebar({ activeTab, setActiveTab, stats, onRefresh }) {
   const navItems = [
-    { id: 'inbox', label: 'Inbox & Triage', icon: Inbox, count: stats?.total_emails || 0 },
-    { id: 'inspector', label: 'SI vs BL Inspector', icon: FileCheck2, count: stats?.comparison_requests || 0 },
+    { id: 'inbox', label: 'Inbox & Triage', icon: Inbox, count: stats?.total_emails },
+    { id: 'inspector', label: 'SI vs BL Inspector', icon: FileCheck2, count: stats?.comparison_requests },
     { id: 'timeline', label: 'Shipment Timeline', icon: GitGraph, badgeColor: 'bg-violet-500/20 text-violet-300 border-violet-500/30' },
     { id: 'calendar', label: 'Vessel Schedule Calendar', icon: CalendarIcon, badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' },
-    { id: 'human_review', label: 'Human Review Queue', icon: AlertTriangle, count: stats?.human_review_count || 0, badgeColor: 'bg-amber-500/20 text-amber-400 border-amber-500/30' },
+    { id: 'human_review', label: 'Human Review Queue', icon: AlertTriangle, count: stats?.human_review_count, badgeColor: 'bg-amber-500/20 text-amber-400 border-amber-500/30' },
     { id: 'analytics', label: 'Vessel & Order Analytics', icon: BarChart3 },
+    { id: 'ocr_dashboard', label: 'PDF OCR Dashboard', icon: ScanText },
     { id: 'benchmark', label: 'Self-Evaluation Scoreboard', icon: Award }
   ];
 

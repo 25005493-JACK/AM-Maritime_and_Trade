@@ -121,9 +121,9 @@ class DatasetLoader:
                     text = f.read()
             elif ext == ".pdf":
                 try:
-                    import fitz
-                    doc = fitz.open(full_path)
-                    text = "\n".join(page.get_text() for page in doc)
+                    from backend.services.pdf_ocr import extract_pdf
+                    result = extract_pdf(full_path)
+                    text = result["text"] or f"[UNREADABLE_PDF_ERROR: {result['error'] or 'No text found'}]"
                 except Exception as ex:
                     text = f"[UNREADABLE_PDF_ERROR: {str(ex)}]"
             elif ext == ".docx":
