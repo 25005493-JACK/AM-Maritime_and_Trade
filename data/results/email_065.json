@@ -1,0 +1,196 @@
+{
+  "email_id": "email_065",
+  "timestamp": "2026-09-20T09:51:50.362267+00:00",
+  "status": "MISMATCH",
+  "review_reason": null,
+  "has_defect": true,
+  "defect_fields": [
+    "notify_party"
+  ],
+  "summary_message": "Found 1 field mismatch(es): Notify Party.",
+  "recommended_action": "Issue discrepancy notice to carrier for Notify Party.",
+  "si_extracted": {
+    "status": "OK",
+    "reason_code": null,
+    "review_reason": null,
+    "raw_text": "SHIPPING INSTRUCTION\n========================================\n\nSHIPPER: APRIL FINE PAPER TRADING (MIDDLE EAST) FZE\n  #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES\nConsignee (Non-Negotiable): INTERNATIONAL FOREST PRODUCTS LLC\n  6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA\nNotify Party/Intermediate Consignee: INTERNATIONAL FOREST PRODUCTS LLC\nLoad Port: PORT KLANG (WESTPORT), MALAYSIA (MYPKG)\nPORT OF DISCHARGE: HOCHIMINH CITY, VIETNAM (VNSGN)\nTotal Containers: 1 x 40'HC\nGROSS WEIGHT: 21,479 KG\nVessel Name: NAP 914 V.BS007\nVoy.: BS012\nKinds of Packages; Description of Goods: FUJITO PAPERONE INKJET PAPER\nHS Code: 48025500\nBooking Ref: SIN966851612\nOC No.: 5RMY-27530\nFreight: PREPAID\n",
+    "doc_type": "SHIPPING_INSTRUCTION",
+    "is_unreadable": false,
+    "is_wrong_doc_type": false,
+    "confidence": 1.0,
+    "missing_fields": [],
+    "audit_trail": [
+      {
+        "raw_label": "SHIPPER",
+        "canonical": "shipper",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Consignee (Non-Negotiable)",
+        "canonical": "consignee",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Notify Party/Intermediate Consignee",
+        "canonical": "notify_party",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Load Port",
+        "canonical": "port_of_loading",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "PORT OF DISCHARGE",
+        "canonical": "port_of_discharge",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Total Containers",
+        "canonical": "container_count",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "GROSS WEIGHT",
+        "canonical": "gross_weight_kg",
+        "method": "exact",
+        "confidence": 1.0
+      }
+    ],
+    "unresolved_terms": [],
+    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (VNSGN)",
+    "consignee": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA",
+    "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
+    "gross_weight_kg": 21479.0,
+    "container_count": 1,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)"
+  },
+  "bl_extracted": {
+    "status": "OK",
+    "reason_code": null,
+    "review_reason": null,
+    "raw_text": "BILL OF LADING (DRAFT)\n========================================\n\nShipper (Principal or Seller): APRIL FINE PAPER TRADING (MIDDLE EAST) FZE\n  #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES\nTo the Order of: INTERNATIONAL FOREST PRODUCTS LLC\n  6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA\nNotify: HABRAS INTERNATIONAL LIMITED\nLoad Port: PORT KLANG (WESTPORT), MALAYSIA (MYPKG)\nPOD: BUSAN, SOUTH KOREA (VNSGN)\nNo. of Containers or Packages: 1 x 40'HC\nGROSS WEIGHT: 21,479 KG\nVessel Name: NAP 914 V.BS007\nVoyage No.: BS012\nDescription of Goods: FUJITO PAPERONE INKJET PAPER\nBL No.: SIN742054932\nBooking Reference: SIN966851612\nFreight: PREPAID\n",
+    "doc_type": "BILL_OF_LADING",
+    "is_unreadable": false,
+    "is_wrong_doc_type": false,
+    "confidence": 1.0,
+    "missing_fields": [],
+    "audit_trail": [
+      {
+        "raw_label": "Shipper (Principal or Seller)",
+        "canonical": "shipper",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "To the Order of",
+        "canonical": "consignee",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Notify",
+        "canonical": "notify_party",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Load Port",
+        "canonical": "port_of_loading",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "POD",
+        "canonical": "port_of_discharge",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "No. of Containers or Packages",
+        "canonical": "container_count",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "GROSS WEIGHT",
+        "canonical": "gross_weight_kg",
+        "method": "exact",
+        "confidence": 1.0
+      }
+    ],
+    "unresolved_terms": [],
+    "port_of_discharge": "BUSAN, SOUTH KOREA (VNSGN)",
+    "consignee": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA",
+    "notify_party": "HABRAS INTERNATIONAL LIMITED",
+    "gross_weight_kg": 21479.0,
+    "container_count": 1,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)"
+  },
+  "field_matrix": [
+    {
+      "field_key": "shipper",
+      "field_name": "Shipper Name & Address",
+      "si_value": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+      "bl_value": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "consignee",
+      "field_name": "Consignee",
+      "si_value": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA",
+      "bl_value": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "notify_party",
+      "field_name": "Notify Party",
+      "si_value": "INTERNATIONAL FOREST PRODUCTS LLC",
+      "bl_value": "HABRAS INTERNATIONAL LIMITED",
+      "is_match": false,
+      "diff_summary": "SI: INTERNATIONAL FOREST PRODUCTS LLC / BL: HABRAS INTERNATIONAL LIMITED"
+    },
+    {
+      "field_key": "port_of_loading",
+      "field_name": "Port of Loading (POL)",
+      "si_value": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG) [MYPKG]",
+      "bl_value": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG) [MYPKG]",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "port_of_discharge",
+      "field_name": "Port of Discharge (POD)",
+      "si_value": "HOCHIMINH CITY, VIETNAM (VNSGN) [VNSGN]",
+      "bl_value": "BUSAN, SOUTH KOREA (VNSGN) [VNSGN]",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "container_count",
+      "field_name": "Container Count",
+      "si_value": "1",
+      "bl_value": "1",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "gross_weight_kg",
+      "field_name": "Gross Weight (kg)",
+      "si_value": "21,479.00 kg",
+      "bl_value": "21,479.00 kg",
+      "is_match": true,
+      "diff_summary": "Matched"
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "email_id": "email_312",
+  "timestamp": "2026-09-20T09:51:50.712280+00:00",
+  "status": "MISMATCH",
+  "review_reason": null,
+  "has_defect": true,
+  "defect_fields": [
+    "shipper",
+    "notify_party"
+  ],
+  "summary_message": "Found 2 field mismatch(es): Shipper Name & Address, Notify Party.",
+  "recommended_action": "Issue discrepancy notice to carrier for Shipper Name & Address, Notify Party.",
+  "si_extracted": {
+    "status": "OK",
+    "reason_code": null,
+    "review_reason": null,
+    "raw_text": "SHIPPING INSTRUCTION\n========================================\n\nShipper: APRIL FINE PAPER TRADING (MIDDLE EAST) FZE\n  #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES\nCONSIGNEE: 3S PAPER PRODUCTS SDN BHD\n  NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA\nNotify Party/Intermediate Consignee: 3S PAPER PRODUCTS SDN BHD\nPOL: NANTONG, CHINA (CNNTG)\nDischarge Port: BRISBANE, AUSTRALIA (AUBNE)\nNo. of Containers or Packages: 10 x 40'HC\nGross Wt (kgs): 237,010 KG\nVessel: INDO SUKSES 65 V.51NW1\nVoyage: 11S\nDescription of Goods: COATED IVORY BOARD\nHS Code: 48105900\nBooking Ref: MCLSINJEA2559551\nOC No.: 5AKR-84269\nFreight: PREPAID\n",
+    "doc_type": "SHIPPING_INSTRUCTION",
+    "is_unreadable": false,
+    "is_wrong_doc_type": false,
+    "confidence": 1.0,
+    "missing_fields": [],
+    "audit_trail": [
+      {
+        "raw_label": "Shipper",
+        "canonical": "shipper",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "CONSIGNEE",
+        "canonical": "consignee",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Notify Party/Intermediate Consignee",
+        "canonical": "notify_party",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "POL",
+        "canonical": "port_of_loading",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Discharge Port",
+        "canonical": "port_of_discharge",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "No. of Containers or Packages",
+        "canonical": "container_count",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Gross Wt (kgs)",
+        "canonical": "gross_weight_kg",
+        "method": "exact",
+        "confidence": 1.0
+      }
+    ],
+    "unresolved_terms": [],
+    "port_of_discharge": "BRISBANE, AUSTRALIA (AUBNE)",
+    "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
+    "notify_party": "3S PAPER PRODUCTS SDN BHD",
+    "gross_weight_kg": 237010.0,
+    "container_count": 10,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "port_of_loading": "NANTONG, CHINA (CNNTG)"
+  },
+  "bl_extracted": {
+    "status": "OK",
+    "reason_code": null,
+    "review_reason": null,
+    "raw_text": "BILL OF LADING (DRAFT)\n========================================\n\nShipper: APRIL FAR EAST (M) SDN BHD\n  #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES\nTo the Order of: 3S PAPER PRODUCTS SDN BHD\n  NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA\nNOTIFY PARTY: KPP-ANTALIS (SINGAPORE) PTE. LTD.\nPort of Loading: NANTONG, CHINA (CNNTG)\nDischarge Port: BRISBANE, AUSTRALIA (AUBNE)\nNo. of Containers: 10 x 40'HC\nGROSS WEIGHT: 237,010 KG\nVessel Name: INDO SUKSES 65 V.51NW1\nVoy. No: 11S\nDescription: COATED IVORY BOARD\nB/L No.: MCLSIN4033810\nBooking Reference: MCLSINJEA2559551\nFreight: PREPAID\n",
+    "doc_type": "BILL_OF_LADING",
+    "is_unreadable": false,
+    "is_wrong_doc_type": false,
+    "confidence": 1.0,
+    "missing_fields": [],
+    "audit_trail": [
+      {
+        "raw_label": "Shipper",
+        "canonical": "shipper",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "To the Order of",
+        "canonical": "consignee",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "NOTIFY PARTY",
+        "canonical": "notify_party",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Port of Loading",
+        "canonical": "port_of_loading",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Discharge Port",
+        "canonical": "port_of_discharge",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "No. of Containers",
+        "canonical": "container_count",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "GROSS WEIGHT",
+        "canonical": "gross_weight_kg",
+        "method": "exact",
+        "confidence": 1.0
+      }
+    ],
+    "unresolved_terms": [],
+    "port_of_discharge": "BRISBANE, AUSTRALIA (AUBNE)",
+    "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
+    "notify_party": "KPP-ANTALIS (SINGAPORE) PTE. LTD.",
+    "gross_weight_kg": 237010.0,
+    "container_count": 10,
+    "shipper": "APRIL FAR EAST (M) SDN BHD #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "port_of_loading": "NANTONG, CHINA (CNNTG)"
+  },
+  "field_matrix": [
+    {
+      "field_key": "shipper",
+      "field_name": "Shipper Name & Address",
+      "si_value": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+      "bl_value": "APRIL FAR EAST (M) SDN BHD #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+      "is_match": false,
+      "diff_summary": "SI: APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES / BL: APRIL FAR EAST (M) SDN BHD #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES"
+    },
+    {
+      "field_key": "consignee",
+      "field_name": "Consignee",
+      "si_value": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
+      "bl_value": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "notify_party",
+      "field_name": "Notify Party",
+      "si_value": "3S PAPER PRODUCTS SDN BHD",
+      "bl_value": "KPP-ANTALIS (SINGAPORE) PTE. LTD.",
+      "is_match": false,
+      "diff_summary": "SI: 3S PAPER PRODUCTS SDN BHD / BL: KPP-ANTALIS (SINGAPORE) PTE. LTD."
+    },
+    {
+      "field_key": "port_of_loading",
+      "field_name": "Port of Loading (POL)",
+      "si_value": "NANTONG, CHINA (CNNTG) [CNNTG]",
+      "bl_value": "NANTONG, CHINA (CNNTG) [CNNTG]",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "port_of_discharge",
+      "field_name": "Port of Discharge (POD)",
+      "si_value": "BRISBANE, AUSTRALIA (AUBNE) [AUBNE]",
+      "bl_value": "BRISBANE, AUSTRALIA (AUBNE) [AUBNE]",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "container_count",
+      "field_name": "Container Count",
+      "si_value": "10",
+      "bl_value": "10",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "gross_weight_kg",
+      "field_name": "Gross Weight (kg)",
+      "si_value": "237,010.00 kg",
+      "bl_value": "237,010.00 kg",
+      "is_match": true,
+      "diff_summary": "Matched"
+    }
+  ]
+}

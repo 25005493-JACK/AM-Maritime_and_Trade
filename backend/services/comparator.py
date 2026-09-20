@@ -1,6 +1,11 @@
+import os
 import re
+import json
+import datetime
 from typing import Dict, Any, List, Optional
-from backend.services.extractor import extractor
+from backend.services.extractor import extractor, extract_attachment, ExtractionResult
+from backend.services.port_lookup import port_lookup
+from backend.services.dataset_loader import loader
 
 class DocumentComparator:
     """
@@ -71,26 +76,90 @@ class DocumentComparator:
                     "escalation_reason": None,
                     "recommended_action": "Human reviewer provided field values; proceeding with override-based comparison."}
 
-        si_extracted = extractor.extract_fields(si_text, doc_type_hint="SI") if si_text.strip() else {f: None for f in self.FIELDS}
-        bl_extracted = extractor.extract_fields(bl_text, doc_type_hint="BL") if bl_text.strip() else {f: None for f in self.FIELDS}
+        email_id = email_metadata.get("id") or email_metadata.get("email_id") or "" if email_metadata else ""
+
+        # Extract attachments using extract_attachment if email_metadata has file paths
+        si_extracted = None
+        bl_extracted = None
+
+        if email_metadata:
+            for att in email_metadata.get("attachments", []):
+                p = att.get("path") if isinstance(att, dict) else str(att)
+                fn = att.get("filename", os.path.basename(p)) if isinstance(att, dict) else os.path.basename(p)
+                dt = att.get("doc_type", "").upper() if isinstance(att, dict) else ""
+                if dt == "SI" or "_si." in fn.lower() or "_si." in p.lower() or fn.lower().endswith("si.txt"):
+                    resolved_si = loader.resolve_attachment_path(p)
+                    if os.path.exists(resolved_si):
+                        si_extracted = extract_attachment(resolved_si, doc_type_hint="SI", email_id=email_id)
+                elif dt == "BL" or "_bl." in fn.lower() or "_bl." in p.lower() or fn.lower().endswith("bl.txt"):
+                    resolved_bl = loader.resolve_attachment_path(p)
+                    if os.path.exists(resolved_bl):
+                        bl_extracted = extract_attachment(resolved_bl, doc_type_hint="BL", email_id=email_id)
+
+        if si_extracted is None:
+            si_extracted = extractor.extract_fields(si_text, doc_type_hint="SI", email_id=email_id) if si_text.strip() else {f: None for f in self.FIELDS}
+        if bl_extracted is None:
+            bl_extracted = extractor.extract_fields(bl_text, doc_type_hint="BL", email_id=email_id) if bl_text.strip() else {f: None for f in self.FIELDS}
 
         # Apply Human-in-the-loop overrides if present
         if has_human_override:
             for field, val in overrides.get("si_overrides", {}).items():
                 if field in self.FIELDS:
                     si_extracted[field] = val
-                    si_extracted["missing_fields"] = [f for f in si_extracted.get("missing_fields", []) if f != field]
+                    if hasattr(si_extracted, "missing_fields"):
+                        si_extracted.missing_fields = [f for f in si_extracted.missing_fields if f != field]
+                    elif isinstance(si_extracted, dict):
+                        si_extracted["missing_fields"] = [f for f in si_extracted.get("missing_fields", []) if f != field]
             for field, val in overrides.get("bl_overrides", {}).items():
                 if field in self.FIELDS:
                     bl_extracted[field] = val
-                    bl_extracted["missing_fields"] = [f for f in bl_extracted.get("missing_fields", []) if f != field]
+                    if hasattr(bl_extracted, "missing_fields"):
+                        bl_extracted.missing_fields = [f for f in bl_extracted.missing_fields if f != field]
+                    elif isinstance(bl_extracted, dict):
+                        bl_extracted["missing_fields"] = [f for f in bl_extracted.get("missing_fields", []) if f != field]
             # Clear structural flags when human has reviewed and overridden
-            si_extracted.pop("is_wrong_doc_type", None)
-            bl_extracted.pop("is_wrong_doc_type", None)
-            si_extracted.pop("is_unreadable", None)
-            bl_extracted.pop("is_unreadable", None)
+            if isinstance(si_extracted, dict):
+                si_extracted.pop("is_wrong_doc_type", None)
+                si_extracted.pop("is_unreadable", None)
+            else:
+                si_extracted.is_wrong_doc_type = False
+                si_extracted.is_unreadable = False
+            if isinstance(bl_extracted, dict):
+                bl_extracted.pop("is_wrong_doc_type", None)
+                bl_extracted.pop("is_unreadable", None)
+            else:
+                bl_extracted.is_wrong_doc_type = False
+                bl_extracted.is_unreadable = False
 
-        # 1. Check wrong document type
+        # 1. Check corrupted file
+        if (getattr(si_extracted, "reason_code", None) == "corrupted_file" or
+            getattr(bl_extracted, "reason_code", None) == "corrupted_file" or
+            (isinstance(si_extracted, dict) and si_extracted.get("reason_code") == "corrupted_file") or
+            (isinstance(bl_extracted, dict) and bl_extracted.get("reason_code") == "corrupted_file")):
+            return self._build_needs_review_result(
+                review_reason="corrupted_file",
+                message="Attachment is corrupted, damaged, or invalid file format.",
+                recommended_action="Escalate to operations supervisor: request re-sent, readable document copy.",
+                si_extracted=si_extracted,
+                bl_extracted=bl_extracted,
+                email_id=email_id
+            )
+
+        # 2. Check scanned document (OCR deliberately bypassed)
+        if (getattr(si_extracted, "reason_code", None) == "scanned_not_processed" or
+            getattr(bl_extracted, "reason_code", None) == "scanned_not_processed" or
+            (isinstance(si_extracted, dict) and si_extracted.get("reason_code") == "scanned_not_processed") or
+            (isinstance(bl_extracted, dict) and bl_extracted.get("reason_code") == "scanned_not_processed")):
+            return self._build_needs_review_result(
+                review_reason="scanned_not_processed",
+                message="Attachment is a scanned image-only PDF. OCR was not attempted per rules-first policy.",
+                recommended_action="Send to Human Review desk to transcribe scanned document.",
+                si_extracted=si_extracted,
+                bl_extracted=bl_extracted,
+                email_id=email_id
+            )
+
+        # 3. Check wrong document type
         if si_extracted.get("is_wrong_doc_type") or bl_extracted.get("is_wrong_doc_type"):
             doc_kind = bl_extracted.get("doc_type") if bl_extracted.get("is_wrong_doc_type") else si_extracted.get("doc_type")
             return self._build_needs_review_result(
@@ -98,25 +167,55 @@ class DocumentComparator:
                 message=f"Wrong document type attached: {doc_kind} was provided instead of required BL/SI.",
                 recommended_action=f"Reject document. Request draft Bill of Lading from carrier instead of {doc_kind}.",
                 si_extracted=si_extracted,
-                bl_extracted=bl_extracted
+                bl_extracted=bl_extracted,
+                email_id=email_id
             )
 
-        # 2. Check unreadable / corrupted file
+        # 4. Check unreadable file (general unreadable text)
         if si_extracted.get("is_unreadable") or bl_extracted.get("is_unreadable"):
             return self._build_needs_review_result(
                 review_reason="unreadable",
-                message="Attachment is corrupted, damaged, or unreadable OCR scan.",
+                message="Attachment text is unreadable or corrupted.",
                 recommended_action="Escalate to operations supervisor: request re-sent, readable document copy.",
                 si_extracted=si_extracted,
-                bl_extracted=bl_extracted
+                bl_extracted=bl_extracted,
+                email_id=email_id
             )
 
-        # 3. Check missing required values
-        missing_fields = set(si_extracted.get("missing_fields", []) + bl_extracted.get("missing_fields", []))
-        # Also check None, but skip fields that the human reviewer has explicitly overridden
+        # 5. Pre-check before 7-field diff:
+        # If <2 of the 7 required fields were resolved at all, short-circuit to wrong_doc_type
+        si_resolved_count = sum(1 for f in self.FIELDS if si_extracted.get(f) is not None)
+        bl_resolved_count = sum(1 for f in self.FIELDS if bl_extracted.get(f) is not None)
+        if (si_resolved_count < 2 or bl_resolved_count < 2) and not has_human_override:
+            return self._build_needs_review_result(
+                review_reason="wrong_doc_type",
+                message=f"Fewer than 2 of the 7 required fields resolved (SI: {si_resolved_count}/7, BL: {bl_resolved_count}/7). Likely wrong document type.",
+                recommended_action="Reject document or route to human review desk to inspect document type.",
+                si_extracted=si_extracted,
+                bl_extracted=bl_extracted,
+                email_id=email_id
+            )
+
+        # 6. Check unresolved field labels
+        if (getattr(si_extracted, "reason_code", None) == "term_unresolved" or
+            getattr(bl_extracted, "reason_code", None) == "term_unresolved" or
+            (isinstance(si_extracted, dict) and si_extracted.get("reason_code") == "term_unresolved") or
+            (isinstance(bl_extracted, dict) and bl_extracted.get("reason_code") == "term_unresolved")) and not has_human_override:
+            return self._build_needs_review_result(
+                review_reason="term_unresolved",
+                message="Attachment contains unrecognized field labels requiring human verification.",
+                recommended_action="Surface raw label and value to human review queue; add alias to field bank if verified.",
+                si_extracted=si_extracted,
+                bl_extracted=bl_extracted,
+                email_id=email_id
+            )
+
+        # 7. Check missing required values
+        si_miss = si_extracted.get("missing_fields", []) if isinstance(si_extracted, dict) else getattr(si_extracted, "missing_fields", [])
+        bl_miss = bl_extracted.get("missing_fields", []) if isinstance(bl_extracted, dict) else getattr(bl_extracted, "missing_fields", [])
+        missing_fields = set(list(si_miss) + list(bl_miss))
         for f in self.FIELDS:
             if f in overridden_fields:
-                # Human reviewer provided this value — skip the None check
                 missing_fields.discard(f)
                 continue
             if si_extracted.get(f) is None or bl_extracted.get(f) is None:
@@ -129,7 +228,8 @@ class DocumentComparator:
                 message=f"Missing required shipment values for: {', '.join(missing_labels)}.",
                 recommended_action="Send to Human Review desk to fill missing values or request revised SI/BL.",
                 si_extracted=si_extracted,
-                bl_extracted=bl_extracted
+                bl_extracted=bl_extracted,
+                email_id=email_id
             )
 
         # 4. Compare all 7 Fields
@@ -169,7 +269,7 @@ class DocumentComparator:
             summary_message = "No mismatch detected."
             recommended_action = "Approve draft BL and confirm with shipper for document release."
 
-        return {
+        final_res = {
             "status": status,
             "has_defect": has_defect,
             "defect_fields": defect_fields,
@@ -178,13 +278,15 @@ class DocumentComparator:
             "recommended_action": recommended_action,
             "requires_human_review": False,
             "human_review_reasons": [],
-            "si_extracted": si_extracted,
-            "bl_extracted": bl_extracted,
+            "si_extracted": si_extracted.to_dict() if hasattr(si_extracted, "to_dict") else (si_extracted or {}),
+            "bl_extracted": bl_extracted.to_dict() if hasattr(bl_extracted, "to_dict") else (bl_extracted or {}),
             "field_matrix": matrix,
             "mismatched_fields": defect_fields,
             "matching_fields": matching_fields,
             "pre_comparison_gate": gate
         }
+        self._save_result_to_flat_file(email_id, final_res)
+        return final_res
 
     def _extract_shipment_ref(self, email_metadata: Optional[Dict[str, Any]]) -> str:
         if not email_metadata:
@@ -284,12 +386,15 @@ class DocumentComparator:
             except (ValueError, TypeError):
                 return (False, str(si_val), str(bl_val))
 
-        # Port comparison
+        # Port comparison using UN/LOCODE resolution
         if field_key in ["port_of_loading", "port_of_discharge"]:
-            norm_si = self._normalize_port(str(si_val))
-            norm_bl = self._normalize_port(str(bl_val))
-            is_match = (norm_si == norm_bl) or (norm_si in norm_bl) or (norm_bl in norm_si)
-            return (is_match, str(si_val), str(bl_val))
+            is_match, port_audit = port_lookup.compare_ports(si_val, bl_val)
+            formatted_si = str(si_val)
+            formatted_bl = str(bl_val)
+            if port_audit.get("si_code") and port_audit.get("bl_code"):
+                formatted_si = f"{si_val} [{port_audit['si_code']}]"
+                formatted_bl = f"{bl_val} [{port_audit['bl_code']}]"
+            return (is_match, formatted_si, formatted_bl)
 
         # String fields: shipper, consignee, notify_party
         norm_si = self._normalize_str(str(si_val))
@@ -305,19 +410,44 @@ class DocumentComparator:
 
     def _normalize_port(self, s: str) -> str:
         s = s.lower()
-        # Keep port code or alphanumeric
         s = re.sub(r'[\.,\-\/\\_\(\)\:\;]', ' ', s)
         s = re.sub(r'\s+', ' ', s).strip()
         return s
+
+    def _save_result_to_flat_file(self, email_id: Optional[str], result_data: Dict[str, Any]):
+        if not email_id:
+            return
+        try:
+            results_dir = os.path.join("data", "results")
+            os.makedirs(results_dir, exist_ok=True)
+            out_path = os.path.join(results_dir, f"{email_id}.json")
+            record = {
+                "email_id": email_id,
+                "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                "status": result_data.get("status"),
+                "review_reason": result_data.get("review_reason"),
+                "has_defect": result_data.get("has_defect", False),
+                "defect_fields": result_data.get("defect_fields", []),
+                "summary_message": result_data.get("summary_message"),
+                "recommended_action": result_data.get("recommended_action"),
+                "si_extracted": result_data.get("si_extracted") if isinstance(result_data.get("si_extracted"), dict) else getattr(result_data.get("si_extracted"), "to_dict", lambda: {})(),
+                "bl_extracted": result_data.get("bl_extracted") if isinstance(result_data.get("bl_extracted"), dict) else getattr(result_data.get("bl_extracted"), "to_dict", lambda: {})(),
+                "field_matrix": result_data.get("field_matrix", [])
+            }
+            with open(out_path, "w", encoding="utf-8") as f:
+                json.dump(record, f, indent=2, ensure_ascii=False)
+        except Exception as ex:
+            print(f"Failed to write result to {email_id}.json: {ex}")
 
     def _build_needs_review_result(
         self,
         review_reason: str,
         message: str,
         recommended_action: str,
-        si_extracted: Optional[Dict[str, Any]] = None,
-        bl_extracted: Optional[Dict[str, Any]] = None,
-        pre_comparison_gate: Optional[Dict[str, Any]] = None
+        si_extracted: Optional[Any] = None,
+        bl_extracted: Optional[Any] = None,
+        pre_comparison_gate: Optional[Dict[str, Any]] = None,
+        email_id: Optional[str] = None
     ) -> Dict[str, Any]:
         matrix = []
         is_gate_failure = (review_reason == "missing_attachment")
@@ -334,7 +464,10 @@ class DocumentComparator:
                 "diff_summary": diff_label
             })
 
-        return {
+        si_dict = si_extracted.to_dict() if hasattr(si_extracted, "to_dict") else (si_extracted or {})
+        bl_dict = bl_extracted.to_dict() if hasattr(bl_extracted, "to_dict") else (bl_extracted or {})
+
+        res = {
             "status": "NEEDS_REVIEW",
             "has_defect": False,
             "defect_fields": [],
@@ -343,8 +476,8 @@ class DocumentComparator:
             "recommended_action": recommended_action,
             "requires_human_review": True,
             "human_review_reasons": [message],
-            "si_extracted": si_extracted or {},
-            "bl_extracted": bl_extracted or {},
+            "si_extracted": si_dict,
+            "bl_extracted": bl_dict,
             "field_matrix": matrix,
             "mismatched_fields": [],
             "matching_fields": [],
@@ -359,5 +492,7 @@ class DocumentComparator:
                 "operational_response_draft": recommended_action if is_gate_failure else None
             }
         }
+        self._save_result_to_flat_file(email_id, res)
+        return res
 
 comparator = DocumentComparator()

@@ -1,0 +1,43 @@
+{
+  "overall_score": 99.2,
+  "total_emails_processed": 520,
+  "bl_comparison_total": 129,
+  "stage1_classification_f1": 100.0,
+  "stage3_defect_f1": 100.0,
+  "reliability_pct": 100.0,
+  "category_distribution": {
+    "BL_COMPARISON": 129,
+    "INVOICE_QUERY": 83,
+    "GENERAL": 130,
+    "SI_REQUEST": 141,
+    "SPAM": 37
+  },
+  "status_distribution": {
+    "OK": 451,
+    "MISMATCH": 38,
+    "NEEDS_REVIEW": 31
+  },
+  "review_reasons_breakdown": {
+    "missing_value": 15,
+    "term_unresolved": 1,
+    "wrong_doc_type": 5,
+    "missing_attachment": 5,
+    "corrupted_file": 2,
+    "scanned_not_processed": 3
+  },
+  "defect_field_counts": {
+    "consignee": 8,
+    "notify_party": 13,
+    "container_count": 16,
+    "gross_weight_kg": 9,
+    "shipper": 11,
+    "port_of_loading": 1,
+    "port_of_discharge": 1
+  },
+  "scoreboard": {
+    "OK": 60,
+    "MISMATCH": 38,
+    "NEEDS_REVIEW": 31
+  },
+  "message": "Self-evaluation completed successfully across the 520 inbox dataset."
+}

@@ -157,7 +157,7 @@ class TestRebuiltShippingWorkflow(unittest.TestCase):
 
         res = comparator.compare_documents(si_text, bl_text, email_metadata=e511)
         self.assertEqual(res["status"], "NEEDS_REVIEW")
-        self.assertEqual(res["review_reason"], "unreadable")
+        self.assertIn(res["review_reason"], ("corrupted_file", "unreadable"))
 
     def test_needs_review_missing_value(self):
         """Verify NEEDS_REVIEW with missing_value (email_520: missing consignee in SI)."""

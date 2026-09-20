@@ -111,9 +111,22 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal,
             </div>
           )}
           {status === 'NEEDS_REVIEW' && (
-            <div className="badge-warning px-3.5 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold shadow-sm">
+            <div className={`px-3.5 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold shadow-sm ${
+              verif.review_reason === 'scanned_not_processed'
+                ? 'bg-purple-950/80 text-purple-300 border border-purple-600'
+                : verif.review_reason === 'corrupted_file'
+                ? 'bg-rose-950/80 text-rose-300 border border-rose-600'
+                : verif.review_reason === 'term_unresolved'
+                ? 'bg-indigo-950/80 text-indigo-300 border border-indigo-600'
+                : 'badge-warning'
+            }`}>
               <AlertTriangle className="w-4 h-4" />
-              <span>NEEDS REVIEW: {verif.review_reason}</span>
+              <span>
+                {verif.review_reason === 'scanned_not_processed' && 'NEEDS REVIEW: Scanned PDF (No OCR)'}
+                {verif.review_reason === 'corrupted_file' && 'NEEDS REVIEW: Corrupted File'}
+                {verif.review_reason === 'term_unresolved' && 'NEEDS REVIEW: Unresolved Term'}
+                {!['scanned_not_processed', 'corrupted_file', 'term_unresolved'].includes(verif.review_reason) && `NEEDS REVIEW: ${verif.review_reason}`}
+              </span>
             </div>
           )}
 
@@ -310,21 +323,53 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal,
           </div>
         )}
 
-        {/* Needs Review Reason Box (For other NEEDS_REVIEW reasons: wrong_doc_type, unreadable, missing_value) */}
+        {/* Needs Review Reason Box (For other NEEDS_REVIEW reasons) */}
         {status === 'NEEDS_REVIEW' && !isMissingAttachment && (
-          <div className="p-4 rounded-xl bg-amber-950/30 border border-amber-500/40 flex items-start justify-between shadow-lg">
+          <div className={`p-4 rounded-xl flex items-start justify-between shadow-lg ${
+            verif.review_reason === 'scanned_not_processed'
+              ? 'bg-purple-950/30 border border-purple-500/40'
+              : verif.review_reason === 'corrupted_file'
+              ? 'bg-rose-950/30 border border-rose-500/40'
+              : verif.review_reason === 'term_unresolved'
+              ? 'bg-indigo-950/30 border border-indigo-500/40'
+              : 'bg-amber-950/30 border border-amber-500/40'
+          }`}>
             <div className="flex items-start space-x-3">
-              <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/30">
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${
+                verif.review_reason === 'scanned_not_processed'
+                  ? 'bg-purple-500/20 text-purple-400 border-purple-500/30'
+                  : verif.review_reason === 'corrupted_file'
+                  ? 'bg-rose-500/20 text-rose-400 border-rose-500/30'
+                  : verif.review_reason === 'term_unresolved'
+                  ? 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30'
+                  : 'bg-amber-500/20 text-amber-400 border-amber-500/30'
+              }`}>
                 <AlertTriangle className="w-4 h-4" />
               </div>
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
+                <h4 className={`text-xs font-bold uppercase tracking-wider ${
+                  verif.review_reason === 'scanned_not_processed'
+                    ? 'text-purple-300'
+                    : verif.review_reason === 'corrupted_file'
+                    ? 'text-rose-300'
+                    : verif.review_reason === 'term_unresolved'
+                    ? 'text-indigo-300'
+                    : 'text-amber-300'
+                }`}>
                   Human Escalation Required — Trigger: {verif.review_reason}
                 </h4>
                 <p className="text-xs font-medium text-slate-200 mt-1">
-                  {verif.summary_message || 'Document is missing, unreadable, has invalid type, or has unpopulated critical fields.'}
+                  {verif.summary_message || 'Document requires human review before release.'}
                 </p>
-                <p className="text-xs text-amber-400 font-mono mt-1">
+                <p className={`text-xs font-mono mt-1 ${
+                  verif.review_reason === 'scanned_not_processed'
+                    ? 'text-purple-400'
+                    : verif.review_reason === 'corrupted_file'
+                    ? 'text-rose-400'
+                    : verif.review_reason === 'term_unresolved'
+                    ? 'text-indigo-400'
+                    : 'text-amber-400'
+                }`}>
                   Recommended Action: {verif.recommended_action}
                 </p>
               </div>

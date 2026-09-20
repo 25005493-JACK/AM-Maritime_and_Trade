@@ -1,0 +1,194 @@
+{
+  "email_id": "email_167",
+  "timestamp": "2026-09-20T09:51:50.508056+00:00",
+  "status": "OK",
+  "review_reason": null,
+  "has_defect": false,
+  "defect_fields": [],
+  "summary_message": "No mismatch detected.",
+  "recommended_action": "Approve draft BL and confirm with shipper for document release.",
+  "si_extracted": {
+    "status": "OK",
+    "reason_code": null,
+    "review_reason": null,
+    "raw_text": "SHIPPING INSTRUCTION\n========================================\n\nShipper/Exporter: APRIL FAR EAST (M) SDN BHD\n  TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA\nConsignee: PACIFIC OFFICE (M) SDN BHD\n  LOT 6, JALAN P/7; SECTION 13, 43650 BANDAR BARU BANGI; SELANGOR, MALAYSIA\nNotify: EAST BRIGHT FZ-LLC\nPort of Loading (POL): SINGAPORE (SGSIN)\nPort of Discharge: CALLAO, PERU (PECLL)\nNo. of Containers or Packages: 3 x 20'GP\nGross Weight (KG): 62,664 KG\nOcean Vessel: VISION 202 V.002\nVoyage No.: QI540A\nDescription: FUJITO PAPERONE INKJET PAPER\nHS Code: 48025500\nBooking Ref: 070500294096\nOC No.: 5RAE-10556\nFreight: PREPAID\n",
+    "doc_type": "SHIPPING_INSTRUCTION",
+    "is_unreadable": false,
+    "is_wrong_doc_type": false,
+    "confidence": 1.0,
+    "missing_fields": [],
+    "audit_trail": [
+      {
+        "raw_label": "Shipper/Exporter",
+        "canonical": "shipper",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Consignee",
+        "canonical": "consignee",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Notify",
+        "canonical": "notify_party",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Port of Loading (POL)",
+        "canonical": "port_of_loading",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Port of Discharge",
+        "canonical": "port_of_discharge",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "No. of Containers or Packages",
+        "canonical": "container_count",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Gross Weight (KG)",
+        "canonical": "gross_weight_kg",
+        "method": "exact",
+        "confidence": 1.0
+      }
+    ],
+    "unresolved_terms": [],
+    "port_of_discharge": "CALLAO, PERU (PECLL)",
+    "consignee": "PACIFIC OFFICE (M) SDN BHD LOT 6, JALAN P/7; SECTION 13, 43650 BANDAR BARU BANGI; SELANGOR, MALAYSIA",
+    "notify_party": "EAST BRIGHT FZ-LLC",
+    "gross_weight_kg": 62664.0,
+    "container_count": 3,
+    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+    "port_of_loading": "SINGAPORE (SGSIN)"
+  },
+  "bl_extracted": {
+    "status": "OK",
+    "reason_code": null,
+    "review_reason": null,
+    "raw_text": "BILL OF LADING (DRAFT)\n========================================\n\nShipper: APRIL FAR EAST (M) SDN BHD\n  TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA\nConsignee: PACIFIC OFFICE (M) SDN BHD\n  LOT 6, JALAN P/7; SECTION 13, 43650 BANDAR BARU BANGI; SELANGOR, MALAYSIA\nNotify Party: EAST BRIGHT FZ-LLC\nPOL: SINGAPORE (SGSIN)\nPort of Discharge (POD): CALLAO, PERU (PECLL)\nTotal Containers: 3 x 20'GP\nGross Weight毛重(KGS): 62,664 KG\nOcean Vessel: VISION 202 V.002\nVoyage: QI540A\nDescription: FUJITO PAPERONE INKJET PAPER\nB/L No.: EGLV196931572791\nBooking Reference: 070500294096\nFreight: PREPAID\n",
+    "doc_type": "BILL_OF_LADING",
+    "is_unreadable": false,
+    "is_wrong_doc_type": false,
+    "confidence": 1.0,
+    "missing_fields": [],
+    "audit_trail": [
+      {
+        "raw_label": "Shipper",
+        "canonical": "shipper",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Consignee",
+        "canonical": "consignee",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Notify Party",
+        "canonical": "notify_party",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "POL",
+        "canonical": "port_of_loading",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Port of Discharge (POD)",
+        "canonical": "port_of_discharge",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Total Containers",
+        "canonical": "container_count",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Gross Weight毛重(KGS)",
+        "canonical": "gross_weight_kg",
+        "method": "exact",
+        "confidence": 1.0
+      }
+    ],
+    "unresolved_terms": [],
+    "port_of_discharge": "CALLAO, PERU (PECLL)",
+    "consignee": "PACIFIC OFFICE (M) SDN BHD LOT 6, JALAN P/7; SECTION 13, 43650 BANDAR BARU BANGI; SELANGOR, MALAYSIA",
+    "notify_party": "EAST BRIGHT FZ-LLC",
+    "gross_weight_kg": 62664.0,
+    "container_count": 3,
+    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+    "port_of_loading": "SINGAPORE (SGSIN)"
+  },
+  "field_matrix": [
+    {
+      "field_key": "shipper",
+      "field_name": "Shipper Name & Address",
+      "si_value": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+      "bl_value": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "consignee",
+      "field_name": "Consignee",
+      "si_value": "PACIFIC OFFICE (M) SDN BHD LOT 6, JALAN P/7; SECTION 13, 43650 BANDAR BARU BANGI; SELANGOR, MALAYSIA",
+      "bl_value": "PACIFIC OFFICE (M) SDN BHD LOT 6, JALAN P/7; SECTION 13, 43650 BANDAR BARU BANGI; SELANGOR, MALAYSIA",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "notify_party",
+      "field_name": "Notify Party",
+      "si_value": "EAST BRIGHT FZ-LLC",
+      "bl_value": "EAST BRIGHT FZ-LLC",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "port_of_loading",
+      "field_name": "Port of Loading (POL)",
+      "si_value": "SINGAPORE (SGSIN) [SGSIN]",
+      "bl_value": "SINGAPORE (SGSIN) [SGSIN]",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "port_of_discharge",
+      "field_name": "Port of Discharge (POD)",
+      "si_value": "CALLAO, PERU (PECLL) [PECLL]",
+      "bl_value": "CALLAO, PERU (PECLL) [PECLL]",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "container_count",
+      "field_name": "Container Count",
+      "si_value": "3",
+      "bl_value": "3",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "gross_weight_kg",
+      "field_name": "Gross Weight (kg)",
+      "si_value": "62,664.00 kg",
+      "bl_value": "62,664.00 kg",
+      "is_match": true,
+      "diff_summary": "Matched"
+    }
+  ]
+}

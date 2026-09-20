@@ -1,0 +1,194 @@
+{
+  "email_id": "email_409",
+  "timestamp": "2026-09-20T09:51:50.988263+00:00",
+  "status": "OK",
+  "review_reason": null,
+  "has_defect": false,
+  "defect_fields": [],
+  "summary_message": "No mismatch detected.",
+  "recommended_action": "Approve draft BL and confirm with shipper for document release.",
+  "si_extracted": {
+    "status": "OK",
+    "reason_code": null,
+    "review_reason": null,
+    "raw_text": "SHIPPING INSTRUCTION\n========================================\n\nShipper/Exporter: APRIL FAR EAST (M) SDN BHD\n  TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA\nConsignee: EAST BRIGHT FZ-LLC\n  RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE\nNOTIFY PARTY: EAST BRIGHT FZ-LLC\nPOL: SINGAPORE (SGSIN)\nDischarge Port: MERSIN, TURKEY (TRMER)\nContainer Count: 12 x 20'GP\nGross Weight (KG): 262,428 KG\nOcean Vessel: PACIFIC SUN 1 V.251073E\nVoy.: QI540A\nDescription: COATED IVORY BOARD\nHS Code: 48105900\nBooking No.: 070500282137\nOC No.: 5RMY-11842\nFreight: PREPAID\n",
+    "doc_type": "SHIPPING_INSTRUCTION",
+    "is_unreadable": false,
+    "is_wrong_doc_type": false,
+    "confidence": 1.0,
+    "missing_fields": [],
+    "audit_trail": [
+      {
+        "raw_label": "Shipper/Exporter",
+        "canonical": "shipper",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Consignee",
+        "canonical": "consignee",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "NOTIFY PARTY",
+        "canonical": "notify_party",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "POL",
+        "canonical": "port_of_loading",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Discharge Port",
+        "canonical": "port_of_discharge",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Container Count",
+        "canonical": "container_count",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Gross Weight (KG)",
+        "canonical": "gross_weight_kg",
+        "method": "exact",
+        "confidence": 1.0
+      }
+    ],
+    "unresolved_terms": [],
+    "port_of_discharge": "MERSIN, TURKEY (TRMER)",
+    "consignee": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+    "notify_party": "EAST BRIGHT FZ-LLC",
+    "gross_weight_kg": 262428.0,
+    "container_count": 12,
+    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+    "port_of_loading": "SINGAPORE (SGSIN)"
+  },
+  "bl_extracted": {
+    "status": "OK",
+    "reason_code": null,
+    "review_reason": null,
+    "raw_text": "BILL OF LADING (DRAFT)\n========================================\n\nShipper/Exporter: APRIL FAR EAST (M) SDN BHD\n  TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA\nConsignee (Non-Negotiable): EAST BRIGHT FZ-LLC\n  RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE\nNotify Party/Intermediate Consignee: EAST BRIGHT FZ-LLC\nPort of Loading: SINGAPORE (SGSIN)\nPort of Discharge: MERSIN, TURKEY (TRMER)\nNo. of Containers or Packages: 12 x 20'GP\nGross Wt (kgs): 262,428 KG\nVessel Name: PACIFIC SUN 1 V.251073E\nVoyage: QI540A\nKinds of Packages; Description of Goods: COATED IVORY BOARD\nBL No.: EGLV578715841560\nBOOKING NO.: 070500282137\nFreight: PREPAID\n",
+    "doc_type": "BILL_OF_LADING",
+    "is_unreadable": false,
+    "is_wrong_doc_type": false,
+    "confidence": 1.0,
+    "missing_fields": [],
+    "audit_trail": [
+      {
+        "raw_label": "Shipper/Exporter",
+        "canonical": "shipper",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Consignee (Non-Negotiable)",
+        "canonical": "consignee",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Notify Party/Intermediate Consignee",
+        "canonical": "notify_party",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Port of Loading",
+        "canonical": "port_of_loading",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Port of Discharge",
+        "canonical": "port_of_discharge",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "No. of Containers or Packages",
+        "canonical": "container_count",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Gross Wt (kgs)",
+        "canonical": "gross_weight_kg",
+        "method": "exact",
+        "confidence": 1.0
+      }
+    ],
+    "unresolved_terms": [],
+    "port_of_discharge": "MERSIN, TURKEY (TRMER)",
+    "consignee": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+    "notify_party": "EAST BRIGHT FZ-LLC",
+    "gross_weight_kg": 262428.0,
+    "container_count": 12,
+    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+    "port_of_loading": "SINGAPORE (SGSIN)"
+  },
+  "field_matrix": [
+    {
+      "field_key": "shipper",
+      "field_name": "Shipper Name & Address",
+      "si_value": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+      "bl_value": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "consignee",
+      "field_name": "Consignee",
+      "si_value": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+      "bl_value": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "notify_party",
+      "field_name": "Notify Party",
+      "si_value": "EAST BRIGHT FZ-LLC",
+      "bl_value": "EAST BRIGHT FZ-LLC",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "port_of_loading",
+      "field_name": "Port of Loading (POL)",
+      "si_value": "SINGAPORE (SGSIN) [SGSIN]",
+      "bl_value": "SINGAPORE (SGSIN) [SGSIN]",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "port_of_discharge",
+      "field_name": "Port of Discharge (POD)",
+      "si_value": "MERSIN, TURKEY (TRMER) [TRMER]",
+      "bl_value": "MERSIN, TURKEY (TRMER) [TRMER]",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "container_count",
+      "field_name": "Container Count",
+      "si_value": "12",
+      "bl_value": "12",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "gross_weight_kg",
+      "field_name": "Gross Weight (kg)",
+      "si_value": "262,428.00 kg",
+      "bl_value": "262,428.00 kg",
+      "is_match": true,
+      "diff_summary": "Matched"
+    }
+  ]
+}

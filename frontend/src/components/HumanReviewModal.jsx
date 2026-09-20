@@ -69,6 +69,19 @@ export default function HumanReviewModal({ emailDetail, onClose, onSaveOverride 
                 <span className="font-mono text-xs text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/60">
                   {email.id}
                 </span>
+                {verif.review_reason && (
+                  <span className={`font-mono text-xs px-2 py-0.5 rounded border ${
+                    verif.review_reason === 'scanned_not_processed'
+                      ? 'bg-purple-950 text-purple-300 border-purple-700'
+                      : verif.review_reason === 'corrupted_file'
+                      ? 'bg-rose-950 text-rose-300 border-rose-700'
+                      : verif.review_reason === 'term_unresolved'
+                      ? 'bg-indigo-950 text-indigo-300 border-indigo-700'
+                      : 'bg-amber-950 text-amber-300 border-amber-700'
+                  }`}>
+                    {verif.review_reason}
+                  </span>
+                )}
               </h3>
               <p className="text-xs text-slate-400">
                 Correct damaged OCR readings, fill missing fields, or override carrier values.

@@ -1,0 +1,146 @@
+{
+  "email_id": "email_407",
+  "timestamp": "2026-09-20T09:51:50.982257+00:00",
+  "status": "NEEDS_REVIEW",
+  "review_reason": "missing_value",
+  "has_defect": false,
+  "defect_fields": [],
+  "summary_message": "Human Review Required: Missing required shipment values for: Consignee, Notify Party, Port of Discharge (POD), Port of Loading (POL), Shipper Name & Address.",
+  "recommended_action": "Send to Human Review desk to fill missing values or request revised SI/BL.",
+  "si_extracted": {
+    "status": "NEEDS_REVIEW",
+    "reason_code": "missing_value",
+    "review_reason": "missing_value",
+    "raw_text": "BILL OF LADING INSTRUCTION\nB/L NUMBER: EGLV166670808509 BOOKING NO. 070500260858\nShipper APRIL FINE PAPER TRADING\nON BEHALF OF VITAL SOLUTIONS PTE LTD\n77 ROBINSON ROAD, #21-01\nSINGAPORE 068896\nConsignee (Non-Negotiable) NAGAPPA EXPORTS\nNEW NO : 23, L-BLOCK, 17TH STREET\nANNA NAGAR EAST\nCHENNAI, TAMIL NADU 600102\nGST NO - 33AACFN6792L1ZU\nNotify Party/Intermediate ConsNigAnGeAePPA EXPORTS\nNEW NO : 23, L-BLOCK, 17TH STREET\nANNA NAGAR EAST\nCHENNAI, TAMIL NADU 600102\nGST NO - 33AACFN6792L1ZU\nPOL NHAVA SHEVA, INDIA\nPort of Discharge YANGON, MYANMAR\nOcean Vessel LE HAVRE V.QI540A\nCONTAINER NO. DESCRIPTION GROSS WEIGHT (KG)\nYCYV6477251 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nFUSK7860694 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nATMA0356243 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nSVYK8739592 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nGYEG4210890 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nYERL1553334 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nFNIH3502716 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nAOXX3607763 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nGYMS1128981 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nFYGD7955633 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nCZQL7481700 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nMZNM1554164 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nNo. of Containers or Packages: 12 x 20'GP\nTOTAL Gross Wt (kgs): 285,720 KG\nHS CODE 48025600 FREIGHT PREPAID OC NO. 5RUS-74951",
+    "doc_type": "BILL_OF_LADING",
+    "is_unreadable": false,
+    "is_wrong_doc_type": false,
+    "confidence": 0.65,
+    "missing_fields": [
+      "port_of_discharge",
+      "consignee",
+      "notify_party",
+      "shipper",
+      "port_of_loading"
+    ],
+    "audit_trail": [
+      {
+        "raw_label": "No. of Containers or Packages",
+        "canonical": "container_count",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "TOTAL Gross Wt (kgs)",
+        "canonical": "gross_weight_kg",
+        "method": "fuzzy",
+        "confidence": 0.88
+      }
+    ],
+    "unresolved_terms": [],
+    "port_of_discharge": null,
+    "consignee": null,
+    "notify_party": null,
+    "gross_weight_kg": 285720.0,
+    "container_count": 12,
+    "shipper": null,
+    "port_of_loading": null
+  },
+  "bl_extracted": {
+    "status": "NEEDS_REVIEW",
+    "reason_code": "missing_value",
+    "review_reason": "missing_value",
+    "raw_text": "BILL OF LADING (DRAFT)\nB/L NUMBER: EGLV166670808509 BOOKING NO. 070500260858\nShipper/Exporter APRIL FINE PAPER TRADING\nON BEHALF OF VITAL SOLUTIONS PTE LTD\n77 ROBINSON ROAD, #21-01\nSINGAPORE 068896\nCONSIGNEE NAGAPPA EXPORTS\nNEW NO : 23, L-BLOCK, 17TH STREET\nANNA NAGAR EAST\nCHENNAI, TAMIL NADU 600102\nGST NO - 33AACFN6792L1ZU\nNotify Party NAGAPPA EXPORTS\nNEW NO : 23, L-BLOCK, 17TH STREET\nANNA NAGAR EAST\nCHENNAI, TAMIL NADU 600102\nGST NO - 33AACFN6792L1ZU\nPOL NHAVA SHEVA, INDIA\nDischarge Port YANGON, MYANMAR\nOcean Vessel LE HAVRE V.QI540A\nCONTAINER NO. DESCRIPTION GROSS WEIGHT (KG)\nHWCU6704502 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nHFSA2822700 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nTZGX4596262 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nFQEX2512073 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nJMUL4950050 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nPBXE6086982 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nFDAL3161177 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nNROE9047742 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nKVRL9177932 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nHQEZ2311649 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nDHHI2457988 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nSIYE5652906 20'GP MULTIPURPOSE PAPER - A4 - PAPE 23,810\nNo. of Containers or Packages: 12 x 20'GP\nTOTAL Gross Wt (kgs): 285,720 KG\nHS CODE 48025600 FREIGHT PREPAID OC NO. 5RUS-74951",
+    "doc_type": "BILL_OF_LADING",
+    "is_unreadable": false,
+    "is_wrong_doc_type": false,
+    "confidence": 0.65,
+    "missing_fields": [
+      "port_of_discharge",
+      "consignee",
+      "notify_party",
+      "shipper",
+      "port_of_loading"
+    ],
+    "audit_trail": [
+      {
+        "raw_label": "No. of Containers or Packages",
+        "canonical": "container_count",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "TOTAL Gross Wt (kgs)",
+        "canonical": "gross_weight_kg",
+        "method": "fuzzy",
+        "confidence": 0.88
+      }
+    ],
+    "unresolved_terms": [],
+    "port_of_discharge": null,
+    "consignee": null,
+    "notify_party": null,
+    "gross_weight_kg": 285720.0,
+    "container_count": 12,
+    "shipper": null,
+    "port_of_loading": null
+  },
+  "field_matrix": [
+    {
+      "field_key": "shipper",
+      "field_name": "Shipper Name & Address",
+      "si_value": "N/A",
+      "bl_value": "N/A",
+      "is_match": false,
+      "diff_summary": "Review Required (missing_value)"
+    },
+    {
+      "field_key": "consignee",
+      "field_name": "Consignee",
+      "si_value": "N/A",
+      "bl_value": "N/A",
+      "is_match": false,
+      "diff_summary": "Review Required (missing_value)"
+    },
+    {
+      "field_key": "notify_party",
+      "field_name": "Notify Party",
+      "si_value": "N/A",
+      "bl_value": "N/A",
+      "is_match": false,
+      "diff_summary": "Review Required (missing_value)"
+    },
+    {
+      "field_key": "port_of_loading",
+      "field_name": "Port of Loading (POL)",
+      "si_value": "N/A",
+      "bl_value": "N/A",
+      "is_match": false,
+      "diff_summary": "Review Required (missing_value)"
+    },
+    {
+      "field_key": "port_of_discharge",
+      "field_name": "Port of Discharge (POD)",
+      "si_value": "N/A",
+      "bl_value": "N/A",
+      "is_match": false,
+      "diff_summary": "Review Required (missing_value)"
+    },
+    {
+      "field_key": "container_count",
+      "field_name": "Container Count",
+      "si_value": "12",
+      "bl_value": "12",
+      "is_match": false,
+      "diff_summary": "Review Required (missing_value)"
+    },
+    {
+      "field_key": "gross_weight_kg",
+      "field_name": "Gross Weight (kg)",
+      "si_value": "285720.0",
+      "bl_value": "285720.0",
+      "is_match": false,
+      "diff_summary": "Review Required (missing_value)"
+    }
+  ]
+}

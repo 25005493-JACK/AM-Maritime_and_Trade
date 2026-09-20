@@ -1,0 +1,196 @@
+{
+  "email_id": "email_133",
+  "timestamp": "2026-09-20T09:51:50.450819+00:00",
+  "status": "MISMATCH",
+  "review_reason": null,
+  "has_defect": true,
+  "defect_fields": [
+    "gross_weight_kg"
+  ],
+  "summary_message": "Found 1 field mismatch(es): Gross Weight (kg).",
+  "recommended_action": "Issue discrepancy notice to carrier for Gross Weight (kg).",
+  "si_extracted": {
+    "status": "OK",
+    "reason_code": null,
+    "review_reason": null,
+    "raw_text": "SHIPPING INSTRUCTION\n========================================\n\nShipper (Principal or Seller): APRIL FINE PAPER TRADING\n  ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896\nTo the Order of: MOORIM SP CO., LTD\n  656, GANGNAM-DAERO, GANGNAM-GU; SEOUL, SOUTH KOREA; T. 82-2-3485-1500\nNOTIFY PARTY: BALL & DOGGETT AUSTRALIA PTY LTD\nPORT OF LOADING: NANTONG, CHINA (CNNTG)\nPOD: CALLAO, PERU (PECLL)\nTotal Containers: 6 x 20'GP\nGross Weight毛重(KGS): 142,848 KG\nExport Carrier (vessel, voyage): MARCOPOLO 810 V.BS005\nVoyage: BS291\nCommodity: ASIA SYMBOL FOOD SERVICE BOARD (CUPSTOCK/HI-BULK) - ALLINONE\nHS Code: 48109200\nBOOKING NO.: 070500216484\nOC No.: 5APH-08588\nFreight: PREPAID\n",
+    "doc_type": "SHIPPING_INSTRUCTION",
+    "is_unreadable": false,
+    "is_wrong_doc_type": false,
+    "confidence": 1.0,
+    "missing_fields": [],
+    "audit_trail": [
+      {
+        "raw_label": "Shipper (Principal or Seller)",
+        "canonical": "shipper",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "To the Order of",
+        "canonical": "consignee",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "NOTIFY PARTY",
+        "canonical": "notify_party",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "PORT OF LOADING",
+        "canonical": "port_of_loading",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "POD",
+        "canonical": "port_of_discharge",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Total Containers",
+        "canonical": "container_count",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Gross Weight毛重(KGS)",
+        "canonical": "gross_weight_kg",
+        "method": "exact",
+        "confidence": 1.0
+      }
+    ],
+    "unresolved_terms": [],
+    "port_of_discharge": "CALLAO, PERU (PECLL)",
+    "consignee": "MOORIM SP CO., LTD 656, GANGNAM-DAERO, GANGNAM-GU; SEOUL, SOUTH KOREA; T. 82-2-3485-1500",
+    "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
+    "gross_weight_kg": 142848.0,
+    "container_count": 6,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "port_of_loading": "NANTONG, CHINA (CNNTG)"
+  },
+  "bl_extracted": {
+    "status": "OK",
+    "reason_code": null,
+    "review_reason": null,
+    "raw_text": "BILL OF LADING (DRAFT)\n========================================\n\nShipper: APRIL FINE PAPER TRADING\n  ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896\nCONSIGNEE: MOORIM SP CO., LTD\n  656, GANGNAM-DAERO, GANGNAM-GU; SEOUL, SOUTH KOREA; T. 82-2-3485-1500\nNotify Party: BALL & DOGGETT AUSTRALIA PTY LTD\nPOL: NANTONG, CHINA (CNNTG)\nPort of Discharge (POD): CALLAO, PERU (PECLL)\nTotal Containers: 6 x 20'GP\nGross Weight毛重(KGS): 144,848 KG\nExport Carrier (vessel, voyage): MARCOPOLO 810 V.BS005\nVoy. No: BS291\nCommodity: ASIA SYMBOL FOOD SERVICE BOARD (CUPSTOCK/HI-BULK) - ALLINONE\nBill of Lading No.: EGLV801573993056\nBooking No.: 070500216484\nFreight: PREPAID\n",
+    "doc_type": "BILL_OF_LADING",
+    "is_unreadable": false,
+    "is_wrong_doc_type": false,
+    "confidence": 1.0,
+    "missing_fields": [],
+    "audit_trail": [
+      {
+        "raw_label": "Shipper",
+        "canonical": "shipper",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "CONSIGNEE",
+        "canonical": "consignee",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Notify Party",
+        "canonical": "notify_party",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "POL",
+        "canonical": "port_of_loading",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Port of Discharge (POD)",
+        "canonical": "port_of_discharge",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Total Containers",
+        "canonical": "container_count",
+        "method": "exact",
+        "confidence": 1.0
+      },
+      {
+        "raw_label": "Gross Weight毛重(KGS)",
+        "canonical": "gross_weight_kg",
+        "method": "exact",
+        "confidence": 1.0
+      }
+    ],
+    "unresolved_terms": [],
+    "port_of_discharge": "CALLAO, PERU (PECLL)",
+    "consignee": "MOORIM SP CO., LTD 656, GANGNAM-DAERO, GANGNAM-GU; SEOUL, SOUTH KOREA; T. 82-2-3485-1500",
+    "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
+    "gross_weight_kg": 144848.0,
+    "container_count": 6,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "port_of_loading": "NANTONG, CHINA (CNNTG)"
+  },
+  "field_matrix": [
+    {
+      "field_key": "shipper",
+      "field_name": "Shipper Name & Address",
+      "si_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+      "bl_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "consignee",
+      "field_name": "Consignee",
+      "si_value": "MOORIM SP CO., LTD 656, GANGNAM-DAERO, GANGNAM-GU; SEOUL, SOUTH KOREA; T. 82-2-3485-1500",
+      "bl_value": "MOORIM SP CO., LTD 656, GANGNAM-DAERO, GANGNAM-GU; SEOUL, SOUTH KOREA; T. 82-2-3485-1500",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "notify_party",
+      "field_name": "Notify Party",
+      "si_value": "BALL & DOGGETT AUSTRALIA PTY LTD",
+      "bl_value": "BALL & DOGGETT AUSTRALIA PTY LTD",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "port_of_loading",
+      "field_name": "Port of Loading (POL)",
+      "si_value": "NANTONG, CHINA (CNNTG) [CNNTG]",
+      "bl_value": "NANTONG, CHINA (CNNTG) [CNNTG]",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "port_of_discharge",
+      "field_name": "Port of Discharge (POD)",
+      "si_value": "CALLAO, PERU (PECLL) [PECLL]",
+      "bl_value": "CALLAO, PERU (PECLL) [PECLL]",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "container_count",
+      "field_name": "Container Count",
+      "si_value": "6",
+      "bl_value": "6",
+      "is_match": true,
+      "diff_summary": "Matched"
+    },
+    {
+      "field_key": "gross_weight_kg",
+      "field_name": "Gross Weight (kg)",
+      "si_value": "142,848.00 kg",
+      "bl_value": "144,848.00 kg",
+      "is_match": false,
+      "diff_summary": "SI: 142,848.00 kg / BL: 144,848.00 kg"
+    }
+  ]
+}

@@ -246,6 +246,28 @@ def apply_human_override(payload: Dict[str, Any] = Body(...)):
             metadata=corr
         )
 
+    # Append to data/corrections.csv (append-only flat CSV)
+    try:
+        corrections_csv = os.path.join("data", "corrections.csv")
+        os.makedirs(os.path.dirname(corrections_csv), exist_ok=True)
+        is_new = not os.path.exists(corrections_csv)
+        import csv
+        with open(corrections_csv, "a", encoding="utf-8", newline="") as f:
+            writer = csv.writer(f)
+            if is_new:
+                writer.writerow(["timestamp", "email_id", "field", "original_value", "corrected_value", "reviewer"])
+            for corr in corrections:
+                writer.writerow([
+                    ts,
+                    email_id,
+                    corr.get("field", ""),
+                    corr.get("original_ai_value", ""),
+                    corr.get("corrected_value", ""),
+                    reviewer
+                ])
+    except Exception as ex:
+        print(f"Failed to append to corrections.csv: {ex}")
+
     return {"status": "success", "updated_verification": res}
 
 @app.get("/api/analytics")

@@ -262,6 +262,21 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
                           <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
                           <span>GATE: MISSING ATTACHMENT</span>
                         </span>
+                      ) : verif?.review_reason === 'scanned_not_processed' ? (
+                        <span className="bg-purple-950/80 border border-purple-500/70 text-purple-300 px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-bold shadow-sm shadow-purple-950/50">
+                          <AlertTriangle className="w-3.5 h-3.5 text-purple-400" />
+                          <span>SCANNED PDF (NO OCR)</span>
+                        </span>
+                      ) : verif?.review_reason === 'corrupted_file' ? (
+                        <span className="bg-rose-950/80 border border-rose-500/70 text-rose-300 px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-bold shadow-sm shadow-rose-950/50">
+                          <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
+                          <span>CORRUPTED FILE</span>
+                        </span>
+                      ) : verif?.review_reason === 'term_unresolved' ? (
+                        <span className="bg-indigo-950/80 border border-indigo-500/70 text-indigo-300 px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-bold shadow-sm shadow-indigo-950/50">
+                          <HelpCircle className="w-3.5 h-3.5 text-indigo-400" />
+                          <span>UNRESOLVED TERM</span>
+                        </span>
                       ) : (
                         <span className="badge-warning px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-semibold">
                           <HelpCircle className="w-3.5 h-3.5" />

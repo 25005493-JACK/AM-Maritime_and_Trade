@@ -1,58 +1,54 @@
 @import "tailwindcss";
 
 :root {
-  --bg-dark: #070a12;
-  --panel-bg: #0f172a;
-  --card-bg: #1e293b;
-  --accent-cyan: #38bdf8;
-  --accent-blue: #3b82f6;
-  --match-green: #10b981;
-  --mismatch-red: #ef4444;
-  --warning-amber: #f59e0b;
+  --font-google: 'Google Sans', 'Roboto', 'Inter', system-ui, sans-serif;
+  --gmail-bg: #f7f3eb; /* Warm light beige background */
+  --gmail-surface: #fffdfa; /* Clean warm cream white */
+  --gmail-surface-variant: #ebe4d8; /* Light beige for search bar & elevated cards */
+  --gmail-text: #2c2520; /* Deep warm espresso */
+  --gmail-text-muted: #73695f; /* Warm taupe */
+  --gmail-border: #e2dbcf; /* Warm beige border */
+  --gmail-active-pill: #e5dcce; /* Rich light beige active pill */
+  --gmail-active-pill-text: #3b2e21; /* Deep warm roast */
+  --gmail-hover: #eee8dd; /* Soft beige hover */
+  --gmail-blue: #0b57d0;
+  --gmail-blue-hover: #0842a0;
+  --gmail-compose-bg: #e8ded0; /* Warm beige Compose pill */
+  --gmail-compose-text: #33271b;
+  --gmail-card-beige: #faf7f0;
+}
+
+[data-theme="dark"] {
+  --gmail-bg: #161514;
+  --gmail-surface: #201e1d;
+  --gmail-surface-variant: #2b2826;
+  --gmail-text: #ede7e1;
+  --gmail-text-muted: #a69c92;
+  --gmail-border: #383430;
+  --gmail-active-pill: #3d352e;
+  --gmail-active-pill-text: #f0e6da;
+  --gmail-hover: #2e2b28;
+  --gmail-blue: #a8c7fa;
+  --gmail-blue-hover: #82b1ff;
+  --gmail-compose-bg: #40362c;
+  --gmail-compose-text: #f5ebe0;
+  --gmail-card-beige: #242220;
 }
 
 html, body, #root {
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100%;
   height: 100%;
-  overflow-x: auto;
-}
-
-#root {
-  min-width: 1400px;
-  width: max-content;
-}
-
-html {
-  font-size: 14px;
-}
-
-@media (max-width: 1500px) {
-  html {
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 1366px) {
-  html {
-    font-size: 12px;
-  }
-}
-
-* {
-  box-sizing: border-box;
+  overflow: hidden;
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: var(--bg-dark);
-  color: #f8fafc;
+  font-family: var(--font-google);
+  background-color: var(--gmail-bg);
+  color: var(--gmail-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: auto;
-  overflow-y: hidden;
 }
 
 .mono {

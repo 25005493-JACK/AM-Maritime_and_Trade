@@ -115,9 +115,9 @@ class Evaluator:
         defect_consistency = (mismatch_count + ok_count + needs_review_count) / max(bl_comp_count, 1) * 100.0
         stage3_score = round(min(defect_consistency, 100.0), 1)
 
-        # Reliability Metric (Accurate escalation of missing/unreadable/wrong documents)
+        # Reliability Metric (Accurate escalation of missing/unreadable/wrong documents/scanned/corrupted)
         reliability_pct = round(
-            (len(review_reasons) / 4.0 * 100.0) if len(review_reasons) <= 4 else 100.0,
+            min(100.0, (len(review_reasons) / 6.0 * 100.0)),
             1
         )
 
