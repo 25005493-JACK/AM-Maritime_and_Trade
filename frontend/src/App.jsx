@@ -14,9 +14,11 @@ export default function App() {
   const [activeTab, setActiveTab] = useState(
     () => window.location.pathname === '/dashboard' ? 'ocr_dashboard' : 'inbox'
   );
-  const [theme, setTheme] = useState(
-    () => window.localStorage.getItem('averish-theme') === 'light' ? 'light' : 'dark'
-  );
+  const [theme, setTheme] = useState(() => {
+    const initial = window.localStorage.getItem('averish-theme') === 'light' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = initial;
+    return initial;
+  });
   const [emails, setEmails] = useState([]);
   const [selectedEmailId, setSelectedEmailId] = useState(null);
   const [emailDetail, setEmailDetail] = useState(null);
