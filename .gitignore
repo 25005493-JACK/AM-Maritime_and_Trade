@@ -19,9 +19,10 @@ __pycache__/
 .idea/
 *.log
 
-# Database files
+# Database files and generated state
 *.duckdb
 *.duckdb.wal
+backend/data/calendar_google_sync.json
 
 # Office temporary lock files
 ~$*

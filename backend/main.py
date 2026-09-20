@@ -1,6 +1,8 @@
 import sys
 import os
 import re
+import csv
+import io
 from pathlib import Path
 from typing import Dict, Any, Optional, List
 
@@ -270,6 +272,25 @@ def apply_human_override(payload: Dict[str, Any] = Body(...)):
 
     return {"status": "success", "updated_verification": res}
 
+@app.get("/api/review-decisions/export")
+def export_review_decisions():
+    """Export human correction events as a reviewer audit CSV."""
+    decisions = event_logger.get_review_decisions()
+    columns = [
+        "shipment_id", "email_id", "timestamp", "reviewer_name", "field",
+        "original_ai_value", "corrected_value", "flagged_by", "linked_event_id"
+    ]
+    output = io.StringIO()
+    writer = csv.DictWriter(output, fieldnames=columns)
+    writer.writeheader()
+    writer.writerows(decisions)
+
+    return Response(
+        content=output.getvalue(),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=reviewer-decisions.csv"}
+    )
+
 @app.get("/api/analytics")
 def get_analytics():
     emails = loader.load_inbox()
@@ -331,6 +352,14 @@ def get_analytics():
         "vessel_manifests": [{"vessel": k, **v} for k, v in list(vessels.items())[:12]],
         "company_orders": [{"company": k, **v} for k, v in list(companies.items())[:12]]
     }
+
+
+@app.get("/api/ocr/dashboard")
+def get_ocr_dashboard():
+    """PDF OCR results and measured agreement with searchable PDF text."""
+    from backend.services.ocr_dashboard import build_ocr_dashboard
+
+    return build_ocr_dashboard(loader)
 
 @app.post("/submit")
 def submit_evaluation(payload: Dict[str, Any] = Body(...)):
@@ -426,6 +455,16 @@ def auto_confirm_booking(payload: Dict[str, Any] = Body(...)):
         raise HTTPException(status_code=400, detail="Missing email_id")
     res = calendar_service.confirm_auto_booking(email_id)
     return res
+
+@app.post("/api/calendar/google-link")
+def create_google_calendar_link(payload: Dict[str, Any] = Body(...)):
+    vessel_id = payload.get("vessel_id")
+    if not vessel_id:
+        raise HTTPException(status_code=400, detail="Missing vessel_id")
+    result = calendar_service.create_google_calendar_link(vessel_id)
+    if result.get("status") == "error":
+        raise HTTPException(status_code=404, detail=result["message"])
+    return result
 
 # ── Shipment ID helpers ─────────────────────────────────────────────────────
 

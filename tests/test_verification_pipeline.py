@@ -121,5 +121,82 @@ class TestVerificationPipeline(unittest.TestCase):
         self.assertTrue(all("Hamburg" in v["destination_port"] for v in hamburg_vessels))
         self.assertFalse(any(v["vessel_name"] == "MSC ISABELLA" for v in hamburg_vessels))
 
+    def test_formatting_vs_real_discrepancy(self):
+        si_text = """
+        Shipper: APRIL FINE PAPER TRADING
+          ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD
+        Consignee: KPP-ANTALIS (SINGAPORE) PTE. LTD.
+        Notify Party: ASIA PACIFIC PAPERBOARD LOGISTICS PTE LTD
+        Port of Loading: Singapore (SGSIN)
+        Port of Discharge: Nhava Sheva, India
+        Container Count: 1 x 20'FCL
+        Gross Weight: 22.0 MT
+        """
+        bl_text = """
+        Shipper: APRIL FINE PAPER TRADING
+        Consignee: KPP-ANTALIS (SINGAPORE) PTE LTD
+        Notify Party: ASIA PACIFIC PAPERBOARD LOGISTICS PTE LTD
+        Port of Loading: Singapore (SGSIN)
+        Port of Discharge: Nhava Sheva, India (INNSA)
+        Container Count: 1
+        Gross Weight: 22000 kg
+        """
+        comp = comparator.compare_documents(si_text, bl_text)
+        self.assertEqual(comp["status"], "OK")
+        self.assertFalse(comp["has_defect"])
+        
+        # Check matrix fields
+        matrix_by_key = {row["field_key"]: row for row in comp["field_matrix"]}
+        
+        # Shipper should be normalized match
+        self.assertTrue(matrix_by_key["shipper"]["is_match"])
+        self.assertIn(matrix_by_key["shipper"]["match_type"], ["EXACT", "NORMALIZED"])
+        
+        # Consignee should match (legal suffix normalized)
+        self.assertTrue(matrix_by_key["consignee"]["is_match"])
+        
+        # Port with LOCODE vs without LOCODE should match
+        self.assertTrue(matrix_by_key["port_of_discharge"]["is_match"])
+        self.assertEqual(matrix_by_key["port_of_discharge"]["match_type"], "NORMALIZED")
+        self.assertTrue(matrix_by_key["port_of_discharge"]["is_formatting_difference"])
+        
+        # Weight MT to KG should match
+        self.assertTrue(matrix_by_key["gross_weight_kg"]["is_match"])
+        self.assertIn(matrix_by_key["gross_weight_kg"]["match_type"], ["EXACT", "NORMALIZED"])
+        
+        # Test unit difference absorbed by comparator when unnormalized numbers passed
+        _, _, _, wt_meta = comparator._compare_weight("22 MT", "22000 KG")
+        self.assertEqual(wt_meta["match_type"], "NORMALIZED")
+        self.assertTrue(wt_meta["is_formatting_difference"])
+
+    def test_real_discrepancy_flagged(self):
+        si_text = """
+        Shipper: APRIL FINE PAPER TRADING
+        Consignee: KPP-ANTALIS (SINGAPORE) PTE LTD
+        Notify Party: ASIA PACIFIC PAPERBOARD
+        Port of Loading: Singapore (SGSIN)
+        Port of Discharge: Nhava Sheva, India
+        Container Count: 1
+        Gross Weight: 22000 kg
+        """
+        bl_text = """
+        Shipper: ASIA PACIFIC PAPERBOARD TRADING
+        Consignee: EAST BRIGHT FZ-LLC
+        Notify Party: ASIA PACIFIC PAPERBOARD
+        Port of Loading: Singapore (SGSIN)
+        Port of Discharge: Hochiminh City, Vietnam
+        Container Count: 3
+        Gross Weight: 45000 kg
+        """
+        comp = comparator.compare_documents(si_text, bl_text)
+        self.assertEqual(comp["status"], "MISMATCH")
+        self.assertTrue(comp["has_defect"])
+        self.assertIn("shipper", comp["defect_fields"])
+        self.assertIn("consignee", comp["defect_fields"])
+        self.assertIn("port_of_discharge", comp["defect_fields"])
+        self.assertIn("container_count", comp["defect_fields"])
+        self.assertIn("gross_weight_kg", comp["defect_fields"])
+
 if __name__ == "__main__":
     unittest.main()
+

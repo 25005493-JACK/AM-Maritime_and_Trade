@@ -16,10 +16,23 @@ import {
   ExternalLink,
   Tag,
   Copy,
-  Paperclip
+  Paperclip,
+  Info
 } from 'lucide-react';
 
-export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal, onShowToast }) {
+export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOverrideModal, onShowToast }) {
+  if (isLoading) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center p-8 text-slate-400 bg-slate-950">
+        <div className="w-12 h-12 rounded-2xl border border-cyan-500/30 bg-cyan-950/30 flex items-center justify-center mb-4">
+          <FileCheck2 className="w-6 h-6 text-cyan-400 animate-pulse" />
+        </div>
+        <h3 className="text-sm font-semibold text-slate-200">Loading document comparison</h3>
+        <p className="text-xs text-slate-500 mt-1">Preparing extracted fields and verification results...</p>
+      </div>
+    );
+  }
+
   if (!emailDetail) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8 text-slate-500 bg-slate-950">
@@ -74,7 +87,7 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal,
   };
 
   return (
-    <div className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950">
+    <div className="flex-1 flex flex-col min-h-0 h-full overflow-hidden bg-slate-950">
       {/* Inspector Top Header Bar */}
       <div className="p-4 border-b border-slate-800 glass-panel flex items-center justify-between gap-4">
         <div>
@@ -141,7 +154,7 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal,
       </div>
 
       {/* Main Split Inspector Body */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-4">
         {/* Defect Chips Summary (If MISMATCH) */}
         {verif.defect_fields && verif.defect_fields.length > 0 && (
           <div className="p-3.5 rounded-xl bg-rose-950/30 border border-rose-500/40 flex items-center justify-between">
@@ -432,63 +445,122 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal,
                     : "7-Field Comparison Matrix (SI Reference vs Draft BL)"}
                 </span>
               </h3>
-              <span className="text-xs font-mono text-slate-400">
-                {isMissingAttachment ? "Comparison Halted • Safety Guard" : "SI Reference Standard = Baseline"}
-              </span>
+              <div className="flex items-center space-x-3 text-[11px] font-mono">
+                <span className="flex items-center space-x-1 text-emerald-400"><span className="w-2 h-2 rounded-full bg-emerald-500"></span><span>Exact</span></span>
+                <span className="flex items-center space-x-1 text-sky-400"><span className="w-2 h-2 rounded-full bg-sky-500"></span><span>Normalized</span></span>
+                <span className="flex items-center space-x-1 text-amber-400"><span className="w-2 h-2 rounded-full bg-amber-500"></span><span>Fuzzy/Review</span></span>
+                <span className="flex items-center space-x-1 text-rose-400"><span className="w-2 h-2 rounded-full bg-rose-500"></span><span>Mismatch</span></span>
+              </div>
             </div>
 
             <div className="divide-y divide-slate-800/80 text-xs">
-              {verif.field_matrix.map((row) => (
-                <div 
-                  key={row.field_key}
-                  className={`grid grid-cols-12 p-3 items-center transition ${
-                    !row.is_match && status === 'MISMATCH' 
-                      ? 'bg-rose-950/20 border-l-4 border-l-rose-500' 
-                      : !row.is_match && status === 'NEEDS_REVIEW'
-                      ? 'bg-amber-950/15 border-l-4 border-l-amber-500'
-                      : 'hover:bg-slate-900/40'
-                  }`}
-                >
-                  <div className="col-span-3 font-semibold text-slate-300 flex items-center space-x-2">
-                    <span className="text-xs text-slate-300">{row.field_name}</span>
-                  </div>
+              {verif.field_matrix.map((row) => {
+                const matchType = row.match_type || (row.is_match ? 'EXACT' : (status === 'NEEDS_REVIEW' ? 'REVIEW' : 'MISMATCH'));
+                const isNormalized = matchType === 'NORMALIZED' || (row.is_match && row.is_formatting_difference);
+                const isFuzzy = matchType === 'FUZZY';
+                const isExact = matchType === 'EXACT' && row.is_match;
+                const isMismatch = !row.is_match && (matchType === 'MISMATCH' || status === 'MISMATCH');
+                const isReview = !row.is_match && (matchType === 'MISSING' || matchType === 'REVIEW' || matchType === 'PENDING' || status === 'NEEDS_REVIEW');
 
-                  <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 truncate">
-                    <span className="text-[10px] text-slate-500 block uppercase font-sans font-bold">SI Reference Value</span>
-                    <strong className="text-slate-100">{row.si_value}</strong>
-                  </div>
+                let rowBorderClass = 'hover:bg-slate-900/40 border-l-4 border-l-transparent';
+                if (isMismatch) {
+                  rowBorderClass = 'bg-rose-950/20 border-l-4 border-l-rose-500';
+                } else if (isNormalized) {
+                  rowBorderClass = 'bg-sky-950/15 border-l-4 border-l-sky-500';
+                } else if (isFuzzy) {
+                  rowBorderClass = 'bg-amber-950/15 border-l-4 border-l-amber-500';
+                } else if (isReview) {
+                  rowBorderClass = 'bg-amber-950/10 border-l-4 border-l-amber-500/80';
+                } else if (isExact) {
+                  rowBorderClass = 'hover:bg-slate-900/40 border-l-4 border-l-emerald-500/60';
+                }
 
-                  <div className="col-span-1 flex justify-center">
-                    <ArrowRight className={`w-4 h-4 ${!row.is_match ? 'text-rose-400' : 'text-slate-600'}`} />
-                  </div>
+                return (
+                  <div 
+                    key={row.field_key}
+                    className={`p-3 transition ${rowBorderClass}`}
+                  >
+                    <div className="grid grid-cols-12 items-center">
+                      <div className="col-span-3 font-semibold text-slate-300 flex items-center space-x-2">
+                        <span className="text-xs text-slate-200">{row.field_name}</span>
+                      </div>
 
-                  <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 truncate flex items-center justify-between">
-                    <div className="truncate mr-2">
-                      <span className="text-[10px] text-slate-500 block uppercase font-sans font-bold">Draft BL Value</span>
-                      <strong className={!row.is_match && status === 'MISMATCH' ? 'text-rose-400 font-bold' : 'text-slate-100'}>
-                        {row.bl_value}
-                      </strong>
+                      <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 truncate">
+                        <span className="text-[10px] text-slate-500 block uppercase font-sans font-bold">SI Reference Value</span>
+                        <strong className="text-slate-100">{row.si_value}</strong>
+                      </div>
+
+                      <div className="col-span-1 flex justify-center">
+                        <ArrowRight className={`w-4 h-4 ${!row.is_match ? (isReview ? 'text-amber-400' : 'text-rose-400') : (isNormalized ? 'text-sky-400' : isFuzzy ? 'text-amber-400' : 'text-emerald-500')}`} />
+                      </div>
+
+                      <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 truncate flex items-center justify-between">
+                        <div className="truncate mr-2">
+                          <span className="text-[10px] text-slate-500 block uppercase font-sans font-bold">Draft BL Value</span>
+                          <strong className={isMismatch ? 'text-rose-400 font-bold' : (isNormalized ? 'text-sky-200' : isFuzzy ? 'text-amber-200' : 'text-slate-100')}>
+                            {row.bl_value}
+                          </strong>
+                        </div>
+
+                        {/* Match Type Badge */}
+                        {isExact && (
+                          <span className="badge-match px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 font-semibold shadow-sm">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                            <span>EXACT ✓</span>
+                          </span>
+                        )}
+                        {isNormalized && (
+                          <span className="bg-sky-950/90 text-sky-300 border border-sky-600/70 px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 font-semibold shadow-sm">
+                            <Sparkles className="w-3 h-3 text-sky-400" />
+                            <span>NORMALIZED ≈</span>
+                          </span>
+                        )}
+                        {isFuzzy && (
+                          <span className="bg-amber-950/90 text-amber-300 border border-amber-600/70 px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 font-semibold shadow-sm">
+                            <HelpCircle className="w-3 h-3 text-amber-400" />
+                            <span>FUZZY ?</span>
+                          </span>
+                        )}
+                        {isMismatch && (
+                          <span className="badge-mismatch px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 mismatch-glow font-semibold shadow-sm">
+                            <XCircle className="w-3 h-3 text-rose-400" />
+                            <span>MISMATCH ✗</span>
+                          </span>
+                        )}
+                        {isReview && !isMismatch && !row.is_match && (
+                          <span className="badge-warning px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 font-semibold shadow-sm">
+                            <AlertTriangle className="w-3 h-3 text-amber-400" />
+                            <span>{matchType === 'MISSING' ? 'MISSING' : 'REVIEW'}</span>
+                          </span>
+                        )}
+                      </div>
                     </div>
 
-                    {row.is_match ? (
-                      <span className="badge-match px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0">
-                        <CheckCircle2 className="w-3 h-3" />
-                        <span>MATCH</span>
-                      </span>
-                    ) : status === 'NEEDS_REVIEW' ? (
-                      <span className="badge-warning px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0">
-                        <HelpCircle className="w-3 h-3" />
-                        <span>REVIEW</span>
-                      </span>
-                    ) : (
-                      <span className="badge-mismatch px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 mismatch-glow">
-                        <XCircle className="w-3 h-3" />
-                        <span>DIFF</span>
-                      </span>
+                    {/* Discrepancy / Normalization Note Pill */}
+                    {row.normalization_notes && (
+                      <div className="mt-2 ml-1 flex items-center space-x-2">
+                        <div className={`flex items-center space-x-1.5 text-[11px] font-mono px-2 py-0.5 rounded border w-fit ${
+                          isNormalized
+                            ? 'bg-sky-950/60 text-sky-300 border-sky-800/60'
+                            : isFuzzy
+                            ? 'bg-amber-950/60 text-amber-300 border-amber-800/60'
+                            : isMismatch
+                            ? 'bg-rose-950/50 text-rose-300 border-rose-800/60'
+                            : 'bg-slate-900 text-slate-400 border-slate-800'
+                        }`}>
+                          <Info className="w-3 h-3 shrink-0 text-cyan-400" />
+                          <span>{row.normalization_notes}</span>
+                        </div>
+                        {row.is_formatting_difference && (
+                          <span className="text-[10px] text-emerald-400/90 font-sans font-medium">
+                            • Format difference absorbed (Not flagged as discrepancy)
+                          </span>
+                        )}
+                      </div>
                     )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

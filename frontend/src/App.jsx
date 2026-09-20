@@ -1,43 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import GmailHeader from './components/GmailHeader.jsx';
-import GmailSidebar from './components/GmailSidebar.jsx';
-import GmailInbox from './components/GmailInbox.jsx';
-import GmailComposeModal from './components/GmailComposeModal.jsx';
-import GmailSettingsModal from './components/GmailSettingsModal.jsx';
-import GoogleAppsMenu from './components/GoogleAppsMenu.jsx';
+import Sidebar from './components/Sidebar.jsx';
+import InboxFeed from './components/InboxFeed.jsx';
+import ShipmentWorkspace from './components/ShipmentWorkspace.jsx';
 import SplitScreenInspector from './components/SplitScreenInspector.jsx';
 import HumanReviewModal from './components/HumanReviewModal.jsx';
 import AnalyticsDashboard from './components/AnalyticsDashboard.jsx';
 import SelfEvaluationView from './components/SelfEvaluationView.jsx';
 import VesselCalendar from './components/VesselCalendar.jsx';
 import TimelineWheel from './components/TimelineWheel.jsx';
+import OcrDashboard from './components/OcrDashboard.jsx';
+import { Download } from 'lucide-react';
 
 export default function App() {
-  // Navigation & View States
-  const [activeTab, setActiveTab] = useState('inbox');
-  const [selectedCategory, setSelectedCategory] = useState('ALL');
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [previewPaneMode, setPreviewPaneMode] = useState('vertical'); // 'vertical', 'horizontal', 'none'
-  const [theme, setTheme] = useState('light'); // Default to authentic Google Workspace Light
-  const [pageSize, setPageSize] = useState(25);
-
-  // Search & Modals
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isComposeOpen, setIsComposeOpen] = useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [isAppsMenuOpen, setIsAppsMenuOpen] = useState(false);
-  const [showOverrideModal, setShowOverrideModal] = useState(false);
-
-  // Data States
+  const [activeTab, setActiveTab] = useState(
+    () => window.location.pathname === '/dashboard' ? 'ocr_dashboard' : 'inbox'
+  );
+  const [theme, setTheme] = useState(() => {
+    const initial = window.localStorage.getItem('averish-theme') === 'light' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = initial;
+    return initial;
+  });
   const [emails, setEmails] = useState([]);
+  const [loadingEmails, setLoadingEmails] = useState(true);
   const [selectedEmailId, setSelectedEmailId] = useState(null);
   const [emailDetail, setEmailDetail] = useState(null);
+  const [loadingEmailDetail, setLoadingEmailDetail] = useState(false);
   const [analytics, setAnalytics] = useState(null);
   const [evaluationData, setEvaluationData] = useState(null);
   const [loadingEval, setLoadingEval] = useState(false);
+  const [showOverrideModal, setShowOverrideModal] = useState(false);
 
   // Toast Notification State
   const [toast, setToast] = useState(null);
+
   const showToast = (message, type = 'info') => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 4000);
@@ -46,14 +41,32 @@ export default function App() {
   // Calendar State
   const [calendarData, setCalendarData] = useState(null);
   const [selectedPort, setSelectedPort] = useState('ALL');
+  const isOcrDashboard = activeTab === 'ocr_dashboard';
 
-  // Set theme attribute on root
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem('averish-theme', theme);
   }, [theme]);
+
+  const navigateTo = (tab) => {
+    setActiveTab(tab);
+    const nextPath = tab === 'ocr_dashboard' ? '/dashboard' : '/';
+    if (window.location.pathname !== nextPath) {
+      window.history.pushState({}, '', nextPath);
+    }
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setActiveTab(window.location.pathname === '/dashboard' ? 'ocr_dashboard' : 'inbox');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Fetch emails list
   const fetchEmails = async () => {
+    setLoadingEmails(true);
     try {
       const res = await fetch('/api/emails');
       if (res.ok) {
@@ -65,12 +78,19 @@ export default function App() {
       }
     } catch (err) {
       console.error('Failed to fetch emails:', err);
+    } finally {
+      setLoadingEmails(false);
     }
   };
 
   // Fetch email detail
   const fetchEmailDetail = async (id) => {
-    if (!id) return;
+    if (!id) {
+      setLoadingEmailDetail(false);
+      return;
+    }
+    setLoadingEmailDetail(true);
+    setEmailDetail(null);
     try {
       const res = await fetch(`/api/emails/${id}`);
       if (res.ok) {
@@ -79,6 +99,8 @@ export default function App() {
       }
     } catch (err) {
       console.error('Failed to fetch email detail:', err);
+    } finally {
+      setLoadingEmailDetail(false);
     }
   };
 
@@ -95,7 +117,7 @@ export default function App() {
     }
   };
 
-  // Fetch Calendar Data
+  // Fetch Calendar Data (supports port filter)
   const fetchCalendar = async (port = selectedPort) => {
     try {
       const url = port && port !== 'ALL' ? `/api/calendar?port=${encodeURIComponent(port)}` : '/api/calendar';
@@ -123,7 +145,6 @@ export default function App() {
       });
       if (res.ok) {
         await fetchCalendar(selectedPort);
-        showToast('Container assigned to vessel schedule', 'success');
       }
     } catch (err) {
       console.error('Failed to assign container:', err);
@@ -139,11 +160,22 @@ export default function App() {
       });
       if (res.ok) {
         await fetchCalendar(selectedPort);
-        showToast(`Auto-confirmed booking for ${emailId}`, 'success');
       }
     } catch (err) {
       console.error('Failed to auto confirm booking:', err);
     }
+  };
+
+  const handleGoogleCalendarLink = async (vesselId) => {
+    const res = await fetch('/api/calendar/google-link', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ vessel_id: vesselId })
+    });
+    if (!res.ok) throw new Error('Failed to prepare Google Calendar event');
+    const data = await res.json();
+    await fetchCalendar(selectedPort);
+    return data;
   };
 
   // Run self evaluation
@@ -154,7 +186,6 @@ export default function App() {
       if (res.ok) {
         const data = await res.json();
         setEvaluationData(data);
-        showToast('Self-evaluation benchmark complete', 'success');
       }
     } catch (err) {
       console.error('Failed to run self evaluate:', err);
@@ -163,7 +194,7 @@ export default function App() {
     }
   };
 
-  // Save Human Override
+  // Save Human-in-the-Loop Override
   const handleSaveOverride = async (emailId, siOverrides, blOverrides) => {
     try {
       const res = await fetch('/api/override', {
@@ -181,23 +212,18 @@ export default function App() {
         await fetchEmailDetail(emailId);
         await fetchAnalytics();
         setShowOverrideModal(false);
-        showToast(`Human correction saved for ${emailId}`, 'success');
       }
     } catch (err) {
       console.error('Failed to save override:', err);
     }
   };
 
-  // Send Email simulation from Compose Modal
-  const handleSendEmail = ({ to, subject, body, attachments }) => {
-    showToast(`Message sent to ${to || 'Recipient'}`, 'info');
-  };
-
   useEffect(() => {
+    if (isOcrDashboard) return;
     fetchEmails();
     fetchAnalytics();
     fetchCalendar('ALL');
-  }, []);
+  }, [isOcrDashboard]);
 
   useEffect(() => {
     if (selectedEmailId) {
@@ -205,212 +231,147 @@ export default function App() {
     }
   }, [selectedEmailId]);
 
-  // Filter emails by global search term
-  const searchedEmails = emails.filter((email) => {
-    if (!searchTerm.trim()) return true;
-    const q = searchTerm.toLowerCase();
-    return (
-      email.id.toLowerCase().includes(q) ||
-      email.subject.toLowerCase().includes(q) ||
-      email.sender.toLowerCase().includes(q) ||
-      (email.company && email.company.toLowerCase().includes(q)) ||
-      (email.vessel && email.vessel.toLowerCase().includes(q))
-    );
-  });
-
   return (
-    <div 
-      className="flex flex-col h-screen w-screen overflow-hidden font-sans transition-colors duration-200 select-none"
-      style={{
-        backgroundColor: 'var(--gmail-bg)',
-        color: 'var(--gmail-text)'
-      }}
-    >
-      {/* 1. Authentic Gmail Top Header */}
-      <GmailHeader
-        sidebarCollapsed={sidebarCollapsed}
-        setSidebarCollapsed={setSidebarCollapsed}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        onOpenSettings={() => setIsSettingsOpen(true)}
-        onOpenApps={() => setIsAppsMenuOpen(!isAppsMenuOpen)}
-        theme={theme}
-        setTheme={setTheme}
+    <div className="flex h-dvh w-full min-w-0 bg-slate-950 text-slate-100 font-sans overflow-hidden">
+      {/* Navigation Sidebar */}
+      <Sidebar
+        activeTab={activeTab}
+        setActiveTab={navigateTo}
         stats={analytics?.summary_stats}
+        theme={theme}
+        onToggleTheme={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}
+        isRefreshing={loadingEmails}
+        onRefresh={() => {
+          fetchEmails();
+          fetchAnalytics();
+          fetchCalendar(selectedPort);
+        }}
       />
 
-      {/* 2. Main Workspace Layout */}
-      <div className="flex-1 flex overflow-hidden">
-        
-        {/* Authentic Gmail Left Sidebar */}
-        <GmailSidebar
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          stats={analytics?.summary_stats}
-          collapsed={sidebarCollapsed}
-          onOpenCompose={() => setIsComposeOpen(true)}
-        />
-
-        {/* Content View Routing */}
-        <main className="flex-1 flex overflow-hidden">
-          
-          {/* A. GMAIL INBOX VIEW */}
-          {activeTab === 'inbox' && (
-            <GmailInbox
-              emails={searchedEmails}
+      {/* Main Active Tab Container */}
+      <main className="flex-1 flex min-w-0 overflow-hidden">
+        {activeTab === 'inbox' && (
+          <div className="flex-1 flex min-w-0">
+            <InboxFeed
+              emails={emails}
+              isLoading={loadingEmails}
               selectedEmailId={selectedEmailId}
               onSelectEmail={(id) => setSelectedEmailId(id)}
-              emailDetail={emailDetail}
-              onOpenInspector={() => setActiveTab('inspector')}
-              onOpenOverrideModal={() => setShowOverrideModal(true)}
-              onRefresh={() => {
-                fetchEmails();
-                fetchAnalytics();
-              }}
-              previewPaneMode={previewPaneMode}
-              setPreviewPaneMode={setPreviewPaneMode}
-              showToast={showToast}
+              onOpenInspector={() => navigateTo('inspector')}
             />
-          )}
-
-          {/* B. SI VS BL INSPECTOR */}
-          {activeTab === 'inspector' && (
-            <div className="flex-1 flex overflow-hidden">
+            {/* Embedded Inspector Panel on Wide Screens */}
+            <div className="hidden 2xl:flex w-[min(36vw,34rem)] min-w-[360px] border-l border-slate-800">
               <SplitScreenInspector
                 emailDetail={emailDetail}
+                isLoading={loadingEmailDetail}
                 onOpenOverrideModal={() => setShowOverrideModal(true)}
                 onShowToast={showToast}
               />
             </div>
-          )}
+          </div>
+        )}
 
-          {/* C. SHIPMENT TIMELINE VIEW */}
-          {activeTab === 'timeline' && (
-            <div className="flex-1 flex overflow-hidden">
-              <TimelineWheel />
-            </div>
-          )}
+        {activeTab === 'workspace' && (
+          <ShipmentWorkspace
+            emailDetail={emailDetail}
+            calendarData={calendarData}
+            isLoading={loadingEmailDetail || loadingEmails}
+            onOpenInspector={() => navigateTo('inspector')}
+            onOpenOverride={() => setShowOverrideModal(true)}
+            onOpenCalendar={() => navigateTo('calendar')}
+          />
+        )}
 
-          {/* D. VESSEL CALENDAR */}
-          {activeTab === 'calendar' && (
-            <div className="flex-1 flex overflow-hidden">
-              <VesselCalendar
-                calendarData={calendarData}
-                selectedPort={selectedPort}
-                onPortChange={handlePortChange}
-                onAssignContainer={handleAssignContainer}
-                onAutoConfirmBooking={handleAutoConfirmBooking}
-              />
-            </div>
-          )}
+        {activeTab === 'inspector' && (
+          <SplitScreenInspector
+            emailDetail={emailDetail}
+            isLoading={loadingEmailDetail}
+            onOpenOverrideModal={() => setShowOverrideModal(true)}
+            onShowToast={showToast}
+          />
+        )}
 
-          {/* E. HUMAN REVIEW QUEUE */}
-          {activeTab === 'human_review' && (
-            <div className="flex-1 p-6 overflow-y-auto" style={{ backgroundColor: 'var(--gmail-surface)' }}>
-              <div className="max-w-5xl mx-auto">
-                <div className="mb-6 pb-4 border-b" style={{ borderColor: 'var(--gmail-border)' }}>
-                  <h2 className="text-xl font-normal text-slate-900 dark:text-slate-100 tracking-tight" style={{ fontFamily: 'Google Sans, Roboto, sans-serif' }}>
-                    Human-in-the-Loop Review Queue
-                  </h2>
-                  <p className="text-xs text-slate-500 mt-1">
-                    Messages flagged by AI due to OCR legibility issues, missing mandatory trade fields, or cross-document discrepancies.
-                  </p>
-                </div>
+        {activeTab === 'timeline' && (
+          <TimelineWheel theme={theme} />
+        )}
 
-                <div className="grid grid-cols-2 gap-4">
-                  {emails
-                    .filter((e) => e.verification?.status === 'NEEDS_REVIEW' || e.verification?.status === 'HUMAN_REVIEW_REQUIRED')
-                    .map((email) => (
-                      <div 
-                        key={email.id} 
-                        className="p-5 rounded-2xl border shadow-xs transition hover:shadow-md"
-                        style={{
-                          backgroundColor: 'var(--gmail-bg)',
-                          borderColor: 'var(--gmail-border)'
-                        }}
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30">
-                            {email.id}
-                          </span>
-                          <span className="text-xs text-slate-500">{email.sender}</span>
-                        </div>
-                        <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">
-                          {email.subject}
-                        </h3>
-                        <p className="text-xs text-amber-700 dark:text-amber-300 font-mono bg-amber-50 dark:bg-amber-950/40 p-2.5 rounded-lg mb-4 border border-amber-200 dark:border-amber-900/40">
-                          Flag: {email.verification?.human_review_reasons?.join(' | ') || email.verification?.review_reason || 'Gate condition triggered'}
-                        </p>
-                        <button
-                          onClick={() => {
-                            setSelectedEmailId(email.id);
-                            setShowOverrideModal(true);
-                          }}
-                          className="w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs rounded-xl shadow-xs transition cursor-pointer"
-                        >
-                          Review & Override Extracted Fields
-                        </button>
-                      </div>
-                    ))}
-                </div>
+        {activeTab === 'calendar' && (
+          <VesselCalendar
+            calendarData={calendarData}
+            selectedPort={selectedPort}
+            onPortChange={handlePortChange}
+            onAssignContainer={handleAssignContainer}
+            onAutoConfirmBooking={handleAutoConfirmBooking}
+            onCreateGoogleCalendarEvent={handleGoogleCalendarLink}
+            onShowToast={showToast}
+          />
+        )}
+
+        {activeTab === 'human_review' && (
+          <div className="flex-1 p-6 overflow-y-auto bg-slate-950">
+            <div className="flex items-start justify-between gap-4 mb-6">
+              <div>
+                <h2 className="text-lg font-bold text-slate-100 mb-2">Human-in-the-Loop Review Queue</h2>
+                <p className="text-xs text-slate-400">
+                  Messages escalated due to damaged OCR text, missing required fields, or low confidence extraction.
+                </p>
               </div>
+              <a
+                href="/api/review-decisions/export"
+                download="reviewer-decisions.csv"
+                className="shrink-0 inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold transition"
+                title="Download reviewer decision log"
+              >
+                <Download className="w-4 h-4" />
+                <span>Export Decision Log</span>
+              </a>
             </div>
-          )}
-
-          {/* F. ANALYTICS */}
-          {activeTab === 'analytics' && (
-            <div className="flex-1 overflow-y-auto">
-              <AnalyticsDashboard analytics={analytics} />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {emails
+                .filter((e) => e.verification?.status === 'NEEDS_REVIEW' || e.verification?.status === 'HUMAN_REVIEW_REQUIRED')
+                .map((email) => (
+                  <div key={email.id} className="glass-card p-4 rounded-xl border border-amber-500/40">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-xs text-amber-400 font-bold">{email.id}</span>
+                      <span className="text-xs text-slate-400">{email.sender}</span>
+                    </div>
+                    <h3 className="text-sm font-semibold text-slate-100 mb-2">{email.subject}</h3>
+                    <p className="text-xs text-amber-300 font-mono bg-amber-950/40 p-2 rounded mb-3">
+                      Reason: {email.verification?.human_review_reasons?.join(' | ')}
+                    </p>
+                    <button
+                      onClick={() => {
+                        setSelectedEmailId(email.id);
+                        setShowOverrideModal(true);
+                      }}
+                      className="w-full py-2 bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs rounded-lg transition"
+                    >
+                      Review & Override Fields
+                    </button>
+                  </div>
+                ))}
             </div>
-          )}
+          </div>
+        )}
 
-          {/* G. EVALUATION BENCHMARK */}
-          {activeTab === 'benchmark' && (
-            <div className="flex-1 overflow-y-auto">
-              <SelfEvaluationView
-                onRunSelfEvaluate={handleRunSelfEvaluate}
-                evaluationData={evaluationData}
-                loading={loadingEval}
-              />
-            </div>
-          )}
+        {activeTab === 'analytics' && (
+          <AnalyticsDashboard analytics={analytics} />
+        )}
 
-        </main>
-      </div>
+        {activeTab === 'ocr_dashboard' && (
+          <OcrDashboard />
+        )}
 
-      {/* 3. Floating Gmail Compose Modal (Bottom Right) */}
-      <GmailComposeModal
-        isOpen={isComposeOpen}
-        onClose={() => setIsComposeOpen(false)}
-        onSendEmail={handleSendEmail}
-      />
+        {activeTab === 'benchmark' && (
+          <SelfEvaluationView
+            onRunSelfEvaluate={handleRunSelfEvaluate}
+            evaluationData={evaluationData}
+            loading={loadingEval}
+          />
+        )}
+      </main>
 
-      {/* 4. Google 9-dot Waffle Menu Dropdown */}
-      <GoogleAppsMenu
-        isOpen={isAppsMenuOpen}
-        onClose={() => setIsAppsMenuOpen(false)}
-        onSelectApp={(appId) => setActiveTab(appId)}
-        onOpenSettings={() => {
-          setIsSettingsOpen(true);
-          setIsAppsMenuOpen(false);
-        }}
-      />
-
-      {/* 5. Authentic Gmail Settings Modal (From Screenshot) */}
-      <GmailSettingsModal
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-        previewPaneMode={previewPaneMode}
-        setPreviewPaneMode={setPreviewPaneMode}
-        theme={theme}
-        setTheme={setTheme}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-      />
-
-      {/* 6. Human Review Override Modal */}
+      {/* Human Review Override Modal */}
       {showOverrideModal && (
         <HumanReviewModal
           emailDetail={emailDetail}
@@ -419,21 +380,20 @@ export default function App() {
         />
       )}
 
-      {/* 7. Authentic Gmail Toast Alert (Bottom Left / Right) */}
+      {/* Interactive Toast Notification Banner */}
       {toast && (
-        <div className="fixed bottom-6 left-6 z-50 animate-in slide-in-from-bottom-3 duration-200">
-          <div className="px-5 py-3 rounded-lg shadow-xl font-medium text-xs flex items-center space-x-3 bg-[#1f1f1f] text-white border border-slate-700">
+        <div className="fixed bottom-6 right-6 z-50 animate-bounce duration-300">
+          <div className={`px-4 py-3 rounded-xl shadow-2xl font-medium text-xs border flex items-center space-x-2 backdrop-blur-md ${
+            toast.type === 'success' 
+              ? 'bg-emerald-950/90 text-emerald-300 border-emerald-500/50 shadow-emerald-950/60'
+              : toast.type === 'warning'
+              ? 'bg-amber-950/90 text-amber-300 border-amber-500/50 shadow-amber-950/60'
+              : 'bg-cyan-950/90 text-cyan-300 border-cyan-500/50 shadow-cyan-950/60'
+          }`}>
             <span>{toast.message}</span>
-            <button 
-              onClick={() => setToast(null)}
-              className="text-blue-400 font-semibold hover:underline cursor-pointer"
-            >
-              Dismiss
-            </button>
           </div>
         </div>
       )}
-
     </div>
   );
 }

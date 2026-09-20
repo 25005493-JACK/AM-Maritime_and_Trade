@@ -204,6 +204,44 @@ class EventLogger:
             print(f"[EventLogger] Failed to fetch events for shipment {shipment_id}: {ex}")
             return []
 
+    def get_review_decisions(self) -> List[Dict[str, Any]]:
+        """Fetch human correction events for reviewer audit exports."""
+        conn = _get_connection()
+        if conn is None:
+            return []
+
+        try:
+            rows = conn.execute("""
+                SELECT shipment_id, email_id, timestamp, actor_name,
+                       related_field, linked_event_id, metadata
+                FROM shipment_timeline_events
+                WHERE stage = 'review' AND actor = 'human'
+                ORDER BY timestamp DESC
+            """).fetchall()
+
+            decisions = []
+            for shipment_id, email_id, timestamp, actor_name, related_field, linked_event_id, metadata in rows:
+                try:
+                    details = json.loads(metadata) if isinstance(metadata, str) else (metadata or {})
+                except json.JSONDecodeError:
+                    details = {}
+
+                decisions.append({
+                    "shipment_id": shipment_id,
+                    "email_id": email_id,
+                    "timestamp": timestamp.isoformat() if hasattr(timestamp, "isoformat") else str(timestamp or ""),
+                    "reviewer_name": actor_name,
+                    "field": related_field,
+                    "original_ai_value": details.get("original_ai_value", ""),
+                    "corrected_value": details.get("corrected_value", ""),
+                    "flagged_by": details.get("flagged_by", "AI comparison"),
+                    "linked_event_id": linked_event_id or ""
+                })
+            return decisions
+        except Exception as ex:
+            print(f"[EventLogger] Failed to fetch review decisions: {ex}")
+            return []
+
     def get_events(self, limit: int = 100, offset: int = 0) -> List[Dict[str, Any]]:
         """Fetch paginated event log."""
         conn = _get_connection()

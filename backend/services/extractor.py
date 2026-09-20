@@ -87,7 +87,15 @@ class DocumentExtractor:
     Extracts shipping document fields from SI and draft BL documents.
     Routes attachment processing by file extension (.txt, .docx, .xlsx, .pdf).
     """
-
+    HEADER_MAP = [
+        (re.compile(r'^(?:shipper/exporter|shipper\s*\([^\)]*\)|shipper|exporter)\s*[:\-\)]?\s*', re.I), 'shipper'),
+        (re.compile(r'^(?:consignee\s*\([^\)]*\)|consignee\s*/\s*importer|to\s*the\s*order\s*of|consignee)\s*[:\-\)]?\s*', re.I), 'consignee'),
+        (re.compile(r'^(?:notify\s*party/intermediate\s*consignee|notify\s*party\s*\([^\)]*\)|notify\s*party|notify\s*address|notify)\s*[:\-\)]?\s*', re.I), 'notify_party'),
+        (re.compile(r'^(?:port\s*of\s*loading\s*\([^\)]*\)|port\s*of\s*loading|load\s*port|pol|place\s*of\s*loading)\s*[:\-\)]?\s*', re.I), 'port_of_loading'),
+        (re.compile(r'^(?:port\s*of\s*discharge\s*\([^\)]*\)|port\s*of\s*discharge|discharge\s*port|pod|place\s*of\s*delivery|place\s*of\s*discharge|port\s*of\s*unloading)\s*[:\-\)]?\s*', re.I), 'port_of_discharge'),
+        (re.compile(r'^(?:no\.\s*of\s*containers\s*or\s*packages|no\.\s*of\s*containers|total\s*containers|container\s*summary|container\s*count|containers)\s*[:\-\)]?\s*', re.I), 'container_count'),
+        (re.compile(r'^(?:total\s*)?gross\s*(?:weight|wt)(?:\s*\([^\)]*\))?\s*[:\-\)]?\s*', re.I), 'gross_weight_kg'),
+    ]
     STOP_HEADERS = re.compile(
         r'^(?:ocean\s*vessel|vessel\s*name|vessel|export\s*carrier|voy\.\s*no|voyage|voy\b|commodity|description|description\s*of\s*goods|kinds\s*of\s*packages|hs\s*code|booking\s*ref|booking\s*no|booking\s*reference|oc\s*no|freight|bill\s*of\s*lading\s*no|b/l\s*no|b/l\s*number|bl\s*no|order\s*no|bl\s*instruction|bill\s*of\s*lading|container\s*no\b|container\s*no\.|tel\b|fax\b|email\b|p\.?o\.?\s*box|date\b|invoice\s*date|invoice\s*no|inv\s*no|certificate\s*no|country\s*of\s*origin|buyer\b|issuing\s*authority|new\s*no|net\s*weight|tare\s*weight|payment|incoterms|remarks)\b',
         re.I

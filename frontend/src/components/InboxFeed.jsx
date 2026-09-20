@@ -11,10 +11,11 @@ import {
   Paperclip,
   Filter,
   Layers,
-  AlertTriangle
+  AlertTriangle,
+  RotateCcw
 } from 'lucide-react';
 
-export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOpenInspector }) {
+export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelectEmail, onOpenInspector }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [selectedStatus, setSelectedStatus] = useState('ALL');
@@ -27,7 +28,8 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
     { id: 'SI_REQUEST', label: 'SI Requests', countId: 'SI_REQUEST' },
     { id: 'INVOICE_QUERY', label: 'Invoices & Billing', countId: 'INVOICE_QUERY' },
     { id: 'GENERAL', label: 'General Operations', countId: 'GENERAL' },
-    { id: 'SPAM', label: 'Spam', countId: 'SPAM' }
+    { id: 'SPAM', label: 'Spam', countId: 'SPAM' },
+    { id: 'OTHERS', label: 'Others', countId: 'OTHERS' }
   ];
 
   const filteredEmails = useMemo(() => {
@@ -36,8 +38,14 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
       const matchesSearch = textStr.includes(searchTerm.toLowerCase().trim());
 
       const emailCat = email.classification?.category || '';
-      const matchesCategory = 
-        selectedCategory === 'ALL' || emailCat === selectedCategory;
+      let matchesCategory = false;
+      if (selectedCategory === 'ALL') {
+        matchesCategory = true;
+      } else if (selectedCategory === 'OTHERS') {
+        matchesCategory = emailCat === 'OTHERS' || emailCat === 'OTHER' || !['BL_COMPARISON', 'SI_REQUEST', 'INVOICE_QUERY', 'GENERAL', 'SPAM'].includes(emailCat);
+      } else {
+        matchesCategory = emailCat === selectedCategory;
+      }
 
       let matchesStatus = true;
       const stat = email.verification?.status || '';
@@ -70,15 +78,24 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
     setCurrentPage(1);
   };
 
+  const resetFilters = () => {
+    setSearchTerm('');
+    setSelectedCategory('ALL');
+    setSelectedStatus('ALL');
+    setCurrentPage(1);
+  };
+
+  const hasActiveFilters = searchTerm.trim() || selectedCategory !== 'ALL' || selectedStatus !== 'ALL';
+
   return (
-    <div className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950">
+    <div className="flex-1 flex flex-col min-h-0 h-full overflow-hidden bg-slate-950">
       {/* Search & Filter Header */}
-      <div className="p-4 border-b border-slate-800 glass-panel space-y-3">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center space-x-2">
+      <div className="shrink-0 p-3.5 border-b border-slate-800 glass-panel space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center space-x-2 min-w-0">
             <h2 className="text-lg font-bold text-slate-100 flex items-center space-x-2">
               <Layers className="w-5 h-5 text-cyan-400" />
-              <span>Shipping Operations Inbox</span>
+              <span className="truncate">Shipping Operations Inbox</span>
             </h2>
             <span className="text-xs bg-slate-800 text-cyan-400 font-mono px-2 py-0.5 rounded border border-slate-700">
               {filteredEmails.length} of {emails.length} emails
@@ -86,7 +103,7 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
           </div>
 
           {/* Quick Search */}
-          <div className="relative w-72">
+          <div className="relative w-full sm:w-72 sm:ml-auto">
             <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
             <input
               type="text"
@@ -120,8 +137,8 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
         </div>
 
         {/* Status Quick Filter Bar & Pagination Status */}
-        <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-800/60">
-          <div className="flex items-center space-x-2">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs pt-1 border-t border-slate-800/60">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="text-slate-500 font-medium">Verification Status:</span>
             {[
               { id: 'ALL', label: 'All Statuses' },
@@ -141,6 +158,16 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
                 {st.label}
               </button>
             ))}
+            {hasActiveFilters && (
+              <button
+                onClick={resetFilters}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded font-medium text-cyan-300 hover:text-cyan-100 hover:bg-cyan-950/40 border border-cyan-800/60 transition"
+                title="Clear search and filters"
+              >
+                <RotateCcw className="w-3 h-3" />
+                <span>Clear filters</span>
+              </button>
+            )}
           </div>
 
           {/* Pagination Controls */}
@@ -167,12 +194,39 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
       </div>
 
       {/* Main Inbox List */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-2.5">
-        {paginatedEmails.length === 0 ? (
+      <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-2.5" aria-busy={isLoading}>
+        {isLoading ? (
+          Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="glass-card rounded-xl border border-slate-800/80 p-3.5 animate-pulse" aria-hidden="true">
+              <div className="flex items-center justify-between gap-4 mb-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="h-5 w-16 rounded bg-slate-800" />
+                  <span className="h-4 w-40 rounded bg-slate-800" />
+                  <span className="hidden sm:block h-4 w-24 rounded bg-slate-800" />
+                </div>
+                <span className="h-3 w-12 rounded bg-slate-800" />
+              </div>
+              <div className="h-4 w-3/4 rounded bg-slate-800 mb-3" />
+              <div className="flex gap-2 pt-2 border-t border-slate-800/60">
+                <span className="h-5 w-28 rounded bg-slate-800" />
+                <span className="h-5 w-36 rounded bg-slate-800" />
+              </div>
+            </div>
+          ))
+        ) : paginatedEmails.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-slate-500">
             <FileText className="w-12 h-12 stroke-[1.5] mb-3 text-slate-600" />
             <p className="text-sm font-medium">No matching emails found</p>
             <p className="text-xs text-slate-600">Try adjusting your filters or search keywords</p>
+            {hasActiveFilters && (
+              <button
+                onClick={resetFilters}
+                className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-cyan-700/60 text-xs font-semibold text-cyan-300 hover:bg-cyan-950/40 transition"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Reset filters</span>
+              </button>
+            )}
           </div>
         ) : (
           paginatedEmails.map((email) => {
@@ -180,23 +234,40 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
             const classInfo = email.classification || {};
             const verif = email.verification;
             const category = classInfo.category || 'GENERAL';
+            const statusAccent = verif?.status === 'MISMATCH'
+              ? 'border-l-rose-500/80'
+              : verif?.status === 'NEEDS_REVIEW'
+                ? 'border-l-amber-500/80'
+                : verif?.status === 'OK'
+                  ? 'border-l-emerald-500/70'
+                  : 'border-l-slate-700';
 
             return (
               <div
                 key={email.id}
                 onClick={() => onSelectEmail(email.id)}
-                className={`p-3.5 rounded-xl border transition-all duration-150 cursor-pointer ${
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    onSelectEmail(email.id);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-pressed={isSelected}
+                aria-label={`Select email ${email.id}: ${email.subject}`}
+                className={`inbox-card p-3.5 rounded-xl border-l-2 border-y border-r transition-all duration-150 cursor-pointer ${statusAccent} ${
                   isSelected
                     ? 'bg-slate-900/90 border-cyan-500/60 shadow-lg shadow-cyan-950/30 ring-1 ring-cyan-500/30'
                     : 'glass-card hover:bg-slate-900/50 hover:border-slate-700 border-slate-800/80'
                 }`}
               >
-                <div className="flex items-start justify-between gap-3 mb-1.5">
-                  <div className="flex items-center space-x-2">
+                <div className="flex items-start justify-between gap-3 mb-1.5 min-w-0">
+                  <div className="flex items-center space-x-2 min-w-0">
                     <span className="font-mono text-xs text-cyan-400 font-bold bg-cyan-950/40 px-1.5 py-0.5 rounded border border-cyan-800/40">
                       {email.id}
                     </span>
-                    <span className="text-sm font-semibold text-slate-200">{email.sender}</span>
+                    <span className="text-sm font-semibold text-slate-200 truncate">{email.sender}</span>
                     {email.company && (
                       <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 truncate max-w-[180px]">
                         {email.company}
@@ -209,7 +280,7 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
                 </div>
 
                 {/* Email Subject */}
-                <h3 className="text-sm font-medium text-slate-100 mb-2.5 line-clamp-1">
+                <h3 className="text-sm font-medium text-slate-100 mb-2.5 line-clamp-1 pr-8">
                   {email.subject}
                 </h3>
 
@@ -222,6 +293,7 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
                       category === 'SI_REQUEST' ? 'bg-sky-950 text-sky-300 border-sky-700' :
                       category === 'INVOICE_QUERY' ? 'bg-purple-950 text-purple-300 border-purple-700' :
                       category === 'SPAM' ? 'bg-rose-950 text-rose-300 border-rose-700' :
+                      category === 'OTHERS' || category === 'OTHER' ? 'bg-amber-950/60 text-amber-300 border-amber-700' :
                       'bg-slate-800 text-slate-300 border-slate-700'
                     }`}>
                       {category}
@@ -292,6 +364,8 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
                           onSelectEmail(email.id);
                           onOpenInspector();
                         }}
+                        title="Open document comparison inspector"
+                        aria-label={`Inspect ${email.id}`}
                         className="px-2.5 py-1 rounded bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-xs flex items-center space-x-1 shadow transition active:scale-95 ml-1"
                       >
                         <span>Inspect</span>
