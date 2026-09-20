@@ -20,6 +20,7 @@ export default function App() {
     return initial;
   });
   const [emails, setEmails] = useState([]);
+  const [loadingEmails, setLoadingEmails] = useState(true);
   const [selectedEmailId, setSelectedEmailId] = useState(null);
   const [emailDetail, setEmailDetail] = useState(null);
   const [analytics, setAnalytics] = useState(null);
@@ -63,6 +64,7 @@ export default function App() {
 
   // Fetch emails list
   const fetchEmails = async () => {
+    setLoadingEmails(true);
     try {
       const res = await fetch('/api/emails');
       if (res.ok) {
@@ -74,6 +76,8 @@ export default function App() {
       }
     } catch (err) {
       console.error('Failed to fetch emails:', err);
+    } finally {
+      setLoadingEmails(false);
     }
   };
 
@@ -215,6 +219,7 @@ export default function App() {
         stats={analytics?.summary_stats}
         theme={theme}
         onToggleTheme={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}
+        isRefreshing={loadingEmails}
         onRefresh={() => {
           fetchEmails();
           fetchAnalytics();
@@ -228,6 +233,7 @@ export default function App() {
           <div className="flex-1 flex min-w-0">
             <InboxFeed
               emails={emails}
+              isLoading={loadingEmails}
               selectedEmailId={selectedEmailId}
               onSelectEmail={(id) => setSelectedEmailId(id)}
               onOpenInspector={() => navigateTo('inspector')}

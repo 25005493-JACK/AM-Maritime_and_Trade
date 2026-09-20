@@ -14,7 +14,7 @@ import {
   AlertTriangle
 } from 'lucide-react';
 
-export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOpenInspector }) {
+export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelectEmail, onOpenInspector }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [selectedStatus, setSelectedStatus] = useState('ALL');
@@ -174,8 +174,26 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
       </div>
 
       {/* Main Inbox List */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-2.5">
-        {paginatedEmails.length === 0 ? (
+      <div className="flex-1 overflow-y-auto p-4 space-y-2.5" aria-busy={isLoading}>
+        {isLoading ? (
+          Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="glass-card rounded-xl border border-slate-800/80 p-3.5 animate-pulse" aria-hidden="true">
+              <div className="flex items-center justify-between gap-4 mb-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="h-5 w-16 rounded bg-slate-800" />
+                  <span className="h-4 w-40 rounded bg-slate-800" />
+                  <span className="hidden sm:block h-4 w-24 rounded bg-slate-800" />
+                </div>
+                <span className="h-3 w-12 rounded bg-slate-800" />
+              </div>
+              <div className="h-4 w-3/4 rounded bg-slate-800 mb-3" />
+              <div className="flex gap-2 pt-2 border-t border-slate-800/60">
+                <span className="h-5 w-28 rounded bg-slate-800" />
+                <span className="h-5 w-36 rounded bg-slate-800" />
+              </div>
+            </div>
+          ))
+        ) : paginatedEmails.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-slate-500">
             <FileText className="w-12 h-12 stroke-[1.5] mb-3 text-slate-600" />
             <p className="text-sm font-medium">No matching emails found</p>
@@ -192,18 +210,28 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
               <div
                 key={email.id}
                 onClick={() => onSelectEmail(email.id)}
-                className={`p-3.5 rounded-xl border transition-all duration-150 cursor-pointer ${
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    onSelectEmail(email.id);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-pressed={isSelected}
+                aria-label={`Select email ${email.id}: ${email.subject}`}
+                className={`inbox-card p-3.5 rounded-xl border transition-all duration-150 cursor-pointer ${
                   isSelected
                     ? 'bg-slate-900/90 border-cyan-500/60 shadow-lg shadow-cyan-950/30 ring-1 ring-cyan-500/30'
                     : 'glass-card hover:bg-slate-900/50 hover:border-slate-700 border-slate-800/80'
                 }`}
               >
-                <div className="flex items-start justify-between gap-3 mb-1.5">
-                  <div className="flex items-center space-x-2">
+                <div className="flex items-start justify-between gap-3 mb-1.5 min-w-0">
+                  <div className="flex items-center space-x-2 min-w-0">
                     <span className="font-mono text-xs text-cyan-400 font-bold bg-cyan-950/40 px-1.5 py-0.5 rounded border border-cyan-800/40">
                       {email.id}
                     </span>
-                    <span className="text-sm font-semibold text-slate-200">{email.sender}</span>
+                    <span className="text-sm font-semibold text-slate-200 truncate">{email.sender}</span>
                     {email.company && (
                       <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 truncate max-w-[180px]">
                         {email.company}
@@ -216,7 +244,7 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
                 </div>
 
                 {/* Email Subject */}
-                <h3 className="text-sm font-medium text-slate-100 mb-2.5 line-clamp-1">
+                <h3 className="text-sm font-medium text-slate-100 mb-2.5 line-clamp-1 pr-8">
                   {email.subject}
                 </h3>
 
@@ -285,6 +313,8 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
                           onSelectEmail(email.id);
                           onOpenInspector();
                         }}
+                        title="Open document comparison inspector"
+                        aria-label={`Inspect ${email.id}`}
                         className="px-2.5 py-1 rounded bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-xs flex items-center space-x-1 shadow transition active:scale-95 ml-1"
                       >
                         <span>Inspect</span>
