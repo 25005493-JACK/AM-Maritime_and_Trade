@@ -88,9 +88,9 @@ export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelect
   const hasActiveFilters = searchTerm.trim() || selectedCategory !== 'ALL' || selectedStatus !== 'ALL';
 
   return (
-    <div className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950">
+    <div className="flex-1 flex flex-col min-h-0 h-full overflow-hidden bg-slate-950">
       {/* Search & Filter Header */}
-      <div className="p-3.5 border-b border-slate-800 glass-panel space-y-3">
+      <div className="shrink-0 p-3.5 border-b border-slate-800 glass-panel space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center space-x-2 min-w-0">
             <h2 className="text-lg font-bold text-slate-100 flex items-center space-x-2">
@@ -194,7 +194,7 @@ export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelect
       </div>
 
       {/* Main Inbox List */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-2.5" aria-busy={isLoading}>
+      <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-2.5" aria-busy={isLoading}>
         {isLoading ? (
           Array.from({ length: 6 }).map((_, index) => (
             <div key={index} className="glass-card rounded-xl border border-slate-800/80 p-3.5 animate-pulse" aria-hidden="true">
@@ -234,6 +234,13 @@ export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelect
             const classInfo = email.classification || {};
             const verif = email.verification;
             const category = classInfo.category || 'GENERAL';
+            const statusAccent = verif?.status === 'MISMATCH'
+              ? 'border-l-rose-500/80'
+              : verif?.status === 'NEEDS_REVIEW'
+                ? 'border-l-amber-500/80'
+                : verif?.status === 'OK'
+                  ? 'border-l-emerald-500/70'
+                  : 'border-l-slate-700';
 
             return (
               <div
@@ -249,7 +256,7 @@ export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelect
                 tabIndex={0}
                 aria-pressed={isSelected}
                 aria-label={`Select email ${email.id}: ${email.subject}`}
-                className={`inbox-card p-3.5 rounded-xl border transition-all duration-150 cursor-pointer ${
+                className={`inbox-card p-3.5 rounded-xl border-l-2 border-y border-r transition-all duration-150 cursor-pointer ${statusAccent} ${
                   isSelected
                     ? 'bg-slate-900/90 border-cyan-500/60 shadow-lg shadow-cyan-950/30 ring-1 ring-cyan-500/30'
                     : 'glass-card hover:bg-slate-900/50 hover:border-slate-700 border-slate-800/80'

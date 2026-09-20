@@ -87,7 +87,7 @@ export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOve
   };
 
   return (
-    <div className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950">
+    <div className="flex-1 flex flex-col min-h-0 h-full overflow-hidden bg-slate-950">
       {/* Inspector Top Header Bar */}
       <div className="p-4 border-b border-slate-800 glass-panel flex items-center justify-between gap-4">
         <div>
@@ -141,7 +141,7 @@ export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOve
       </div>
 
       {/* Main Split Inspector Body */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-4">
         {/* Defect Chips Summary (If MISMATCH) */}
         {verif.defect_fields && verif.defect_fields.length > 0 && (
           <div className="p-3.5 rounded-xl bg-rose-950/30 border border-rose-500/40 flex items-center justify-between">
