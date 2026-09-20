@@ -175,7 +175,7 @@ export default function App() {
   }, [selectedEmailId]);
 
   return (
-    <div className="flex h-screen bg-slate-950 text-slate-100 font-sans overflow-hidden">
+    <div className="flex h-screen w-max min-w-[1400px] bg-slate-950 text-slate-100 font-sans overflow-x-auto overflow-y-hidden">
       {/* Navigation Sidebar */}
       <Sidebar
         activeTab={activeTab}
@@ -189,9 +189,9 @@ export default function App() {
       />
 
       {/* Main Active Tab Container */}
-      <main className="flex-1 flex overflow-hidden">
+      <main className="flex-1 flex min-w-[1000px] overflow-hidden">
         {activeTab === 'inbox' && (
-          <div className="flex-1 flex">
+          <div className="flex-1 flex min-w-0">
             <InboxFeed
               emails={emails}
               selectedEmailId={selectedEmailId}
@@ -199,7 +199,7 @@ export default function App() {
               onOpenInspector={() => setActiveTab('inspector')}
             />
             {/* Embedded Inspector Panel on Wide Screens */}
-            <div className="hidden xl:flex w-1/2 border-l border-slate-800">
+            <div className="hidden xl:flex w-[42rem] min-w-[420px] border-l border-slate-800">
               <SplitScreenInspector
                 emailDetail={emailDetail}
                 onOpenOverrideModal={() => setShowOverrideModal(true)}

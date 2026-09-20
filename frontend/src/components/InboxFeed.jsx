@@ -86,7 +86,7 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
           </div>
 
           {/* Quick Search */}
-          <div className="relative w-80">
+          <div className="relative w-72">
             <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
             <input
               type="text"

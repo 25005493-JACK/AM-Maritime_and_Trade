@@ -24,7 +24,7 @@ export default function Sidebar({ activeTab, setActiveTab, stats, onRefresh }) {
   ];
 
   return (
-    <aside className="w-64 glass-panel border-r border-slate-800 flex flex-col justify-between h-screen select-none">
+    <aside className="w-64 min-w-[16rem] glass-panel border-r border-slate-800 flex flex-col justify-between h-screen select-none">
       <div>
         {/* Brand Header */}
         <div className="p-4 border-b border-slate-800/80 flex items-center space-x-3">
