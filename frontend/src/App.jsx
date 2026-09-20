@@ -23,6 +23,7 @@ export default function App() {
   const [loadingEmails, setLoadingEmails] = useState(true);
   const [selectedEmailId, setSelectedEmailId] = useState(null);
   const [emailDetail, setEmailDetail] = useState(null);
+  const [loadingEmailDetail, setLoadingEmailDetail] = useState(false);
   const [analytics, setAnalytics] = useState(null);
   const [evaluationData, setEvaluationData] = useState(null);
   const [loadingEval, setLoadingEval] = useState(false);
@@ -83,7 +84,12 @@ export default function App() {
 
   // Fetch email detail
   const fetchEmailDetail = async (id) => {
-    if (!id) return;
+    if (!id) {
+      setLoadingEmailDetail(false);
+      return;
+    }
+    setLoadingEmailDetail(true);
+    setEmailDetail(null);
     try {
       const res = await fetch(`/api/emails/${id}`);
       if (res.ok) {
@@ -92,6 +98,8 @@ export default function App() {
       }
     } catch (err) {
       console.error('Failed to fetch email detail:', err);
+    } finally {
+      setLoadingEmailDetail(false);
     }
   };
 
@@ -242,6 +250,7 @@ export default function App() {
             <div className="hidden 2xl:flex w-[min(36vw,34rem)] min-w-[360px] border-l border-slate-800">
               <SplitScreenInspector
                 emailDetail={emailDetail}
+                isLoading={loadingEmailDetail}
                 onOpenOverrideModal={() => setShowOverrideModal(true)}
                 onShowToast={showToast}
               />
@@ -252,6 +261,7 @@ export default function App() {
         {activeTab === 'inspector' && (
           <SplitScreenInspector
             emailDetail={emailDetail}
+            isLoading={loadingEmailDetail}
             onOpenOverrideModal={() => setShowOverrideModal(true)}
             onShowToast={showToast}
           />

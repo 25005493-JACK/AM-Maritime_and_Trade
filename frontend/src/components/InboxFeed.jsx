@@ -11,7 +11,8 @@ import {
   Paperclip,
   Filter,
   Layers,
-  AlertTriangle
+  AlertTriangle,
+  RotateCcw
 } from 'lucide-react';
 
 export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelectEmail, onOpenInspector }) {
@@ -76,6 +77,15 @@ export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelect
     setSelectedStatus(statId);
     setCurrentPage(1);
   };
+
+  const resetFilters = () => {
+    setSearchTerm('');
+    setSelectedCategory('ALL');
+    setSelectedStatus('ALL');
+    setCurrentPage(1);
+  };
+
+  const hasActiveFilters = searchTerm.trim() || selectedCategory !== 'ALL' || selectedStatus !== 'ALL';
 
   return (
     <div className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950">
@@ -148,6 +158,16 @@ export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelect
                 {st.label}
               </button>
             ))}
+            {hasActiveFilters && (
+              <button
+                onClick={resetFilters}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded font-medium text-cyan-300 hover:text-cyan-100 hover:bg-cyan-950/40 border border-cyan-800/60 transition"
+                title="Clear search and filters"
+              >
+                <RotateCcw className="w-3 h-3" />
+                <span>Clear filters</span>
+              </button>
+            )}
           </div>
 
           {/* Pagination Controls */}
@@ -198,6 +218,15 @@ export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelect
             <FileText className="w-12 h-12 stroke-[1.5] mb-3 text-slate-600" />
             <p className="text-sm font-medium">No matching emails found</p>
             <p className="text-xs text-slate-600">Try adjusting your filters or search keywords</p>
+            {hasActiveFilters && (
+              <button
+                onClick={resetFilters}
+                className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-cyan-700/60 text-xs font-semibold text-cyan-300 hover:bg-cyan-950/40 transition"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Reset filters</span>
+              </button>
+            )}
           </div>
         ) : (
           paginatedEmails.map((email) => {
