@@ -120,3 +120,18 @@ body {
 .mismatch-glow {
   animation: pulse-red 2.5s infinite ease-in-out;
 }
+
+/* Global Brightness & Readability for Dim/Gray Text */
+.text-slate-400 {
+  color: #cbd5e1 !important; /* Boost to bright slate 300 */
+}
+
+.text-slate-500 {
+  color: #94a3b8 !important; /* Boost from dim slate 500 to slate 400 */
+}
+
+.text-\[10px\], .text-\[11px\] {
+  font-size: 0.75rem !important;
+}
+
+
