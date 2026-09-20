@@ -224,13 +224,13 @@ html[data-theme="light"] .badge-match { color: #047857; }
 html[data-theme="light"] .badge-mismatch { color: #be123c; }
 html[data-theme="light"] .badge-warning { color: #92400e; }
 html[data-theme="light"] .badge-info { color: #0e7490; }
-/* Global Brightness & Readability for Dim/Gray Text */
-.text-slate-400 {
-  color: #cbd5e1 !important; /* Boost to bright slate 300 */
+/* Dark-theme readability for muted text */
+html:not([data-theme="light"]) .text-slate-400 {
+  color: #cbd5e1 !important;
 }
 
-.text-slate-500 {
-  color: #94a3b8 !important; /* Boost from dim slate 500 to slate 400 */
+html:not([data-theme="light"]) .text-slate-500 {
+  color: #94a3b8 !important;
 }
 
 .text-\[10px\], .text-\[11px\] {
