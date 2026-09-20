@@ -20,7 +20,19 @@ import {
   Info
 } from 'lucide-react';
 
-export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal, onShowToast }) {
+export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOverrideModal, onShowToast }) {
+  if (isLoading) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center p-8 text-slate-400 bg-slate-950">
+        <div className="w-12 h-12 rounded-2xl border border-cyan-500/30 bg-cyan-950/30 flex items-center justify-center mb-4">
+          <FileCheck2 className="w-6 h-6 text-cyan-400 animate-pulse" />
+        </div>
+        <h3 className="text-sm font-semibold text-slate-200">Loading document comparison</h3>
+        <p className="text-xs text-slate-500 mt-1">Preparing extracted fields and verification results...</p>
+      </div>
+    );
+  }
+
   if (!emailDetail) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8 text-slate-500 bg-slate-950">

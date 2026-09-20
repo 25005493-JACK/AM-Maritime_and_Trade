@@ -42,6 +42,20 @@ html {
   box-sizing: border-box;
 }
 
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background-color: var(--bg-dark);
@@ -67,6 +81,25 @@ body {
   background: rgba(30, 41, 59, 0.65);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.inbox-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.inbox-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: 0.75rem 0 0 0.75rem;
+  background: transparent;
+  transition: background-color 150ms ease;
+}
+
+.inbox-card[aria-pressed="true"]::before {
+  background: var(--accent-cyan);
 }
 
 /* Custom Scrollbar */

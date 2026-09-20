@@ -8,14 +8,13 @@ import {
   Ship, 
   RefreshCw,
   Calendar as CalendarIcon,
-  FileSpreadsheet,
   GitGraph,
   ScanText,
   Sun,
   Moon
 } from 'lucide-react';
 
-export default function Sidebar({ activeTab, setActiveTab, stats, onRefresh, theme, onToggleTheme }) {
+export default function Sidebar({ activeTab, setActiveTab, stats, isRefreshing, onRefresh, theme, onToggleTheme }) {
   const navItems = [
     { id: 'inbox', label: 'Inbox & Triage', icon: Inbox, count: stats?.total_emails },
     { id: 'inspector', label: 'SI vs BL Inspector', icon: FileCheck2, count: stats?.comparison_requests },
@@ -50,6 +49,7 @@ export default function Sidebar({ activeTab, setActiveTab, stats, onRefresh, the
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
+                title={item.label}
                 className={`w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
                   isActive
                     ? 'bg-gradient-to-r from-cyan-600/20 to-blue-600/20 text-cyan-300 border border-cyan-500/30 shadow-md shadow-cyan-950/40'
@@ -92,10 +92,12 @@ export default function Sidebar({ activeTab, setActiveTab, stats, onRefresh, the
           </div>
           <button 
             onClick={onRefresh}
-            title="Refresh dataset"
+            title={isRefreshing ? 'Refreshing dataset' : 'Refresh dataset'}
+            aria-label={isRefreshing ? 'Refreshing dataset' : 'Refresh dataset'}
+            disabled={isRefreshing}
             className="p-1 hover:bg-slate-800 rounded text-slate-400 hover:text-cyan-400 transition"
           >
-            <RefreshCw className="w-3.5 h-3.5" />
+            <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-cyan-400' : ''}`} />
           </button>
         </div>
         <div className="text-[11px] text-slate-500 font-mono">
