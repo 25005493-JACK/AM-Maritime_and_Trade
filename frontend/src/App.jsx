@@ -175,7 +175,7 @@ export default function App() {
   }, [selectedEmailId]);
 
   return (
-    <div className="flex h-screen w-max min-w-[1400px] bg-slate-950 text-slate-100 font-sans overflow-x-auto overflow-y-hidden">
+    <div className="flex h-screen w-full bg-slate-950 text-slate-100 font-sans overflow-hidden">
       {/* Navigation Sidebar */}
       <Sidebar
         activeTab={activeTab}
@@ -189,7 +189,7 @@ export default function App() {
       />
 
       {/* Main Active Tab Container */}
-      <main className="flex-1 flex min-w-[1000px] overflow-hidden">
+      <main className="flex-1 flex min-w-0 overflow-hidden">
         {activeTab === 'inbox' && (
           <div className="flex-1 flex min-w-0">
             <InboxFeed
