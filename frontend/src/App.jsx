@@ -7,9 +7,12 @@ import AnalyticsDashboard from './components/AnalyticsDashboard.jsx';
 import SelfEvaluationView from './components/SelfEvaluationView.jsx';
 import VesselCalendar from './components/VesselCalendar.jsx';
 import TimelineWheel from './components/TimelineWheel.jsx';
+import OcrDashboard from './components/OcrDashboard.jsx';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('inbox');
+  const [activeTab, setActiveTab] = useState(
+    () => window.location.pathname === '/dashboard' ? 'ocr_dashboard' : 'inbox'
+  );
   const [emails, setEmails] = useState([]);
   const [selectedEmailId, setSelectedEmailId] = useState(null);
   const [emailDetail, setEmailDetail] = useState(null);
@@ -29,6 +32,23 @@ export default function App() {
   // Calendar State
   const [calendarData, setCalendarData] = useState(null);
   const [selectedPort, setSelectedPort] = useState('ALL');
+  const isOcrDashboard = activeTab === 'ocr_dashboard';
+
+  const navigateTo = (tab) => {
+    setActiveTab(tab);
+    const nextPath = tab === 'ocr_dashboard' ? '/dashboard' : '/';
+    if (window.location.pathname !== nextPath) {
+      window.history.pushState({}, '', nextPath);
+    }
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setActiveTab(window.location.pathname === '/dashboard' ? 'ocr_dashboard' : 'inbox');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Fetch emails list
   const fetchEmails = async () => {
@@ -163,10 +183,11 @@ export default function App() {
   };
 
   useEffect(() => {
+    if (isOcrDashboard) return;
     fetchEmails();
     fetchAnalytics();
     fetchCalendar('ALL');
-  }, []);
+  }, [isOcrDashboard]);
 
   useEffect(() => {
     if (selectedEmailId) {
@@ -179,7 +200,7 @@ export default function App() {
       {/* Navigation Sidebar */}
       <Sidebar
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={navigateTo}
         stats={analytics?.summary_stats}
         onRefresh={() => {
           fetchEmails();
@@ -196,7 +217,7 @@ export default function App() {
               emails={emails}
               selectedEmailId={selectedEmailId}
               onSelectEmail={(id) => setSelectedEmailId(id)}
-              onOpenInspector={() => setActiveTab('inspector')}
+              onOpenInspector={() => navigateTo('inspector')}
             />
             {/* Embedded Inspector Panel on Wide Screens */}
             <div className="hidden xl:flex w-[42rem] min-w-[420px] border-l border-slate-800">
@@ -267,6 +288,10 @@ export default function App() {
 
         {activeTab === 'analytics' && (
           <AnalyticsDashboard analytics={analytics} />
+        )}
+
+        {activeTab === 'ocr_dashboard' && (
+          <OcrDashboard />
         )}
 
         {activeTab === 'benchmark' && (

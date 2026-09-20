@@ -310,6 +310,14 @@ def get_analytics():
         "company_orders": [{"company": k, **v} for k, v in list(companies.items())[:12]]
     }
 
+
+@app.get("/api/ocr/dashboard")
+def get_ocr_dashboard():
+    """PDF OCR results and measured agreement with searchable PDF text."""
+    from backend.services.ocr_dashboard import build_ocr_dashboard
+
+    return build_ocr_dashboard(loader)
+
 @app.post("/submit")
 def submit_evaluation(payload: Dict[str, Any] = Body(...)):
     """Compliant self-evaluation endpoint as per page 4 of specification."""
