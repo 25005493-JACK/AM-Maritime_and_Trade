@@ -24,8 +24,16 @@ const STAGE_CONFIG = {
   sent:    { label: 'Sent',         color: '#34d399', dot: '#10b981', bg: 'rgba(52,211,153,0.15)',  border: 'rgba(52,211,153,0.4)' },
 };
 
-function getStage(key) {
-  return STAGE_CONFIG[key] || STAGE_CONFIG.bl;
+const LIGHT_STAGE_COLORS = {
+  all: '#475569', si: '#4338ca', bl: '#0369a1', draft: '#6d28d9',
+  compare: '#9a3412', review: '#92400e', sent: '#047857'
+};
+
+function getStage(key, theme) {
+  const stage = STAGE_CONFIG[key] || STAGE_CONFIG.bl;
+  return theme === 'light'
+    ? { ...stage, color: LIGHT_STAGE_COLORS[key] || LIGHT_STAGE_COLORS.bl }
+    : stage;
 }
 
 function formatTime(ts) {
@@ -121,7 +129,7 @@ function DocumentPreview({ doc }) {
 /* ─────────────────────────────────────────────
    MAIN COMPONENT: TimelineWheel
 ───────────────────────────────────────────── */
-export default function TimelineWheel() {
+export default function TimelineWheel({ theme }) {
   const [shipments, setShipments] = useState([]);
   const [loadingShipments, setLoadingShipments] = useState(true);
   const [shipmentError, setShipmentError] = useState(null);
