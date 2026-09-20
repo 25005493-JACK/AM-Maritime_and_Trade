@@ -1,6 +1,7 @@
 import React from 'react';
 import { 
   Inbox, 
+  BriefcaseBusiness,
   FileCheck2, 
   AlertTriangle, 
   BarChart3, 
@@ -17,6 +18,7 @@ import {
 export default function Sidebar({ activeTab, setActiveTab, stats, isRefreshing, onRefresh, theme, onToggleTheme }) {
   const navItems = [
     { id: 'inbox', label: 'Inbox & Triage', icon: Inbox, count: stats?.total_emails },
+    { id: 'workspace', label: 'Shipment Workspace', icon: BriefcaseBusiness, badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' },
     { id: 'inspector', label: 'SI vs BL Inspector', icon: FileCheck2, count: stats?.comparison_requests },
     { id: 'timeline', label: 'Shipment Timeline', icon: GitGraph, badgeColor: 'bg-violet-500/20 text-violet-300 border-violet-500/30' },
     { id: 'calendar', label: 'Vessel Schedule Calendar', icon: CalendarIcon, badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' },

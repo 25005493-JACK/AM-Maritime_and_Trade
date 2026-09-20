@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar.jsx';
 import InboxFeed from './components/InboxFeed.jsx';
+import ShipmentWorkspace from './components/ShipmentWorkspace.jsx';
 import SplitScreenInspector from './components/SplitScreenInspector.jsx';
 import HumanReviewModal from './components/HumanReviewModal.jsx';
 import AnalyticsDashboard from './components/AnalyticsDashboard.jsx';
@@ -268,6 +269,17 @@ export default function App() {
               />
             </div>
           </div>
+        )}
+
+        {activeTab === 'workspace' && (
+          <ShipmentWorkspace
+            emailDetail={emailDetail}
+            calendarData={calendarData}
+            isLoading={loadingEmailDetail || loadingEmails}
+            onOpenInspector={() => navigateTo('inspector')}
+            onOpenOverride={() => setShowOverrideModal(true)}
+            onOpenCalendar={() => navigateTo('calendar')}
+          />
         )}
 
         {activeTab === 'inspector' && (
