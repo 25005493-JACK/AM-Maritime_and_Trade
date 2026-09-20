@@ -27,20 +27,15 @@ html, body, #root {
 
 
 html {
-  font-size: 14px;
+  font-size: 15px;
 }
 
-@media (max-width: 1500px) {
+@media (min-width: 1600px) {
   html {
-    font-size: 13px;
+    font-size: 16px;
   }
 }
 
-@media (max-width: 1366px) {
-  html {
-    font-size: 12px;
-  }
-}
 
 * {
   box-sizing: border-box;
