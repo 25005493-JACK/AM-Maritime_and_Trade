@@ -434,6 +434,16 @@ def auto_confirm_booking(payload: Dict[str, Any] = Body(...)):
     res = calendar_service.confirm_auto_booking(email_id)
     return res
 
+@app.post("/api/calendar/google-link")
+def create_google_calendar_link(payload: Dict[str, Any] = Body(...)):
+    vessel_id = payload.get("vessel_id")
+    if not vessel_id:
+        raise HTTPException(status_code=400, detail="Missing vessel_id")
+    result = calendar_service.create_google_calendar_link(vessel_id)
+    if result.get("status") == "error":
+        raise HTTPException(status_code=404, detail=result["message"])
+    return result
+
 # ── Shipment ID helpers ─────────────────────────────────────────────────────
 
 _BOOKING_PATTERNS = [

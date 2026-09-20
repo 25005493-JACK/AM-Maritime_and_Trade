@@ -19,13 +19,7 @@ __pycache__/
 .idea/
 *.log
 
-<<<<<<< HEAD
-# Database files
+# Local generated state
 *.duckdb
 *.duckdb.wal
-
-=======
-# Local database state
-verification_events.duckdb
-verification_events.duckdb.wal
->>>>>>> fb0d339 (Ignore local DuckDB database files)
+backend/data/calendar_google_sync.json

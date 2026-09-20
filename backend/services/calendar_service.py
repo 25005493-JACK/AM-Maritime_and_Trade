@@ -1,8 +1,14 @@
 import datetime
+import json
+from pathlib import Path
 from typing import List, Dict, Any, Optional
+from urllib.parse import urlencode
 
 class CalendarService:
     def __init__(self):
+        self.google_sync_path = Path(__file__).resolve().parents[1] / "data" / "calendar_google_sync.json"
+        self.google_calendar_links = self._load_google_calendar_links()
+
         # Initial seed vessel schedule data
         self.schedule = [
             {
@@ -109,9 +115,62 @@ class CalendarService:
             result.append({
                 **vessel,
                 "total_booked_containers": total_booked,
-                "utilization_pct": utilization_pct
+                "utilization_pct": utilization_pct,
+                "google_calendar": self.google_calendar_links.get(vessel["id"])
             })
         return result
+
+    def _load_google_calendar_links(self) -> Dict[str, Dict[str, Any]]:
+        if not self.google_sync_path.exists():
+            return {}
+        try:
+            with self.google_sync_path.open("r", encoding="utf-8") as sync_file:
+                value = json.load(sync_file)
+            return value if isinstance(value, dict) else {}
+        except (OSError, json.JSONDecodeError):
+            return {}
+
+    def _save_google_calendar_links(self) -> None:
+        self.google_sync_path.parent.mkdir(parents=True, exist_ok=True)
+        with self.google_sync_path.open("w", encoding="utf-8") as sync_file:
+            json.dump(self.google_calendar_links, sync_file, indent=2)
+
+    def create_google_calendar_link(self, vessel_id: str) -> Dict[str, Any]:
+        vessel = next((item for item in self.schedule if item["id"] == vessel_id), None)
+        if not vessel:
+            return {"status": "error", "message": "Vessel not found"}
+
+        existing = self.google_calendar_links.get(vessel_id)
+        if existing:
+            return {"status": "already_linked", "vessel_id": vessel_id, **existing}
+
+        eta = datetime.datetime.strptime(vessel["eta_date"], "%Y-%m-%d").date()
+        etd = datetime.datetime.strptime(vessel["etd_date"], "%Y-%m-%d").date()
+        google_end = etd + datetime.timedelta(days=1)
+        details = "\n".join([
+            f"Carrier: {vessel['carrier']}",
+            f"Destination: {vessel['destination_port']}",
+            f"ETA: {vessel['eta_date']}",
+            f"ETD: {vessel['etd_date']}",
+            f"Vessel schedule ID: {vessel['id']}"
+        ])
+        params = urlencode({
+            "action": "TEMPLATE",
+            "text": f"{vessel['vessel_name']} {vessel['voyage']} - Port Call",
+            "dates": f"{eta.strftime('%Y%m%d')}/{google_end.strftime('%Y%m%d')}",
+            "details": details,
+            "location": vessel["destination_port"],
+            "trp": "false"
+        })
+        record = {
+            "status": "LINK_CREATED",
+            "event_url": f"https://calendar.google.com/calendar/render?{params}",
+            "created_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            "vessel_id": vessel_id
+        }
+        self.google_calendar_links[vessel_id] = record
+        self._save_google_calendar_links()
+        return {"status": "success", **record}
 
     def assign_container(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         vessel_id = payload.get("vessel_id")

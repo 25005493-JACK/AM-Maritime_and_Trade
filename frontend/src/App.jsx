@@ -165,6 +165,18 @@ export default function App() {
     }
   };
 
+  const handleGoogleCalendarLink = async (vesselId) => {
+    const res = await fetch('/api/calendar/google-link', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ vessel_id: vesselId })
+    });
+    if (!res.ok) throw new Error('Failed to prepare Google Calendar event');
+    const data = await res.json();
+    await fetchCalendar(selectedPort);
+    return data;
+  };
+
   // Run self evaluation
   const handleRunSelfEvaluate = async () => {
     setLoadingEval(true);
@@ -278,6 +290,8 @@ export default function App() {
             onPortChange={handlePortChange}
             onAssignContainer={handleAssignContainer}
             onAutoConfirmBooking={handleAutoConfirmBooking}
+            onCreateGoogleCalendarEvent={handleGoogleCalendarLink}
+            onShowToast={showToast}
           />
         )}
 

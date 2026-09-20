@@ -19,18 +19,14 @@ export default function VesselCalendar({
   selectedPort, 
   onPortChange, 
   onAssignContainer, 
-  onAutoConfirmBooking 
+  onAutoConfirmBooking,
+  onCreateGoogleCalendarEvent,
+  onShowToast
 }) {
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [showGoogleCalendarModal, setShowGoogleCalendarModal] = useState(false);
   const [calendarTarget, setCalendarTarget] = useState(null);
-  const [linkedVesselIds, setLinkedVesselIds] = useState(() => {
-    try {
-      return JSON.parse(window.localStorage.getItem('averish-google-calendar-links') || '[]');
-    } catch {
-      return [];
-    }
-  });
+  const [syncingCalendar, setSyncingCalendar] = useState(false);
   const [targetVesselId, setTargetVesselId] = useState('');
   const [assignForm, setAssignForm] = useState({
     booking_no: '',
@@ -42,44 +38,27 @@ export default function VesselCalendar({
   const pendingBookings = calendarData?.pending_bookings || [];
   const availablePorts = calendarData?.available_ports || [];
 
-  const formatCalendarDate = (dateValue, addDays = 0) => {
-    const date = new Date(`${dateValue}T00:00:00Z`);
-    date.setUTCDate(date.getUTCDate() + addDays);
-    return date.toISOString().slice(0, 10).replaceAll('-', '');
-  };
-
-  const getGoogleCalendarUrl = (vessel) => {
-    const title = `${vessel.vessel_name} ${vessel.voyage} - Port Call`;
-    const details = [
-      `Carrier: ${vessel.carrier}`,
-      `Destination: ${vessel.destination_port}`,
-      `ETA: ${vessel.eta_date}`,
-      `ETD: ${vessel.etd_date}`,
-      `Vessel schedule ID: ${vessel.id}`
-    ].join('\n');
-    const params = new URLSearchParams({
-      action: 'TEMPLATE',
-      text: title,
-      dates: `${formatCalendarDate(vessel.eta_date)}/${formatCalendarDate(vessel.etd_date, 1)}`,
-      details,
-      location: vessel.destination_port,
-      trp: 'false'
-    });
-    return `https://calendar.google.com/calendar/render?${params.toString()}`;
-  };
-
   const openGoogleCalendarPreview = (vessel) => {
     setCalendarTarget(vessel);
     setShowGoogleCalendarModal(true);
   };
 
-  const confirmGoogleCalendarEvent = () => {
-    if (!calendarTarget) return;
-    window.open(getGoogleCalendarUrl(calendarTarget), '_blank', 'noopener,noreferrer');
-    const nextIds = [...new Set([...linkedVesselIds, calendarTarget.id])];
-    setLinkedVesselIds(nextIds);
-    window.localStorage.setItem('averish-google-calendar-links', JSON.stringify(nextIds));
-    setShowGoogleCalendarModal(false);
+  const confirmGoogleCalendarEvent = async () => {
+    if (!calendarTarget || !onCreateGoogleCalendarEvent) return;
+    const popup = window.open('', '_blank');
+    setSyncingCalendar(true);
+    try {
+      const result = await onCreateGoogleCalendarEvent(calendarTarget.id);
+      if (popup) popup.location.href = result.event_url;
+      else window.open(result.event_url, '_blank', 'noopener,noreferrer');
+      setShowGoogleCalendarModal(false);
+      if (onShowToast) onShowToast('Google Calendar event prepared successfully.', 'success');
+    } catch (error) {
+      if (popup) popup.close();
+      if (onShowToast) onShowToast('Could not prepare the Google Calendar event.', 'warning');
+    } finally {
+      setSyncingCalendar(false);
+    }
   };
 
   const handleFormSubmit = (e) => {
@@ -234,7 +213,7 @@ export default function VesselCalendar({
                   title="Preview Google Calendar event"
                 >
                   <CalendarPlus className="w-3.5 h-3.5" />
-                  <span>{linkedVesselIds.includes(vessel.id) ? 'Added' : 'Calendar'}</span>
+                  <span>{vessel.google_calendar?.event_url ? 'Added' : 'Calendar'}</span>
                 </button>
               </div>
 
@@ -430,10 +409,11 @@ export default function VesselCalendar({
               <button
                 type="button"
                 onClick={confirmGoogleCalendarEvent}
+                disabled={syncingCalendar}
                 className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold flex items-center gap-2 transition"
               >
                 <CalendarPlus className="w-4 h-4" />
-                <span>Open Google Calendar</span>
+                <span>{syncingCalendar ? 'Preparing event...' : 'Open Google Calendar'}</span>
               </button>
             </div>
           </div>
