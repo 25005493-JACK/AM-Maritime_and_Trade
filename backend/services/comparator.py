@@ -6,6 +6,115 @@ from typing import Dict, Any, List, Optional
 from backend.services.extractor import extractor, extract_attachment, ExtractionResult
 from backend.services.port_lookup import port_lookup
 from backend.services.dataset_loader import loader
+from backend.services.field_bank import compare_company_name, company_name_normalizer
+from backend.services.document_validator import assess_document_validity
+from backend.services.event_logger import event_logger
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Guarded trailing-address prefix matching (shipper / consignee / notify_party)
+# ─────────────────────────────────────────────────────────────────────────────
+
+#: A candidate company-name prefix must be at least this many characters ...
+MIN_PREFIX_CHARS = 8
+#: ... and must contain at least this many whole (space separated) words.
+MIN_PREFIX_WORDS = 2
+
+# Address "tail" features. A shorter party value may only be accepted against a
+# longer one when the extra text is verifiably address detail (never an entity
+# change such as "FORMERLY ..." / "NOW KNOWN AS ...").
+ADDRESS_TAIL_PATTERN = re.compile(
+    r"(?:"
+    # P.O. BOX / P O BOX / PO BOX / POST OFFICE BOX (+ optional box number)
+    r"(?:P\s*\.?\s*O\s*\.?\s*BOX|POST\s+OFFICE\s+BOX|PO\s+BOX)"
+    # 4-6 digit postal / ZIP code (e.g. 048624, 59200, 038988)
+    r"|\b\d{4,6}\b"
+    # Address keywords: street / building / unit tokens
+    r"|\b(?:ROAD|RD|STREET|ST|AVENUE|AVE|JALAN|LANE|BOULEVARD|BLVD|DRIVE|HIGHWAY"
+    r"|PLACE|PLAZA|TOWER|BUILDING|BLDG|LEVEL|FLOOR|SUITE|UNIT|LOT|BLOCK|SECTION|ZONE"
+    r"|INDUSTRIAL|FREE\s+ZONE|AIRPORT|DISTRICT|SQUARE|RAKEZ|AMENITY|CENTER|CENTRE)\b"
+    # Ports / cities / states / countries commonly seen on SI & BL party blocks
+    r"|\b(?:DUBAI|ABU\s+DHABI|JEBEL\s+ALI|SHARJAH|UAE|UNITED\s+ARAB\s+EMIRATES"
+    r"|SINGAPORE|SHANGHAI|ROTTERDAM|NETHERLANDS|HAMBURG|GERMANY|ANTWERP|BELGIUM"
+    r"|CHINA|HONG\s+KONG|KOREA|SEOUL|JAPAN|TOKYO|MALAYSIA|KUALA\s+LUMPUR|SELANGOR"
+    r"|BANDAR\s+BARU\s+BANGI|PORT\s+KLANG|PENANG|JOHOR|INDIA|NHAVA\s+SHEVA|MUMBAI"
+    r"|CHENNAI|KARACHI|PAKISTAN|MOMBASA|KENYA|SRI\s+LANKA|COLOMBO|THAILAND|BANGKOK"
+    r"|VIETNAM|HOCHIMINH|HO\s+CHI\s+MINH|HAIPHONG|INDONESIA|JAKARTA|BUATAN|PHILIPPINES"
+    r"|MANILA|AUSTRALIA|SYDNEY|MELBOURNE|FREMANTLE|ENFIELD|NSW|USA|UNITED\s+STATES"
+    r"|SAVANNAH|NEW\s+YORK|LOS\s+ANGELES|BALTIMORE|BRAZIL|SANTOS|PERU|CALLAO|MEXICO"
+    r"|TURKEY|MERSIN|LITHUANIA|KLAIPEDA|VILNIUS|GUINEA|CONAKRY|EGYPT|BAHRAIN|JORDAN"
+    r"|AQABA|ISRAEL|ASHDOD|HAIFA|SPAIN|VALENCIA|ITALY|GENOA)\b"
+    r")",
+    re.I,
+)
+
+
+def is_safe_prefix_match(si_norm: str, bl_norm: str) -> bool:
+    """True only when the shorter party value is a *safe* prefix of the longer one.
+
+    All three guards must hold simultaneously:
+      1. the shorter value is >= ``MIN_PREFIX_CHARS`` characters long and contains
+         >= ``MIN_PREFIX_WORDS`` complete, space separated words (blocks "ABC");
+      2. the shorter value ends on a word boundary inside the longer value
+         (blocks "GLOBAL LOGISTIC" cutting "GLOBAL LOGISTICS CO LTD");
+      3. the remaining tail matches ``ADDRESS_TAIL_PATTERN`` - P.O. BOX, postal
+         code or a port/city/country/street token (blocks "FORMERLY XYZ").
+    """
+    if not si_norm or not bl_norm or si_norm == bl_norm:
+        return False
+
+    short, long = sorted((si_norm, bl_norm), key=len)
+    if not long.startswith(short):
+        return False
+
+    # Guard 1 - minimum length and at least two complete words.
+    if len(short) < MIN_PREFIX_CHARS:
+        return False
+    if len(short.split()) < MIN_PREFIX_WORDS:
+        return False
+
+    # Guard 2 - the prefix must stop on a word boundary (space, not mid-word).
+    remainder = long[len(short):]
+    if not remainder.startswith(" "):
+        return False
+
+    # Guard 3 - the extra text must look like address detail.
+    tail = remainder.strip()
+    if not tail or not ADDRESS_TAIL_PATTERN.search(tail):
+        return False
+
+    return True
+
+
+def compare_company_field(field_key: str, si_value: Any, bl_value: Any) -> Dict[str, Any]:
+    """Compare one party field across SI and BL.
+
+    1. Strict normalized comparison (``compare_company_name``): identical after
+       normalization -> ``OK`` / ``exact_match`` / ``formatting_only``, missing on
+       one side -> ``NEEDS_REVIEW`` / ``extraction_missing``.
+    2. Otherwise a *guarded* prefix comparison: only when
+       :func:`is_safe_prefix_match` accepts the trailing-address case ->
+       ``{"status": "OK", "note": "formatting_only", "reason": "trailing_address_stripped"}``.
+    3. Anything else stays ``MISMATCH``.
+    """
+    verdict = compare_company_name(si_value, bl_value, field_key)
+    if verdict["status"] != "MISMATCH":
+        return verdict
+
+    si_norm = company_name_normalizer(si_value, field_key)
+    bl_norm = company_name_normalizer(bl_value, field_key)
+    if is_safe_prefix_match(si_norm, bl_norm):
+        return {
+            "status": "OK",
+            "note": "formatting_only",
+            "reason": "trailing_address_stripped",
+            "field_key": field_key,
+            "si": si_value,
+            "bl": bl_value,
+        }
+
+    return verdict
+
 
 class DocumentComparator:
     """
@@ -41,6 +150,10 @@ class DocumentComparator:
         "container_count": "Container Count",
         "gross_weight_kg": "Gross Weight (kg)"
     }
+
+    # Exposed for reuse / unit tests: triple-guarded trailing-address prefix match.
+    is_safe_prefix_match = staticmethod(is_safe_prefix_match)
+    compare_company_field = staticmethod(compare_company_field)
 
     def compare_documents(
         self,
@@ -159,6 +272,46 @@ class DocumentComparator:
                 email_id=email_id
             )
 
+        # 2b. Layer 2 & Layer 3 Gate: Decouple User Intent from Document Validity
+        # Assess whether purported SI attachment actually qualifies as a comparable SI
+        resolved_si_path = None
+        if email_metadata:
+            for att in email_metadata.get("attachments", []):
+                p = att.get("path") if isinstance(att, dict) else str(att)
+                fn = att.get("filename", os.path.basename(p)) if isinstance(att, dict) else os.path.basename(p)
+                dt = att.get("doc_type", "").upper() if isinstance(att, dict) else ""
+                if dt == "SI" or "_si." in fn.lower() or "_si." in p.lower() or fn.lower().endswith("si.txt"):
+                    resolved_si_path = loader.resolve_attachment_path(p)
+                    break
+
+        si_raw = getattr(si_extracted, "raw_text", "") or si_text
+        doc_validity = assess_document_validity(
+            extracted_fields=si_extracted,
+            doc_type_guess=getattr(si_extracted, "doc_type", "si"),
+            raw_text=si_raw,
+            file_path=resolved_si_path,
+            min_coverage=0.6
+        )
+
+        if not doc_validity["is_comparable"] and not has_human_override:
+            is_unreadable = (doc_validity.get("doc_type_guess") == "unreadable")
+            review_reason = "unreadable" if is_unreadable else "intent_document_mismatch"
+            if is_unreadable:
+                message = doc_validity.get("reason") or "Attachment is unreadable or corrupted."
+            else:
+                missing_str = ", ".join(doc_validity["missing_fields"]) if doc_validity["missing_fields"] else "all required fields"
+                message = f"User requested comparison, but attachment does not qualify as a comparable SI — coverage {doc_validity['coverage_ratio']:.0%}, missing fields: {missing_str}."
+            recommended_action = "Confirm whether a proper SI was attached, or reclassify this document."
+            return self._build_needs_review_result(
+                review_reason=review_reason,
+                message=message,
+                recommended_action=recommended_action,
+                si_extracted=si_extracted,
+                bl_extracted=bl_extracted,
+                email_id=email_id,
+                document_validity=doc_validity
+            )
+
         # 3. Check wrong document type
         if si_extracted.get("is_wrong_doc_type") or bl_extracted.get("is_wrong_doc_type"):
             doc_kind = bl_extracted.get("doc_type") if bl_extracted.get("is_wrong_doc_type") else si_extracted.get("doc_type")
@@ -229,13 +382,16 @@ class DocumentComparator:
                 recommended_action="Send to Human Review desk to fill missing values or request revised SI/BL.",
                 si_extracted=si_extracted,
                 bl_extracted=bl_extracted,
-                email_id=email_id
+                email_id=email_id,
+                field_reason_code="extraction_missing"
             )
 
         # 4. Compare all 7 Fields
         matrix = []
         defect_fields = []
         matching_fields = []
+        review_fields = []
+        field_review_reasons: Dict[str, str] = {}
 
         for f in self.FIELDS:
             si_val = si_extracted[f]
@@ -246,8 +402,16 @@ class DocumentComparator:
             match_type = match_meta.get("match_type", "EXACT" if is_match else "MISMATCH")
             is_fmt_diff = match_meta.get("is_formatting_difference", False)
             norm_notes = match_meta.get("normalization_notes")
+            field_status = match_meta.get("status", "OK" if is_match else "MISMATCH")
+            field_reason = match_meta.get("reason")
 
-            if not is_match:
+            # Missing extraction on one side -> NEEDS_REVIEW, never a defect.
+            if field_status == "NEEDS_REVIEW" and not is_match:
+                match_type = "NEEDS_REVIEW"
+                field_reason = field_reason or "extraction_missing"
+                field_review_reasons[f] = field_reason
+                diff_summary = f"Review Required ({field_reason})"
+            elif not is_match:
                 diff_summary = f"SI: {formatted_si} / BL: {formatted_bl}"
             elif match_type == "FUZZY":
                 diff_summary = f"Matched (Fuzzy Match: {norm_notes})" if norm_notes else "Matched (Fuzzy Match)"
@@ -265,21 +429,39 @@ class DocumentComparator:
                 "match_type": match_type,
                 "normalization_notes": norm_notes,
                 "is_formatting_difference": is_fmt_diff,
-                "diff_summary": diff_summary
+                "diff_summary": diff_summary,
+                "status": field_status,
+                "note": match_meta.get("note"),
+                "reason": field_reason
             }
             matrix.append(item)
 
-            if is_match:
+            if field_status == "NEEDS_REVIEW" and not is_match:
+                review_fields.append(f)
+            elif is_match:
                 matching_fields.append(f)
             else:
                 defect_fields.append(f)
 
         has_defect = len(defect_fields) > 0
+        review_reason = None
         if has_defect:
             status = "MISMATCH"
             diff_str_list = [f"{self.FIELD_LABELS[f]}" for f in defect_fields]
             summary_message = f"Found {len(defect_fields)} field mismatch(es): {', '.join(diff_str_list)}."
             recommended_action = f"Issue discrepancy notice to carrier for {', '.join(diff_str_list)}."
+        elif review_fields:
+            # No confirmed defect, but at least one side could not be extracted:
+            # escalate to the human review queue with `extraction_missing`.
+            status = "NEEDS_REVIEW"
+            review_reason = "extraction_missing"
+            review_labels = [self.FIELD_LABELS[f] for f in review_fields]
+            summary_message = (
+                f"Human review required: value could not be extracted for {', '.join(review_labels)}."
+            )
+            recommended_action = (
+                "Send to Human Review desk to confirm the missing extracted value(s) (extraction_missing)."
+            )
         else:
             status = "OK"
             summary_message = "No mismatch detected."
@@ -289,13 +471,17 @@ class DocumentComparator:
             "status": status,
             "has_defect": has_defect,
             "defect_fields": defect_fields,
-            "review_reason": None,
+            "review_reason": review_reason,
             "summary_message": summary_message,
             "recommended_action": recommended_action,
-            "requires_human_review": False,
-            "human_review_reasons": [],
+            "requires_human_review": status == "NEEDS_REVIEW",
+            "human_review_reasons": [summary_message] if review_fields and not has_defect else [],
+            "review_fields": review_fields,
+            "field_review_reasons": field_review_reasons,
             "si_extracted": si_extracted.to_dict() if hasattr(si_extracted, "to_dict") else (si_extracted or {}),
             "bl_extracted": bl_extracted.to_dict() if hasattr(bl_extracted, "to_dict") else (bl_extracted or {}),
+            "can_compare": True,
+            "document_validity": doc_validity,
             "field_matrix": matrix,
             "mismatched_fields": defect_fields,
             "matching_fields": matching_fields,
@@ -303,6 +489,7 @@ class DocumentComparator:
         }
         self._save_result_to_flat_file(email_id, final_res)
         return final_res
+
 
     def _extract_shipment_ref(self, email_metadata: Optional[Dict[str, Any]]) -> str:
         if not email_metadata:
@@ -345,7 +532,7 @@ class DocumentComparator:
             passed = bool(has_si and has_bl)
             att_count = 2 if passed else (1 if (has_si or has_bl) else 0)
         else:
-            passed = (att_count >= 2) and has_si and has_bl
+            passed = (att_count >= 2 or (has_si and has_bl)) and has_si and has_bl
 
         if not passed:
             if not has_si and not has_bl:
@@ -473,8 +660,17 @@ class DocumentComparator:
         match_meta = { match_type, normalization_notes, is_formatting_difference }
         """
         if si_val is None or bl_val is None:
-            meta = {"match_type": "MISSING", "normalization_notes": "One or both values missing", "is_formatting_difference": False}
-            return (False, str(si_val or "MISSING"), str(bl_val or "MISSING"), meta)
+            # A missing extraction on either side is NOT a mismatch defect: it is
+            # routed to human review with the reason code `extraction_missing`.
+            meta = {
+                "match_type": "NEEDS_REVIEW",
+                "status": "NEEDS_REVIEW",
+                "reason": "extraction_missing",
+                "normalization_notes": "Value missing on one side: routed to human review (extraction_missing)",
+                "is_formatting_difference": False,
+            }
+            return (False, str(si_val if si_val is not None else "MISSING"),
+                    str(bl_val if bl_val is not None else "MISSING"), meta)
 
         if field_key == "container_count":
             return self._compare_container_count(si_val, bl_val)
@@ -486,7 +682,7 @@ class DocumentComparator:
             return self._compare_port(si_val, bl_val)
 
         # String fields: shipper, consignee, notify_party
-        return self._compare_company_name(si_val, bl_val)
+        return self._compare_company_name(si_val, bl_val, field_key)
 
     def _compare_container_count(self, si_val: Any, bl_val: Any) -> tuple:
         try:
@@ -574,15 +770,56 @@ class DocumentComparator:
         }
         return (is_match, si_str, bl_str, meta)
 
-    def _compare_company_name(self, si_val: Any, bl_val: Any) -> tuple:
+    def _compare_company_name(self, si_val: Any, bl_val: Any, field_key: str = "notify_party") -> tuple:
+        """Compare shipper / consignee / notify_party values.
+
+        Tier 0 (new): missing value on either side -> NEEDS_REVIEW /
+        ``extraction_missing`` instead of a MISMATCH defect.
+        Tier 1 (new): canonical `company_name_normalizer` comparison, tolerant of
+        case, punctuation and P.O. BOX differences -> OK with note
+        ``exact_match`` / ``formatting_only``.
+        Tier 1b (new, guarded): a shorter value only matches a longer one when the
+        extra text is *verifiably address detail* - the prefix must be >= 8 chars
+        and >= 2 words, must end on a word boundary, and the tail must match
+        ``ADDRESS_TAIL_PATTERN``. Accepted cases carry
+        ``reason="trailing_address_stripped"``; every other prefix candidate is a
+        MISMATCH (a loose prefix match such as "ABC" vs "ABCDEF LOGISTICS" or
+        "GLOBAL LOGISTICS CO LTD" vs "GLOBAL LOGISTICS CO LTD FORMERLY XYZ" must
+        never be auto-approved).
+        Tier 2/3 (existing): address-stripping, legal-suffix and fuzzy token
+        tiers, kept as a fallback so SI/BL address verbosity still matches.
+        """
         si_str = str(si_val)
         bl_str = str(bl_val)
 
-        # Tier 1: Exact normalized match
-        si_norm = self._normalize_str(si_str)
-        bl_norm = self._normalize_str(bl_str)
-        if si_norm == bl_norm:
-            meta = {"match_type": "EXACT", "normalization_notes": None, "is_formatting_difference": False}
+        verdict = compare_company_field(field_key, si_val, bl_val)
+
+        if verdict["status"] == "NEEDS_REVIEW":
+            meta = {
+                "match_type": "NEEDS_REVIEW",
+                "status": "NEEDS_REVIEW",
+                "reason": verdict.get("reason", "extraction_missing"),
+                "normalization_notes": "Value missing on one side: routed to human review (extraction_missing)",
+                "is_formatting_difference": False,
+            }
+            return (False, si_str, bl_str, meta)
+
+        if verdict["status"] == "OK":
+            is_exact = verdict.get("note") == "exact_match"
+            if is_exact:
+                notes = None
+            elif verdict.get("reason") == "trailing_address_stripped":
+                notes = "Party name matches; trailing address detail ignored (trailing_address_stripped)"
+            else:
+                notes = "Formatting-only difference (case / punctuation / P.O. BOX normalized)"
+            meta = {
+                "match_type": "EXACT" if is_exact else "NORMALIZED",
+                "status": "OK",
+                "reason": verdict.get("reason"),
+                "note": verdict.get("note"),
+                "normalization_notes": notes,
+                "is_formatting_difference": not is_exact,
+            }
             return (True, si_str, bl_str, meta)
 
         # Tier 2: Canonical normalization (strip address, normalize legal suffixes)
@@ -590,7 +827,8 @@ class DocumentComparator:
         bl_canon = self._canonicalize_company(bl_str)
         if si_canon == bl_canon:
             notes = "Address/formatting stripped; company names match"
-            meta = {"match_type": "NORMALIZED", "normalization_notes": notes, "is_formatting_difference": True}
+            meta = {"match_type": "NORMALIZED", "status": "OK", "reason": None,
+                    "normalization_notes": notes, "is_formatting_difference": True}
             return (True, si_str, bl_str, meta)
 
         # Tier 3: Fuzzy token matching (Jaccard similarity)
@@ -603,7 +841,8 @@ class DocumentComparator:
 
             if jaccard >= 0.85:
                 notes = f"Fuzzy match ({jaccard:.0%} token overlap)"
-                meta = {"match_type": "FUZZY", "normalization_notes": notes, "is_formatting_difference": False}
+                meta = {"match_type": "FUZZY", "status": "OK", "reason": None,
+                        "normalization_notes": notes, "is_formatting_difference": False}
                 return (True, si_str, bl_str, meta)
 
             # Check if core company name (without suffix) is the same
@@ -611,7 +850,8 @@ class DocumentComparator:
             bl_core = self._strip_legal_suffix(bl_canon)
             if si_core and bl_core and si_core == bl_core:
                 notes = "Same company name, different legal entity suffixes"
-                meta = {"match_type": "NORMALIZED", "normalization_notes": notes, "is_formatting_difference": True}
+                meta = {"match_type": "NORMALIZED", "status": "OK", "reason": None,
+                        "normalization_notes": notes, "is_formatting_difference": True}
                 return (True, si_str, bl_str, meta)
 
             # Check containment (one is substring of the other after normalization)
@@ -622,10 +862,12 @@ class DocumentComparator:
                     ratio = len(shorter) / len(longer)
                     if ratio >= 0.6:
                         notes = f"Company name containment match ({ratio:.0%})"
-                        meta = {"match_type": "FUZZY", "normalization_notes": notes, "is_formatting_difference": False}
+                        meta = {"match_type": "FUZZY", "status": "OK", "reason": None,
+                                "normalization_notes": notes, "is_formatting_difference": False}
                         return (True, si_str, bl_str, meta)
 
-        meta = {"match_type": "MISMATCH", "normalization_notes": None, "is_formatting_difference": False}
+        meta = {"match_type": "MISMATCH", "status": "MISMATCH", "reason": "value_mismatch",
+                "normalization_notes": None, "is_formatting_difference": False}
         return (False, si_str, bl_str, meta)
 
     def _canonicalize_port(self, s: str) -> str:
@@ -703,6 +945,8 @@ class DocumentComparator:
                 "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
                 "status": result_data.get("status"),
                 "review_reason": result_data.get("review_reason"),
+                "can_compare": result_data.get("can_compare", result_data.get("status") != "NEEDS_REVIEW" or result_data.get("review_reason") not in ("intent_document_mismatch", "missing_attachment", "corrupted_file", "unreadable", "wrong_doc_type")),
+                "document_validity": result_data.get("document_validity"),
                 "has_defect": result_data.get("has_defect", False),
                 "defect_fields": result_data.get("defect_fields", []),
                 "summary_message": result_data.get("summary_message"),
@@ -724,15 +968,25 @@ class DocumentComparator:
         si_extracted: Optional[Any] = None,
         bl_extracted: Optional[Any] = None,
         pre_comparison_gate: Optional[Dict[str, Any]] = None,
-        email_id: Optional[str] = None
+        email_id: Optional[str] = None,
+        field_reason_code: Optional[str] = None,
+        document_validity: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         matrix = []
+        field_review_reasons: Dict[str, str] = {}
         is_gate_failure = (review_reason == "missing_attachment")
         for f in self.FIELDS:
             si_v = si_extracted.get(f) if si_extracted else None
             bl_v = bl_extracted.get(f) if bl_extracted else None
+            one_side_missing = si_v is None or bl_v is None
             diff_label = "Comparison Halted (Missing Documents)" if is_gate_failure else f"Review Required ({review_reason})"
-            m_type = "PENDING" if is_gate_failure else ("MISSING" if (si_v is None or bl_v is None) else "REVIEW")
+            m_type = "PENDING" if is_gate_failure else ("MISSING" if one_side_missing else "REVIEW")
+            # A one-sided value is an extraction gap, not a defect: expose the
+            # reviewer-facing reason code (extraction_missing) per field.
+            field_reason = field_reason_code if (one_side_missing and field_reason_code) else None
+            if field_reason:
+                field_review_reasons[f] = field_reason
+                diff_label = f"Review Required ({field_reason})"
             matrix.append({
                 "field_key": f,
                 "field_name": self.FIELD_LABELS[f],
@@ -740,9 +994,11 @@ class DocumentComparator:
                 "bl_value": str(bl_v or "N/A"),
                 "is_match": False,
                 "match_type": m_type,
-                "normalization_notes": f"Review required: {review_reason}",
+                "normalization_notes": f"Review required: {field_reason or review_reason}",
                 "is_formatting_difference": False,
-                "diff_summary": diff_label
+                "diff_summary": diff_label,
+                "status": "NEEDS_REVIEW" if (one_side_missing or not is_gate_failure) else None,
+                "reason": field_reason
             })
 
         si_dict = si_extracted.to_dict() if hasattr(si_extracted, "to_dict") else (si_extracted or {})
@@ -753,10 +1009,14 @@ class DocumentComparator:
             "has_defect": False,
             "defect_fields": [],
             "review_reason": review_reason,
+            "can_compare": False if review_reason in ("intent_document_mismatch", "missing_attachment", "corrupted_file", "unreadable", "wrong_doc_type") else True,
+            "document_validity": document_validity,
             "summary_message": f"Human Review Required: {message}",
             "recommended_action": recommended_action,
             "requires_human_review": True,
             "human_review_reasons": [message],
+            "review_fields": list(field_review_reasons.keys()),
+            "field_review_reasons": field_review_reasons,
             "si_extracted": si_dict,
             "bl_extracted": bl_dict,
             "field_matrix": matrix,
@@ -773,7 +1033,22 @@ class DocumentComparator:
                 "operational_response_draft": recommended_action if is_gate_failure else None
             }
         }
+
+        # Log intent vs document validity mismatch to DuckDB
+        if email_id and review_reason == "intent_document_mismatch":
+            try:
+                event_logger.log_intent_document_mismatch(
+                    email_id=email_id,
+                    reason=message,
+                    coverage_ratio=document_validity.get("coverage_ratio", 0.0) if document_validity else 0.0,
+                    missing_fields=document_validity.get("missing_fields", []) if document_validity else [],
+                    doc_type_guess=document_validity.get("doc_type_guess", "unknown") if document_validity else "unknown"
+                )
+            except Exception as ex:
+                print(f"Failed to log intent mismatch event: {ex}")
+
         self._save_result_to_flat_file(email_id, res)
         return res
+
 
 comparator = DocumentComparator()

@@ -4,7 +4,7 @@ from typing import Dict, Any, Optional, List, Union
 from pathlib import Path
 
 from backend.services.pdf_inspector import classify_pdf
-from backend.services.field_bank import field_bank, CANONICAL_FIELDS
+from backend.services.field_bank import field_bank, CANONICAL_FIELDS, build_header_map, match_header_label
 from backend.services.anchors import parse_container_count, parse_gross_weight_kg
 
 class ExtractionResult:
@@ -87,15 +87,10 @@ class DocumentExtractor:
     Extracts shipping document fields from SI and draft BL documents.
     Routes attachment processing by file extension (.txt, .docx, .xlsx, .pdf).
     """
-    HEADER_MAP = [
-        (re.compile(r'^(?:shipper/exporter|shipper\s*\([^\)]*\)|shipper|exporter)\s*[:\-\)]?\s*', re.I), 'shipper'),
-        (re.compile(r'^(?:consignee\s*\([^\)]*\)|consignee\s*/\s*importer|to\s*the\s*order\s*of|consignee)\s*[:\-\)]?\s*', re.I), 'consignee'),
-        (re.compile(r'^(?:notify\s*party/intermediate\s*consignee|notify\s*party\s*\([^\)]*\)|notify\s*party|notify\s*address|notify)\s*[:\-\)]?\s*', re.I), 'notify_party'),
-        (re.compile(r'^(?:port\s*of\s*loading\s*\([^\)]*\)|port\s*of\s*loading|load\s*port|pol|place\s*of\s*loading)\s*[:\-\)]?\s*', re.I), 'port_of_loading'),
-        (re.compile(r'^(?:port\s*of\s*discharge\s*\([^\)]*\)|port\s*of\s*discharge|discharge\s*port|pod|place\s*of\s*delivery|place\s*of\s*discharge|port\s*of\s*unloading)\s*[:\-\)]?\s*', re.I), 'port_of_discharge'),
-        (re.compile(r'^(?:no\.\s*of\s*containers\s*or\s*packages|no\.\s*of\s*containers|total\s*containers|container\s*summary|container\s*count|containers)\s*[:\-\)]?\s*', re.I), 'container_count'),
-        (re.compile(r'^(?:total\s*)?gross\s*(?:weight|wt)(?:\s*\([^\)]*\))?\s*[:\-\)]?\s*', re.I), 'gross_weight_kg'),
-    ]
+    # Canonical header patterns (single source of truth: field_bank).
+    # Covers plain, parenthetical ("Shipper (Principal or Seller)"),
+    # "Consignee (Non-Negotiable)" and Chinese (发货人/收货人/通知方/通知人) variants.
+    HEADER_MAP = build_header_map()
     STOP_HEADERS = re.compile(
         r'^(?:ocean\s*vessel|vessel\s*name|vessel|export\s*carrier|voy\.\s*no|voyage|voy\b|commodity|description|description\s*of\s*goods|kinds\s*of\s*packages|hs\s*code|booking\s*ref|booking\s*no|booking\s*reference|oc\s*no|freight|bill\s*of\s*lading\s*no|b/l\s*no|b/l\s*number|bl\s*no|order\s*no|bl\s*instruction|bill\s*of\s*lading|container\s*no\b|container\s*no\.|tel\b|fax\b|email\b|p\.?o\.?\s*box|date\b|invoice\s*date|invoice\s*no|inv\s*no|certificate\s*no|country\s*of\s*origin|buyer\b|issuing\s*authority|new\s*no|net\s*weight|tare\s*weight|payment|incoterms|remarks)\b',
         re.I
@@ -329,6 +324,7 @@ class DocumentExtractor:
                 continue
 
             # Check if line contains a key: value separator
+            matched_header = False
             if ":" in line_s:
                 parts = line_s.split(":", 1)
                 cand_label = parts[0].strip()
@@ -336,7 +332,19 @@ class DocumentExtractor:
 
                 # Check if this label resolves in field_bank
                 resolved = field_bank.resolve_label(cand_label)
+                if resolved["canonical"] is None:
+                    # Deterministic fallback: canonical header patterns cover the
+                    # parenthetical / Chinese variants even when they are missing
+                    # from the term dictionary or below the fuzzy threshold.
+                    header_canonical = match_header_label(cand_label)
+                    if header_canonical:
+                        resolved = {
+                            "canonical": header_canonical,
+                            "method": "header_pattern",
+                            "confidence": 1.0
+                        }
                 if resolved["canonical"]:
+                    matched_header = True
                     if curr_key:
                         self._set_field_val(res, curr_key, ' '.join(curr_val))
                     curr_key = resolved["canonical"]
@@ -349,6 +357,7 @@ class DocumentExtractor:
                     })
                     continue
                 elif self.STOP_HEADERS.match(cand_label):
+                    matched_header = True
                     if curr_key:
                         self._set_field_val(res, curr_key, ' '.join(curr_val))
                     curr_key = None
@@ -364,6 +373,27 @@ class DocumentExtractor:
                         unresolved_terms.append({"label": cand_label, "value": rem})
                         if email_id:
                             field_bank.record_unresolved_candidate(email_id, cand_label, rem, doc_type=res.doc_type)
+
+            if not matched_header:
+                # Check header prefix patterns (e.g. lines like 'Shipper APRIL FINE PAPER TRADING' without colon)
+                for pat, canonical in build_header_map():
+                    m = pat.match(line_s)
+                    if m:
+                        if curr_key:
+                            self._set_field_val(res, curr_key, ' '.join(curr_val))
+                        curr_key = canonical
+                        rem = line_s[m.end():].strip()
+                        curr_val = [rem] if rem else []
+                        audit_trail.append({
+                            "raw_label": line_s[:m.end()].strip(),
+                            "canonical": canonical,
+                            "method": "header_prefix",
+                            "confidence": 1.0
+                        })
+                        matched_header = True
+                        break
+                if matched_header:
+                    continue
 
             # Continue previous multi-line value
             if curr_key:

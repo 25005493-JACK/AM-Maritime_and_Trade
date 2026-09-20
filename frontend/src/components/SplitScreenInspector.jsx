@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import ConflictEvidencePanel from './ConflictEvidencePanel.jsx';
 import { 
   FileCheck2, 
   AlertTriangle, 
@@ -21,6 +22,23 @@ import {
 } from 'lucide-react';
 
 export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOverrideModal, onShowToast }) {
+  // DCSA field names power the "DCSA: <path>" badge shown next to each field.
+  const [dcsaMappings, setDcsaMappings] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/dcsa/mapping')
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error('failed'))))
+      .then((data) => {
+        if (!cancelled) setDcsaMappings(data.mappings || {});
+      })
+      .catch(() => {
+        if (!cancelled) setDcsaMappings(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   if (isLoading) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8 text-slate-400 bg-slate-950">
@@ -70,6 +88,8 @@ export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOve
   };
 
   const isMissingAttachment = verif.review_reason === 'missing_attachment' || (!gateInfo.passed && isComparison);
+  const isIntentMismatch = verif.review_reason === 'intent_document_mismatch' || verif.can_compare === false;
+  const docVal = verif.document_validity || {};
 
   const siAtt = attachments.find((a) => {
     const p = typeof a === 'string' ? a : a.path || a.filename || '';
@@ -336,8 +356,79 @@ export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOve
           </div>
         )}
 
+        {/* Intent vs Document Validity Mismatch Card */}
+        {isIntentMismatch && (
+          <div className="glass-card rounded-2xl border-2 border-amber-500/70 p-5 bg-gradient-to-b from-amber-950/40 via-slate-900/90 to-slate-950 shadow-2xl shadow-amber-950/40 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-amber-500/30">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/40 shadow-inner">
+                  <ShieldAlert className="w-5 h-5 text-amber-400" />
+                </div>
+                <div>
+                  <div className="flex items-center space-x-2">
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-amber-300">
+                      Intent vs Document Validity Mismatch — Can't Compare
+                    </h3>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-900/80 text-amber-200 border border-amber-600">
+                      COMPARISON HALTED
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-300 mt-0.5">
+                    <strong className="text-amber-300">Decoupled Pipeline Guard:</strong> User email requested comparison, but the attachment does not qualify as a valid, comparable SI.
+                  </p>
+                </div>
+              </div>
+              <span className="text-xs font-mono bg-slate-900 text-amber-400 px-3 py-1 rounded-lg border border-amber-500/40 font-semibold">
+                Coverage: {docVal.coverage_ratio !== undefined ? `${Math.round(docVal.coverage_ratio * 100)}%` : '0%'}
+              </span>
+            </div>
+
+            {/* Evidence Breakdown Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+                <span className="text-[10px] font-mono uppercase text-slate-400 block mb-1">User Intent (Email Text)</span>
+                <span className="text-xs font-semibold text-cyan-300 flex items-center space-x-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Requested BL Comparison</span>
+                </span>
+                <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">"{email?.subject}"</p>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+                <span className="text-[10px] font-mono uppercase text-slate-400 block mb-1">Detected Attachment Type</span>
+                <span className="text-xs font-semibold text-amber-300 flex items-center space-x-1.5">
+                  <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="uppercase">{docVal.doc_type_guess ? docVal.doc_type_guess.replace(/_/g, ' ') : 'Non-SI / Incomplete'}</span>
+                </span>
+                <p className="text-[11px] text-slate-400 mt-1">
+                  Required Threshold: 60% coverage
+                </p>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+                <span className="text-[10px] font-mono uppercase text-slate-400 block mb-1">Suggested Operator Action</span>
+                <span className="text-xs font-medium text-slate-200">
+                  {verif.recommended_action || "Confirm whether a proper SI was attached, or reclassify this document."}
+                </span>
+              </div>
+            </div>
+
+            {/* Missing Fields List */}
+            {docVal.missing_fields && docVal.missing_fields.length > 0 && (
+              <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-wrap items-center gap-2">
+                <span className="text-xs font-bold text-slate-300">Missing SI Fields:</span>
+                {docVal.missing_fields.map((f) => (
+                  <span key={f} className="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-800/80 text-rose-300 font-mono text-[11px]">
+                    {f}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Needs Review Reason Box (For other NEEDS_REVIEW reasons) */}
-        {status === 'NEEDS_REVIEW' && !isMissingAttachment && (
+        {status === 'NEEDS_REVIEW' && !isMissingAttachment && !isIntentMismatch && (
           <div className={`p-4 rounded-xl flex items-start justify-between shadow-lg ${
             verif.review_reason === 'scanned_not_processed'
               ? 'bg-purple-950/30 border border-purple-500/40'
@@ -347,6 +438,7 @@ export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOve
               ? 'bg-indigo-950/30 border border-indigo-500/40'
               : 'bg-amber-950/30 border border-amber-500/40'
           }`}>
+
             <div className="flex items-start space-x-3">
               <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${
                 verif.review_reason === 'scanned_not_processed'
@@ -433,6 +525,11 @@ export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOve
           </div>
         )}
 
+        {/* Propose-and-confirm conflict resolution: side-by-side evidence + reviewer decision */}
+        {(verif.defect_fields?.length > 0 || status === 'MISMATCH') && !isMissingAttachment && (
+          <ConflictEvidencePanel emailId={email.id} onShowToast={onShowToast} />
+        )}
+
         {/* 7-Field Side-by-Side Comparison Matrix */}
         {verif.field_matrix && (
           <div className="glass-card rounded-xl border border-slate-800 overflow-hidden shadow-lg">
@@ -481,8 +578,20 @@ export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOve
                     className={`p-3 transition ${rowBorderClass}`}
                   >
                     <div className="grid grid-cols-12 items-center">
-                      <div className="col-span-3 font-semibold text-slate-300 flex items-center space-x-2">
+                      <div className="col-span-3 font-semibold text-slate-300 flex flex-wrap items-center gap-2">
                         <span className="text-xs text-slate-200">{row.field_name}</span>
+                        {dcsaMappings?.[row.field_key] && (
+                          <span
+                            title={dcsaMappings[row.field_key].definition}
+                            className={`font-mono text-[10px] px-1.5 py-0.5 rounded border ${
+                              dcsaMappings[row.field_key].internal_only
+                                ? 'border-slate-600/60 bg-slate-900/80 text-slate-400'
+                                : 'border-cyan-700/60 bg-cyan-950/60 text-cyan-300'
+                            }`}
+                          >
+                            DCSA: {dcsaMappings[row.field_key].dcsa_field || 'internal only'}
+                          </span>
+                        )}
                       </div>
 
                       <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 truncate">

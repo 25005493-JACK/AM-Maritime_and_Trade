@@ -4,7 +4,7 @@ import json
 import csv
 import unicodedata
 import datetime
-from typing import Dict, Any, Optional, Tuple
+from typing import Dict, Any, List, Optional, Tuple
 import rapidfuzz.fuzz
 
 CANONICAL_FIELDS = {
@@ -23,6 +23,198 @@ def is_cjk(s: str) -> bool:
         if '\u4e00' <= ch <= '\u9fff' or '\u3400' <= ch <= '\u4dbf':
             return True
     return False
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Field header patterns (label recognition)
+# ─────────────────────────────────────────────────────────────────────────────
+
+#: Fields whose values are free-text party blocks (company name + address).
+COMPANY_NAME_FIELDS = {"shipper", "consignee", "notify_party"}
+
+#: Party fields where a P.O. BOX line is treated as formatting noise instead of
+#: a material difference between the SI and the draft BL. Financial/commercial
+#: fields are never P.O. BOX-normalized.
+PO_BOX_NORMALIZED_FIELDS = {"shipper", "consignee", "notify_party"}
+
+# Label alternatives for every canonical field header. Parenthetical qualifiers
+# ("(Principal or Seller)", "(Non-Negotiable)", "(KGS)"...) and bilingual
+# suffixes ("(发货人)", "(通知人)"...) are absorbed by the generic optional
+# bracket group that is appended to each pattern below, so a single source of
+# truth covers the plain, bracketed and Chinese header variants.
+HEADER_LABEL_SOURCES: Dict[str, str] = {
+    "shipper": (
+        r"shipper\s*/\s*exporter|shipper\s*name(?:\s*&\s*address)?|shipper"
+        r"|consignor|exporter|seller|principal|发货人|托运人"
+    ),
+    "consignee": (
+        r"consignee\s*/\s*importer|consignee|to\s*the\s*order\s*of|importer|收货人"
+    ),
+    "notify_party": (
+        r"notify\s*party\s*/\s*intermediate\s*consignee|notify\s*address"
+        r"|notify\s*party|notify|intermediate\s*consignee|通知方|通知人"
+    ),
+    "port_of_loading": (
+        r"port\s*of\s*loading|place\s*of\s*loading|place\s*of\s*receipt"
+        r"|loading\s*port|load\s*port|pol|装货港|起运港"
+    ),
+    "port_of_discharge": (
+        r"port\s*of\s*discharge|place\s*of\s*delivery|place\s*of\s*discharge"
+        r"|port\s*of\s*unloading|discharge\s*port|discharging\s*port|pod|卸货港|目的港"
+    ),
+    "container_count": (
+        r"no\.?\s*of\s*containers(?:\s*or\s*packages)?|number\s*of\s*containers"
+        r"|total\s*containers|container\s*summary|container\s*count|cntr\s*count"
+        r"|total\s*cntrs|containers|箱数|集装箱数"
+    ),
+    "gross_weight_kg": (
+        r"(?:total\s+)?gross\s*(?:weight|wt)|weight\s*\(kg\)|total\s*weight|毛重|总重量"
+    ),
+}
+
+_BRACKET_SUFFIX = r"(?:\s*\([^)]*\))?"
+_SEPARATOR_SUFFIX = r"\s*[:\-\)]?\s*"
+
+#: Whole-label patterns: "Shipper (Principal or Seller):" -> "shipper".
+FIELD_HEADER_PATTERNS: Dict[str, "re.Pattern"] = {
+    canonical: re.compile(rf"^\s*(?:{source}){_BRACKET_SUFFIX}{_SEPARATOR_SUFFIX}$", re.I)
+    for canonical, source in HEADER_LABEL_SOURCES.items()
+}
+
+
+def match_header_label(label: str) -> Optional[str]:
+    """Return the canonical field for a raw header label, or ``None``.
+
+    Deterministic companion to :meth:`FieldBank.resolve_label`. It recognises
+    parenthetical header variants such as ``Shipper (Principal or Seller)`` and
+    ``Consignee (Non-Negotiable)`` as well as the Chinese headers
+    (``发货人`` / ``收货人`` / ``通知方`` / ``通知人``) even when they are absent
+    from ``data/field_terms.json`` or score below the fuzzy threshold.
+    """
+    if not label:
+        return None
+    text = str(label).strip()
+    for canonical, pattern in FIELD_HEADER_PATTERNS.items():
+        if pattern.match(text):
+            return canonical
+    return None
+
+
+def build_header_map() -> List[Tuple["re.Pattern", str]]:
+    """Compiled ``(prefix pattern, canonical)`` list for line-level headers.
+
+    Drop-in replacement for ``DocumentExtractor.HEADER_MAP``: it anchors on the
+    label at the start of a line and swallows the trailing separator, e.g.
+    ``Shipper (Principal or Seller): `` -> ``shipper``.
+    """
+    return [
+        (re.compile(rf"^\s*(?:{source}){_BRACKET_SUFFIX}{_SEPARATOR_SUFFIX}", re.I), canonical)
+        for canonical, source in HEADER_LABEL_SOURCES.items()
+    ]
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Company-name normalization & comparison
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ``P.O. BOX 12345``, ``P.O.BOX 12345``, ``PO BOX 12345``, ``POST OFFICE BOX 12345``
+# and ``P.O. BOX: 293775`` are all removed, including the trailing box number.
+_PO_BOX_RE = re.compile(
+    r"\b(?:p\.?\s*o\.?\s*box|post\s+office\s+box|po\s*box)\b\.?"
+    r"(?:\s*(?:no\.?|number|nr\.?|#)\s*)?\s*[:\-]?\s*[\w\-]*",
+    re.I,
+)
+
+# Everything that is not a letter/digit (Latin or CJK) collapses to a space.
+_PUNCTUATION_RE = re.compile(r"[^0-9A-Z\u4e00-\u9fff]+")
+
+
+def _is_missing_value(value: Any) -> bool:
+    """True when a field value is absent/blank and therefore not comparable."""
+    if value is None:
+        return True
+    if isinstance(value, str):
+        return value.strip().upper() in {"", "N/A", "NA", "NONE", "TBA", "BLANK", "-"}
+    return False
+
+
+def company_name_normalizer(
+    value: Any,
+    field_key: Optional[str] = None,
+    strip_po_box: Optional[bool] = None,
+) -> str:
+    """Normalize a party/company name for SI-vs-BL comparison.
+
+    Steps:
+      1. NFKC-normalize and uppercase
+      2. optionally drop ``P.O. BOX`` / ``POST OFFICE BOX`` / ``PO BOX``
+         (default: on for :data:`PO_BOX_NORMALIZED_FIELDS` and for generic calls
+         without a ``field_key``; override explicitly with ``strip_po_box``)
+      3. replace punctuation with spaces
+      4. collapse repeated whitespace
+
+    ``company_name_normalizer("AL GURG STATIONERY LLC P.O. BOX 5069", "notify_party")``
+    yields ``"AL GURG STATIONERY LLC"``, i.e. the same as the P.O. BOX-free SI/BL
+    value, so the comparator can report a formatting-only difference.
+    """
+    if _is_missing_value(value):
+        return ""
+    text = unicodedata.normalize("NFKC", str(value)).upper().strip()
+    if strip_po_box is None:
+        strip_po_box = field_key is None or field_key in PO_BOX_NORMALIZED_FIELDS
+    if strip_po_box:
+        text = _PO_BOX_RE.sub(" ", text)
+    text = _PUNCTUATION_RE.sub(" ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def compare_company_name(
+    si_value: Any,
+    bl_value: Any,
+    field_key: str = "notify_party",
+) -> Dict[str, Any]:
+    """Compare a party field (shipper / consignee / notify_party) across SI & BL.
+
+    Returns the reviewer-facing verdict contract:
+      * ``{"status": "NEEDS_REVIEW", "reason": "extraction_missing"}`` when
+        either side is ``None``/blank - a missing value must never be reported as
+        a MISMATCH defect.
+      * ``{"status": "OK", "note": "exact_match"}`` when the raw values are equal.
+      * ``{"status": "OK", "note": "formatting_only"}`` when the raw values differ
+        but normalize to the same string (case, punctuation, P.O. BOX...).
+      * ``{"status": "MISMATCH", "si": ..., "bl": ...}`` otherwise, with the
+        normalized forms attached for the audit trail.
+    """
+    if _is_missing_value(si_value) or _is_missing_value(bl_value):
+        return {
+            "status": "NEEDS_REVIEW",
+            "reason": "extraction_missing",
+            "field_key": field_key,
+            "si": si_value,
+            "bl": bl_value,
+        }
+
+    si_norm = company_name_normalizer(si_value, field_key)
+    bl_norm = company_name_normalizer(bl_value, field_key)
+
+    if si_norm and si_norm == bl_norm:
+        exact = str(si_value).strip() == str(bl_value).strip()
+        return {
+            "status": "OK",
+            "note": "exact_match" if exact else "formatting_only",
+            "field_key": field_key,
+            "si": si_value,
+            "bl": bl_value,
+        }
+
+    return {
+        "status": "MISMATCH",
+        "field_key": field_key,
+        "si": si_value,
+        "bl": bl_value,
+        "si_normalized": si_norm,
+        "bl_normalized": bl_norm,
+    }
 
 class FieldBank:
     """
@@ -189,3 +381,10 @@ class FieldBank:
             print(f"Failed to record term candidate: {ex}")
 
 field_bank = FieldBank()
+
+# Re-export Layer 2 document validity assessment
+try:
+    from backend.services.document_validator import assess_document_validity, REQUIRED_SI_FIELDS
+except ImportError:
+    from document_validator import assess_document_validity, REQUIRED_SI_FIELDS
+

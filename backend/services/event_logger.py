@@ -129,6 +129,28 @@ class EventLogger:
             print(f"[EventLogger] Failed to log event for {email_id}: {ex}")
             return None
 
+    def log_intent_document_mismatch(
+        self,
+        email_id: str,
+        shipment_id: Optional[str] = None,
+        reason: str = "",
+        coverage_ratio: float = 0.0,
+        missing_fields: Optional[List[str]] = None,
+        doc_type_guess: str = "unknown"
+    ) -> Optional[str]:
+        """Logs an intent vs document validity mismatch to DuckDB."""
+        return self.log_event(
+            email_id=email_id,
+            shipment_id=shipment_id,
+            category="BL_COMPARISON",
+            comparison_status="NEEDS_REVIEW",
+            review_reason="intent_document_mismatch",
+            anchor_triage_outcome="intent_document_mismatch",
+            anchor_triage_reason=f"DocType: {doc_type_guess}, Cov: {coverage_ratio:.1%}, Reason: {reason}",
+            defect_fields=missing_fields
+        )
+
+
     def log_timeline_event(
         self,
         shipment_id: str,

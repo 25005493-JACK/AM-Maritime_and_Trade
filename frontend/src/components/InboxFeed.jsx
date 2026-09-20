@@ -234,13 +234,17 @@ export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelect
             const classInfo = email.classification || {};
             const verif = email.verification;
             const category = classInfo.category || 'GENERAL';
-            const statusAccent = verif?.status === 'MISMATCH'
-              ? 'border-l-rose-500/80'
-              : verif?.status === 'NEEDS_REVIEW'
-                ? 'border-l-amber-500/80'
-                : verif?.status === 'OK'
-                  ? 'border-l-emerald-500/70'
-                  : 'border-l-slate-700';
+            const isCantCompare = verif?.review_reason === 'intent_document_mismatch' || verif?.can_compare === false;
+            const statusAccent =
+              isCantCompare
+                ? 'border-l-amber-400 bg-amber-950/15'
+                : verif?.status === 'MISMATCH'
+                  ? 'border-l-rose-500/80'
+                  : verif?.status === 'NEEDS_REVIEW'
+                    ? 'border-l-amber-500/80'
+                    : verif?.status === 'OK'
+                      ? 'border-l-emerald-500/70'
+                      : 'border-l-slate-700';
 
             return (
               <div
@@ -348,6 +352,11 @@ export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelect
                         <span className="bg-indigo-950/80 border border-indigo-500/70 text-indigo-300 px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-bold shadow-sm shadow-indigo-950/50">
                           <HelpCircle className="w-3.5 h-3.5 text-indigo-400" />
                           <span>UNRESOLVED TERM</span>
+                        </span>
+                      ) : verif?.review_reason === 'intent_document_mismatch' || verif?.can_compare === false ? (
+                        <span className="bg-amber-950/90 border border-amber-500/80 text-amber-300 px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-bold shadow-sm shadow-amber-950/60 ring-1 ring-amber-500/40">
+                          <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+                          <span>CAN'T COMPARE</span>
                         </span>
                       ) : (
                         <span className="badge-warning px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-semibold">
