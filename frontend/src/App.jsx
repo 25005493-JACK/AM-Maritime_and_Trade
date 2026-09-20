@@ -197,7 +197,7 @@ export default function App() {
   }, [selectedEmailId]);
 
   return (
-    <div className="flex h-screen w-full bg-slate-950 text-slate-100 font-sans overflow-hidden">
+    <div className="flex h-dvh w-full min-w-0 bg-slate-950 text-slate-100 font-sans overflow-hidden">
       {/* Navigation Sidebar */}
       <Sidebar
         activeTab={activeTab}
@@ -221,7 +221,7 @@ export default function App() {
               onOpenInspector={() => navigateTo('inspector')}
             />
             {/* Embedded Inspector Panel on Wide Screens */}
-            <div className="hidden xl:flex w-[42rem] min-w-[420px] border-l border-slate-800">
+            <div className="hidden 2xl:flex w-[min(36vw,34rem)] min-w-[360px] border-l border-slate-800">
               <SplitScreenInspector
                 emailDetail={emailDetail}
                 onOpenOverrideModal={() => setShowOverrideModal(true)}
@@ -272,7 +272,7 @@ export default function App() {
                 <span>Export Decision Log</span>
               </a>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {emails
                 .filter((e) => e.verification?.status === 'NEEDS_REVIEW' || e.verification?.status === 'HUMAN_REVIEW_REQUIRED')
                 .map((email) => (
