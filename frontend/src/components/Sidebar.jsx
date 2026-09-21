@@ -8,7 +8,6 @@ import {
   Ship, 
   RefreshCw,
   Calendar as CalendarIcon,
-  GitCommit,
   Sun,
   Moon
 } from 'lucide-react';
@@ -18,7 +17,6 @@ export default function Sidebar({ activeTab, setActiveTab, stats, onRefresh, the
     { id: 'inbox', label: 'Inbox & Triage', icon: Inbox, count: stats?.total_emails || 0 },
     { id: 'inspector', label: 'SI vs BL Inspector', icon: FileCheck2, count: stats?.comparison_requests || 0 },
     { id: 'calendar', label: 'Vessel Schedule Calendar', icon: CalendarIcon, badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' },
-    { id: 'timeline', label: 'Shipment Audit Timeline', icon: GitCommit },
     { id: 'human_review', label: 'Human Review Queue', icon: AlertTriangle, count: stats?.human_review_count || 0, badgeColor: 'bg-amber-500/20 text-amber-400 border-amber-500/30' },
     { id: 'analytics', label: 'Vessel & Order Analytics', icon: BarChart3 },
     { id: 'benchmark', label: 'Self-Evaluation Scoreboard', icon: Award }

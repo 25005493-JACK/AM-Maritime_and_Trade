@@ -6,7 +6,6 @@ import HumanReviewModal from './components/HumanReviewModal.jsx';
 import AnalyticsDashboard from './components/AnalyticsDashboard.jsx';
 import SelfEvaluationView from './components/SelfEvaluationView.jsx';
 import VesselCalendar from './components/VesselCalendar.jsx';
-import ShipmentTimeline from './components/ShipmentTimeline.jsx';
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
@@ -240,7 +239,7 @@ export default function App() {
               title="Drag to resize Inspector panel width"
             />
 
-            {/* Right Resizable Inspector Panel */}
+            {/* Right Resizable Inspector Panel (Includes Full Exact Shipment Audit Timeline) */}
             <div
               style={{ width: `${inspectorWidth}px` }}
               className="hidden lg:flex flex-col border-l border-slate-800 shrink-0 overflow-hidden"
@@ -268,10 +267,6 @@ export default function App() {
             onAssignContainer={handleAssignContainer}
             onAutoConfirmBooking={handleAutoConfirmBooking}
           />
-        )}
-
-        {activeTab === 'timeline' && (
-          <ShipmentTimeline emails={emails} />
         )}
 
         {activeTab === 'human_review' && (

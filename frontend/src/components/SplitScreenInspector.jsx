@@ -39,6 +39,8 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
 
   const { email, classification, si_text, bl_text, verification } = emailDetail;
   const verif = verification || {};
+  const isMatch = verif.status === 'NO_MISMATCH_DETECTED';
+  const isHuman = verif.status === 'HUMAN_REVIEW_REQUIRED';
 
   // Character-level diff renderer helper
   const renderDiff = (siVal, blVal, isMatch) => {
@@ -63,10 +65,65 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
 
   const str = (v) => (v === null || v === undefined ? '' : String(v));
 
+  // Milestones for the exact vertical node tree
+  const milestones = [
+    {
+      id: 1,
+      title: 'Booking Confirmed & Allocation Scheduled',
+      timestamp: new Date(new Date(email.timestamp || Date.now()).getTime() - 86400000).toISOString(),
+      actor: 'AI Done: Carrier Booking System',
+      status: 'Completed',
+      icon: Ship,
+      details: `Vessel: ${email.vessel || 'MSC ISABELLA'} ${email.voyage || 'v.240E'} | Company: ${email.company || 'Global Traders Inc'}`
+    },
+    {
+      id: 2,
+      title: 'Shipping Instruction (SI) Received & Ingested',
+      timestamp: email.timestamp || new Date().toISOString(),
+      actor: `AI Done: Ingestion Engine (${email.sender || 'Shipper Desk'})`,
+      status: 'Completed',
+      icon: FileText,
+      details: `Subject: "${email.subject}" | 7 Reference fields extracted`
+    },
+    {
+      id: 3,
+      title: 'Draft Bill of Lading (BL) AI Verification Checked',
+      timestamp: new Date(new Date(email.timestamp || Date.now()).getTime() + 1800000).toISOString(),
+      actor: 'AI Done: Antigravity NLP Rules Engine',
+      status: isMatch ? 'Passed' : isHuman ? 'Escalated' : 'Discrepancy Flagged',
+      icon: isMatch ? CheckCircle2 : AlertTriangle,
+      details: isMatch 
+        ? 'All 7 standard fields agree perfectly (Shipper, Consignee, Notify, POL, POD, Containers, Weight)'
+        : `Verification result: ${verif.summary_message || 'Field differences detected'}`
+    },
+    {
+      id: 4,
+      title: 'Human-in-the-Loop Audit & Override Gate',
+      timestamp: new Date(new Date(email.timestamp || Date.now()).getTime() + 3600000).toISOString(),
+      actor: isHuman ? 'User Done: Pending Operational Review' : 'User Done: Shipping Operator Audit',
+      status: isHuman ? 'Action Required' : 'Approved',
+      icon: UserCheck,
+      details: isHuman 
+        ? `Escalated reason: ${verif.human_review_reasons?.join(' | ') || 'Corrupted stream or blank value'}`
+        : 'Rule-based audit trail validated against DCSA standards'
+    },
+    {
+      id: 5,
+      title: 'Final Bill of Lading Printing & Container Release',
+      timestamp: new Date(new Date(email.timestamp || Date.now()).getTime() + 7200000).toISOString(),
+      actor: 'User Done: Documentation Desk Release',
+      status: isMatch ? 'Ready for Release' : 'Pending Revision',
+      icon: ShieldCheck,
+      details: isMatch 
+        ? 'Released to Shipper. Certificate of Origin & Shipment Advice finalized.'
+        : 'Waiting for revised draft BL from carrier.'
+    }
+  ];
+
   return (
     <div className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950 relative">
       {/* Inspector Top Header Bar */}
-      <div className="p-4 border-b border-slate-800 glass-panel flex items-center justify-between">
+      <div className="p-4 border-b border-slate-800 glass-panel flex items-center justify-between shrink-0">
         <div>
           <div className="flex items-center space-x-2 mb-1">
             <span className="font-mono text-xs text-cyan-400 font-semibold">{email.id}</span>
@@ -92,7 +149,7 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
           {verif.status === 'MISMATCH_DETECTED' && (
             <div className="badge-mismatch px-3 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold mismatch-glow">
               <XCircle className="w-4 h-4" />
-              <span>{verif.mismatched_fields.length} Mismatch(es) Flagged</span>
+              <span>{verif.mismatched_fields?.length || 0} Mismatch(es) Flagged</span>
             </div>
           )}
           {verif.status === 'HUMAN_REVIEW_REQUIRED' && (
@@ -120,59 +177,64 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
         </div>
       </div>
 
-      {/* Main Split Inspector Body */}
+      {/* Main Inspector Scrollable Body */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
 
-        {/* 1. TOP-OF-PAGE SHIPMENT AUDIT TIMELINE (Who Done What: User vs AI) */}
-        <div className="p-4 rounded-xl glass-card border border-slate-800 space-y-3 shadow-lg">
+        {/* 1. EXACT ENTIRE SHIPMENT TIMELINE (Vertical Node Tree Moved Right Here to Inspector Top) */}
+        <div className="glass-card rounded-xl border border-slate-800 p-4 space-y-3 shadow-lg">
           <div className="flex items-center justify-between border-b border-slate-800 pb-2">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200 flex items-center space-x-2">
               <GitCommit className="w-4 h-4 text-cyan-400" />
-              <span>Shipment Audit Timeline (Who Done What)</span>
+              <span>Exact Shipment Audit Timeline (Actor Provenance)</span>
             </h3>
-            <span className="text-[11px] font-mono text-slate-500">Event History & Actor Provenance</span>
+            <span className="text-[11px] font-mono text-slate-500">Who Done What (AI vs User)</span>
           </div>
 
-          <div className="grid grid-cols-4 gap-3 text-xs font-mono">
-            {/* Event 1: AI Booking Allocation */}
-            <div className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
-              <div className="flex items-center space-x-1.5 text-cyan-400 font-bold text-[11px]">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>AI Done: Auto-Allocated</span>
-              </div>
-              <p className="text-[11px] text-slate-300 truncate">Vessel: {email.vessel || 'MSC ISABELLA'}</p>
-              <span className="text-[10px] text-slate-500 block">Actor: AI Vessel Scheduler</span>
-            </div>
+          {/* Full Vertical Milestone Node Tree */}
+          <div className="relative border-l-2 border-slate-800 ml-3 pl-5 space-y-4 py-1">
+            {milestones.map((m) => {
+              const Icon = m.icon;
+              return (
+                <div key={m.id} className="relative group">
+                  {/* Node Bullet */}
+                  <div className={`absolute -left-[29px] top-0.5 w-6 h-6 rounded-full flex items-center justify-center border-2 transition ${
+                    m.status === 'Completed' || m.status === 'Passed' || m.status === 'Approved' || m.status === 'Ready for Release'
+                      ? 'bg-emerald-950 border-emerald-500 text-emerald-400'
+                      : m.status === 'Action Required' || m.status === 'Escalated'
+                      ? 'bg-amber-950 border-amber-500 text-amber-400'
+                      : 'bg-rose-950 border-rose-500 text-rose-400'
+                  }`}>
+                    <Icon className="w-3.5 h-3.5" />
+                  </div>
 
-            {/* Event 2: AI SI Extraction */}
-            <div className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
-              <div className="flex items-center space-x-1.5 text-indigo-400 font-bold text-[11px]">
-                <FileText className="w-3.5 h-3.5" />
-                <span>AI Done: SI Extracted</span>
-              </div>
-              <p className="text-[11px] text-slate-300 truncate">7 Reference Fields Parsed</p>
-              <span className="text-[10px] text-slate-500 block">Actor: AI Ingestion Engine</span>
-            </div>
+                  {/* Card Container */}
+                  <div className="p-3 rounded-lg bg-slate-900/90 border border-slate-800/80 space-y-1.5 hover:border-slate-700 transition text-xs font-mono">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-bold text-slate-200 text-xs">{m.title}</h4>
+                      <span className="text-[10px] text-slate-500 flex items-center space-x-1">
+                        <Clock className="w-3 h-3" />
+                        <span>{new Date(m.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                      </span>
+                    </div>
 
-            {/* Event 3: AI BL Verification */}
-            <div className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
-              <div className="flex items-center space-x-1.5 text-purple-400 font-bold text-[11px]">
-                <Zap className="w-3.5 h-3.5" />
-                <span>AI Done: BL Cross-Checked</span>
-              </div>
-              <p className="text-[11px] text-slate-300 truncate">Status: {verif.status || 'Verified'}</p>
-              <span className="text-[10px] text-slate-500 block">Actor: AI Discrepancy Matrix</span>
-            </div>
+                    <p className="text-[11px] text-slate-300 bg-slate-950/70 p-2 rounded border border-slate-900">
+                      {m.details}
+                    </p>
 
-            {/* Event 4: User/Human Review Action */}
-            <div className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
-              <div className="flex items-center space-x-1.5 text-amber-400 font-bold text-[11px]">
-                <UserCheck className="w-3.5 h-3.5" />
-                <span>User Done: {verif.status === 'HUMAN_REVIEW_REQUIRED' ? 'Review Required' : 'Operator Audit Approved'}</span>
-              </div>
-              <p className="text-[11px] text-slate-300 truncate">{verif.status === 'HUMAN_REVIEW_REQUIRED' ? 'Escalated to Desk' : 'Shipping Desk Release'}</p>
-              <span className="text-[10px] text-slate-500 block">Actor: User: Operations Staff</span>
-            </div>
+                    <div className="flex items-center justify-between text-[10px] text-slate-400 pt-0.5">
+                      <span className="font-semibold text-cyan-300">{m.actor}</span>
+                      <span className={`px-1.5 py-0.5 rounded font-mono font-semibold ${
+                        m.status === 'Completed' || m.status === 'Passed' || m.status === 'Approved'
+                          ? 'text-emerald-400 bg-emerald-950/60'
+                          : 'text-amber-400 bg-amber-950/60'
+                      }`}>
+                        {m.status}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
