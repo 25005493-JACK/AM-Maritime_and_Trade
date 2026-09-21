@@ -1,6 +1,6 @@
 {
   "email_id": "email_071",
-  "timestamp": "2026-09-21T04:38:04.045510+00:00",
+  "timestamp": "2026-09-21T09:15:12.196834+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "port_of_discharge": "YANGON, MYANMAR (MMRGN)",
-    "gross_weight_kg": 132006.0,
-    "container_count": 6,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "notify_party": "HABRAS INTERNATIONAL LIMITED",
-    "consignee": "HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE"
+    "gross_weight_kg": 132006.0,
+    "container_count": 6,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "consignee": "HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE",
+    "port_of_discharge": "YANGON, MYANMAR (MMRGN)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "port_of_discharge": "CEBU, PHILIPPINES (MMRGN)",
-    "gross_weight_kg": 132006.0,
-    "container_count": 8,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "notify_party": "HABRAS INTERNATIONAL LIMITED",
-    "consignee": "HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE"
+    "gross_weight_kg": 132006.0,
+    "container_count": 8,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "consignee": "HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE",
+    "port_of_discharge": "CEBU, PHILIPPINES (MMRGN)"
   },
   "field_matrix": [
     {

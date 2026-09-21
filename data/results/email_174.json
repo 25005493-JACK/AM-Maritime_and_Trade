@@ -1,6 +1,6 @@
 {
   "email_id": "email_174",
-  "timestamp": "2026-09-21T04:38:05.096201+00:00",
+  "timestamp": "2026-09-21T09:15:12.464563+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "port_of_discharge": "CONAKRY, GUINEA (GNCKY)",
-    "gross_weight_kg": 20532.0,
-    "container_count": 1,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "TOAN LUC PAPER JOINT STOCK COMPANY",
-    "consignee": "TOAN LUC PAPER JOINT STOCK COMPANY LOT B, TAN DONG HIEP B IZ; DI AN, BINH DUONG, VIETNAM"
+    "gross_weight_kg": 20532.0,
+    "container_count": 1,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
+    "consignee": "TOAN LUC PAPER JOINT STOCK COMPANY LOT B, TAN DONG HIEP B IZ; DI AN, BINH DUONG, VIETNAM",
+    "port_of_discharge": "CONAKRY, GUINEA (GNCKY)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (GNCKY)",
-    "gross_weight_kg": 20532.0,
-    "container_count": 1,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "MOORIM SP CO., LTD",
-    "consignee": "TOAN LUC PAPER JOINT STOCK COMPANY LOT B, TAN DONG HIEP B IZ; DI AN, BINH DUONG, VIETNAM"
+    "gross_weight_kg": 20532.0,
+    "container_count": 1,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
+    "consignee": "TOAN LUC PAPER JOINT STOCK COMPANY LOT B, TAN DONG HIEP B IZ; DI AN, BINH DUONG, VIETNAM",
+    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (GNCKY)"
   },
   "field_matrix": [
     {

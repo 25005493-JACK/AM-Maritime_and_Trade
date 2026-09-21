@@ -1,6 +1,6 @@
 {
   "email_id": "email_111",
-  "timestamp": "2026-09-21T04:38:04.455585+00:00",
+  "timestamp": "2026-09-21T09:15:12.288435+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "port_of_discharge": "APAPA, NIGERIA (NGAPP)",
-    "gross_weight_kg": 91524.0,
-    "container_count": 4,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "notify_party": "CLIFFORD PAPER INC",
-    "consignee": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA"
+    "gross_weight_kg": 91524.0,
+    "container_count": 4,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
+    "consignee": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA",
+    "port_of_discharge": "APAPA, NIGERIA (NGAPP)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "port_of_discharge": "APAPA, NIGERIA (NGAPP)",
-    "gross_weight_kg": 91524.0,
-    "container_count": 3,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "notify_party": "CLIFFORD PAPER INC",
-    "consignee": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA"
+    "gross_weight_kg": 91524.0,
+    "container_count": 3,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
+    "consignee": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA",
+    "port_of_discharge": "APAPA, NIGERIA (NGAPP)"
   },
   "field_matrix": [
     {

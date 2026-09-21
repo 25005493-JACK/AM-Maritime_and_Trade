@@ -1,6 +1,6 @@
 {
   "email_id": "email_249",
-  "timestamp": "2026-09-21T04:38:05.657322+00:00",
+  "timestamp": "2026-09-21T09:15:12.608111+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "port_of_discharge": "GDANSK, POLAND (PLGDN)",
-    "gross_weight_kg": 115545.0,
-    "container_count": 5,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "UAB NOVAKOPA",
-    "consignee": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA"
+    "gross_weight_kg": 115545.0,
+    "container_count": 5,
+    "port_of_loading": "NANTONG, CHINA (CNNTG)",
+    "consignee": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
+    "port_of_discharge": "GDANSK, POLAND (PLGDN)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "port_of_discharge": "GDANSK, POLAND (PLGDN)",
-    "gross_weight_kg": 115545.0,
-    "container_count": 5,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "UAB NOVAKOPA",
-    "consignee": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA"
+    "gross_weight_kg": 115545.0,
+    "container_count": 5,
+    "port_of_loading": "NANTONG, CHINA (CNNTG)",
+    "consignee": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
+    "port_of_discharge": "GDANSK, POLAND (PLGDN)"
   },
   "field_matrix": [
     {

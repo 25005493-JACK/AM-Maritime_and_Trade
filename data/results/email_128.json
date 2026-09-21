@@ -1,6 +1,6 @@
 {
   "email_id": "email_128",
-  "timestamp": "2026-09-21T04:38:04.525342+00:00",
+  "timestamp": "2026-09-21T09:15:12.320389+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
-    "port_of_discharge": "NEW YORK, US (USNYC)",
-    "gross_weight_kg": 323250.0,
-    "container_count": 15,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
-    "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA"
+    "gross_weight_kg": 323250.0,
+    "container_count": 15,
+    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
+    "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA",
+    "port_of_discharge": "NEW YORK, US (USNYC)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "BUATAN, INDONESIA (INNSA)",
-    "port_of_discharge": "NEW YORK, US (USNYC)",
-    "gross_weight_kg": 322250.0,
-    "container_count": 15,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
-    "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA"
+    "gross_weight_kg": 322250.0,
+    "container_count": 15,
+    "port_of_loading": "BUATAN, INDONESIA (INNSA)",
+    "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA",
+    "port_of_discharge": "NEW YORK, US (USNYC)"
   },
   "field_matrix": [
     {

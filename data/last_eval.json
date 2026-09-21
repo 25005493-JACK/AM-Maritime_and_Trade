@@ -39,5 +39,13 @@
     "MISMATCH": 41,
     "NEEDS_REVIEW": 21
   },
-  "message": "Self-evaluation completed successfully across the 520 inbox dataset."
+  "message": "Self-evaluation completed successfully across the 520 inbox dataset.",
+  "learning_metrics": {
+    "average_trust_score_pct": 61.3,
+    "total_reflections_retrieved": 0,
+    "routed_to_ai": 82,
+    "routed_to_human": 47,
+    "failures_avoided": 11,
+    "failures_avoided_pct": 1100.0
+  }
 }

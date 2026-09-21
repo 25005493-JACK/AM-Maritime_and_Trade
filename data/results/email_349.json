@@ -1,6 +1,6 @@
 {
   "email_id": "email_349",
-  "timestamp": "2026-09-21T04:38:06.732336+00:00",
+  "timestamp": "2026-09-21T09:15:12.950582+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "port_of_discharge": "VALPARAISO, CHILE (CLVAP)",
-    "gross_weight_kg": 94708.0,
-    "container_count": 4,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "3S PAPER PRODUCTS SDN BHD",
-    "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA"
+    "gross_weight_kg": 94708.0,
+    "container_count": 4,
+    "port_of_loading": "NANTONG, CHINA (CNNTG)",
+    "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
+    "port_of_discharge": "VALPARAISO, CHILE (CLVAP)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "port_of_discharge": "VALPARAISO, CHILE (CLVAP)",
-    "gross_weight_kg": 94708.0,
-    "container_count": 4,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "3S PAPER PRODUCTS SDN BHD",
-    "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA"
+    "gross_weight_kg": 94708.0,
+    "container_count": 4,
+    "port_of_loading": "NANTONG, CHINA (CNNTG)",
+    "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
+    "port_of_discharge": "VALPARAISO, CHILE (CLVAP)"
   },
   "field_matrix": [
     {

@@ -98,7 +98,36 @@ def _get_connection():
             ai_provider       VARCHAR
         )
     """)
+
+    _conn.execute("""
+        CREATE TABLE IF NOT EXISTS agent_reflections (
+            id VARCHAR PRIMARY KEY,
+            sender_domain VARCHAR,
+            doc_type VARCHAR,
+            field_name VARCHAR,
+            reflection_text VARCHAR,
+            created_at TIMESTAMP,
+            source_correction_id VARCHAR,
+            times_retrieved INTEGER DEFAULT 0
+        )
+    """)
+
+    _conn.execute("""
+        CREATE TABLE IF NOT EXISTS routing_policy (
+            sender_domain VARCHAR,
+            field_name VARCHAR,
+            alpha FLOAT DEFAULT 1.0,
+            beta FLOAT DEFAULT 1.0,
+            last_updated TIMESTAMP,
+            PRIMARY KEY (sender_domain, field_name)
+        )
+    """)
     return _conn
+
+
+def get_connection():
+    """Public helper to get the initialized DuckDB connection."""
+    return _get_connection()
 
 
 class EventLogger:
@@ -267,6 +296,136 @@ class EventLogger:
         except Exception as ex:
             print(f"[EventLogger] Failed to log field decision for {email_id}: {ex}")
             return None
+
+    def log_reflection_created(
+        self,
+        reflection_id: str,
+        sender_domain: str,
+        doc_type: str,
+        field_name: Optional[str],
+        reflection_text: str,
+        source_correction_id: Optional[str] = None,
+        email_id: Optional[str] = None,
+        shipment_id: Optional[str] = None
+    ) -> Optional[str]:
+        """Log a reflection_created event to timeline and DuckDB."""
+        return self.log_timeline_event(
+            shipment_id=shipment_id or sender_domain,
+            actor="agent_memory",
+            actor_name="ReflexionEngine",
+            action_text=f"Learned reflection for {sender_domain} [{doc_type}]: {reflection_text}",
+            stage="learning",
+            email_id=email_id,
+            related_field=field_name,
+            linked_event_id=source_correction_id,
+            metadata={
+                "event_type": "reflection_created",
+                "reflection_id": reflection_id,
+                "sender_domain": sender_domain,
+                "doc_type": doc_type,
+                "field_name": field_name,
+                "reflection_text": reflection_text,
+                "source_correction_id": source_correction_id
+            }
+        )
+
+    def log_reflection_retrieved(
+        self,
+        reflection_id: str,
+        sender_domain: str,
+        doc_type: str,
+        field_name: Optional[str],
+        times_retrieved: int,
+        email_id: Optional[str] = None,
+        shipment_id: Optional[str] = None
+    ) -> Optional[str]:
+        """Log a reflection_retrieved event to timeline and DuckDB."""
+        return self.log_timeline_event(
+            shipment_id=shipment_id or sender_domain,
+            actor="agent_memory",
+            actor_name="ReflexionEngine",
+            action_text=f"Retrieved prior reflection for {sender_domain} (retrieval #{times_retrieved})",
+            stage="inference",
+            email_id=email_id,
+            related_field=field_name,
+            linked_event_id=reflection_id,
+            metadata={
+                "event_type": "reflection_retrieved",
+                "reflection_id": reflection_id,
+                "sender_domain": sender_domain,
+                "doc_type": doc_type,
+                "field_name": field_name,
+                "times_retrieved": times_retrieved
+            }
+        )
+
+    def log_routing_decision(
+        self,
+        sender_domain: str,
+        field_name: Optional[str],
+        decision: str,
+        sampled_trust: float,
+        mean_trust: float,
+        threshold: float,
+        email_id: Optional[str] = None,
+        shipment_id: Optional[str] = None
+    ) -> Optional[str]:
+        """Log a routing_decision event to timeline and DuckDB."""
+        action = (
+            f"Policy routed {field_name or 'document'} to AI ({sampled_trust:.1%} sampled trust > {threshold:.1%} threshold)"
+            if decision == "ai" else
+            f"Policy favored human-first for {field_name or 'document'} ({sampled_trust:.1%} sampled trust <= {threshold:.1%} threshold)"
+        )
+        return self.log_timeline_event(
+            shipment_id=shipment_id or sender_domain,
+            actor="routing_policy",
+            actor_name="ThompsonSamplingRouter",
+            action_text=action,
+            stage="routing",
+            email_id=email_id,
+            related_field=field_name,
+            metadata={
+                "event_type": "routing_decision",
+                "sender_domain": sender_domain,
+                "field_name": field_name,
+                "decision": decision,
+                "sampled_trust": sampled_trust,
+                "mean_trust": mean_trust,
+                "threshold": threshold
+            }
+        )
+
+    def log_routing_policy_updated(
+        self,
+        sender_domain: str,
+        field_name: Optional[str],
+        alpha: float,
+        beta: float,
+        ai_was_correct: bool,
+        email_id: Optional[str] = None,
+        shipment_id: Optional[str] = None
+    ) -> Optional[str]:
+        """Log a routing_policy_updated event to timeline and DuckDB."""
+        mean_trust = alpha / (alpha + beta)
+        outcome = "AI confirmed correct (+alpha)" if ai_was_correct else "AI corrected by human (+beta)"
+        return self.log_timeline_event(
+            shipment_id=shipment_id or sender_domain,
+            actor="routing_policy",
+            actor_name="ThompsonSamplingRouter",
+            action_text=f"Updated posterior for {sender_domain}: {outcome}. Mean trust now {mean_trust:.1%} (\u03b1={alpha:.1f}, \u03b2={beta:.1f})",
+            stage="learning",
+            email_id=email_id,
+            related_field=field_name,
+            metadata={
+                "event_type": "routing_policy_updated",
+                "sender_domain": sender_domain,
+                "field_name": field_name,
+                "alpha": alpha,
+                "beta": beta,
+                "mean_trust": mean_trust,
+                "ai_was_correct": ai_was_correct
+            }
+        )
 
     def get_field_decisions(self, shipment_id: str) -> List[Dict[str, Any]]:
         """Read persisted reasoning-receipt rows for a shipment."""

@@ -1,6 +1,6 @@
 {
   "email_id": "email_270",
-  "timestamp": "2026-09-21T04:38:05.714459+00:00",
+  "timestamp": "2026-09-21T09:15:12.620717+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "SINGAPORE (SGSIN)",
-    "port_of_discharge": "MERSIN, TURKEY (TRMER)",
-    "gross_weight_kg": 139536.0,
-    "container_count": 6,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "notify_party": "3S PAPER PRODUCTS SDN BHD",
-    "consignee": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD; #42-01 SUNTEC TOWER 3; SINGAPORE 038988"
+    "gross_weight_kg": 139536.0,
+    "container_count": 6,
+    "port_of_loading": "SINGAPORE (SGSIN)",
+    "consignee": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD; #42-01 SUNTEC TOWER 3; SINGAPORE 038988",
+    "port_of_discharge": "MERSIN, TURKEY (TRMER)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "SINGAPORE (SGSIN)",
-    "port_of_discharge": "LONG BEACH, US (TRMER)",
-    "gross_weight_kg": 139536.0,
-    "container_count": 6,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "notify_party": "3S PAPER PRODUCTS SDN BHD",
-    "consignee": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD; #42-01 SUNTEC TOWER 3; SINGAPORE 038988"
+    "gross_weight_kg": 139536.0,
+    "container_count": 6,
+    "port_of_loading": "SINGAPORE (SGSIN)",
+    "consignee": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD; #42-01 SUNTEC TOWER 3; SINGAPORE 038988",
+    "port_of_discharge": "LONG BEACH, US (TRMER)"
   },
   "field_matrix": [
     {

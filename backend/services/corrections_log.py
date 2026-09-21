@@ -106,6 +106,60 @@ def append_corrections(rows: List[Dict[str, Any]], path: Optional[str] = None) -
                 "evidence_summary": row.get("evidence_summary", ""),
             })
             written += 1
+
+            # Trigger online self-learning hooks (Reflexion memory & Bayesian Thompson Sampling)
+            try:
+                from backend.services.reflection import generate_reflection, extract_domain
+                from backend.services.routing_policy import update_routing_policy
+
+                email_id = row.get("email_id", "")
+                sender = row.get("sender") or row.get("sender_domain")
+                if not sender and email_id:
+                    try:
+                        from backend.services.dataset_loader import loader
+                        em = loader.get_email(email_id)
+                        if em:
+                            sender = em.get("sender") or em.get("from")
+                    except Exception:
+                        pass
+
+                sender_domain = extract_domain(sender)
+                field_name = row.get("field", "")
+                orig_val = str(row.get("original_value", "")).strip()
+                corr_val = str(row.get("corrected_value", "")).strip()
+
+                is_correction = (orig_val != corr_val) or ("override" in str(row.get("resolution", "")))
+
+                if is_correction:
+                    # Feature A: Generate Reflexion episodic memory
+                    generate_reflection({
+                        "original_value": orig_val,
+                        "corrected_value": corr_val,
+                        "field": field_name,
+                        "sender_domain": sender_domain,
+                        "doc_type": row.get("doc_type") or "SI",
+                        "evidence_summary": row.get("evidence_summary", ""),
+                        "email_id": email_id,
+                        "source_correction_id": f"{email_id}:{field_name}"
+                    })
+                    # Feature B: Update Bayesian routing policy (AI incorrect -> beta += 1)
+                    update_routing_policy(
+                        sender_domain=sender_domain,
+                        field_name=field_name,
+                        ai_was_correct=False,
+                        email_id=email_id
+                    )
+                else:
+                    # AI confirmed correct -> alpha += 1
+                    update_routing_policy(
+                        sender_domain=sender_domain,
+                        field_name=field_name,
+                        ai_was_correct=True,
+                        email_id=email_id
+                    )
+            except Exception as hook_err:
+                print(f"[CorrectionsLog] Self-learning hook error: {hook_err}")
+
     return written
 
 

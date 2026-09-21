@@ -12,6 +12,7 @@ import SelfEvaluationView from './components/SelfEvaluationView.jsx';
 import VesselCalendar from './components/VesselCalendar.jsx';
 import TimelineWheel from './components/TimelineWheel.jsx';
 import OcrDashboard from './components/OcrDashboard.jsx';
+import AgentLearningDashboard, { ReflectionsPanel } from './components/AgentLearningDashboard.jsx';
 import { Download } from 'lucide-react';
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
   const [loadingEval, setLoadingEval] = useState(false);
   const [showOverrideModal, setShowOverrideModal] = useState(false);
   const [automationLevel, setAutomationLevel] = useState(1);
+  const [reflectionsData, setReflectionsData] = useState({ total: 0, by_sender: {} });
 
   // Toast Notification State
   const [toast, setToast] = useState(null);
@@ -118,6 +120,19 @@ export default function App() {
       }
     } catch (err) {
       console.error('Failed to fetch analytics:', err);
+    }
+  };
+
+  // Fetch Agent Reflexion Memories
+  const fetchReflections = async () => {
+    try {
+      const res = await fetch('/api/reflections');
+      if (res.ok) {
+        const data = await res.json();
+        setReflectionsData(data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch reflections:', err);
     }
   };
 
@@ -215,6 +230,7 @@ export default function App() {
         await fetchEmails();
         await fetchEmailDetail(emailId);
         await fetchAnalytics();
+        await fetchReflections();
         setShowOverrideModal(false);
       }
     } catch (err) {
@@ -227,6 +243,7 @@ export default function App() {
     fetchEmails();
     fetchAnalytics();
     fetchCalendar('ALL');
+    fetchReflections();
   }, [isOcrDashboard]);
 
   useEffect(() => {
@@ -355,7 +372,19 @@ export default function App() {
                   </div>
                 ))}
             </div>
+
+            {/* Embedded Reflexion Episodic Memory Panel for Reviewers */}
+            <div className="mt-8">
+              <ReflectionsPanel
+                reflectionsBySender={reflectionsData.by_sender}
+                onRefresh={fetchReflections}
+              />
+            </div>
           </div>
+        )}
+
+        {activeTab === 'learning' && (
+          <AgentLearningDashboard />
         )}
 
         {activeTab === 'trust' && (

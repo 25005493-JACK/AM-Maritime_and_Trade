@@ -1,6 +1,6 @@
 {
   "email_id": "email_273",
-  "timestamp": "2026-09-21T04:38:05.998702+00:00",
+  "timestamp": "2026-09-21T09:15:12.736683+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
-    "port_of_discharge": "CONAKRY, GUINEA",
-    "gross_weight_kg": 41604.0,
-    "container_count": 2,
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1 SINGAPORE 048624",
     "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET SUITE 100 FRAMINGHAM, MA 01702, USA",
-    "consignee": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD #42-01 SUNTEC TOWER 3 SINGAPORE 038988"
+    "gross_weight_kg": 41604.0,
+    "container_count": 2,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
+    "consignee": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD #42-01 SUNTEC TOWER 3 SINGAPORE 038988",
+    "port_of_discharge": "CONAKRY, GUINEA"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
-    "port_of_discharge": "CONAKRY, GUINEA",
-    "gross_weight_kg": 41604.0,
-    "container_count": 2,
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1 SINGAPORE 048624",
     "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET SUITE 100 FRAMINGHAM, MA 01702, USA",
-    "consignee": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD #42-01 SUNTEC TOWER 3 SINGAPORE 038988"
+    "gross_weight_kg": 41604.0,
+    "container_count": 2,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
+    "consignee": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD #42-01 SUNTEC TOWER 3 SINGAPORE 038988",
+    "port_of_discharge": "CONAKRY, GUINEA"
   },
   "field_matrix": [
     {

@@ -1,6 +1,6 @@
 {
   "email_id": "email_064",
-  "timestamp": "2026-09-21T04:38:03.982544+00:00",
+  "timestamp": "2026-09-21T09:15:12.178398+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "port_of_discharge": "CONAKRY, GUINEA (GNCKY)",
-    "gross_weight_kg": 103800.0,
-    "container_count": 5,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "notify_party": "ORIENT LINKS CO (LLC)",
-    "consignee": "ORIENT LINKS CO (LLC)"
+    "gross_weight_kg": 103800.0,
+    "container_count": 5,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
+    "consignee": "ORIENT LINKS CO (LLC)",
+    "port_of_discharge": "CONAKRY, GUINEA (GNCKY)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "port_of_discharge": "CONAKRY, GUINEA (GNCKY)",
-    "gross_weight_kg": 103800.0,
-    "container_count": 5,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "notify_party": "ORIENT LINKS CO (LLC)",
-    "consignee": "ORIENT LINKS CO (LLC)"
+    "gross_weight_kg": 103800.0,
+    "container_count": 5,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
+    "consignee": "ORIENT LINKS CO (LLC)",
+    "port_of_discharge": "CONAKRY, GUINEA (GNCKY)"
   },
   "field_matrix": [
     {

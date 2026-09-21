@@ -1,6 +1,6 @@
 {
   "email_id": "email_505",
-  "timestamp": "2026-09-21T04:38:09.189254+00:00",
+  "timestamp": "2026-09-21T09:15:13.766802+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "wrong_doc_type",
   "can_compare": false,
@@ -64,13 +64,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "port_of_discharge": "CEBU, PHILIPPINES (PHCEB)",
-    "gross_weight_kg": 265560.0,
-    "container_count": 12,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "notify_party": "EAST BRIGHT FZ-LLC",
-    "consignee": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE"
+    "gross_weight_kg": 265560.0,
+    "container_count": 12,
+    "port_of_loading": "NANTONG, CHINA (CNNTG)",
+    "consignee": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+    "port_of_discharge": "CEBU, PHILIPPINES (PHCEB)"
   },
   "bl_extracted": {
     "status": "NEEDS_REVIEW",
@@ -84,13 +84,13 @@
     "missing_fields": [],
     "audit_trail": [],
     "unresolved_terms": [],
-    "port_of_loading": null,
-    "port_of_discharge": null,
-    "gross_weight_kg": null,
-    "container_count": null,
     "shipper": null,
     "notify_party": null,
-    "consignee": null
+    "gross_weight_kg": null,
+    "container_count": null,
+    "port_of_loading": null,
+    "consignee": null,
+    "port_of_discharge": null
   },
   "field_matrix": [
     {

@@ -1,6 +1,6 @@
 {
   "email_id": "email_499",
-  "timestamp": "2026-09-21T04:38:09.133850+00:00",
+  "timestamp": "2026-09-21T09:15:13.740384+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
-    "port_of_discharge": "HOCHIMINH CITY, VIETNAM",
-    "gross_weight_kg": 40326.0,
-    "container_count": 2,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
     "notify_party": "TOPKOPY MIDDLE EAST FZE",
-    "consignee": "TOPKOPY MIDDLE EAST FZE"
+    "gross_weight_kg": 40326.0,
+    "container_count": 2,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
+    "consignee": "TOPKOPY MIDDLE EAST FZE",
+    "port_of_discharge": "HOCHIMINH CITY, VIETNAM"
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
-    "port_of_discharge": "HOCHIMINH CITY, VIETNAM",
-    "gross_weight_kg": 41326.0,
-    "container_count": 2,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
     "notify_party": "TOPKOPY MIDDLE EAST FZE",
-    "consignee": "TOPKOPY MIDDLE EAST FZE"
+    "gross_weight_kg": 41326.0,
+    "container_count": 2,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
+    "consignee": "TOPKOPY MIDDLE EAST FZE",
+    "port_of_discharge": "HOCHIMINH CITY, VIETNAM"
   },
   "field_matrix": [
     {

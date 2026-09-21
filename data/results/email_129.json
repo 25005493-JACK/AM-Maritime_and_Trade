@@ -1,6 +1,6 @@
 {
   "email_id": "email_129",
-  "timestamp": "2026-09-21T04:38:04.541475+00:00",
+  "timestamp": "2026-09-21T09:15:12.326827+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
-    "port_of_discharge": "ASHDOD, ISRAEL (ILASH)",
-    "gross_weight_kg": 124188.0,
-    "container_count": 6,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "notify_party": "SAFQA LIMITED",
-    "consignee": "SAFQA LIMITED"
+    "gross_weight_kg": 124188.0,
+    "container_count": 6,
+    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
+    "consignee": "SAFQA LIMITED",
+    "port_of_discharge": "ASHDOD, ISRAEL (ILASH)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "BUATAN, INDONESIA (INNSA)",
-    "port_of_discharge": "TUTICORIN, INDIA (ILASH)",
-    "gross_weight_kg": 124188.0,
-    "container_count": 6,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "notify_party": "SAFQA LIMITED",
-    "consignee": "SAFQA LIMITED"
+    "gross_weight_kg": 124188.0,
+    "container_count": 6,
+    "port_of_loading": "BUATAN, INDONESIA (INNSA)",
+    "consignee": "SAFQA LIMITED",
+    "port_of_discharge": "TUTICORIN, INDIA (ILASH)"
   },
   "field_matrix": [
     {

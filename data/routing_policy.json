@@ -1,0 +1,114 @@
+{
+  "safqa.co.ke:*": {
+    "sender_domain": "safqa.co.ke",
+    "field_name": null,
+    "alpha": 3.0,
+    "beta": 4.0,
+    "mean_trust": 0.429,
+    "last_updated": "2026-09-21T09:07:52.843026+00:00"
+  },
+  "vitalsolutions.sg:*": {
+    "sender_domain": "vitalsolutions.sg",
+    "field_name": null,
+    "alpha": 3.0,
+    "beta": 2.0,
+    "mean_trust": 0.6,
+    "last_updated": "2026-09-21T09:07:52.801529+00:00"
+  },
+  "aprilasia.com:*": {
+    "sender_domain": "aprilasia.com",
+    "field_name": null,
+    "alpha": 43.0,
+    "beta": 15.0,
+    "mean_trust": 0.741,
+    "last_updated": "2026-09-21T09:07:53.137193+00:00"
+  },
+  "roxcel.at:*": {
+    "sender_domain": "roxcel.at",
+    "field_name": null,
+    "alpha": 6.0,
+    "beta": 5.0,
+    "mean_trust": 0.545,
+    "last_updated": "2026-09-21T09:07:52.454657+00:00"
+  },
+  "psabdp.com:*": {
+    "sender_domain": "psabdp.com",
+    "field_name": null,
+    "alpha": 7.0,
+    "beta": 2.0,
+    "mean_trust": 0.778,
+    "last_updated": "2026-09-21T09:07:51.019590+00:00"
+  },
+  "fujitogrp.com:*": {
+    "sender_domain": "fujitogrp.com",
+    "field_name": null,
+    "alpha": 6.0,
+    "beta": 7.0,
+    "mean_trust": 0.462,
+    "last_updated": "2026-09-21T09:07:52.863144+00:00"
+  },
+  "algurg.ae:*": {
+    "sender_domain": "algurg.ae",
+    "field_name": null,
+    "alpha": 8.0,
+    "beta": 5.0,
+    "mean_trust": 0.615,
+    "last_updated": "2026-09-21T09:07:53.084684+00:00"
+  },
+  "april.com.my:*": {
+    "sender_domain": "april.com.my",
+    "field_name": null,
+    "alpha": 15.0,
+    "beta": 7.0,
+    "mean_trust": 0.682,
+    "last_updated": "2026-09-21T09:07:53.032624+00:00"
+  },
+  "ifpla.com:*": {
+    "sender_domain": "ifpla.com",
+    "field_name": null,
+    "alpha": 6.0,
+    "beta": 3.0,
+    "mean_trust": 0.667,
+    "last_updated": "2026-09-21T09:07:52.662730+00:00"
+  },
+  "adaptive-sender.com:*": {
+    "sender_domain": "adaptive-sender.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-21T09:08:33.422651+00:00"
+  },
+  "vitalsolutions.sg:consignee": {
+    "sender_domain": "vitalsolutions.sg",
+    "field_name": "consignee",
+    "alpha": 2.0,
+    "beta": 2.0,
+    "mean_trust": 0.5,
+    "last_updated": "2026-09-21T09:08:41.322898+00:00"
+  },
+  "vitalsolutions.sg:notify_party": {
+    "sender_domain": "vitalsolutions.sg",
+    "field_name": "notify_party",
+    "alpha": 1.0,
+    "beta": 2.0,
+    "mean_trust": 0.333,
+    "last_updated": "2026-09-21T09:08:41.286598+00:00"
+  },
+  "adaptive-sender-6847fd94.com:*": {
+    "sender_domain": "adaptive-sender-6847fd94.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-21T09:09:23.930252+00:00"
+  },
+  "evergreen-line-dea8da.com:port_of_discharge": {
+    "sender_domain": "evergreen-line-dea8da.com",
+    "field_name": "port_of_discharge",
+    "alpha": 1.0,
+    "beta": 2.0,
+    "mean_trust": 0.333,
+    "last_updated": "2026-09-21T09:12:50.635462+00:00"
+  }
+}

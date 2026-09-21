@@ -1,6 +1,6 @@
 {
   "email_id": "email_025",
-  "timestamp": "2026-09-21T04:38:02.805445+00:00",
+  "timestamp": "2026-09-21T09:15:11.983191+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "port_of_discharge": "FREMANTLE, AUSTRALIA (AUFRE)",
-    "gross_weight_kg": 135126.0,
-    "container_count": 6,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "notify_party": "ROXCEL TRADING GMBH",
-    "consignee": "CERIEX ZONE INDUSTRIELLE; CONAKRY, GUINEA"
+    "gross_weight_kg": 135126.0,
+    "container_count": 6,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "consignee": "CERIEX ZONE INDUSTRIELLE; CONAKRY, GUINEA",
+    "port_of_discharge": "FREMANTLE, AUSTRALIA (AUFRE)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "port_of_discharge": "BUSAN, SOUTH KOREA (AUFRE)",
-    "gross_weight_kg": 135126.0,
-    "container_count": 5,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "notify_party": "ROXCEL TRADING GMBH",
-    "consignee": "CERIEX ZONE INDUSTRIELLE; CONAKRY, GUINEA"
+    "gross_weight_kg": 135126.0,
+    "container_count": 5,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "consignee": "CERIEX ZONE INDUSTRIELLE; CONAKRY, GUINEA",
+    "port_of_discharge": "BUSAN, SOUTH KOREA (AUFRE)"
   },
   "field_matrix": [
     {

@@ -1,6 +1,6 @@
 {
   "email_id": "email_013",
-  "timestamp": "2026-09-21T04:38:02.780182+00:00",
+  "timestamp": "2026-09-21T09:15:11.972639+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "SINGAPORE (SGSIN)",
-    "port_of_discharge": "MOMBASA, KENYA (KEMBA)",
-    "gross_weight_kg": 67311.0,
-    "container_count": 3,
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "notify_party": "ROXCEL TRADING GMBH",
-    "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA"
+    "gross_weight_kg": 67311.0,
+    "container_count": 3,
+    "port_of_loading": "SINGAPORE (SGSIN)",
+    "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
+    "port_of_discharge": "MOMBASA, KENYA (KEMBA)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "SINGAPORE (SGSIN)",
-    "port_of_discharge": "TUTICORIN, INDIA (KEMBA)",
-    "gross_weight_kg": 67311.0,
-    "container_count": 3,
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "notify_party": "ROXCEL TRADING GMBH",
-    "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA"
+    "gross_weight_kg": 67311.0,
+    "container_count": 3,
+    "port_of_loading": "SINGAPORE (SGSIN)",
+    "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
+    "port_of_discharge": "TUTICORIN, INDIA (KEMBA)"
   },
   "field_matrix": [
     {

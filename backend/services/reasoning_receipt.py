@@ -22,6 +22,8 @@ from backend.services import dcsa_mapping, field_evidence
 from backend.services.ai_agent import ai_agent, provider_status
 from backend.services.circuit_breaker import CircuitBreaker, circuit_breaker
 from backend.services.comparator import comparator
+from backend.services.reflection import extract_domain
+from backend.services.routing_policy import sample_trust
 
 #: Fields resolved by the dedicated numeric anchor parsers rather than field_bank.
 ANCHOR_FIELDS = {"container_count", "gross_weight_kg"}
@@ -109,11 +111,13 @@ def ai_fallback(
     document: str = "BL",
     breaker: Optional[CircuitBreaker] = None,
     scan_notes: Optional[List[str]] = None,
+    sender_domain: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Run the AI agent for the fields the rule engine could not resolve.
 
     Stops as soon as the circuit breaker trips (no further guesses), and returns
     the attempts, the validator outcomes and any refusal certificate.
+    Uses Bayesian Thompson Sampling routing policy per sender to decide AI vs human.
     """
     breaker = breaker or circuit_breaker
     attempts: List[Dict[str, Any]] = []
@@ -125,15 +129,64 @@ def ai_fallback(
             blocked.append(field_key)
             continue
 
-        proposal = ai_agent.assist_field(field_key, doc_text, raw_label=None, document=document)
+        # Bayesian Routing Policy check (Thompson Sampling)
+        policy_res = None
+        if sender_domain:
+            try:
+                policy_res = sample_trust(
+                    sender_domain, field_key, email_id=email_id, shipment_id=shipment_id
+                )
+            except Exception as ex:
+                print(f"[ReasoningReceipt] Policy routing check failed: {ex}")
+                policy_res = None
+
+        if policy_res and not policy_res.get("route_to_ai", True):
+            # Skip AI, route straight to Human Review Queue
+            attempts.append({
+                "field_key": field_key,
+                "document": document,
+                "raw_label": None,
+                "attempted_value": None,
+                "evidence": None,
+                "provider": None,
+                "is_llm": False,
+                "model": None,
+                "token_cost": None,
+                "latency_ms": 0,
+                "candidates_considered": 0,
+                "validators": [],
+                "accepted": False,
+                "consecutive_ai_failures_after": 0,
+                "retrieved_reflections": [],
+                "routed_to_human_by_policy": True,
+                "policy_routing": {
+                    **policy_res,
+                    "tag": f"Routed by policy — {int(round(policy_res['mean_trust'] * 100))}% trust for this sender"
+                }
+            })
+            continue
+
+        proposal = ai_agent.assist_field(
+            field_key, doc_text, raw_label=None, document=document,
+            sender_domain=sender_domain, email_id=email_id, shipment_id=shipment_id
+        )
         validators = ai_agent.validate_proposal(field_key, proposal, doc_text)
         state = breaker.record(doc_key, field_key, proposal.get("attempted_value"), validators)
+
+        policy_payload = None
+        if policy_res:
+            policy_payload = {
+                **policy_res,
+                "tag": f"Routed by policy — {int(round(policy_res['mean_trust'] * 100))}% trust for this sender"
+            }
 
         attempts.append({
             **proposal,
             "validators": validators,
             "accepted": all(v["status"] == "pass" for v in validators),
             "consecutive_ai_failures_after": state["consecutive_ai_failures"],
+            "policy_routing": policy_payload,
+            "routed_to_human_by_policy": False,
         })
 
     certificate = None
@@ -199,6 +252,8 @@ def build_events(
 
         if field_key in override_fields:
             path, decided_by = "human", "human_reviewer"
+        elif attempt and attempt.get("routed_to_human_by_policy"):
+            path, decided_by = "human", "human_reviewer"
         elif attempt:
             path, decided_by = "ai", "ai_agent"
         else:
@@ -206,9 +261,22 @@ def build_events(
 
         evidence = _source_evidence(field_key, si_value, bl_value, si_text, bl_text, names)
         validators = _validators(field_key, bl_value, bl_text or si_text, evidence)
-        if attempt:
+        if attempt and not attempt.get("routed_to_human_by_policy"):
             # AI-origin validators come from the agent's own provenance checks.
             validators = attempt["validators"]
+
+        retrieved_refs = (attempt.get("retrieved_reflections") if attempt else []) or []
+        policy_info = attempt.get("policy_routing") if attempt else None
+        learned_note = None
+        if retrieved_refs:
+            first_ref = retrieved_refs[0]
+            txt = first_ref.get("reflection_text") if isinstance(first_ref, dict) else str(first_ref)
+            learned_note = f"Learned from a prior correction: {txt}"
+
+        policy_tag = None
+        if policy_info:
+            mean_pct = int(round(policy_info.get("mean_trust", 0.5) * 100))
+            policy_tag = f"Routed by policy — {mean_pct}% trust for this sender"
 
         events.append({
             "event_id": f"{email_id}:{field_key}:{path}",
@@ -228,6 +296,10 @@ def build_events(
             "token_cost": attempt.get("token_cost") if attempt else None,
             "latency_ms": attempt.get("latency_ms") if attempt else None,
             "ai_provider": attempt.get("provider") if attempt else None,
+            "retrieved_reflections": retrieved_refs,
+            "learned_note": learned_note,
+            "policy_routing": policy_info,
+            "policy_tag": policy_tag,
         })
     return events
 
@@ -318,9 +390,13 @@ def build_receipt(
         lowered = (bl_text or si_text or "").lower()
         if any(marker in lowered for marker in ("[unreadable", "[read_error", "damaged text", "ocr_corrupted")):
             scan_notes.append("document text carries unreadable / low scan-quality markers")
+        email_obj = doc.get("email") or {}
+        sender_val = email_obj.get("sender") or email_obj.get("from") or ""
+        sender_domain = extract_domain(sender_val) if sender_val else None
+
         fallback = ai_fallback(
             unresolved, bl_text or si_text, doc_key, shipment_id, email_id,
-            breaker=breaker, scan_notes=scan_notes,
+            breaker=breaker, scan_notes=scan_notes, sender_domain=sender_domain,
         )
         if fallback.get("refusal_certificate"):
             certificate = fallback["refusal_certificate"]

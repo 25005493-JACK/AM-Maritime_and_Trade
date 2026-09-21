@@ -1,6 +1,6 @@
 {
   "email_id": "email_377",
-  "timestamp": "2026-09-21T04:38:07.274563+00:00",
+  "timestamp": "2026-09-21T09:15:13.100170+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "port_of_discharge": "YANGON, MYANMAR (MMRGN)",
-    "gross_weight_kg": 126870.0,
-    "container_count": 6,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "VITAL SOLUTIONS PTE. LTD.",
-    "consignee": "VITAL SOLUTIONS PTE. LTD. 77 ROBINSON ROAD; #21-01 ROBINSON 77; SINGAPORE 068896"
+    "gross_weight_kg": 126870.0,
+    "container_count": 6,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "consignee": "VITAL SOLUTIONS PTE. LTD. 77 ROBINSON ROAD; #21-01 ROBINSON 77; SINGAPORE 068896",
+    "port_of_discharge": "YANGON, MYANMAR (MMRGN)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "port_of_discharge": "YANGON, MYANMAR (MMRGN)",
-    "gross_weight_kg": 126870.0,
-    "container_count": 6,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "VITAL SOLUTIONS PTE. LTD.",
-    "consignee": "VITAL SOLUTIONS PTE. LTD. 77 ROBINSON ROAD; #21-01 ROBINSON 77; SINGAPORE 068896"
+    "gross_weight_kg": 126870.0,
+    "container_count": 6,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "consignee": "VITAL SOLUTIONS PTE. LTD. 77 ROBINSON ROAD; #21-01 ROBINSON 77; SINGAPORE 068896",
+    "port_of_discharge": "YANGON, MYANMAR (MMRGN)"
   },
   "field_matrix": [
     {

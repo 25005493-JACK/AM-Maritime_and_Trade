@@ -1,6 +1,6 @@
 {
   "email_id": "email_398",
-  "timestamp": "2026-09-21T04:38:07.428928+00:00",
+  "timestamp": "2026-09-21T09:15:13.135872+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
-    "port_of_discharge": "PYEONGTAEK, SOUTH KOREA",
-    "gross_weight_kg": 63954.0,
-    "container_count": 3,
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "notify_party": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
-    "consignee": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE"
+    "gross_weight_kg": 63954.0,
+    "container_count": 3,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
+    "consignee": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+    "port_of_discharge": "PYEONGTAEK, SOUTH KOREA"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
-    "port_of_discharge": "PYEONGTAEK, SOUTH KOREA",
-    "gross_weight_kg": 63954.0,
-    "container_count": 3,
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "notify_party": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
-    "consignee": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE"
+    "gross_weight_kg": 63954.0,
+    "container_count": 3,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
+    "consignee": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+    "port_of_discharge": "PYEONGTAEK, SOUTH KOREA"
   },
   "field_matrix": [
     {

@@ -1,6 +1,6 @@
 {
   "email_id": "email_097",
-  "timestamp": "2026-09-21T04:38:04.302963+00:00",
+  "timestamp": "2026-09-21T09:15:12.252268+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -83,19 +83,19 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "SINGAPORE",
-    "port_of_discharge": "BRISBANE, AUSTRALIA",
-    "gross_weight_kg": 216950.0,
-    "container_count": 10,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "NAGAPPA EXPORTS NEW NO : 23, L-BLOCK, 17TH STREET; ANNA NAGAR EAST; CHENNAI, TAMIL NADU 600102; GST NO - 33AACFN6792L1ZU",
-    "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA"
+    "gross_weight_kg": 216950.0,
+    "container_count": 10,
+    "port_of_loading": "SINGAPORE",
+    "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
+    "port_of_discharge": "BRISBANE, AUSTRALIA"
   },
   "bl_extracted": {
     "status": "OK",
     "reason_code": null,
     "review_reason": null,
-    "raw_text": "BILL OF LADING (DRAFT)\nB/L NO.(提单号): EGLV870534949375\nORDER NO.: 3064138367   FREIGHT PREPAID\nShipper/Exporter (发货人): APRIL FINE PAPER TRADING (MIDDLE EAST) FZE\n#813, 4 EA, DUBAI AIRPORT FREE ZONE\nP.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES\nCONSIGNEE (收货人): ROXCEL TRADING GMBH\nOPERNRING 3-5\n1010 VIENNA, AUSTRIA\nNotify Party/Intermediate Consignee (通知人): NAGAPPA EXPORTS\nNEW NO : 23, L-BLOCK, 17TH STREET\nANNA NAGAR EAST\nCHENNAI, TAMIL NADU 600102\nGST NO - 33AACFN6792L1ZU\nPort of Loading (装货港): SINGAPORE\nPort of Discharge (卸货港): BRISBANE, AUSTRALIA\nContainer Count (箱数): 11 x 40'HC\nGROSS WEIGHT (毛重 KGS): 215,950\nVessel Name (船名): MARCOPOLO 810 V.BS005\nDescription (货名): PAPERBOARD",
+    "raw_text": "BILL OF LADING (DRAFT)\nB/L NO.(提单号): EGLV870534949375\nORDER NO.: 3064138367   FREIGHT PREPAID\nShipper/Exporter (发货人): APRIL FINE PAPER TRADING (MIDDLE EAST) FZE\n#813, 4 EA, DUBAI AIRPORT FREE ZONE\nP.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES\nCONSIGNEE (收货人): ROXCEL TRADING GMBH\nOPERNRING 3-5\n1010 VIENNA, AUSTRIA\nNotify Party/Intermediate Consignee (通知人): NAGAPPA EXPORTS\nNEW NO : 23, L-BLOCK, 17TH STREET\nANNA NAGAR EAST\nCHENNAI, TAMIL NADU 600102\nGST NO - 33AACFN6792L1ZU\nPort of Loading (装货港): SINGAPORE\nPort of Discharge (卸货港): BRISBANE, AUSTRALIA\n-Container Count (箱数): 11 x 40'HC\nGROSS WEIGHT (毛重 KGS): 215,950\nVessel Name (船名): MARCOPOLO 810 V.BS005\nDescription (货名): PAPERBOARD",
     "doc_type": "BILL_OF_LADING",
     "is_unreadable": false,
     "is_wrong_doc_type": false,
@@ -133,7 +133,7 @@
         "confidence": 1.0
       },
       {
-        "raw_label": "Container Count (箱数)",
+        "raw_label": "-Container Count (箱数)",
         "canonical": "container_count",
         "method": "exact",
         "confidence": 1.0
@@ -146,13 +146,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "SINGAPORE",
-    "port_of_discharge": "BRISBANE, AUSTRALIA",
-    "gross_weight_kg": 215950.0,
-    "container_count": 11,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
     "notify_party": "NAGAPPA EXPORTS",
-    "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5 1010 VIENNA, AUSTRIA"
+    "gross_weight_kg": 215950.0,
+    "container_count": 11,
+    "port_of_loading": "SINGAPORE",
+    "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5 1010 VIENNA, AUSTRIA",
+    "port_of_discharge": "BRISBANE, AUSTRALIA"
   },
   "field_matrix": [
     {

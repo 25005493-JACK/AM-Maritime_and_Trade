@@ -25,6 +25,8 @@ except ImportError:
 from backend.services.classifier import classifier
 from backend.services.comparator import comparator
 from backend.services.evaluator import evaluator
+from backend.services.reflection import extract_domain, retrieve_reflections
+from backend.services.routing_policy import sample_trust, update_routing_policy, get_all_policies
 
 def run_self_evaluation(source: str = "test data") -> Dict[str, Any]:
     print("=" * 70)
@@ -51,6 +53,12 @@ def run_self_evaluation(source: str = "test data") -> Dict[str, Any]:
     # 2. Replay all emails end-to-end: classify -> extract -> compare
     submission: Dict[str, Any] = {}
     reason_code_counts: Dict[str, int] = {}
+    routing_stats = {
+        "routed_to_ai": 0,
+        "routed_to_human": 0,
+        "reflections_retrieved": 0,
+        "failures_avoided": 0,
+    }
 
     for email in emails:
         eid = email.get("id") or email.get("email_id")
@@ -71,6 +79,24 @@ def run_self_evaluation(source: str = "test data") -> Dict[str, Any]:
 
             if rr:
                 reason_code_counts[rr] = reason_code_counts.get(rr, 0) + 1
+
+            sender = email.get("sender") or email.get("from") or ""
+            sender_domain = extract_domain(sender)
+
+            # Online self-learning: sample Bayesian trust and retrieve reflections
+            policy_res = sample_trust(sender_domain, email_id=eid)
+            if policy_res.get("route_to_ai", True):
+                routing_stats["routed_to_ai"] += 1
+            else:
+                routing_stats["routed_to_human"] += 1
+                if has_defect:
+                    routing_stats["failures_avoided"] += 1
+
+            retrieved = retrieve_reflections(sender_domain, doc_type="SI", email_id=eid)
+            routing_stats["reflections_retrieved"] += len(retrieved)
+
+            # Online Bayesian update based on verified outcome
+            update_routing_policy(sender_domain, ai_was_correct=(not has_defect), email_id=eid)
 
             submission[eid] = {
                 "category": category,
@@ -140,6 +166,28 @@ def run_self_evaluation(source: str = "test data") -> Dict[str, Any]:
         print(f"  MISMATCH Cases  : {curr_mismatch} (initial baseline)")
         print(f"  NEEDS_REVIEW    : {curr_review} (initial baseline)")
         print(f"  Overall Score   : {curr_overall}% (initial baseline)")
+
+    # 4. Self-Learning Agent Metrics (Reflexion & Thompson Sampling)
+    print("\n--- 4. SELF-LEARNING AGENT METRICS (ONLINE FEEDBACK) ---")
+    all_policies = get_all_policies()
+    avg_trust = (sum(p["mean_trust"] for p in all_policies) / len(all_policies) * 100.0) if all_policies else 50.0
+    avoided = routing_stats["failures_avoided"]
+    total_human_routed = routing_stats["routed_to_human"]
+    pct_avoided = (avoided / max(1, total_human_routed)) * 100.0 if total_human_routed else 0.0
+
+    print(f"  Average Trust Score Across Senders : {avg_trust:.1f}%")
+    print(f"  Total Reflections Retrieved        : {routing_stats['reflections_retrieved']}")
+    print(f"  Bayesian Routing Decisions         : {routing_stats['routed_to_ai']} AI / {routing_stats['routed_to_human']} Human-first")
+    print(f"  AI Failures Avoided via Routing    : {avoided} ({pct_avoided:.1f}% of human-routed cases)")
+
+    score_report["learning_metrics"] = {
+        "average_trust_score_pct": round(avg_trust, 1),
+        "total_reflections_retrieved": routing_stats["reflections_retrieved"],
+        "routed_to_ai": routing_stats["routed_to_ai"],
+        "routed_to_human": routing_stats["routed_to_human"],
+        "failures_avoided": avoided,
+        "failures_avoided_pct": round(pct_avoided, 1)
+    }
 
     # 5. Save this run to data/last_eval.json
     os.makedirs(ROOT_DIR / "data", exist_ok=True)

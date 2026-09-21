@@ -79,14 +79,37 @@ class AIAgent:
         doc_text: str,
         raw_label: Optional[str] = None,
         document: str = "SI",
+        sender_domain: Optional[str] = None,
+        email_id: Optional[str] = None,
+        shipment_id: Optional[str] = None,
+        retrieved_reflections: Optional[List[Dict[str, Any]]] = None,
     ) -> Dict[str, Any]:
         """Attempt to resolve one field. Returns a proposal record with evidence."""
         started = time.perf_counter()
         candidates: List[Dict[str, Any]] = []
         token_cost: Optional[int] = None
 
+        reflections = retrieved_reflections
+        if reflections is None and sender_domain:
+            try:
+                from backend.services.reflection import retrieve_reflections
+                reflections = retrieve_reflections(
+                    sender_domain=sender_domain,
+                    doc_type=document,
+                    field_name=field_key,
+                    email_id=email_id,
+                    shipment_id=shipment_id
+                )
+            except Exception as ex:
+                print(f"[AIAgent] Failed to retrieve reflections: {ex}")
+                reflections = []
+
+        reflections = reflections or []
+
         if self.provider.get("is_llm"):
-            candidates, token_cost = self._call_llm(field_key, doc_text, raw_label)
+            candidates, token_cost = self._call_llm(
+                field_key, doc_text, raw_label, reflections=reflections
+            )
         else:
             candidates = self._local_candidates(field_key, doc_text, raw_label)
 
@@ -105,6 +128,7 @@ class AIAgent:
             "token_cost": token_cost,
             "latency_ms": latency_ms,
             "candidates_considered": len(candidates),
+            "retrieved_reflections": reflections,
         }
 
     def validate_proposal(
@@ -214,16 +238,26 @@ class AIAgent:
         field_key: str,
         doc_text: str,
         raw_label: Optional[str],
+        reflections: Optional[List[Dict[str, Any]]] = None,
     ) -> tuple:
         """LLM call path - only reachable when a provider and credential are set.
 
         The request is deliberately narrow: the agent receives the unresolved label
         plus a bounded window of the document, never the fields the rules already
         handled (that split is recorded in the reasoning receipt).
+        Retrieved Reflexion memories are injected as lessons from past corrections.
         """
         model = self.provider.get("model") or DEFAULT_MODEL
         window = "\n".join(doc_text.splitlines()[:40])
+
+        lessons_header = ""
+        if reflections:
+            lessons_text = "\n".join(f"- {r.get('reflection_text')}" for r in reflections if r.get('reflection_text'))
+            if lessons_text:
+                lessons_header = f"Lessons from past corrections with this sender:\n{lessons_text}\n\n"
+
         prompt = (
+            f"{lessons_header}"
             "You extract one field from a shipping document. Return JSON "
             '{"value": "<verbatim text from the document>"}.\n'
             f"Field: {field_key}\nLabel seen: {raw_label}\nDocument window:\n{window}"

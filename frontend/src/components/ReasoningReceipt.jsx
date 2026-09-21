@@ -142,6 +142,16 @@ export function ReceiptRows({ fields }) {
               {row.dcsa_field && (
                 <span className="font-mono text-[10px] text-cyan-300/80">DCSA: {row.dcsa_field}</span>
               )}
+              {row.policy_tag && (
+                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded border border-indigo-700/60 bg-indigo-950/40 text-indigo-300">
+                  {row.policy_tag}
+                </span>
+              )}
+              {row.learned_note && (
+                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded border border-purple-700/60 bg-purple-950/40 text-purple-300 flex items-center gap-1">
+                  <span>🧠 Memory Applied</span>
+                </span>
+              )}
               {row.token_cost !== null && row.token_cost !== undefined && (
                 <span className="font-mono text-[10px] text-purple-300">
                   {row.token_cost} tokens · {row.latency_ms}ms
@@ -150,7 +160,7 @@ export function ReceiptRows({ fields }) {
             </button>
 
             {isOpen && (
-              <div className="mt-2 ml-5 space-y-1 text-[11px]">
+              <div className="mt-2 ml-5 space-y-1.5 text-[11px]">
                 <div className="font-mono text-slate-300">
                   value: <span className="text-slate-100">{row.value ?? '(none)'}</span>
                 </div>
@@ -164,6 +174,38 @@ export function ReceiptRows({ fields }) {
                   </div>
                 ) : (
                   <div className="text-amber-300">No source span located for this value.</div>
+                )}
+                {row.learned_note && (
+                  <div className="p-2 rounded-lg bg-purple-950/50 border border-purple-800/60 text-purple-200">
+                    <div className="font-semibold text-purple-300 flex items-center gap-1 mb-0.5">
+                      <span>🧠 Learned from a prior correction:</span>
+                    </div>
+                    <div className="italic text-[11px] text-purple-100/90 pl-3 border-l-2 border-purple-500">
+                      &ldquo;{row.retrieved_reflections?.[0]?.reflection_text || row.learned_note}&rdquo;
+                    </div>
+                    {row.retrieved_reflections?.[0]?.times_retrieved !== undefined && (
+                      <span className="block mt-1 font-mono text-[10px] text-purple-400">
+                        Memory reuse count: {row.retrieved_reflections[0].times_retrieved} retrievals
+                      </span>
+                    )}
+                  </div>
+                )}
+                {row.policy_routing && (
+                  <div className="p-2 rounded-lg bg-indigo-950/40 border border-indigo-800/50 text-[10px] font-mono text-indigo-200 space-y-0.5">
+                    <div className="font-bold text-indigo-300">
+                      Bayesian Routing Policy: {row.policy_tag}
+                    </div>
+                    <div className="text-slate-400">
+                      Beta posterior: &alpha;={row.policy_routing.alpha}, &beta;={row.policy_routing.beta} · 
+                      Mean trust: {Math.round((row.policy_routing.mean_trust || 0.5) * 100)}%
+                      {row.policy_routing.sampled_trust !== undefined && (
+                        <span> · Thompson sample: {Math.round(row.policy_routing.sampled_trust * 100)}%</span>
+                      )}
+                    </div>
+                    {row.policy_routing.reason && (
+                      <div className="text-amber-300/90 mt-0.5">{row.policy_routing.reason}</div>
+                    )}
+                  </div>
                 )}
                 {row.decision_path === 'ai' && (
                   <div className="font-mono text-[10px] text-purple-300/90">

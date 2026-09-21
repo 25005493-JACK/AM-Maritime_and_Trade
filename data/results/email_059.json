@@ -1,6 +1,6 @@
 {
   "email_id": "email_059",
-  "timestamp": "2026-09-21T04:38:03.966706+00:00",
+  "timestamp": "2026-09-21T09:15:12.173895+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "BUATAN, INDONESIA",
-    "port_of_discharge": "FREMANTLE, AUSTRALIA",
-    "gross_weight_kg": 131322.0,
-    "container_count": 6,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
     "notify_party": "PACIFIC OFFICE (M) SDN BHD LOT 6, JALAN P/7 SECTION 13, 43650 BANDAR BARU BANGI SELANGOR, MALAYSIA",
-    "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD ENFIELD NSW 2136, AUSTRALIA"
+    "gross_weight_kg": 131322.0,
+    "container_count": 6,
+    "port_of_loading": "BUATAN, INDONESIA",
+    "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD ENFIELD NSW 2136, AUSTRALIA",
+    "port_of_discharge": "FREMANTLE, AUSTRALIA"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "BUATAN, INDONESIA",
-    "port_of_discharge": "FREMANTLE, AUSTRALIA",
-    "gross_weight_kg": 131322.0,
-    "container_count": 6,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
     "notify_party": "PACIFIC OFFICE (M) SDN BHD LOT 6, JALAN P/7 SECTION 13, 43650 BANDAR BARU BANGI SELANGOR, MALAYSIA",
-    "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD ENFIELD NSW 2136, AUSTRALIA"
+    "gross_weight_kg": 131322.0,
+    "container_count": 6,
+    "port_of_loading": "BUATAN, INDONESIA",
+    "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD ENFIELD NSW 2136, AUSTRALIA",
+    "port_of_discharge": "FREMANTLE, AUSTRALIA"
   },
   "field_matrix": [
     {

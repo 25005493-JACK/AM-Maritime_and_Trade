@@ -316,6 +316,43 @@ def get_dcsa_analytics():
         "recent_corrections": recent,
     }
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Online Self-Learning: Reflexion Episodic Memory & Bayesian Routing Policy
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.get("/routing-policy")
+@app.get("/api/routing-policy")
+def get_routing_policy_endpoint():
+    """Returns all sender_domain rows with their current alpha, beta, and derived mean trust."""
+    from backend.services.routing_policy import get_all_policies
+    policies = get_all_policies()
+    return {
+        "count": len(policies),
+        "policies": policies,
+        "description": "Beta-Bernoulli Thompson Sampling posteriors per sender domain"
+    }
+
+
+@app.get("/api/reflections")
+def get_reflections_endpoint(sender: Optional[str] = Query(None, description="Filter by sender domain")):
+    """Returns stored Reflexion episodic lessons grouped by sender domain."""
+    from backend.services.reflection import get_all_reflections
+    reflections = get_all_reflections(sender_domain=sender)
+    
+    grouped: Dict[str, List[Dict[str, Any]]] = {}
+    for r in reflections:
+        dom = r.get("sender_domain", "unknown")
+        grouped.setdefault(dom, []).append(r)
+
+    return {
+        "total": len(reflections),
+        "senders_count": len(grouped),
+        "reflections": reflections,
+        "by_sender": grouped,
+    }
+
+
 @app.get("/api/shipments/{email_id}/corrections")
 @app.get("/api/verify/{email_id}/corrections")
 def get_conflict_proposals(email_id: str):

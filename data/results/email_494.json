@@ -1,6 +1,6 @@
 {
   "email_id": "email_494",
-  "timestamp": "2026-09-21T04:38:08.813851+00:00",
+  "timestamp": "2026-09-21T09:15:13.644732+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "port_of_discharge": "KLAIPEDA, LITHUANIA (LTKLJ)",
-    "gross_weight_kg": 348705.0,
-    "container_count": 15,
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
-    "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA"
+    "gross_weight_kg": 348705.0,
+    "container_count": 15,
+    "port_of_loading": "NANTONG, CHINA (CNNTG)",
+    "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA",
+    "port_of_discharge": "KLAIPEDA, LITHUANIA (LTKLJ)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "port_of_discharge": "KLAIPEDA, LITHUANIA (LTKLJ)",
-    "gross_weight_kg": 348705.0,
-    "container_count": 15,
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
-    "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA"
+    "gross_weight_kg": 348705.0,
+    "container_count": 15,
+    "port_of_loading": "NANTONG, CHINA (CNNTG)",
+    "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA",
+    "port_of_discharge": "KLAIPEDA, LITHUANIA (LTKLJ)"
   },
   "field_matrix": [
     {

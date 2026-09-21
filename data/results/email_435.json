@@ -1,6 +1,6 @@
 {
   "email_id": "email_435",
-  "timestamp": "2026-09-21T04:38:08.491763+00:00",
+  "timestamp": "2026-09-21T09:15:13.545748+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "SINGAPORE",
-    "port_of_discharge": "AQABA, JORDAN",
-    "gross_weight_kg": 214270.0,
-    "container_count": 10,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES",
-    "consignee": "AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES"
+    "gross_weight_kg": 214270.0,
+    "container_count": 10,
+    "port_of_loading": "SINGAPORE",
+    "consignee": "AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES",
+    "port_of_discharge": "AQABA, JORDAN"
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "SINGAPORE",
-    "port_of_discharge": "AQABA, JORDAN",
-    "gross_weight_kg": 214770.0,
-    "container_count": 10,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
     "notify_party": "AL GURG STATIONERY LLC",
-    "consignee": "AL GURG STATIONERY LLC"
+    "gross_weight_kg": 214770.0,
+    "container_count": 10,
+    "port_of_loading": "SINGAPORE",
+    "consignee": "AL GURG STATIONERY LLC",
+    "port_of_discharge": "AQABA, JORDAN"
   },
   "field_matrix": [
     {

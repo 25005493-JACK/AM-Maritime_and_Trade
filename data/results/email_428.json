@@ -1,6 +1,6 @@
 {
   "email_id": "email_428",
-  "timestamp": "2026-09-21T04:38:08.129003+00:00",
+  "timestamp": "2026-09-21T09:15:13.423079+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "port_of_discharge": "FREMANTLE, AUSTRALIA (AUFRE)",
-    "gross_weight_kg": 88308.0,
-    "container_count": 4,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "notify_party": "HABRAS INTERNATIONAL LIMITED",
-    "consignee": "HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE"
+    "gross_weight_kg": 88308.0,
+    "container_count": 4,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "consignee": "HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE",
+    "port_of_discharge": "FREMANTLE, AUSTRALIA (AUFRE)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "port_of_discharge": "FREMANTLE, AUSTRALIA (AUFRE)",
-    "gross_weight_kg": 88308.0,
-    "container_count": 4,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "notify_party": "HABRAS INTERNATIONAL LIMITED",
-    "consignee": "HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE"
+    "gross_weight_kg": 88308.0,
+    "container_count": 4,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "consignee": "HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE",
+    "port_of_discharge": "FREMANTLE, AUSTRALIA (AUFRE)"
   },
   "field_matrix": [
     {

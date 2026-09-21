@@ -13,7 +13,8 @@ import {
   ScanText,
   ShieldCheck,
   Sun,
-  Moon
+  Moon,
+  TrendingUp
 } from 'lucide-react';
 
 export default function Sidebar({ activeTab, setActiveTab, stats, isRefreshing, onRefresh, theme, onToggleTheme }) {
@@ -24,6 +25,7 @@ export default function Sidebar({ activeTab, setActiveTab, stats, isRefreshing, 
     { id: 'timeline', label: 'Shipment Timeline', icon: GitGraph, badgeColor: 'bg-violet-500/20 text-violet-300 border-violet-500/30' },
     { id: 'calendar', label: 'Vessel Schedule Calendar', icon: CalendarIcon, badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' },
     { id: 'human_review', label: 'Human Review Queue', icon: AlertTriangle, count: stats?.human_review_count, badgeColor: 'bg-amber-500/20 text-amber-400 border-amber-500/30' },
+    { id: 'learning', label: 'Agent Self-Learning', icon: TrendingUp, badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/30' },
     { id: 'analytics', label: 'Vessel & Order Analytics', icon: BarChart3 },
     { id: 'trust', label: 'Trust & AI Controls', icon: ShieldCheck },
     { id: 'ocr_dashboard', label: 'PDF OCR Dashboard', icon: ScanText },
