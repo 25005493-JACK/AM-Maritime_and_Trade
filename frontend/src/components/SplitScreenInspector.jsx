@@ -189,7 +189,7 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
           }`}
         >
           <FileCheck2 className="w-3.5 h-3.5" />
-          <span>Tab 1: SI vs BL</span>
+          <span>SI vs BL</span>
         </button>
 
         <button
@@ -201,7 +201,7 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
           }`}
         >
           <GitCommit className="w-3.5 h-3.5" />
-          <span>Tab 2: Shipment Timeline</span>
+          <span>Shipment Timeline</span>
         </button>
       </div>
 
