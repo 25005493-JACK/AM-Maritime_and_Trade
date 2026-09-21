@@ -717,7 +717,7 @@ export default function GmailInbox({
                           selectedEmail.verification?.status === 'OK' ? 'text-emerald-600' : 'text-amber-600'
                         }`} />
                         <span className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200">
-                          Averish AI Maritime Verification Gate
+                          DocuMatch Maritime Verification Gate
                         </span>
                       </div>
                       <span className="text-[11px] font-mono px-2 py-0.5 rounded-full font-bold bg-white dark:bg-black/40 shadow-2xs">

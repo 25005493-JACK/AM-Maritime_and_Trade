@@ -3,6 +3,10 @@
 > **Averis x Monash Hackathon 2026 — Preliminary Round Submission**  
 > *"AI that knows when to act — and when not to."*
 
+> [!IMPORTANT]
+> **Core Architectural Philosophy**:  
+> **Traditional OCR + LLM systems try to answer every document. DocuMatch is a learning-agent system designed to learn from human corrections while controlling when AI is allowed to act.**
+
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)](https://react.dev/)
@@ -14,25 +18,29 @@
 
 ## Problem Statement & Operational Reality
 
-### The Real-World Maritime Operations Crisis
-Global container shipping operators, freight forwarders, and trade desks process thousands of complex operational emails every day. In a shared inbox, staff are inundated by a noisy mix of:
-- Urgent draft Bill of Lading (**BL**) verification requests
-- New Shipping Instructions (**SI**)
-- Freight billing and invoice queries
-- Port and vessel schedule updates
-- General inquiries and spam
-
-Within this flood, human operators must manually cross-examine 7 critical shipment fields between the customer's reference Shipping Instruction and the carrier's draft Bill of Lading.
+### The Fundamental Flaw of Traditional Document AI
+Most existing document-AI solutions combine an off-the-shelf OCR engine with an LLM prompt and attempt to process every file that enters the inbox. In enterprise maritime logistics, this approach fails catastrophically:
+1. **Unchecked Hallucinations on Edge Cases**: When presented with an unreadable scan, a corrupted PDF, or an entirely wrong document type (such as a Certificate of Origin attached to a Bill of Lading request), generic LLMs attempt to answer anyway—manufacturing convincing, incorrect data.
+2. **Stateless Amnesia (Exception Fatigue)**: Conventional OCR + LLM pipelines operate as stateless transactions. A human operator corrects an error today, but tomorrow the model repeats the exact same clerical mistake on the same carrier's format because the system retains zero operational memory.
+3. **The High Cost of Blind Automation**: In global shipping, a confident wrong answer is far more expensive than no answer at all. A missed discrepancy between a Shipping Instruction (SI) and draft Bill of Lading (BL) triggers port customs holds and demurrage penalties of **$500 to $2,500 per day per container**.
 
 ```
-Email Intake ──► AI Extraction ──► Hallucinated Error ──► Human Correction ──► Repeat (Exception Fatigue)
+TRADITIONAL OCR + LLM:
+[Email Intake] ──► [Blind AI Extraction] ──► [Silent Hallucination] ──► [Manual Correction] ──► [Forgotten Tomorrow]
+
+DOCUMATCH LEARNING AGENT:
+[Email Intake] ──► [Task Pre-Validation] ──► [Bounded AI Action] ──► [Human Confirmation] ──► [Episodic Learning]
 ```
 
-### High-Stakes Consequences
-1. **Severe Demurrage & Customs Penalties**: A single undetected discrepancy—such as a mismatched container count, wrong port code, or incorrect gross weight—leads to customs holds and demurrage charges ranging from **$500 to $2,500/day per container**, along with missed feeder vessel cutoffs.
-2. **Exception Fatigue & Data Silos**: Many document-AI tools operate as stateless transactions: an email arrives, the model guesses field values without grounding, generates errors, requires human correction, and then makes the exact same mistake tomorrow because it retains no operational memory of sender conventions.
-3. **The Core Question**: Rather than asking *"How can we make AI answer more?"*, DocuMatch asks:
-   > **"How can we make AI know when it should act — and when it should stop and ask a human?"**
+### Traditional OCR + LLM vs. DocuMatch Learning Agent
+
+| Capability Dimension | Traditional OCR + LLM Pipelines | DocuMatch Learning-Agent System |
+|:---|:---|:---|
+| **Operational Mandate** | **Tries to answer every document**, regardless of legibility, missing attachments, or domain validity. | **Controls when AI is allowed to act**; AI must earn the right to act across 4 strict validation checkpoints. |
+| **Handling Uncertainty** | Hallucinates plausible fields from blurry scans or wrong document types. | Refuses to guess ungrounded fields; halts processing and issues structured Refusal Certificates. |
+| **Continuous Learning** | **Stateless**: human corrections disappear into the void; repeats identical mistakes tomorrow. | **Stateful**: transforms human corrections into **Reflexion episodic memory** and **Bayesian trust posteriors**. |
+| **Conflict Resolution** | Autonomously picks a winner without evidence grounding. | **Propose-and-Confirm**: preserves both candidates with byte-level offsets; requires human authorization. |
+| **Failure Mode** | Uncontrolled failure (silent error propagated to carrier or customs). | Controlled failure (explicit Refusal Certificate with estimated delay and designated contact). |
 
 ---
 
@@ -232,10 +240,36 @@ Empirically tests the pipeline against 4 simulated failure states:
 
 ## Innovation & Solution Approach
 
-1. **The "Propose-and-Confirm" Paradigm (Zero Hallucination)**: When SI and BL disagree, the system **never guesses a winner**. It presents both candidates side-by-side with character offsets, requiring explicit operator confirmation.
-2. **Reasoning Receipts with Byte-Level Provenance**: Every extraction produces an immutable audit receipt documenting the decision path (`rule`, `ai`, `human`), verbatim quoted source text, character start/end coordinates, and UN/LOCODE validation.
-3. **AI Circuit Breaker & Structured Refusal Certificates**: If 3 consecutive validation checks fail, processing halts immediately and produces a structured Refusal Certificate detailing missing fields, estimated operational delays, and the responsible external party.
-4. **DCSA eBL v3.0.3 Digital Alignment**: All internal entities conform to the official DCSA OpenAPI standard data dictionary.
+### The Core Paradigm Shift: From Answering Every File to a Controlled Learning Agent
+Traditional OCR + LLM tools are fundamentally designed to answer every document placed in front of them, even when the input is unreadable, corrupted, or invalid. This results in hallucinated numbers, costly operational fines, and chronic exception fatigue for operations teams.
+
+DocuMatch re-architects document intelligence as a **stateful learning-agent system with bounded agency**:
+
+1. **Learning-Agent Feedback Loop (Breaking Exception Fatigue)**:
+   - Traditional document systems treat human corrections as throwaway inputs—the next time an identical file format arrives, the same mistake is repeated.
+   - DocuMatch captures human corrections as structured **Reflexion episodic memory** tied to the carrier sender domain (`sender_domain`, `doc_type`, `field_name`, `reflection_text`).
+   - Combined with **Bayesian Thompson Sampling** routing policies, the system dynamically updates trust posteriors $(\alpha, \beta)$, ensuring the platform gets measurably smarter from operator interactions rather than trapping staff in a cycle of repetitive corrections.
+
+2. **Bounded Agency: AI Must "Earn the Right to Act"**:
+   - Automated processing is not an unconstrained right; it is governed by **4 strict operational checkpoints**:
+     - *Check 1*: Task Validity (filters out wrong document types like Certificates of Origin before comparison).
+     - *Check 2*: Information Sufficiency (refuses to gamble on low-confidence, image-only scans).
+     - *Check 3*: Provenance Support (enforces byte-level offsets and UN/LOCODE whitelist verification).
+     - *Check 4*: Controlled Failure (trips an AI Circuit Breaker at 3 consecutive failures rather than manufacturing an answer).
+
+3. **The "Propose-and-Confirm" Paradigm (Zero Hallucination)**:
+   - When a Shipping Instruction (SI) and draft Bill of Lading (BL) disagree, DocuMatch **never guesses a winner**.
+   - It presents both candidate values side-by-side with verbatim quoted text and exact character offsets, requiring explicit operator authorization before finalizing records.
+
+4. **Explainable Reasoning Receipts with Byte-Level Provenance**:
+   - Every single field decision generates an immutable audit receipt detailing the decision path (`rule`, `ai`, `human`), exact character start/end offsets, and mechanical validation results.
+
+5. **AI Circuit Breaker & Structured Refusal Certificates**:
+   - If an extraction engine fails validation 3 times consecutively, the circuit breaker halts execution immediately.
+   - It generates a structured **Refusal Certificate** detailing missing fields, estimated operational delay hours (e.g. 16 hours), and the recommended stakeholder recipient to contact.
+
+6. **DCSA eBL v3.0.3 Industry Digital Alignment**:
+   - Rather than proprietary schemas, all internal fields map 1:1 to official Digital Container Shipping Association open standards.
 
 ---
 

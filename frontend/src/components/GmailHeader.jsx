@@ -60,7 +60,7 @@ export default function GmailHeader({
               Gmail
             </span>
             <span className="text-[11px] font-medium px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
-              Freight Ops
+              DocuMatch
             </span>
           </div>
         </div>
@@ -144,7 +144,7 @@ export default function GmailHeader({
         <button
           onClick={onOpenApps}
           className="p-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors"
-          title="Google Workspace & Averish Apps"
+          title="Google Workspace & DocuMatch Apps"
         >
           <Grid3X3 className="w-5 h-5" />
         </button>
@@ -152,10 +152,10 @@ export default function GmailHeader({
         {/* User Profile Avatar */}
         <div className="pl-1">
           <button 
-            className="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-medium text-sm flex items-center justify-center shadow-inner hover:ring-4 hover:ring-blue-500/20 transition"
-            title="Google Account: Averish Freight Ops (ops@averish.trade)"
+            className="w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-600 to-indigo-600 text-white font-medium text-sm flex items-center justify-center shadow-inner hover:ring-4 hover:ring-cyan-500/20 transition"
+            title="Google Account: DocuMatch Operations (ops@documatch.trade)"
           >
-            A
+            D
           </button>
         </div>
       </div>

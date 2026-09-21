@@ -32,7 +32,7 @@ from backend.services.corrections_log import (
 from backend.services import supabase_service
 
 app = FastAPI(
-    title="Intelligent Shipping Document & Inbox Management API",
+    title="DocuMatch - Intelligent Shipping Document Verification API",
     version="2.0.0"
 )
 
@@ -80,7 +80,7 @@ def startup_sync_from_cloud():
 def read_root():
     return {
         "status": "online",
-        "message": "Maritime Shipping Verification Engine Running",
+        "message": "DocuMatch Maritime Verification Engine Running",
         "dataset_size": len(loader.load_inbox()),
         "cloud_database": "supabase" if supabase_service.is_supabase_enabled() else "local"
     }

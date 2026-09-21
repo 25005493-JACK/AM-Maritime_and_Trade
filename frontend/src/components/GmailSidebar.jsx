@@ -332,7 +332,7 @@ export default function GmailSidebar({
             <div className="h-full bg-blue-600 rounded-full w-[12%]" />
           </div>
           <div className="text-[11px] text-slate-400 flex items-center justify-between pt-1">
-            <span>Averish Freight AI</span>
+            <span>DocuMatch AI</span>
             <span className="font-mono text-emerald-500 font-semibold">● Online</span>
           </div>
         </div>

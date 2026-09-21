@@ -34,8 +34,8 @@ export default function Sidebar({ activeTab, setActiveTab, stats, onRefresh, the
               <Ship className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-base font-bold text-slate-100 tracking-tight leading-none">Averish AI</h1>
-              <span className="text-xs text-cyan-400 font-medium tracking-wide">Maritime & Trade</span>
+              <h1 className="text-base font-bold text-slate-100 tracking-tight leading-none">DocuMatch</h1>
+              <span className="text-xs text-cyan-400 font-medium tracking-wide">Maritime Document AI</span>
             </div>
           </div>
 

@@ -48,7 +48,7 @@ export default function GoogleAppsMenu({
         }}
       >
         <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 px-2 pb-2 mb-1 border-b" style={{ borderColor: 'var(--gmail-border)' }}>
-          Google Workspace & Averish Apps
+          Google Workspace & DocuMatch Apps
         </div>
 
         <div className="grid grid-cols-3 gap-3 pt-2">
@@ -80,7 +80,7 @@ export default function GoogleAppsMenu({
 
         <div className="mt-4 pt-3 border-t text-center" style={{ borderColor: 'var(--gmail-border)' }}>
           <span className="text-[11px] text-blue-600 dark:text-blue-400 font-medium hover:underline cursor-pointer">
-            More from Averish Marketplace
+            More from DocuMatch Marketplace
           </span>
         </div>
       </div>
