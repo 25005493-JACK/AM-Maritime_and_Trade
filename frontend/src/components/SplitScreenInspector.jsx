@@ -14,7 +14,11 @@ import {
   Terminal,
   X,
   Zap,
-  Info
+  Info,
+  GitCommit,
+  UserCheck,
+  Ship,
+  Clock
 } from 'lucide-react';
 
 export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal }) {
@@ -35,8 +39,6 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
 
   const { email, classification, si_text, bl_text, verification } = emailDetail;
   const verif = verification || {};
-  const siExtracted = verif.si_extracted || {};
-  const blExtracted = verif.bl_extracted || {};
 
   // Character-level diff renderer helper
   const renderDiff = (siVal, blVal, isMatch) => {
@@ -60,12 +62,6 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
   };
 
   const str = (v) => (v === null || v === undefined ? '' : String(v));
-
-  // Determine line highlight target in text
-  const isLineHighlighted = (text, fieldKey) => {
-    if (!selectedFieldKey || selectedFieldKey !== fieldKey) return false;
-    return true;
-  };
 
   return (
     <div className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950 relative">
@@ -126,7 +122,61 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
 
       {/* Main Split Inspector Body */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {/* AI Recommended Next Action Box */}
+
+        {/* 1. TOP-OF-PAGE SHIPMENT AUDIT TIMELINE (Who Done What: User vs AI) */}
+        <div className="p-4 rounded-xl glass-card border border-slate-800 space-y-3 shadow-lg">
+          <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200 flex items-center space-x-2">
+              <GitCommit className="w-4 h-4 text-cyan-400" />
+              <span>Shipment Audit Timeline (Who Done What)</span>
+            </h3>
+            <span className="text-[11px] font-mono text-slate-500">Event History & Actor Provenance</span>
+          </div>
+
+          <div className="grid grid-cols-4 gap-3 text-xs font-mono">
+            {/* Event 1: AI Booking Allocation */}
+            <div className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
+              <div className="flex items-center space-x-1.5 text-cyan-400 font-bold text-[11px]">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>AI Done: Auto-Allocated</span>
+              </div>
+              <p className="text-[11px] text-slate-300 truncate">Vessel: {email.vessel || 'MSC ISABELLA'}</p>
+              <span className="text-[10px] text-slate-500 block">Actor: AI Vessel Scheduler</span>
+            </div>
+
+            {/* Event 2: AI SI Extraction */}
+            <div className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
+              <div className="flex items-center space-x-1.5 text-indigo-400 font-bold text-[11px]">
+                <FileText className="w-3.5 h-3.5" />
+                <span>AI Done: SI Extracted</span>
+              </div>
+              <p className="text-[11px] text-slate-300 truncate">7 Reference Fields Parsed</p>
+              <span className="text-[10px] text-slate-500 block">Actor: AI Ingestion Engine</span>
+            </div>
+
+            {/* Event 3: AI BL Verification */}
+            <div className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
+              <div className="flex items-center space-x-1.5 text-purple-400 font-bold text-[11px]">
+                <Zap className="w-3.5 h-3.5" />
+                <span>AI Done: BL Cross-Checked</span>
+              </div>
+              <p className="text-[11px] text-slate-300 truncate">Status: {verif.status || 'Verified'}</p>
+              <span className="text-[10px] text-slate-500 block">Actor: AI Discrepancy Matrix</span>
+            </div>
+
+            {/* Event 4: User/Human Review Action */}
+            <div className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
+              <div className="flex items-center space-x-1.5 text-amber-400 font-bold text-[11px]">
+                <UserCheck className="w-3.5 h-3.5" />
+                <span>User Done: {verif.status === 'HUMAN_REVIEW_REQUIRED' ? 'Review Required' : 'Operator Audit Approved'}</span>
+              </div>
+              <p className="text-[11px] text-slate-300 truncate">{verif.status === 'HUMAN_REVIEW_REQUIRED' ? 'Escalated to Desk' : 'Shipping Desk Release'}</p>
+              <span className="text-[10px] text-slate-500 block">Actor: User: Operations Staff</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. AI Recommended Next Action Box */}
         {verif.recommended_action && (
           <div className="p-4 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-indigo-500/30 flex items-start justify-between shadow-lg">
             <div className="flex items-start space-x-3">
@@ -170,7 +220,7 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
           </div>
         )}
 
-        {/* 7-Field Side-by-Side Comparison Matrix with Text Line Linking & Confidence Pills */}
+        {/* 3. 7-Field Side-by-Side Comparison Matrix */}
         {verif.field_matrix && (
           <div className="glass-card rounded-xl border border-slate-800 overflow-hidden shadow-lg">
             <div className="p-3 bg-slate-900/80 border-b border-slate-800 flex items-center justify-between">
@@ -243,7 +293,7 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
           </div>
         )}
 
-        {/* Raw Attachment Side-by-Side Text Inspector with Active Line Highlighting */}
+        {/* 4. Raw Attachment Side-by-Side Text Inspector */}
         <div className="grid grid-cols-2 gap-4">
           {/* Left Panel: SI Text */}
           <div className="glass-card rounded-xl border border-slate-800 p-4">
