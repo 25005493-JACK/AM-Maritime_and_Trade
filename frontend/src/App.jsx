@@ -235,6 +235,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    if (emails.length > 0 && !selectedEmailId) {
+      const firstMismatch = emails.find((e) => e.verification?.status === 'MISMATCH');
+      setSelectedEmailId(firstMismatch ? firstMismatch.id : emails[0].id);
+    }
+  }, [emails, selectedEmailId]);
+
+  useEffect(() => {
     if (selectedEmailId) {
       fetchEmailDetail(selectedEmailId);
     }

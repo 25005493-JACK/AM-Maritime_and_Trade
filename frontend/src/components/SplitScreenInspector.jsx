@@ -18,6 +18,7 @@ import {
   Zap,
   Info,
   GitCommit,
+  GitCompareArrows,
   UserCheck,
   Ship,
   Clock
@@ -180,6 +181,25 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
             </div>
           )}
 
+          {/* Direct Resolve Discrepancies button in header */}
+          {(!isMatch || isMismatch) && (
+            <button
+              onClick={() => {
+                const el = document.getElementById('conflict-resolution-panel');
+                if (el) {
+                  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                  onOpenOverrideModal();
+                }
+              }}
+              className="px-3.5 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold shadow-md shadow-cyan-950/40 flex items-center space-x-1.5 transition cursor-pointer"
+              title="Resolve discrepancies between SI and Draft BL using Propose-and-Confirm"
+            >
+              <GitCompareArrows className="w-4 h-4 text-white" />
+              <span>Resolve Discrepancy</span>
+            </button>
+          )}
+
           <button
             onClick={() => setShowReceiptDrawer(true)}
             className="px-3 py-1.5 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 text-indigo-300 text-xs font-medium border border-indigo-700/60 flex items-center space-x-1.5 transition"
@@ -263,13 +283,26 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
                       <span>Approve & Release BL</span>
                     </button>
                   ) : (
-                    <button 
-                      onClick={() => alert("Revision Request draft generated and sent to Carrier.")}
-                      className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow transition"
-                    >
-                      <Send className="w-4 h-4" />
-                      <span>Request Revision</span>
-                    </button>
+                    <>
+                      <button 
+                        onClick={() => {
+                          const el = document.getElementById('conflict-resolution-panel');
+                          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          else onOpenOverrideModal();
+                        }}
+                        className="px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow transition cursor-pointer"
+                      >
+                        <GitCompareArrows className="w-4 h-4" />
+                        <span>Resolve Discrepancy</span>
+                      </button>
+                      <button 
+                        onClick={() => alert("Revision Request draft generated and sent to Carrier.")}
+                        className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow transition"
+                      >
+                        <Send className="w-4 h-4" />
+                        <span>Request Revision</span>
+                      </button>
+                    </>
                   )}
                 </div>
               </div>
@@ -277,7 +310,7 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
 
             {/* Propose-and-confirm: SI and BL evidence side by side, reviewer decides */}
             {email?.id && !isMatch && (
-              <ConflictEvidencePanel emailId={email.id} />
+              <ConflictEvidencePanel emailId={email.id} emailDetail={emailDetail} />
             )}
             {/* 7-Field Side-by-Side Comparison Matrix */}
             {verif.field_matrix && (
