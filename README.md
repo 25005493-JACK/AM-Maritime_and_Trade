@@ -16,8 +16,8 @@
 [![License](https://img.shields.io/badge/Status-Working_Prototype-success)](#working-core-prototype)
 
 > 🚀 **Live Demo on Vercel**:  
-> • **Operations Dashboard**: [https://averishack.vercel.app](https://averishack.vercel.app)  
-> • **Presentation & Pitch Slides**: [https://averishack.vercel.app/presentation](https://averishack.vercel.app/presentation)
+> - **Operations Dashboard**: [https://averishack.vercel.app](https://averishack.vercel.app)  
+> - **Presentation & Pitch Slides**: [https://averishack.vercel.app/presentation](https://averishack.vercel.app/presentation)
 
 ---
 
