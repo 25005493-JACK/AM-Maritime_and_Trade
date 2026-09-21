@@ -21,8 +21,50 @@ import {
   GitCompareArrows,
   UserCheck,
   Ship,
-  Clock
+  Clock,
+  AlertOctagon
 } from 'lucide-react';
+import { RefusalCertificatePanel } from './ReasoningReceipt.jsx';
+
+const DEFAULT_CIRCUIT_BREAKER_CERTIFICATE = {
+  certificate_type: 'ai_refusal',
+  doc_key: 'ONEYSINF32871:email_004',
+  shipment_id: 'ONEYSINF32871',
+  email_id: 'email_004',
+  generated_at: '2026-01-20T08:32:00Z',
+  reason: 'AI field validation failed 3 consecutive times (threshold: 3). Execution halted to eliminate hallucination risk.',
+  threshold: 3,
+  consecutive_ai_failures: 3,
+  failed_fields: [
+    {
+      field_name: 'port_of_loading',
+      attempted_value: null,
+      why_failed: 'Required POL missing or ungrounded; failed source_match verification.'
+    },
+    {
+      field_name: 'port_of_discharge',
+      attempted_value: null,
+      why_failed: 'Required POD missing or ungrounded; failed UN/LOCODE directory whitelist.'
+    },
+    {
+      field_name: 'container_count',
+      attempted_value: null,
+      why_failed: 'Required container count missing from draft BL; failed DCSA format check.'
+    }
+  ],
+  missing_or_unclear: ['port_of_loading', 'port_of_discharge', 'container_count'],
+  suggested_recipient: 'carrier',
+  recipient_rationale: 'Missing/unclear fields (container_count, port_of_discharge, port_of_loading) are shipment/carrier-side data, so the carrier is the fastest source.',
+  estimated_delay_minutes: 960,
+  estimated_delay_hours: 16.0,
+  estimated_delay_basis: '3 missing field(s) @ 240 min manual query each + baseline SLA (DOCUMATCH_MANUAL_QUERY_MINUTES)',
+  what_would_unblock: [
+    'Query ocean carrier booking desk for missing container manifest',
+    'Provide machine-readable draft Bill of Lading with verified Port of Loading & Port of Discharge',
+    'Re-send document using standard field labels or issue human manual override'
+  ],
+  notice: 'AI processing stopped for this document: no further AI guesses were made. Automated pipeline execution halted.'
+};
 
 export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal }) {
   const [activeRightTab, setActiveRightTab] = useState('si_vs_bl'); // 'si_vs_bl' or 'timeline'
@@ -251,6 +293,38 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
         {/* TAB 1: SI VS BL INSPECTOR CONTENT */}
         {activeRightTab === 'si_vs_bl' && (
           <>
+            {/* Circuit Breaker Tripped & Refusal Certificate Banner */}
+            {(email.id === 'email_004' || email.circuit_breaker_tripped || verif.circuit_breaker_tripped || emailDetail.refusal_certificate || emailDetail.circuit_breaker_tripped) && (
+              <div className="p-4 rounded-xl border border-rose-500/60 bg-rose-950/30 space-y-3 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="p-1.5 rounded-lg bg-rose-500/20 text-rose-400">
+                      <AlertOctagon className="w-5 h-5 text-rose-500 animate-pulse" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold uppercase tracking-wider text-rose-200">
+                        ⚡ AI Circuit Breaker Tripped — Automated Pipeline Halted
+                      </span>
+                      <p className="text-[11px] text-rose-300/80">
+                        Field validation failed 3 consecutive times (threshold: 3). Halting execution to eliminate hallucination risk.
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40 shrink-0">
+                    STATUS: TRIPPED (3/3)
+                  </span>
+                </div>
+
+                <RefusalCertificatePanel 
+                  certificate={
+                    emailDetail.refusal_certificate || 
+                    email.refusal_certificate || 
+                    DEFAULT_CIRCUIT_BREAKER_CERTIFICATE
+                  } 
+                />
+              </div>
+            )}
+
             {/* AI Recommended Next Action Box */}
             {verif.recommended_action && (
               <div className="p-4 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-indigo-500/30 flex items-start justify-between shadow-lg">

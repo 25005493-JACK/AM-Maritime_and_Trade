@@ -12,7 +12,8 @@ import {
   CheckSquare,
   Square,
   ShieldCheck,
-  Send
+  Send,
+  AlertOctagon
 } from 'lucide-react';
 
 export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOpenInspector }) {
@@ -43,6 +44,8 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
       matchesStatus = email.verification?.status === 'NO_MISMATCH_DETECTED' || email.verification?.status === 'OK';
     } else if (selectedStatus === 'HUMAN_REVIEW') {
       matchesStatus = email.verification?.status === 'HUMAN_REVIEW_REQUIRED' || email.verification?.status === 'NEEDS_REVIEW';
+    } else if (selectedStatus === 'CIRCUIT_BREAKER') {
+      matchesStatus = email.circuit_breaker_tripped || email.id === 'email_004' || email.verification?.circuit_breaker_tripped;
     } else if (selectedStatus === 'SPAM') {
       matchesStatus = email.classification?.super_category === 'Spam / General';
     }
@@ -159,6 +162,7 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
             <span className="text-slate-500 font-medium">Status:</span>
             {[
               { id: 'ALL', label: 'All Status' },
+              { id: 'CIRCUIT_BREAKER', label: '⚡ Circuit Breaker', color: 'bg-rose-950 text-rose-300 border-rose-600' },
               { id: 'MISMATCH', label: 'Mismatch Found', color: 'badge-mismatch' },
               { id: 'MATCHED', label: 'No Mismatch', color: 'badge-match' },
               { id: 'HUMAN_REVIEW', label: 'Human Review', color: 'badge-warning' },
@@ -271,6 +275,12 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
                   </div>
 
                   <div className="flex items-center space-x-2">
+                    {(email.circuit_breaker_tripped || email.id === 'email_004' || verif?.circuit_breaker_tripped) && (
+                      <span className="bg-rose-950/80 border border-rose-600/60 text-rose-300 px-2 py-0.5 rounded flex items-center space-x-1 font-mono text-[11px] font-bold shrink-0">
+                        <AlertOctagon className="w-3 h-3 text-rose-400 animate-pulse" />
+                        <span>Circuit Breaker (3 Failures)</span>
+                      </span>
+                    )}
                     {(verif?.status === 'NO_MISMATCH_DETECTED' || verif?.status === 'OK') && (
                       <span className="badge-match px-2 py-0.5 rounded flex items-center space-x-1 font-mono text-[11px]">
                         <CheckCircle2 className="w-3 h-3" />

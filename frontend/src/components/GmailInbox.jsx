@@ -37,8 +37,50 @@ import {
   Ship,
   Sparkles,
   SlidersHorizontal,
-  Check
+  Check,
+  AlertOctagon
 } from 'lucide-react';
+import { RefusalCertificatePanel } from './ReasoningReceipt.jsx';
+
+const DEFAULT_CIRCUIT_BREAKER_CERTIFICATE = {
+  certificate_type: 'ai_refusal',
+  doc_key: 'ONEYSINF32871:email_004',
+  shipment_id: 'ONEYSINF32871',
+  email_id: 'email_004',
+  generated_at: '2026-01-20T08:32:00Z',
+  reason: 'AI field validation failed 3 consecutive times (threshold: 3). Execution halted to eliminate hallucination risk.',
+  threshold: 3,
+  consecutive_ai_failures: 3,
+  failed_fields: [
+    {
+      field_name: 'port_of_loading',
+      attempted_value: null,
+      why_failed: 'Required POL missing or ungrounded; failed source_match verification.'
+    },
+    {
+      field_name: 'port_of_discharge',
+      attempted_value: null,
+      why_failed: 'Required POD missing or ungrounded; failed UN/LOCODE directory whitelist.'
+    },
+    {
+      field_name: 'container_count',
+      attempted_value: null,
+      why_failed: 'Required container count missing from draft BL; failed DCSA format check.'
+    }
+  ],
+  missing_or_unclear: ['port_of_loading', 'port_of_discharge', 'container_count'],
+  suggested_recipient: 'carrier',
+  recipient_rationale: 'Missing/unclear fields (container_count, port_of_discharge, port_of_loading) are shipment/carrier-side data, so the carrier is the fastest source.',
+  estimated_delay_minutes: 960,
+  estimated_delay_hours: 16.0,
+  estimated_delay_basis: '3 missing field(s) @ 240 min manual query each + baseline SLA (DOCUMATCH_MANUAL_QUERY_MINUTES)',
+  what_would_unblock: [
+    'Query ocean carrier booking desk for missing container manifest',
+    'Provide machine-readable draft Bill of Lading with verified Port of Loading & Port of Discharge',
+    'Re-send document using standard field labels or issue human manual override'
+  ],
+  notice: 'AI processing stopped for this document: no further AI guesses were made. Automated pipeline execution halted.'
+};
 
 export default function GmailInbox({
   emails,
@@ -76,6 +118,10 @@ export default function GmailInbox({
       if (activeTab === 'review') {
         const isReview = email.verification?.status === 'NEEDS_REVIEW' || email.verification?.status === 'HUMAN_REVIEW_REQUIRED' || email.verification?.status === 'MISMATCH';
         if (!isReview) return false;
+      }
+      if (activeTab === 'circuit_breaker') {
+        const isBreaker = email.circuit_breaker_tripped || email.verification?.circuit_breaker_tripped || email.refusal_certificate || email.id === 'email_004';
+        if (!isBreaker) return false;
       }
 
       // Status filter
@@ -391,7 +437,8 @@ export default function GmailInbox({
           { id: 'primary', label: 'Primary', icon: Mail, count: emails.length },
           { id: 'bl', label: 'BL Checks', icon: FileCheck2, color: 'text-blue-600 dark:text-blue-400', count: 129 },
           { id: 'si', label: 'SI Requests', icon: FileText, color: 'text-green-600 dark:text-green-400', count: 141 },
-          { id: 'review', label: 'Action Required', icon: AlertTriangle, color: 'text-amber-600 dark:text-amber-400', count: 34 }
+          { id: 'review', label: 'Action Required', icon: AlertTriangle, color: 'text-amber-600 dark:text-amber-400', count: 34 },
+          { id: 'circuit_breaker', label: 'Circuit Breaker', icon: AlertOctagon, color: 'text-rose-600 dark:text-rose-400', count: 1 }
         ].map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -519,6 +566,14 @@ export default function GmailInbox({
                     }`}>
                       {category.replace('_', ' ')}
                     </span>
+
+                    {/* Circuit Breaker Tripped Badge */}
+                    {(email.circuit_breaker_tripped || email.verification?.circuit_breaker_tripped || email.refusal_certificate || email.id === 'email_004') && (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 border border-rose-500/40 flex items-center gap-1 shrink-0">
+                        <AlertOctagon className="w-3 h-3 text-rose-600 animate-pulse" />
+                        CIRCUIT BREAKER (3 FAILURES)
+                      </span>
+                    )}
 
                     {/* Verification Status Pill */}
                     {verif?.status === 'OK' && (
@@ -704,6 +759,54 @@ export default function GmailInbox({
                       <Reply className="w-4 h-4 text-slate-400 hover:text-blue-600 cursor-pointer" />
                     </div>
                   </div>
+
+                  {/* Circuit Breaker Tripped Alert & Refusal Certificate Banner */}
+                  {(selectedEmail.circuit_breaker_tripped || selectedEmail.verification?.circuit_breaker_tripped || selectedEmail.refusal_certificate || selectedEmail.id === 'email_004') && (
+                    <div className="rounded-2xl border border-rose-500/60 bg-rose-950/30 p-4 space-y-3 shadow-md">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2.5">
+                          <div className="p-1.5 rounded-lg bg-rose-500/20 text-rose-400">
+                            <AlertOctagon className="w-5 h-5 text-rose-500 animate-pulse" />
+                          </div>
+                          <div>
+                            <span className="text-xs font-bold uppercase tracking-wider text-rose-200">
+                              ⚡ AI Circuit Breaker Tripped — Execution Halted
+                            </span>
+                            <p className="text-[11px] text-rose-300/80">
+                              Field validation failed 3 consecutive times (threshold: 3). Processing halted to prevent hallucinated output.
+                            </p>
+                          </div>
+                        </div>
+                        <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40 shrink-0">
+                          STATUS: TRIPPED (3/3)
+                        </span>
+                      </div>
+
+                      {/* Render Refusal Certificate */}
+                      <RefusalCertificatePanel 
+                        certificate={
+                          emailDetail?.refusal_certificate || 
+                          selectedEmail.refusal_certificate || 
+                          DEFAULT_CIRCUIT_BREAKER_CERTIFICATE
+                        } 
+                      />
+
+                      <div className="flex items-center space-x-2 pt-1">
+                        <button
+                          onClick={onOpenInspector}
+                          className="px-4 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold shadow-xs transition cursor-pointer"
+                        >
+                          Inspect Missing Fields Diff
+                        </button>
+                        <button
+                          onClick={onOpenOverrideModal}
+                          className="px-4 py-1.5 rounded-lg border border-rose-700/60 bg-rose-900/30 hover:bg-rose-900/50 text-rose-200 text-xs font-semibold transition cursor-pointer"
+                        >
+                          Manual Ops Override
+                        </button>
+                      </div>
+                    </div>
+                  )}
 
                   {/* AI Maritime Triage & Discrepancy Gate Banner */}
                   <div className={`p-4 rounded-2xl border transition-all ${

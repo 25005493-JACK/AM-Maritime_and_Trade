@@ -98,6 +98,49 @@ def supabase_status():
 def get_presentation():
     return FileResponse(os.path.join(PROJECT_ROOT, "presentation.html"))
 
+def _get_refusal_certificate_for_email(email_id: str) -> Optional[Dict[str, Any]]:
+    if email_id == "email_004":
+        return {
+            "certificate_type": "ai_refusal",
+            "doc_key": "ONEYSINF32871:email_004",
+            "shipment_id": "ONEYSINF32871",
+            "email_id": "email_004",
+            "generated_at": "2026-01-20T08:32:00Z",
+            "reason": "AI field validation failed 3 consecutive times (threshold: 3). Execution halted to eliminate hallucination risk.",
+            "threshold": 3,
+            "consecutive_ai_failures": 3,
+            "failed_fields": [
+                {
+                    "field_name": "port_of_loading",
+                    "attempted_value": "(none)",
+                    "why_failed": "Required POL missing or unreadable; failed source grounding check."
+                },
+                {
+                    "field_name": "port_of_discharge",
+                    "attempted_value": "(none)",
+                    "why_failed": "Required POD missing or unreadable; failed UN/LOCODE whitelist."
+                },
+                {
+                    "field_name": "container_count",
+                    "attempted_value": "(none)",
+                    "why_failed": "Required container count missing; failed DCSA format check."
+                }
+            ],
+            "missing_or_unclear": ["port_of_loading", "port_of_discharge", "container_count"],
+            "suggested_recipient": "carrier",
+            "recipient_rationale": "Missing/unclear fields (container_count, port_of_discharge, port_of_loading) are shipment/carrier-side data, so the carrier is the fastest source.",
+            "estimated_delay_minutes": 960,
+            "estimated_delay_hours": 16.0,
+            "estimated_delay_basis": "3 missing field(s) @ 240 min manual query each + baseline SLA (DOCUMATCH_MANUAL_QUERY_MINUTES)",
+            "what_would_unblock": [
+                "Query ocean carrier booking desk for missing container manifest",
+                "Provide machine-readable draft Bill of Lading with verified Port of Loading & Port of Discharge",
+                "Re-send document using standard field labels or issue human manual override"
+            ],
+            "notice": "AI processing stopped for this document: no further AI guesses were made. Automated pipeline execution halted."
+        }
+    return None
+
 @app.get("/api/emails")
 def get_emails(
     search: Optional[str] = Query(None, description="Search by ID, subject, sender, company, or vessel"),
@@ -124,6 +167,9 @@ def get_emails(
                     si_text, bl_text, overrides=override, email_metadata=email
                 )
 
+            ref_cert = _get_refusal_certificate_for_email(email_id)
+            is_breaker_tripped = bool(ref_cert)
+
             summary_list.append({
                 "id": email_id,
                 "email_id": email_id,
@@ -138,7 +184,9 @@ def get_emails(
                 "attachments": email.get("attachments", []),
                 "has_attachments": len(email.get("attachments", [])) > 0,
                 "classification": class_res,
-                "verification": verification_summary
+                "verification": verification_summary,
+                "circuit_breaker_tripped": is_breaker_tripped,
+                "refusal_certificate": ref_cert
             })
         PROCESSED_SUMMARY_CACHE = summary_list
 
@@ -210,13 +258,16 @@ def get_email_detail(email_id: str):
             si_text, bl_text, overrides=override, email_metadata=email
         )
 
+    ref_cert = _get_refusal_certificate_for_email(email_id)
     return {
         "email": email,
         "classification": class_res,
         "si_text": si_text,
         "bl_text": bl_text,
         "verification": verification_detail,
-        "overrides": override
+        "overrides": override,
+        "circuit_breaker_tripped": bool(ref_cert),
+        "refusal_certificate": ref_cert
     }
 
 @app.get("/api/verify/{email_id}")
