@@ -1,0 +1,70 @@
+# Netlify Configuration for Averish Shipping AI / DocuMatch
+
+[build]
+  base = "frontend"
+  publish = "dist"
+  command = "npm run build"
+
+# API Route Redirects (Serves pre-bundled static JSON mock API)
+[[redirects]]
+  from = "/api/emails/:id"
+  to = "/api/emails/:id.json"
+  status = 200
+
+[[redirects]]
+  from = "/api/emails"
+  to = "/api/emails.json"
+  status = 200
+
+[[redirects]]
+  from = "/api/analytics"
+  to = "/api/analytics.json"
+  status = 200
+
+[[redirects]]
+  from = "/api/calendar"
+  to = "/api/calendar.json"
+  status = 200
+
+[[redirects]]
+  from = "/api/reflections"
+  to = "/api/reflections.json"
+  status = 200
+
+[[redirects]]
+  from = "/api/dcsa/analytics"
+  to = "/api/dcsa_analytics.json"
+  status = 200
+
+[[redirects]]
+  from = "/api/ocr/dashboard"
+  to = "/api/ocr_dashboard.json"
+  status = 200
+
+[[redirects]]
+  from = "/api/settings/automation-level"
+  to = "/api/automation_level.json"
+  status = 200
+
+[[redirects]]
+  from = "/presentation"
+  to = "/presentation.html"
+  status = 200
+
+[[redirects]]
+  from = "/slides"
+  to = "/presentation.html"
+  status = 200
+
+# Optional: If you deploy your FastAPI backend to Render / Railway / Fly.io,
+# uncomment and point to your live backend URL:
+# [[redirects]]
+#   from = "/api/*"
+#   to = "https://your-backend.onrender.com/api/:splat"
+#   status = 200
+
+# Single Page Application (SPA) fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

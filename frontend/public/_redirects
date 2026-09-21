@@ -1,0 +1,11 @@
+/api/emails/:id   /api/emails/:id.json   200
+/api/emails       /api/emails.json       200
+/api/analytics    /api/analytics.json    200
+/api/calendar     /api/calendar.json     200
+/api/reflections  /api/reflections.json  200
+/api/dcsa/analytics /api/dcsa_analytics.json 200
+/api/ocr/dashboard /api/ocr_dashboard.json 200
+/api/settings/automation-level /api/automation_level.json 200
+/presentation     /presentation.html     200
+/slides           /presentation.html     200
+/*                /index.html            200

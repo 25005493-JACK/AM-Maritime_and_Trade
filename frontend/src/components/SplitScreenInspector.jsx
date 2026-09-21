@@ -60,8 +60,9 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
 
   const { email, classification, si_text, bl_text, verification } = emailDetail;
   const verif = verification || {};
-  const isMatch = verif.status === 'NO_MISMATCH_DETECTED';
-  const isHuman = verif.status === 'HUMAN_REVIEW_REQUIRED';
+  const isMatch = verif.status === 'NO_MISMATCH_DETECTED' || verif.status === 'OK';
+  const isHuman = verif.status === 'HUMAN_REVIEW_REQUIRED' || verif.status === 'NEEDS_REVIEW';
+  const isMismatch = verif.status === 'MISMATCH_DETECTED' || verif.status === 'MISMATCH';
 
   // Character-level diff renderer helper
   const renderDiff = (siVal, blVal, isMatch) => {
@@ -161,19 +162,19 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
 
         {/* Status Badge & Control Buttons */}
         <div className="flex items-center space-x-3">
-          {verif.status === 'NO_MISMATCH_DETECTED' && (
+          {isMatch && (
             <div className="badge-match px-3 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold">
               <CheckCircle2 className="w-4 h-4" />
               <span>No Mismatch Detected</span>
             </div>
           )}
-          {verif.status === 'MISMATCH_DETECTED' && (
+          {isMismatch && (
             <div className="badge-mismatch px-3 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold mismatch-glow">
               <XCircle className="w-4 h-4" />
-              <span>{verif.mismatched_fields?.length || 0} Mismatch(es) Flagged</span>
+              <span>{(verif.mismatched_fields || verif.defect_fields || []).length} Mismatch(es) Flagged</span>
             </div>
           )}
-          {verif.status === 'HUMAN_REVIEW_REQUIRED' && (
+          {isHuman && (
             <div className="badge-warning px-3 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold">
               <AlertTriangle className="w-4 h-4" />
               <span>Human Review Escalated</span>
@@ -254,7 +255,7 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
                 </div>
 
                 <div className="flex items-center space-x-2 shrink-0">
-                  {verif.status === 'NO_MISMATCH_DETECTED' ? (
+                  {isMatch ? (
                     <button 
                       onClick={() => alert("Approved! Draft Bill of Lading released to Shipper.")}
                       className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow transition"

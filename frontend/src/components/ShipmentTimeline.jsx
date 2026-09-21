@@ -28,8 +28,8 @@ export default function ShipmentTimeline({ emails }) {
   }
 
   const verif = activeEmail.verification || {};
-  const isMatch = verif.status === 'NO_MISMATCH_DETECTED';
-  const isHuman = verif.status === 'HUMAN_REVIEW_REQUIRED';
+  const isMatch = verif.status === 'NO_MISMATCH_DETECTED' || verif.status === 'OK';
+  const isHuman = verif.status === 'HUMAN_REVIEW_REQUIRED' || verif.status === 'NEEDS_REVIEW';
 
   const milestones = [
     {

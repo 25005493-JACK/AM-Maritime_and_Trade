@@ -38,11 +38,11 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
 
     let matchesStatus = true;
     if (selectedStatus === 'MISMATCH') {
-      matchesStatus = email.verification?.status === 'MISMATCH_DETECTED';
+      matchesStatus = email.verification?.status === 'MISMATCH_DETECTED' || email.verification?.status === 'MISMATCH';
     } else if (selectedStatus === 'MATCHED') {
-      matchesStatus = email.verification?.status === 'NO_MISMATCH_DETECTED';
+      matchesStatus = email.verification?.status === 'NO_MISMATCH_DETECTED' || email.verification?.status === 'OK';
     } else if (selectedStatus === 'HUMAN_REVIEW') {
-      matchesStatus = email.verification?.status === 'HUMAN_REVIEW_REQUIRED';
+      matchesStatus = email.verification?.status === 'HUMAN_REVIEW_REQUIRED' || email.verification?.status === 'NEEDS_REVIEW';
     } else if (selectedStatus === 'SPAM') {
       matchesStatus = email.classification?.super_category === 'Spam / General';
     }
@@ -271,19 +271,19 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
                   </div>
 
                   <div className="flex items-center space-x-2">
-                    {verif?.status === 'NO_MISMATCH_DETECTED' && (
+                    {(verif?.status === 'NO_MISMATCH_DETECTED' || verif?.status === 'OK') && (
                       <span className="badge-match px-2 py-0.5 rounded flex items-center space-x-1 font-mono text-[11px]">
                         <CheckCircle2 className="w-3 h-3" />
                         <span>No Mismatch</span>
                       </span>
                     )}
-                    {verif?.status === 'MISMATCH_DETECTED' && (
+                    {(verif?.status === 'MISMATCH_DETECTED' || verif?.status === 'MISMATCH') && (
                       <span className="badge-mismatch px-2 py-0.5 rounded flex items-center space-x-1 font-mono text-[11px] mismatch-glow">
                         <AlertCircle className="w-3 h-3" />
-                        <span>Mismatch ({verif.mismatched_fields.length})</span>
+                        <span>Mismatch ({(verif.mismatched_fields || verif.defect_fields || []).length})</span>
                       </span>
                     )}
-                    {verif?.status === 'HUMAN_REVIEW_REQUIRED' && (
+                    {(verif?.status === 'HUMAN_REVIEW_REQUIRED' || verif?.status === 'NEEDS_REVIEW') && (
                       <span className="badge-warning px-2 py-0.5 rounded flex items-center space-x-1 font-mono text-[11px]">
                         <HelpCircle className="w-3 h-3" />
                         <span>Human Review</span>
