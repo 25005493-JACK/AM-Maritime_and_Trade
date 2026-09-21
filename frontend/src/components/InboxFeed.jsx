@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { 
   Search, 
   Tag, 
@@ -7,288 +7,217 @@ import {
   CheckCircle2, 
   HelpCircle, 
   ChevronRight, 
-  ChevronLeft,
   Paperclip,
   Filter,
-  Layers,
-  AlertTriangle,
-  RotateCcw
+  CheckSquare,
+  Square,
+  ShieldCheck,
+  Send
 } from 'lucide-react';
 
-export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelectEmail, onOpenInspector }) {
+export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOpenInspector }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [selectedStatus, setSelectedStatus] = useState('ALL');
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 20;
+  const [selectedEmailIds, setSelectedEmailIds] = useState([]);
 
-  const categories = [
-    { id: 'ALL', label: 'All Categories' },
-    { id: 'BL_COMPARISON', label: 'BL Checks (Comparison)', countId: 'BL_COMPARISON' },
-    { id: 'SI_REQUEST', label: 'SI Requests', countId: 'SI_REQUEST' },
-    { id: 'INVOICE_QUERY', label: 'Invoices & Billing', countId: 'INVOICE_QUERY' },
-    { id: 'GENERAL', label: 'General Operations', countId: 'GENERAL' },
-    { id: 'SPAM', label: 'Spam', countId: 'SPAM' },
-    { id: 'OTHERS', label: 'Others', countId: 'OTHERS' }
+  const superCategories = [
+    'ALL',
+    'Documentation (SI & BL)',
+    'Booking & Scheduling',
+    'Container & Yard Ops',
+    'Port & Vessel Ops',
+    'Finance & Billing',
+    'Spam / General'
   ];
 
-  const filteredEmails = useMemo(() => {
-    return emails.filter((email) => {
-      const textStr = `${email.id} ${email.subject} ${email.sender} ${email.company || ''} ${email.vessel || ''} ${email.classification?.ui_tag || ''} ${email.classification?.category || ''}`.toLowerCase();
-      const matchesSearch = textStr.includes(searchTerm.toLowerCase().trim());
+  const filteredEmails = emails.filter((email) => {
+    const textStr = `${email.subject} ${email.sender} ${email.company} ${email.vessel} ${email.classification?.ui_tag}`.toLowerCase();
+    const matchesSearch = textStr.includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'ALL' || email.classification?.super_category === selectedCategory;
 
-      const emailCat = email.classification?.category || '';
-      let matchesCategory = false;
-      if (selectedCategory === 'ALL') {
-        matchesCategory = true;
-      } else if (selectedCategory === 'OTHERS') {
-        matchesCategory = emailCat === 'OTHERS' || emailCat === 'OTHER' || !['BL_COMPARISON', 'SI_REQUEST', 'INVOICE_QUERY', 'GENERAL', 'SPAM'].includes(emailCat);
-      } else {
-        matchesCategory = emailCat === selectedCategory;
-      }
+    let matchesStatus = true;
+    if (selectedStatus === 'MISMATCH') {
+      matchesStatus = email.verification?.status === 'MISMATCH_DETECTED';
+    } else if (selectedStatus === 'MATCHED') {
+      matchesStatus = email.verification?.status === 'NO_MISMATCH_DETECTED';
+    } else if (selectedStatus === 'HUMAN_REVIEW') {
+      matchesStatus = email.verification?.status === 'HUMAN_REVIEW_REQUIRED';
+    } else if (selectedStatus === 'SPAM') {
+      matchesStatus = email.classification?.super_category === 'Spam / General';
+    }
 
-      let matchesStatus = true;
-      const stat = email.verification?.status || '';
-      if (selectedStatus === 'MISMATCH') {
-        matchesStatus = stat === 'MISMATCH' || stat === 'MISMATCH_DETECTED';
-      } else if (selectedStatus === 'OK') {
-        matchesStatus = stat === 'OK' || stat === 'NO_MISMATCH_DETECTED';
-      } else if (selectedStatus === 'NEEDS_REVIEW') {
-        matchesStatus = stat === 'NEEDS_REVIEW' || stat === 'HUMAN_REVIEW_REQUIRED';
-      }
+    return matchesSearch && matchesCategory && matchesStatus;
+  });
 
-      return matchesSearch && matchesCategory && matchesStatus;
-    });
-  }, [emails, searchTerm, selectedCategory, selectedStatus]);
-
-  // Pagination calculation
-  const totalPages = Math.ceil(filteredEmails.length / pageSize) || 1;
-  const paginatedEmails = useMemo(() => {
-    const start = (currentPage - 1) * pageSize;
-    return filteredEmails.slice(start, start + pageSize);
-  }, [filteredEmails, currentPage, pageSize]);
-
-  const handleCategorySelect = (catId) => {
-    setSelectedCategory(catId);
-    setCurrentPage(1);
+  const toggleSelectAll = () => {
+    if (selectedEmailIds.length === filteredEmails.length) {
+      setSelectedEmailIds([]);
+    } else {
+      setSelectedEmailIds(filteredEmails.map(e => e.id));
+    }
   };
 
-  const handleStatusSelect = (statId) => {
-    setSelectedStatus(statId);
-    setCurrentPage(1);
+  const toggleSelectEmail = (id, e) => {
+    e.stopPropagation();
+    if (selectedEmailIds.includes(id)) {
+      setSelectedEmailIds(selectedEmailIds.filter(i => i !== id));
+    } else {
+      setSelectedEmailIds([...selectedEmailIds, id]);
+    }
   };
 
-  const resetFilters = () => {
-    setSearchTerm('');
-    setSelectedCategory('ALL');
-    setSelectedStatus('ALL');
-    setCurrentPage(1);
+  const handleBatchApprove = () => {
+    alert(`Batch Approved ${selectedEmailIds.length} clean match shipment(s)! Draft Bills of Lading released.`);
+    setSelectedEmailIds([]);
   };
 
-  const hasActiveFilters = searchTerm.trim() || selectedCategory !== 'ALL' || selectedStatus !== 'ALL';
+  const handleBatchEscalate = () => {
+    alert(`Batch Escalated ${selectedEmailIds.length} shipment(s) to Human Review Queue.`);
+    setSelectedEmailIds([]);
+  };
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 h-full overflow-hidden bg-slate-950">
+    <div className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950">
       {/* Search & Filter Header */}
-      <div className="shrink-0 p-3.5 border-b border-slate-800 glass-panel space-y-3">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center space-x-2 min-w-0">
-            <h2 className="text-lg font-bold text-slate-100 flex items-center space-x-2">
-              <Layers className="w-5 h-5 text-cyan-400" />
-              <span className="truncate">Shipping Operations Inbox</span>
-            </h2>
+      <div className="p-4 border-b border-slate-800 glass-panel space-y-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold text-slate-100 flex items-center space-x-2">
+            <span>Shipping Operations Inbox</span>
             <span className="text-xs bg-slate-800 text-cyan-400 font-mono px-2 py-0.5 rounded border border-slate-700">
-              {filteredEmails.length} of {emails.length} emails
+              {filteredEmails.length} messages
             </span>
-          </div>
+          </h2>
 
           {/* Quick Search */}
-          <div className="relative w-full sm:w-72 sm:ml-auto">
+          <div className="relative w-72">
             <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
             <input
               type="text"
-              placeholder="Search ID, subject, shipper, vessel..."
+              placeholder="Search sender, vessel, SI/BL..."
               value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-                setCurrentPage(1);
-              }}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full bg-slate-900 border border-slate-700/80 rounded-lg pl-9 pr-3 py-1.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition"
             />
           </div>
         </div>
 
-        {/* Category Filters */}
+        {/* Super Category Filters */}
         <div className="flex items-center space-x-2 overflow-x-auto pb-1 text-xs no-scrollbar">
           <Filter className="w-3.5 h-3.5 text-slate-400 shrink-0 mr-1" />
-          {categories.map((cat) => (
+          {superCategories.map((cat) => (
             <button
-              key={cat.id}
-              onClick={() => handleCategorySelect(cat.id)}
-              className={`px-3 py-1.5 rounded-lg whitespace-nowrap font-medium transition ${
-                selectedCategory === cat.id
-                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-sm'
-                  : 'bg-slate-900/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-800'
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-2.5 py-1 rounded-md whitespace-nowrap font-medium transition ${
+                selectedCategory === cat
+                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
+                  : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-800'
               }`}
             >
-              {cat.label}
+              {cat}
             </button>
           ))}
         </div>
 
-        {/* Status Quick Filter Bar & Pagination Status */}
-        <div className="flex flex-wrap items-center justify-between gap-2 text-xs pt-1 border-t border-slate-800/60">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-slate-500 font-medium">Verification Status:</span>
+        {/* Batch Operations & Status Quick Filter Bar */}
+        <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-800/60">
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={toggleSelectAll}
+              className="flex items-center space-x-1.5 text-slate-400 hover:text-slate-200 font-medium"
+            >
+              {selectedEmailIds.length === filteredEmails.length && filteredEmails.length > 0 ? (
+                <CheckSquare className="w-4 h-4 text-cyan-400" />
+              ) : (
+                <Square className="w-4 h-4" />
+              )}
+              <span>Select All ({selectedEmailIds.length})</span>
+            </button>
+
+            {selectedEmailIds.length > 0 && (
+              <div className="flex items-center space-x-2 ml-4 animate-fadeIn">
+                <button
+                  onClick={handleBatchApprove}
+                  className="px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center space-x-1 shadow"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>Batch Approve</span>
+                </button>
+                <button
+                  onClick={handleBatchEscalate}
+                  className="px-2.5 py-1 rounded bg-amber-600 hover:bg-amber-500 text-slate-950 font-semibold text-xs flex items-center space-x-1 shadow"
+                >
+                  <AlertCircle className="w-3.5 h-3.5" />
+                  <span>Batch Escalate</span>
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <span className="text-slate-500 font-medium">Status:</span>
             {[
-              { id: 'ALL', label: 'All Statuses' },
-              { id: 'MISMATCH', label: 'Mismatch Detected', cls: 'badge-mismatch' },
-              { id: 'OK', label: 'OK (Matched)', cls: 'badge-match' },
-              { id: 'NEEDS_REVIEW', label: 'Needs Review', cls: 'badge-warning' }
+              { id: 'ALL', label: 'All Status' },
+              { id: 'MISMATCH', label: 'Mismatch Found', color: 'badge-mismatch' },
+              { id: 'MATCHED', label: 'No Mismatch', color: 'badge-match' },
+              { id: 'HUMAN_REVIEW', label: 'Human Review', color: 'badge-warning' },
+              { id: 'SPAM', label: 'Spam', color: 'bg-slate-800 text-slate-400 border border-slate-700' }
             ].map((st) => (
               <button
                 key={st.id}
-                onClick={() => handleStatusSelect(st.id)}
-                className={`px-2.5 py-1 rounded font-mono transition ${
+                onClick={() => setSelectedStatus(st.id)}
+                className={`px-2.5 py-0.5 rounded font-mono transition ${
                   selectedStatus === st.id
-                    ? 'bg-slate-700 text-slate-100 border border-slate-500 shadow-sm'
+                    ? 'bg-slate-700 text-slate-100 border border-slate-500'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80 border border-transparent'
                 }`}
               >
                 {st.label}
               </button>
             ))}
-            {hasActiveFilters && (
-              <button
-                onClick={resetFilters}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded font-medium text-cyan-300 hover:text-cyan-100 hover:bg-cyan-950/40 border border-cyan-800/60 transition"
-                title="Clear search and filters"
-              >
-                <RotateCcw className="w-3 h-3" />
-                <span>Clear filters</span>
-              </button>
-            )}
           </div>
-
-          {/* Pagination Controls */}
-          {totalPages > 1 && (
-            <div className="flex items-center space-x-2 font-mono text-slate-400">
-              <span>Page {currentPage} of {totalPages}</span>
-              <button
-                disabled={currentPage <= 1}
-                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                className="p-1 rounded bg-slate-900 border border-slate-800 hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none"
-              >
-                <ChevronLeft className="w-3.5 h-3.5" />
-              </button>
-              <button
-                disabled={currentPage >= totalPages}
-                onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-                className="p-1 rounded bg-slate-900 border border-slate-800 hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none"
-              >
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          )}
         </div>
       </div>
 
       {/* Main Inbox List */}
-      <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-2.5" aria-busy={isLoading}>
-        {isLoading ? (
-          Array.from({ length: 6 }).map((_, index) => (
-            <div key={index} className="glass-card rounded-xl border border-slate-800/80 p-3.5 animate-pulse" aria-hidden="true">
-              <div className="flex items-center justify-between gap-4 mb-3">
-                <div className="flex items-center gap-2 min-w-0">
-                  <span className="h-5 w-16 rounded bg-slate-800" />
-                  <span className="h-4 w-40 rounded bg-slate-800" />
-                  <span className="hidden sm:block h-4 w-24 rounded bg-slate-800" />
-                </div>
-                <span className="h-3 w-12 rounded bg-slate-800" />
-              </div>
-              <div className="h-4 w-3/4 rounded bg-slate-800 mb-3" />
-              <div className="flex gap-2 pt-2 border-t border-slate-800/60">
-                <span className="h-5 w-28 rounded bg-slate-800" />
-                <span className="h-5 w-36 rounded bg-slate-800" />
-              </div>
-            </div>
-          ))
-        ) : paginatedEmails.length === 0 ? (
+      <div className="flex-1 overflow-y-auto p-4 space-y-2.5">
+        {filteredEmails.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-slate-500">
             <FileText className="w-12 h-12 stroke-[1.5] mb-3 text-slate-600" />
             <p className="text-sm font-medium">No matching emails found</p>
-            <p className="text-xs text-slate-600">Try adjusting your filters or search keywords</p>
-            {hasActiveFilters && (
-              <button
-                onClick={resetFilters}
-                className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-cyan-700/60 text-xs font-semibold text-cyan-300 hover:bg-cyan-950/40 transition"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-                <span>Reset filters</span>
-              </button>
-            )}
           </div>
         ) : (
-          paginatedEmails.map((email) => {
+          filteredEmails.map((email) => {
             const isSelected = selectedEmailId === email.id;
+            const isChecked = selectedEmailIds.includes(email.id);
             const classInfo = email.classification || {};
             const verif = email.verification;
-            const category = classInfo.category || 'GENERAL';
-            const isCantCompare = verif?.review_reason === 'intent_document_mismatch' || verif?.can_compare === false;
-            const statusAccent =
-              isCantCompare
-                ? 'border-l-amber-400 bg-amber-950/15'
-                : verif?.status === 'MISMATCH'
-                  ? 'border-l-rose-500/80'
-                  : verif?.status === 'NEEDS_REVIEW'
-                    ? 'border-l-amber-500/80'
-                    : verif?.status === 'OK'
-                      ? 'border-l-emerald-500/70'
-                      : 'border-l-slate-700';
 
             return (
               <div
                 key={email.id}
                 onClick={() => onSelectEmail(email.id)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    onSelectEmail(email.id);
-                  }
-                }}
-                role="button"
-                tabIndex={0}
-                aria-pressed={isSelected}
-                aria-label={`Select email ${email.id}: ${email.subject}`}
-                className={`inbox-card p-3.5 rounded-xl border-l-2 border-y border-r transition-all duration-150 cursor-pointer ${statusAccent} ${
+                className={`p-3.5 rounded-xl border transition-all duration-150 cursor-pointer ${
                   isSelected
-                    ? 'bg-slate-900/90 border-cyan-500/60 shadow-lg shadow-cyan-950/30 ring-1 ring-cyan-500/30'
+                    ? 'bg-slate-900/90 border-cyan-500/60 shadow-lg shadow-cyan-950/30'
                     : 'glass-card hover:bg-slate-900/50 hover:border-slate-700 border-slate-800/80'
                 }`}
               >
-                <div className="flex items-start justify-between gap-3 mb-1.5 min-w-0">
-                  <div className="flex items-center space-x-2 min-w-0">
-                    <span className="font-mono text-xs text-cyan-400 font-bold bg-cyan-950/40 px-1.5 py-0.5 rounded border border-cyan-800/40">
-                      {email.id}
-                    </span>
-                    <span className="text-sm font-semibold text-slate-200 truncate">{email.sender}</span>
+                <div className="flex items-start justify-between gap-3 mb-2">
+                  <div className="flex items-center space-x-2">
+                    <button onClick={(e) => toggleSelectEmail(email.id, e)}>
+                      {isChecked ? (
+                        <CheckSquare className="w-4 h-4 text-cyan-400" />
+                      ) : (
+                        <Square className="w-4 h-4 text-slate-600 hover:text-slate-400" />
+                      )}
+                    </button>
+                    <span className="font-mono text-xs text-slate-400 font-semibold">{email.id}</span>
+                    <span className="text-sm font-semibold text-slate-200">{email.sender}</span>
                     {email.company && (
-                      <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 truncate max-w-[180px]">
+                      <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">
                         {email.company}
-                      </span>
-                    )}
-                    {email.automation && email.automation.state !== 'none' && (
-                      <span
-                        title={`${email.automation.level_label} - ${email.automation.counts?.auto_processed || 0} field(s) auto-written, ${email.automation.counts?.flagged_for_review || 0} for review`}
-                        className={`text-[10px] font-mono px-1.5 py-0.5 rounded border shrink-0 ${
-                          email.automation.state === 'auto_processed'
-                            ? 'bg-emerald-950/60 text-emerald-300 border-emerald-700/60'
-                            : 'bg-amber-950/60 text-amber-300 border-amber-700/60'
-                        }`}
-                      >
-                        {email.automation.state === 'auto_processed'
-                          ? `AUTO-PROCESSED · L${email.automation.level}`
-                          : `NEEDS YOU · L${email.automation.level}`}
                       </span>
                     )}
                   </div>
@@ -297,99 +226,55 @@ export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelect
                   </span>
                 </div>
 
-                {/* Email Subject */}
-                <h3 className="text-sm font-medium text-slate-100 mb-2.5 line-clamp-1 pr-8">
+                <h3 className="text-sm font-medium text-slate-100 mb-2.5 line-clamp-1">
                   {email.subject}
                 </h3>
 
-                {/* Tag Bar & Operational Indicators */}
-                <div className="flex flex-wrap items-center justify-between gap-2 pt-1.5 border-t border-slate-800/60 text-xs">
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/60 text-xs">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    {/* Official Category Pill */}
-                    <span className={`px-2 py-0.5 rounded font-mono text-[11px] font-semibold border ${
-                      category === 'BL_COMPARISON' ? 'bg-indigo-950 text-indigo-300 border-indigo-700' :
-                      category === 'SI_REQUEST' ? 'bg-sky-950 text-sky-300 border-sky-700' :
-                      category === 'INVOICE_QUERY' ? 'bg-purple-950 text-purple-300 border-purple-700' :
-                      category === 'SPAM' ? 'bg-rose-950 text-rose-300 border-rose-700' :
-                      category === 'OTHERS' || category === 'OTHER' ? 'bg-amber-950/60 text-amber-300 border-amber-700' :
-                      'bg-slate-800 text-slate-300 border-slate-700'
-                    }`}>
-                      {category}
+                    <span className="px-2 py-0.5 rounded bg-slate-800/90 text-slate-300 font-medium text-[11px] border border-slate-700">
+                      {classInfo.super_category}
                     </span>
-
-                    {/* UI Tag */}
-                    <span className="px-2 py-0.5 rounded bg-slate-900 text-slate-300 text-[11px] border border-slate-800 flex items-center space-x-1">
+                    <span className="px-2 py-0.5 rounded bg-cyan-950/60 text-cyan-300 text-[11px] border border-cyan-800/50 flex items-center space-x-1">
                       <Tag className="w-3 h-3 text-cyan-400" />
-                      <span>{classInfo.ui_tag || classInfo.super_category}</span>
+                      <span>{classInfo.ui_tag}</span>
                     </span>
-
-                    {/* Attachments indicator */}
-                    {email.attachments && email.attachments.length > 0 && (
-                      <span className="px-2 py-0.5 rounded bg-slate-900 text-slate-400 text-[11px] flex items-center space-x-1 border border-slate-800">
-                        <Paperclip className="w-3 h-3 text-slate-500" />
-                        <span>{email.attachments.length} doc{email.attachments.length > 1 ? 's' : ''}</span>
+                    {email.has_attachments && (
+                      <span className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 text-[11px] flex items-center space-x-1 border border-slate-700">
+                        <Paperclip className="w-3 h-3" />
+                        <span>SI/BL Docs</span>
                       </span>
                     )}
                   </div>
 
-                  {/* Verification Status Pill */}
                   <div className="flex items-center space-x-2">
-                    {verif?.status === 'OK' && (
-                      <span className="badge-match px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-semibold">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                        <span>OK (All 7 Matched)</span>
+                    {verif?.status === 'NO_MISMATCH_DETECTED' && (
+                      <span className="badge-match px-2 py-0.5 rounded flex items-center space-x-1 font-mono text-[11px]">
+                        <CheckCircle2 className="w-3 h-3" />
+                        <span>No Mismatch</span>
                       </span>
                     )}
-                    {verif?.status === 'MISMATCH' && (
-                      <span className="badge-mismatch px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-semibold mismatch-glow">
-                        <AlertCircle className="w-3.5 h-3.5" />
-                        <span>MISMATCH ({verif.defect_fields?.length || 0} defects)</span>
+                    {verif?.status === 'MISMATCH_DETECTED' && (
+                      <span className="badge-mismatch px-2 py-0.5 rounded flex items-center space-x-1 font-mono text-[11px] mismatch-glow">
+                        <AlertCircle className="w-3 h-3" />
+                        <span>Mismatch ({verif.mismatched_fields.length})</span>
                       </span>
                     )}
-                    {verif?.status === 'NEEDS_REVIEW' && (
-                      verif?.review_reason === 'missing_attachment' ? (
-                        <span className="bg-amber-950/80 border border-amber-500/70 text-amber-300 px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-bold shadow-sm shadow-amber-950/50">
-                          <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
-                          <span>GATE: MISSING ATTACHMENT</span>
-                        </span>
-                      ) : verif?.review_reason === 'scanned_not_processed' ? (
-                        <span className="bg-purple-950/80 border border-purple-500/70 text-purple-300 px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-bold shadow-sm shadow-purple-950/50">
-                          <AlertTriangle className="w-3.5 h-3.5 text-purple-400" />
-                          <span>SCANNED PDF (NO OCR)</span>
-                        </span>
-                      ) : verif?.review_reason === 'corrupted_file' ? (
-                        <span className="bg-rose-950/80 border border-rose-500/70 text-rose-300 px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-bold shadow-sm shadow-rose-950/50">
-                          <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
-                          <span>CORRUPTED FILE</span>
-                        </span>
-                      ) : verif?.review_reason === 'term_unresolved' ? (
-                        <span className="bg-indigo-950/80 border border-indigo-500/70 text-indigo-300 px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-bold shadow-sm shadow-indigo-950/50">
-                          <HelpCircle className="w-3.5 h-3.5 text-indigo-400" />
-                          <span>UNRESOLVED TERM</span>
-                        </span>
-                      ) : verif?.review_reason === 'intent_document_mismatch' || verif?.can_compare === false ? (
-                        <span className="bg-amber-950/90 border border-amber-500/80 text-amber-300 px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-bold shadow-sm shadow-amber-950/60 ring-1 ring-amber-500/40">
-                          <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
-                          <span>CAN'T COMPARE</span>
-                        </span>
-                      ) : (
-                        <span className="badge-warning px-2.5 py-0.5 rounded-full flex items-center space-x-1 font-mono text-[11px] font-semibold">
-                          <HelpCircle className="w-3.5 h-3.5" />
-                          <span>NEEDS REVIEW: {verif.review_reason}</span>
-                        </span>
-                      )
+                    {verif?.status === 'HUMAN_REVIEW_REQUIRED' && (
+                      <span className="badge-warning px-2 py-0.5 rounded flex items-center space-x-1 font-mono text-[11px]">
+                        <HelpCircle className="w-3 h-3" />
+                        <span>Human Review</span>
+                      </span>
                     )}
 
-                    {category === 'BL_COMPARISON' && (
+                    {classInfo.is_comparison_request && (
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           onSelectEmail(email.id);
                           onOpenInspector();
                         }}
-                        title="Open document comparison inspector"
-                        aria-label={`Inspect ${email.id}`}
-                        className="px-2.5 py-1 rounded bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-xs flex items-center space-x-1 shadow transition active:scale-95 ml-1"
+                        className="px-2.5 py-1 rounded bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-xs flex items-center space-x-1 shadow transition"
                       >
                         <span>Inspect</span>
                         <ChevronRight className="w-3.5 h-3.5" />
@@ -402,48 +287,6 @@ export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelect
           })
         )}
       </div>
-
-      {/* Pagination Footer */}
-      {totalPages > 1 && (
-        <div className="p-3 border-t border-slate-800 glass-panel flex items-center justify-between text-xs text-slate-400">
-          <div className="font-mono">
-            Showing {(currentPage - 1) * pageSize + 1} - {Math.min(currentPage * pageSize, filteredEmails.length)} of {filteredEmails.length}
-          </div>
-          <div className="flex items-center space-x-1 font-mono">
-            <button
-              disabled={currentPage <= 1}
-              onClick={() => setCurrentPage(1)}
-              className="px-2 py-1 rounded bg-slate-900 border border-slate-800 hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none"
-            >
-              First
-            </button>
-            <button
-              disabled={currentPage <= 1}
-              onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-              className="px-2 py-1 rounded bg-slate-900 border border-slate-800 hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none"
-            >
-              Prev
-            </button>
-            <span className="px-3 py-1 font-bold text-cyan-400 bg-slate-900/60 rounded border border-slate-800">
-              {currentPage} / {totalPages}
-            </span>
-            <button
-              disabled={currentPage >= totalPages}
-              onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-              className="px-2 py-1 rounded bg-slate-900 border border-slate-800 hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none"
-            >
-              Next
-            </button>
-            <button
-              disabled={currentPage >= totalPages}
-              onClick={() => setCurrentPage(totalPages)}
-              className="px-2 py-1 rounded bg-slate-900 border border-slate-800 hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none"
-            >
-              Last
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

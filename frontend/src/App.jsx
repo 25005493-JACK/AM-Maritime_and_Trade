@@ -1,76 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar.jsx';
 import InboxFeed from './components/InboxFeed.jsx';
-import ShipmentWorkspace from './components/ShipmentWorkspace.jsx';
 import SplitScreenInspector from './components/SplitScreenInspector.jsx';
 import HumanReviewModal from './components/HumanReviewModal.jsx';
-import ReasoningReceipt from './components/ReasoningReceipt.jsx';
-import RedTeamPanel from './components/RedTeamPanel.jsx';
-import AutomationSlider from './components/AutomationSlider.jsx';
 import AnalyticsDashboard from './components/AnalyticsDashboard.jsx';
 import SelfEvaluationView from './components/SelfEvaluationView.jsx';
 import VesselCalendar from './components/VesselCalendar.jsx';
-import TimelineWheel from './components/TimelineWheel.jsx';
-import OcrDashboard from './components/OcrDashboard.jsx';
-import { Download } from 'lucide-react';
+import ShipmentTimeline from './components/ShipmentTimeline.jsx';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState(
-    () => window.location.pathname === '/dashboard' ? 'ocr_dashboard' : 'inbox'
-  );
-  const [theme, setTheme] = useState(() => {
-    const initial = window.localStorage.getItem('averish-theme') === 'light' ? 'light' : 'dark';
-    document.documentElement.dataset.theme = initial;
-    return initial;
-  });
+  const [theme, setTheme] = useState('dark');
+  const [activeTab, setActiveTab] = useState('inbox');
   const [emails, setEmails] = useState([]);
-  const [loadingEmails, setLoadingEmails] = useState(true);
   const [selectedEmailId, setSelectedEmailId] = useState(null);
   const [emailDetail, setEmailDetail] = useState(null);
-  const [loadingEmailDetail, setLoadingEmailDetail] = useState(false);
   const [analytics, setAnalytics] = useState(null);
   const [evaluationData, setEvaluationData] = useState(null);
   const [loadingEval, setLoadingEval] = useState(false);
   const [showOverrideModal, setShowOverrideModal] = useState(false);
-  const [automationLevel, setAutomationLevel] = useState(1);
-
-  // Toast Notification State
-  const [toast, setToast] = useState(null);
-
-  const showToast = (message, type = 'info') => {
-    setToast({ message, type });
-    setTimeout(() => setToast(null), 4000);
-  };
 
   // Calendar State
   const [calendarData, setCalendarData] = useState(null);
   const [selectedPort, setSelectedPort] = useState('ALL');
-  const isOcrDashboard = activeTab === 'ocr_dashboard';
 
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    window.localStorage.setItem('averish-theme', theme);
-  }, [theme]);
+  // Resizable Right Panel Width State for Inbox & Triage Tab
+  const [inspectorWidth, setInspectorWidth] = useState(580);
+  const isDraggingRef = useRef(false);
 
-  const navigateTo = (tab) => {
-    setActiveTab(tab);
-    const nextPath = tab === 'ocr_dashboard' ? '/dashboard' : '/';
-    if (window.location.pathname !== nextPath) {
-      window.history.pushState({}, '', nextPath);
-    }
+  // Toggle Dark/Light Theme
+  const handleToggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
   };
 
-  useEffect(() => {
-    const handlePopState = () => {
-      setActiveTab(window.location.pathname === '/dashboard' ? 'ocr_dashboard' : 'inbox');
+  // Mouse Drag Handler for Resizing Right Bar
+  const handleMouseDownResize = (e) => {
+    e.preventDefault();
+    isDraggingRef.current = true;
+
+    const handleMouseMove = (moveEvent) => {
+      if (!isDraggingRef.current) return;
+      const windowWidth = window.innerWidth;
+      const newWidth = windowWidth - moveEvent.clientX;
+      // Clamp width between 350px and 950px
+      if (newWidth >= 350 && newWidth <= 950) {
+        setInspectorWidth(newWidth);
+      }
     };
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
+
+    const handleMouseUp = () => {
+      isDraggingRef.current = false;
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+  };
 
   // Fetch emails list
   const fetchEmails = async () => {
-    setLoadingEmails(true);
     try {
       const res = await fetch('/api/emails');
       if (res.ok) {
@@ -82,19 +72,12 @@ export default function App() {
       }
     } catch (err) {
       console.error('Failed to fetch emails:', err);
-    } finally {
-      setLoadingEmails(false);
     }
   };
 
   // Fetch email detail
   const fetchEmailDetail = async (id) => {
-    if (!id) {
-      setLoadingEmailDetail(false);
-      return;
-    }
-    setLoadingEmailDetail(true);
-    setEmailDetail(null);
+    if (!id) return;
     try {
       const res = await fetch(`/api/emails/${id}`);
       if (res.ok) {
@@ -103,8 +86,6 @@ export default function App() {
       }
     } catch (err) {
       console.error('Failed to fetch email detail:', err);
-    } finally {
-      setLoadingEmailDetail(false);
     }
   };
 
@@ -170,18 +151,6 @@ export default function App() {
     }
   };
 
-  const handleGoogleCalendarLink = async (vesselId) => {
-    const res = await fetch('/api/calendar/google-link', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ vessel_id: vesselId })
-    });
-    if (!res.ok) throw new Error('Failed to prepare Google Calendar event');
-    const data = await res.json();
-    await fetchCalendar(selectedPort);
-    return data;
-  };
-
   // Run self evaluation
   const handleRunSelfEvaluate = async () => {
     setLoadingEval(true);
@@ -223,11 +192,10 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (isOcrDashboard) return;
     fetchEmails();
     fetchAnalytics();
     fetchCalendar('ALL');
-  }, [isOcrDashboard]);
+  }, []);
 
   useEffect(() => {
     if (selectedEmailId) {
@@ -236,67 +204,60 @@ export default function App() {
   }, [selectedEmailId]);
 
   return (
-    <div className="flex h-dvh w-full min-w-0 bg-slate-950 text-slate-100 font-sans overflow-hidden">
+    <div className="flex h-screen bg-slate-950 text-slate-100 font-sans overflow-hidden">
       {/* Navigation Sidebar */}
       <Sidebar
         activeTab={activeTab}
-        setActiveTab={navigateTo}
+        setActiveTab={setActiveTab}
         stats={analytics?.summary_stats}
-        theme={theme}
-        onToggleTheme={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}
-        isRefreshing={loadingEmails}
         onRefresh={() => {
           fetchEmails();
           fetchAnalytics();
           fetchCalendar(selectedPort);
         }}
+        theme={theme}
+        onToggleTheme={handleToggleTheme}
       />
 
       {/* Main Active Tab Container */}
-      <main className="flex-1 flex min-w-0 overflow-hidden">
+      <main className="flex-1 flex overflow-hidden">
         {activeTab === 'inbox' && (
-          <div className="flex-1 flex min-w-0">
-            <InboxFeed
-              emails={emails}
-              isLoading={loadingEmails}
-              selectedEmailId={selectedEmailId}
-              onSelectEmail={(id) => setSelectedEmailId(id)}
-              onOpenInspector={() => navigateTo('inspector')}
+          <div className="flex-1 flex relative">
+            {/* Left Inbox Feed */}
+            <div className="flex-1 flex flex-col min-w-[300px] overflow-hidden">
+              <InboxFeed
+                emails={emails}
+                selectedEmailId={selectedEmailId}
+                onSelectEmail={(id) => setSelectedEmailId(id)}
+                onOpenInspector={() => setActiveTab('inspector')}
+              />
+            </div>
+
+            {/* Draggable Resizable Divider Handle */}
+            <div
+              onMouseDown={handleMouseDownResize}
+              className="resize-handle hover:bg-cyan-500 active:bg-cyan-400 shrink-0"
+              title="Drag to resize Inspector panel width"
             />
-            {/* Embedded Inspector Panel on Wide Screens */}
-            <div className="hidden 2xl:flex w-[min(36vw,34rem)] min-w-[360px] border-l border-slate-800">
+
+            {/* Right Resizable Inspector Panel */}
+            <div
+              style={{ width: `${inspectorWidth}px` }}
+              className="hidden lg:flex flex-col border-l border-slate-800 shrink-0 overflow-hidden"
+            >
               <SplitScreenInspector
                 emailDetail={emailDetail}
-                isLoading={loadingEmailDetail}
                 onOpenOverrideModal={() => setShowOverrideModal(true)}
-                onShowToast={showToast}
               />
             </div>
           </div>
         )}
 
-        {activeTab === 'workspace' && (
-          <ShipmentWorkspace
-            emailDetail={emailDetail}
-            calendarData={calendarData}
-            isLoading={loadingEmailDetail || loadingEmails}
-            onOpenInspector={() => navigateTo('inspector')}
-            onOpenOverride={() => setShowOverrideModal(true)}
-            onOpenCalendar={() => navigateTo('calendar')}
-          />
-        )}
-
         {activeTab === 'inspector' && (
           <SplitScreenInspector
             emailDetail={emailDetail}
-            isLoading={loadingEmailDetail}
             onOpenOverrideModal={() => setShowOverrideModal(true)}
-            onShowToast={showToast}
           />
-        )}
-
-        {activeTab === 'timeline' && (
-          <TimelineWheel theme={theme} />
         )}
 
         {activeTab === 'calendar' && (
@@ -306,33 +267,22 @@ export default function App() {
             onPortChange={handlePortChange}
             onAssignContainer={handleAssignContainer}
             onAutoConfirmBooking={handleAutoConfirmBooking}
-            onCreateGoogleCalendarEvent={handleGoogleCalendarLink}
-            onShowToast={showToast}
           />
+        )}
+
+        {activeTab === 'timeline' && (
+          <ShipmentTimeline emails={emails} />
         )}
 
         {activeTab === 'human_review' && (
           <div className="flex-1 p-6 overflow-y-auto bg-slate-950">
-            <div className="flex items-start justify-between gap-4 mb-6">
-              <div>
-                <h2 className="text-lg font-bold text-slate-100 mb-2">Human-in-the-Loop Review Queue</h2>
-                <p className="text-xs text-slate-400">
-                  Messages escalated due to damaged OCR text, missing required fields, or low confidence extraction.
-                </p>
-              </div>
-              <a
-                href="/api/review-decisions/export"
-                download="reviewer-decisions.csv"
-                className="shrink-0 inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold transition"
-                title="Download reviewer decision log"
-              >
-                <Download className="w-4 h-4" />
-                <span>Export Decision Log</span>
-              </a>
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <h2 className="text-lg font-bold text-slate-100 mb-2">Human-in-the-Loop Review Queue</h2>
+            <p className="text-xs text-slate-400 mb-6">
+              Messages escalated due to damaged OCR text, missing required fields, or low confidence extraction.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
               {emails
-                .filter((e) => e.verification?.status === 'NEEDS_REVIEW' || e.verification?.status === 'HUMAN_REVIEW_REQUIRED')
+                .filter((e) => e.verification?.status === 'HUMAN_REVIEW_REQUIRED')
                 .map((email) => (
                   <div key={email.id} className="glass-card p-4 rounded-xl border border-amber-500/40">
                     <div className="flex items-center justify-between mb-2">
@@ -358,41 +308,8 @@ export default function App() {
           </div>
         )}
 
-        {activeTab === 'trust' && (
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-950">
-            <div>
-              <h2 className="text-sm font-bold text-slate-100">Trust & AI Controls</h2>
-              <p className="text-xs text-slate-400 mt-1">
-                Auditable reasoning, adversarial rehearsal and the automation licence. Every number here is
-                computed from the pipeline's own validator outcomes and the currently loaded inbox.
-              </p>
-            </div>
-
-            <AutomationSlider
-              level={automationLevel}
-              onLevelChange={async (level) => {
-                setAutomationLevel(level);
-                await fetchEmails();
-                if (selectedEmailId) fetchEmailDetail(selectedEmailId);
-                showToast(`Automation level set to L${level} - inbox states recalculated`, 'info');
-              }}
-            />
-
-            <RedTeamPanel emailId={selectedEmailId} />
-
-            <ReasoningReceipt
-              emailId={selectedEmailId}
-              shipmentId={emailDetail?.verification?.shipment_id}
-            />
-          </div>
-        )}
-
         {activeTab === 'analytics' && (
           <AnalyticsDashboard analytics={analytics} />
-        )}
-
-        {activeTab === 'ocr_dashboard' && (
-          <OcrDashboard />
         )}
 
         {activeTab === 'benchmark' && (
@@ -411,21 +328,6 @@ export default function App() {
           onClose={() => setShowOverrideModal(false)}
           onSaveOverride={handleSaveOverride}
         />
-      )}
-
-      {/* Interactive Toast Notification Banner */}
-      {toast && (
-        <div className="fixed bottom-6 right-6 z-50 animate-bounce duration-300">
-          <div className={`px-4 py-3 rounded-xl shadow-2xl font-medium text-xs border flex items-center space-x-2 backdrop-blur-md ${
-            toast.type === 'success' 
-              ? 'bg-emerald-950/90 text-emerald-300 border-emerald-500/50 shadow-emerald-950/60'
-              : toast.type === 'warning'
-              ? 'bg-amber-950/90 text-amber-300 border-amber-500/50 shadow-amber-950/60'
-              : 'bg-cyan-950/90 text-cyan-300 border-cyan-500/50 shadow-cyan-950/60'
-          }`}>
-            <span>{toast.message}</span>
-          </div>
-        </div>
       )}
     </div>
   );

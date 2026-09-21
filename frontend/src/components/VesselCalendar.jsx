@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
   Calendar as CalendarIcon, 
-  CalendarPlus,
   Ship, 
   Filter, 
   Plus, 
@@ -10,8 +9,7 @@ import {
   Package, 
   Anchor,
   Clock,
-  ArrowRight,
-  X
+  Layers
 } from 'lucide-react';
 
 export default function VesselCalendar({ 
@@ -19,14 +17,9 @@ export default function VesselCalendar({
   selectedPort, 
   onPortChange, 
   onAssignContainer, 
-  onAutoConfirmBooking,
-  onCreateGoogleCalendarEvent,
-  onShowToast
+  onAutoConfirmBooking 
 }) {
   const [showAssignModal, setShowAssignModal] = useState(false);
-  const [showGoogleCalendarModal, setShowGoogleCalendarModal] = useState(false);
-  const [calendarTarget, setCalendarTarget] = useState(null);
-  const [syncingCalendar, setSyncingCalendar] = useState(false);
   const [targetVesselId, setTargetVesselId] = useState('');
   const [assignForm, setAssignForm] = useState({
     booking_no: '',
@@ -38,28 +31,12 @@ export default function VesselCalendar({
   const pendingBookings = calendarData?.pending_bookings || [];
   const availablePorts = calendarData?.available_ports || [];
 
-  const openGoogleCalendarPreview = (vessel) => {
-    setCalendarTarget(vessel);
-    setShowGoogleCalendarModal(true);
-  };
-
-  const confirmGoogleCalendarEvent = async () => {
-    if (!calendarTarget || !onCreateGoogleCalendarEvent) return;
-    const popup = window.open('', '_blank');
-    setSyncingCalendar(true);
-    try {
-      const result = await onCreateGoogleCalendarEvent(calendarTarget.id);
-      if (popup) popup.location.href = result.event_url;
-      else window.open(result.event_url, '_blank', 'noopener,noreferrer');
-      setShowGoogleCalendarModal(false);
-      if (onShowToast) onShowToast('Google Calendar event prepared successfully.', 'success');
-    } catch (error) {
-      if (popup) popup.close();
-      if (onShowToast) onShowToast('Could not prepare the Google Calendar event.', 'warning');
-    } finally {
-      setSyncingCalendar(false);
-    }
-  };
+  // Unassigned Cargo Pool for Drag/Drop / Quick Assign
+  const unassignedCargo = [
+    { booking_no: 'UNASSIGNED-BK-101', company: 'Global Traders Inc', containers: 6, destination_port: 'Rotterdam (NLRTM)' },
+    { booking_no: 'UNASSIGNED-BK-102', company: 'Pacific Logistics Ltd', containers: 4, destination_port: 'Hamburg (DEHAM)' },
+    { booking_no: 'UNASSIGNED-BK-103', company: 'Fast Freight GmbH', containers: 2, destination_port: 'Tokyo (JPTYO)' }
+  ];
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -71,6 +48,15 @@ export default function VesselCalendar({
     });
     setShowAssignModal(false);
     setAssignForm({ booking_no: '', company: '', containers: 1 });
+  };
+
+  const handleQuickAssignCargo = (cargoItem, vesselId) => {
+    onAssignContainer({
+      vessel_id: vesselId,
+      booking_no: cargoItem.booking_no,
+      company: cargoItem.company,
+      containers: cargoItem.containers
+    });
   };
 
   return (
@@ -170,11 +156,36 @@ export default function VesselCalendar({
           </div>
         )}
 
+        {/* Unassigned Cargo Dock Banner */}
+        <div className="p-4 rounded-xl glass-card border border-slate-800 space-y-3">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center space-x-2">
+            <Layers className="w-4 h-4 text-cyan-400" />
+            <span>Unassigned Cargo Dock (Quick Assign to Vessel)</span>
+          </h4>
+          <div className="grid grid-cols-3 gap-3">
+            {unassignedCargo.map((item, idx) => (
+              <div key={idx} className="p-3 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-between text-xs font-mono">
+                <div>
+                  <span className="text-cyan-400 font-bold block">{item.booking_no}</span>
+                  <span className="text-slate-300">{item.company} ({item.containers} TEU)</span>
+                </div>
+                {schedule.length > 0 && (
+                  <button
+                    onClick={() => handleQuickAssignCargo(item, schedule[0].id)}
+                    className="px-2.5 py-1 rounded bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-[11px]"
+                  >
+                    Assign
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Vessel Schedules Grid */}
         <div className="grid grid-cols-2 gap-6">
           {schedule.map((vessel) => (
             <div key={vessel.id} className="glass-card rounded-xl border border-slate-800 p-5 space-y-4 hover:border-slate-700 transition">
-              {/* Vessel Header */}
               <div className="flex items-start justify-between border-b border-slate-800 pb-3">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 rounded-xl bg-cyan-950/60 text-cyan-400 border border-cyan-800/60 flex items-center justify-center">
@@ -207,17 +218,8 @@ export default function VesselCalendar({
                   <Plus className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Assign</span>
                 </button>
-                <button
-                  onClick={() => openGoogleCalendarPreview(vessel)}
-                  className="p-1.5 rounded-lg bg-cyan-950/60 hover:bg-cyan-900/70 text-cyan-300 text-xs font-medium border border-cyan-800/60 flex items-center space-x-1 transition"
-                  title="Preview Google Calendar event"
-                >
-                  <CalendarPlus className="w-3.5 h-3.5" />
-                  <span>{vessel.google_calendar?.event_url ? 'Added' : 'Calendar'}</span>
-                </button>
               </div>
 
-              {/* Schedule Dates & Capacity Utilization */}
               <div className="grid grid-cols-2 gap-4 text-xs font-mono">
                 <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/80">
                   <span className="text-slate-500 flex items-center space-x-1">
@@ -237,7 +239,7 @@ export default function VesselCalendar({
                   <div className="w-full h-2 bg-slate-950 rounded-full overflow-hidden mt-2 border border-slate-800">
                     <div 
                       className={`h-full transition-all duration-300 ${
-                        vessel.utilization_pct > 80 ? 'bg-amber-400' : 'bg-cyan-400'
+                        vessel.utilization_pct > 90 ? 'bg-rose-500' : vessel.utilization_pct > 75 ? 'bg-amber-400' : 'bg-cyan-400'
                       }`}
                       style={{ width: `${Math.min(vessel.utilization_pct, 100)}%` }}
                     />
@@ -245,7 +247,6 @@ export default function VesselCalendar({
                 </div>
               </div>
 
-              {/* Allocated Container Bookings Pills */}
               <div>
                 <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center space-x-1">
                   <Package className="w-3.5 h-3.5 text-slate-500" />
@@ -348,74 +349,6 @@ export default function VesselCalendar({
                 </button>
               </div>
             </form>
-          </div>
-        </div>
-      )}
-
-      {showGoogleCalendarModal && calendarTarget && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
-          <div className="glass-panel w-full max-w-lg rounded-2xl border border-cyan-700/60 shadow-2xl p-6 space-y-5">
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0">
-                  <CalendarPlus className="w-5 h-5 text-cyan-300" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-slate-100">Add vessel port call to Google Calendar</h3>
-                  <p className="text-xs text-slate-400 mt-1">Review the event details before opening Google Calendar.</p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowGoogleCalendarModal(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition"
-                aria-label="Close calendar preview"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="rounded-xl border border-slate-700 bg-slate-950/70 divide-y divide-slate-800 text-xs">
-              <div className="p-3 flex items-center justify-between gap-4">
-                <span className="text-slate-500">Event</span>
-                <strong className="text-slate-100 text-right">{calendarTarget.vessel_name} {calendarTarget.voyage} - Port Call</strong>
-              </div>
-              <div className="p-3 flex items-center justify-between gap-4">
-                <span className="text-slate-500">Port</span>
-                <strong className="text-cyan-300 text-right">{calendarTarget.destination_port}</strong>
-              </div>
-              <div className="p-3 flex items-center justify-between gap-4">
-                <span className="text-slate-500">Schedule</span>
-                <strong className="text-slate-200 text-right">{calendarTarget.eta_date} to {calendarTarget.etd_date}</strong>
-              </div>
-              <div className="p-3 flex items-center justify-between gap-4">
-                <span className="text-slate-500">Carrier</span>
-                <strong className="text-slate-200 text-right">{calendarTarget.carrier}</strong>
-              </div>
-            </div>
-
-            <div className="p-3 rounded-xl bg-cyan-950/30 border border-cyan-800/50 text-xs text-cyan-200">
-              Google Calendar will open with this event prefilled. You can add reminders and choose the destination calendar before saving it.
-            </div>
-
-            <div className="flex items-center justify-end gap-2 pt-1">
-              <button
-                type="button"
-                onClick={() => setShowGoogleCalendarModal(false)}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={confirmGoogleCalendarEvent}
-                disabled={syncingCalendar}
-                className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold flex items-center gap-2 transition"
-              >
-                <CalendarPlus className="w-4 h-4" />
-                <span>{syncingCalendar ? 'Preparing event...' : 'Open Google Calendar'}</span>
-              </button>
-            </div>
           </div>
         </div>
       )}
