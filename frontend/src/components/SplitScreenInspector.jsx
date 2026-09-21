@@ -40,8 +40,8 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
 
   const { email, classification, si_text, bl_text, verification } = emailDetail;
   const verif = verification || {};
-  const isMatch = verif.status === 'NO_MISMATCH_DETECTED';
-  const isHuman = verif.status === 'HUMAN_REVIEW_REQUIRED';
+  const isMatch = verif.status === 'NO_MISMATCH_DETECTED' || verif.status === 'OK';
+  const isHuman = verif.status === 'HUMAN_REVIEW_REQUIRED' || verif.status === 'NEEDS_REVIEW';
 
   // Character-level diff renderer helper
   const renderDiff = (siVal, blVal, isMatch) => {
@@ -141,19 +141,19 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
 
         {/* Status Badge & Control Buttons */}
         <div className="flex items-center space-x-3">
-          {verif.status === 'NO_MISMATCH_DETECTED' && (
+          {(verif.status === 'NO_MISMATCH_DETECTED' || verif.status === 'OK') && (
             <div className="badge-match px-3 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold">
               <CheckCircle2 className="w-4 h-4" />
               <span>No Mismatch Detected</span>
             </div>
           )}
-          {verif.status === 'MISMATCH_DETECTED' && (
+          {(verif.status === 'MISMATCH_DETECTED' || verif.status === 'MISMATCH') && (
             <div className="badge-mismatch px-3 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold mismatch-glow">
               <XCircle className="w-4 h-4" />
-              <span>{verif.mismatched_fields?.length || 0} Mismatch(es) Flagged</span>
+              <span>{(verif.mismatched_fields || verif.defect_fields || []).length} Mismatch(es) Flagged</span>
             </div>
           )}
-          {verif.status === 'HUMAN_REVIEW_REQUIRED' && (
+          {(verif.status === 'HUMAN_REVIEW_REQUIRED' || verif.status === 'NEEDS_REVIEW') && (
             <div className="badge-warning px-3 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold">
               <AlertTriangle className="w-4 h-4" />
               <span>Human Review Escalated</span>
@@ -294,28 +294,34 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
                           </span>
                         </div>
 
-                        <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/60 p-2 rounded border border-slate-800 truncate">
-                          <span className="text-[10px] text-slate-500 block">SI Reference:</span>
-                          <strong className="text-slate-100">{row.si_value}</strong>
+                        <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/60 p-2 rounded-lg border border-slate-800 min-w-0 flex items-center justify-between">
+                          <div className="min-w-0 flex-1">
+                            <span className="text-[10px] text-slate-500 block">SI Reference:</span>
+                            <div className="truncate font-semibold text-slate-100 text-xs" title={String(row.si_value || '')}>
+                              {row.si_value}
+                            </div>
+                          </div>
                         </div>
 
                         <div className="col-span-1 flex justify-center">
                           <ArrowRight className={`w-4 h-4 ${!row.is_match ? 'text-rose-400' : 'text-slate-600'}`} />
                         </div>
 
-                        <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/60 p-2 rounded border border-slate-800 truncate flex items-center justify-between">
-                          <div>
+                        <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/60 p-2 rounded-lg border border-slate-800 min-w-0 flex items-center justify-between">
+                          <div className="min-w-0 flex-1 pr-2">
                             <span className="text-[10px] text-slate-500 block">Draft BL Received:</span>
-                            {renderDiff(row.si_value, row.bl_value, row.is_match)}
+                            <div className="truncate font-semibold text-slate-100 text-xs" title={String(row.bl_value || '')}>
+                              {renderDiff(row.si_value, row.bl_value, row.is_match)}
+                            </div>
                           </div>
 
                           {row.is_match ? (
-                            <span className="badge-match px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 ml-2">
+                            <span className="badge-match px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 ml-1">
                               <CheckCircle2 className="w-3.5 h-3.5" />
                               <span>MATCH</span>
                             </span>
                           ) : (
-                            <span className="badge-mismatch px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 ml-2 mismatch-glow">
+                            <span className="badge-mismatch px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 ml-1 mismatch-glow">
                               <XCircle className="w-3.5 h-3.5" />
                               <span>DIFF</span>
                             </span>

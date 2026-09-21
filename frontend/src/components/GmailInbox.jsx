@@ -92,11 +92,19 @@ export default function GmailInbox({
   }, [emails, activeTab, selectedStatus]);
 
   // Pagination calculation
-  const totalPages = Math.ceil(filteredEmails.length / pageSize) || 1;
+  const totalPages = Math.max(1, Math.ceil(filteredEmails.length / pageSize));
+  
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [totalPages, currentPage]);
+
   const paginatedEmails = useMemo(() => {
-    const start = (currentPage - 1) * pageSize;
+    const validPage = Math.min(Math.max(1, currentPage), totalPages);
+    const start = (validPage - 1) * pageSize;
     return filteredEmails.slice(start, start + pageSize);
-  }, [filteredEmails, currentPage, pageSize]);
+  }, [filteredEmails, currentPage, totalPages, pageSize]);
 
   // Star toggle
   const toggleStar = (e, id) => {
@@ -295,11 +303,6 @@ export default function GmailInbox({
         {/* Right Pagination & Split Controls */}
         <div className="flex items-center space-x-3">
           
-          {/* Pagination status */}
-          <span className="text-xs font-mono text-slate-500">
-            {(currentPage - 1) * pageSize + 1}–{Math.min(currentPage * pageSize, filteredEmails.length)} of {filteredEmails.length}
-          </span>
-
           {/* Prev / Next Arrows */}
           <div className="flex items-center space-x-0.5">
             <button
