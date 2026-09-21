@@ -176,6 +176,28 @@ class EventLogger:
                 comparison_status, review_reason, defect_json,
                 cache_hit_si, cache_hit_bl, processing_time_ms
             ])
+            try:
+                from backend.services import supabase_service
+                if supabase_service.is_supabase_enabled():
+                    supabase_service.save_pipeline_event({
+                        "event_id": event_id,
+                        "shipment_id": shipment_id,
+                        "email_id": email_id,
+                        "category": category,
+                        "classification_confidence": classification_confidence,
+                        "extraction_tier": extraction_tier,
+                        "anchor_triage_outcome": anchor_triage_outcome,
+                        "anchor_triage_reason": anchor_triage_reason,
+                        "comparison_status": comparison_status,
+                        "review_reason": review_reason,
+                        "defect_fields": defect_json,
+                        "cache_hit_si": cache_hit_si,
+                        "cache_hit_bl": cache_hit_bl,
+                        "processing_time_ms": processing_time_ms
+                    })
+            except Exception:
+                pass
+
             return event_id
         except Exception as ex:
             print(f"[EventLogger] Failed to log event for {email_id}: {ex}")

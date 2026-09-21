@@ -29,6 +29,7 @@ from backend.services.corrections_log import (
     dcsa_field_dispute_counts,
     read_corrections,
 )
+from backend.services import supabase_service
 
 app = FastAPI(
     title="Intelligent Shipping Document & Inbox Management API",
@@ -64,12 +65,33 @@ HUMAN_OVERRIDES: Dict[str, Dict[str, Any]] = {
 }
 PROCESSED_SUMMARY_CACHE: Optional[List[Dict[str, Any]]] = None
 
+@app.on_event("startup")
+def startup_sync_from_cloud():
+    """Hydrate in-memory overrides from Supabase cloud if connected."""
+    try:
+        if supabase_service.is_supabase_enabled():
+            cloud_overrides = supabase_service.fetch_all_human_overrides()
+            if cloud_overrides:
+                HUMAN_OVERRIDES.update(cloud_overrides)
+    except Exception as e:
+        print(f"[Supabase] Startup sync notice: {e}")
+
 @app.get("/")
 def read_root():
     return {
         "status": "online",
         "message": "Maritime Shipping Verification Engine Running",
-        "dataset_size": len(loader.load_inbox())
+        "dataset_size": len(loader.load_inbox()),
+        "cloud_database": "supabase" if supabase_service.is_supabase_enabled() else "local"
+    }
+
+@app.get("/api/supabase/status")
+def supabase_status():
+    enabled = supabase_service.is_supabase_enabled()
+    return {
+        "configured": enabled,
+        "supabase_url": os.getenv("SUPABASE_URL", "") if enabled else None,
+        "message": "Connected to Supabase Cloud Infrastructure" if enabled else "Supabase credentials not configured yet. Set SUPABASE_URL and SUPABASE_ANON_KEY in .env"
     }
 
 @app.get("/api/emails")
@@ -425,6 +447,15 @@ def resolve_conflicts(payload: Dict[str, Any] = Body(...)):
                 "rejected_values": decision["rejected_values"],
             },
         )
+
+    if supabase_service.is_supabase_enabled():
+        try:
+            supabase_service.save_human_override(email_id, {
+                "reviewer_name": reviewer,
+                "corrections": decisions,
+            })
+        except Exception as ex:
+            print(f"[Supabase] Could not save override: {ex}")
 
     PROCESSED_SUMMARY_CACHE = None
     return result

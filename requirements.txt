@@ -8,3 +8,5 @@ python-multipart>=0.0.9
 duckdb>=1.0.0
 pdfplumber>=0.11.0
 rapidfuzz>=3.0.0
+supabase>=2.0.0
+python-dotenv>=1.0.0
