@@ -1,5 +1,5 @@
 # ==============================================================================
-# SDOC Hackathon — Local Server (Docker)
+# Averis x Monash Hackathon 2026 — Local Server (Docker)
 # Specification Reference: Page 3 & 4 of Shipping Document Verification Use Case
 # Run: docker compose up --build
 # Access HTTP at http://localhost:8080
@@ -27,7 +27,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend/ /app/backend/
 COPY "test data/" "/app/test data/"
 COPY tests/ /app/tests/
-COPY submission.json /app/submission.json
 
 # Expose HTTP port 8080 as specified in Page 3
 EXPOSE 8080

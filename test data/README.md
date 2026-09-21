@@ -1,4 +1,4 @@
-# SDOC Hackathon — participant bundle
+# Averis x Monash Hackathon 2026 — participant bundle
 
 Build a pipeline that reads this inbox and, for each email, decides:
 

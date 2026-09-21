@@ -5,7 +5,7 @@ import os
 
 def main():
     print("=" * 60)
-    print("Averish Shipping AI - Intelligent Document Verification & Inbox Management")
+    print("DocuMatch - Intelligent Shipping Document Verification & Inbox Management Engine")
     print("=" * 60)
 
     workspace_dir = os.path.dirname(os.path.abspath(__file__))

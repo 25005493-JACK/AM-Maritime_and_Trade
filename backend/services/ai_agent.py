@@ -21,9 +21,9 @@ from typing import Any, Dict, List, Optional
 
 from backend.services import dcsa_mapping, field_evidence
 
-PROVIDER_ENV = "AVERISH_LLM_PROVIDER"
-API_KEY_ENV = "AVERISH_LLM_API_KEY"
-MODEL_ENV = "AVERISH_LLM_MODEL"
+PROVIDER_ENV = "DOCUMATCH_LLM_PROVIDER"
+API_KEY_ENV = "DOCUMATCH_LLM_API_KEY"
+MODEL_ENV = "DOCUMATCH_LLM_MODEL"
 
 DEFAULT_MODEL = "gpt-4o-mini"
 LOCAL_PROVIDER = "local-rules-derived"

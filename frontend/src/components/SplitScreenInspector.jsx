@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ConflictEvidencePanel from './ConflictEvidencePanel.jsx';
 import ReasoningReceipt from './ReasoningReceipt.jsx';
 import { 
@@ -45,7 +45,6 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
       cancelled = true;
     };
   }, []);
-
   if (!emailDetail) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8 text-slate-500 bg-slate-950">
@@ -280,7 +279,6 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
             {email?.id && !isMatch && (
               <ConflictEvidencePanel emailId={email.id} />
             )}
-
             {/* 7-Field Side-by-Side Comparison Matrix */}
             {verif.field_matrix && (
               <div className="glass-card rounded-xl border border-slate-800 overflow-hidden shadow-lg">
@@ -334,28 +332,34 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
                           </span>
                         </div>
 
-                        <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/60 p-2 rounded border border-slate-800 truncate">
-                          <span className="text-[10px] text-slate-500 block">SI Reference:</span>
-                          <strong className="text-slate-100">{row.si_value}</strong>
+                        <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/60 p-2 rounded-lg border border-slate-800 min-w-0 flex items-center justify-between">
+                          <div className="min-w-0 flex-1">
+                            <span className="text-[10px] text-slate-500 block">SI Reference:</span>
+                            <div className="truncate font-semibold text-slate-100 text-xs" title={String(row.si_value || '')}>
+                              {row.si_value}
+                            </div>
+                          </div>
                         </div>
 
                         <div className="col-span-1 flex justify-center">
                           <ArrowRight className={`w-4 h-4 ${!row.is_match ? 'text-rose-400' : 'text-slate-600'}`} />
                         </div>
 
-                        <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/60 p-2 rounded border border-slate-800 truncate flex items-center justify-between">
-                          <div>
+                        <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/60 p-2 rounded-lg border border-slate-800 min-w-0 flex items-center justify-between">
+                          <div className="min-w-0 flex-1 pr-2">
                             <span className="text-[10px] text-slate-500 block">Draft BL Received:</span>
-                            {renderDiff(row.si_value, row.bl_value, row.is_match)}
+                            <div className="truncate font-semibold text-slate-100 text-xs" title={String(row.bl_value || '')}>
+                              {renderDiff(row.si_value, row.bl_value, row.is_match)}
+                            </div>
                           </div>
 
                           {row.is_match ? (
-                            <span className="badge-match px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 ml-2">
+                            <span className="badge-match px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 ml-1">
                               <CheckCircle2 className="w-3.5 h-3.5" />
                               <span>MATCH</span>
                             </span>
                           ) : (
-                            <span className="badge-mismatch px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 ml-2 mismatch-glow">
+                            <span className="badge-mismatch px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 ml-1 mismatch-glow">
                               <XCircle className="w-3.5 h-3.5" />
                               <span>DIFF</span>
                             </span>
@@ -511,7 +515,6 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
               shipmentId={verif?.shipment_id}
               defaultOpen
             />
-
             <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 space-y-1">
               <span className="text-slate-400 block">Execution Pipeline:</span>
               <strong className="text-cyan-400">Rules-First NLP Engine + Regex Anchor Extractor</strong>

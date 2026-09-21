@@ -374,7 +374,6 @@ export default function App() {
             />
           </div>
         )}
-
         {activeTab === 'analytics' && (
           <AnalyticsDashboard analytics={analytics} />
         )}

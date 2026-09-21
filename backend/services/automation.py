@@ -21,8 +21,8 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from backend.services import dcsa_mapping, field_evidence
 
-AUTO_WRITE_CONFIDENCE = float(os.environ.get("AVERISH_AUTOMATION_CONFIDENCE", "0.9"))
-MANUAL_REVIEW_MINUTES_PER_FIELD = int(os.environ.get("AVERISH_MANUAL_REVIEW_MINUTES", "4"))
+AUTO_WRITE_CONFIDENCE = float(os.environ.get("DOCUMATCH_AUTOMATION_CONFIDENCE", "0.9"))
+MANUAL_REVIEW_MINUTES_PER_FIELD = int(os.environ.get("DOCUMATCH_MANUAL_REVIEW_MINUTES", "4"))
 
 VALIDATOR_WEIGHTS = {"source_match": 0.5, "whitelist": 0.3, "dcsa_mapping": 0.2}
 
@@ -259,7 +259,7 @@ class AutomationController:
                 ),
                 "estimated_time_saved_minutes": (
                     f"auto-written fields x {MANUAL_REVIEW_MINUTES_PER_FIELD} min manual review per field "
-                    "(documented constant, configurable via AVERISH_MANUAL_REVIEW_MINUTES)"
+                    "(documented constant, configurable via DOCUMATCH_MANUAL_REVIEW_MINUTES)"
                 ),
             },
         }

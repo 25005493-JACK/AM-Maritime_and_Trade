@@ -7,7 +7,7 @@ and hand over a structured, actionable refusal instead of continuing to guess.
 The counter is per document: it increments on every AI-extracted field that fails
 a validator (source_match / whitelist / dcsa_mapping) and resets to zero on any
 pass. Once `consecutive_ai_failures >= threshold` (default 3, configurable via
-AVERISH_CIRCUIT_BREAKER_THRESHOLD) AI processing for that document stops and a
+DOCUMATCH_CIRCUIT_BREAKER_THRESHOLD) AI processing for that document stops and a
 refusal certificate is produced.
 """
 import os
@@ -15,7 +15,7 @@ import threading
 import datetime
 from typing import Any, Dict, List, Optional
 
-DEFAULT_THRESHOLD = int(os.environ.get("AVERISH_CIRCUIT_BREAKER_THRESHOLD", "3"))
+DEFAULT_THRESHOLD = int(os.environ.get("DOCUMATCH_CIRCUIT_BREAKER_THRESHOLD", "3"))
 
 #: How the "who should fix this" hint is derived (first match wins).
 RECIPIENT_RULES = [
@@ -27,7 +27,7 @@ RECIPIENT_RULES = [
 
 #: Documented, configurable assumption used for the delay estimate only
 #: (a manual query to the counterparty typically costs half a working day).
-MANUAL_QUERY_MINUTES = int(os.environ.get("AVERISH_MANUAL_QUERY_MINUTES", "240"))
+MANUAL_QUERY_MINUTES = int(os.environ.get("DOCUMATCH_MANUAL_QUERY_MINUTES", "240"))
 
 
 def suggest_recipient(missing_fields: List[str]) -> Dict[str, str]:
@@ -149,7 +149,7 @@ class CircuitBreaker:
             "estimated_delay_hours": round(delay_minutes / 60, 1),
             "estimated_delay_basis": (
                 f"{MANUAL_QUERY_MINUTES} min per unresolved field for a manual counterparty query "
-                "(documented constant, configurable via AVERISH_MANUAL_QUERY_MINUTES)"
+                "(documented constant, configurable via DOCUMATCH_MANUAL_QUERY_MINUTES)"
             ),
             "what_would_unblock": [
                 "Provide a machine-readable SI/BL (not a scan) so labels can be rule-matched",
