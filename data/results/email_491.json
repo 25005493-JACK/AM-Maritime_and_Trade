@@ -1,6 +1,6 @@
 {
   "email_id": "email_491",
-  "timestamp": "2026-09-21T02:15:11.687945+00:00",
+  "timestamp": "2026-09-21T04:38:08.783987+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "AL GURG STATIONERY LLC",
     "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
     "port_of_discharge": "GDANSK, POLAND (PLGDN)",
-    "consignee": "AL GURG STATIONERY LLC",
+    "gross_weight_kg": 20164.0,
     "container_count": 1,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "gross_weight_kg": 20164.0
+    "notify_party": "AL GURG STATIONERY LLC",
+    "consignee": "AL GURG STATIONERY LLC"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "AL GURG STATIONERY LLC",
     "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
     "port_of_discharge": "GDANSK, POLAND (PLGDN)",
-    "consignee": "AL GURG STATIONERY LLC",
+    "gross_weight_kg": 20164.0,
     "container_count": 1,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "gross_weight_kg": 20164.0
+    "notify_party": "AL GURG STATIONERY LLC",
+    "consignee": "AL GURG STATIONERY LLC"
   },
   "field_matrix": [
     {

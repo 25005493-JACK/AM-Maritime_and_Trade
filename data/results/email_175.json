@@ -1,6 +1,6 @@
 {
   "email_id": "email_175",
-  "timestamp": "2026-09-21T02:15:09.969346+00:00",
+  "timestamp": "2026-09-21T04:38:05.113046+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "KTP CO., LTD",
     "port_of_loading": "NANTONG, CHINA (CNNTG)",
     "port_of_discharge": "CALLAO, PERU (PECLL)",
-    "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
+    "gross_weight_kg": 206510.0,
     "container_count": 10,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "gross_weight_kg": 206510.0
+    "notify_party": "KTP CO., LTD",
+    "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "KTP CO., LTD",
     "port_of_loading": "NANTONG, CHINA (CNNTG)",
     "port_of_discharge": "CALLAO, PERU (PECLL)",
-    "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
+    "gross_weight_kg": 206510.0,
     "container_count": 10,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "gross_weight_kg": 206510.0
+    "notify_party": "KTP CO., LTD",
+    "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025"
   },
   "field_matrix": [
     {

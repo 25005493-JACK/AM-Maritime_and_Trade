@@ -1,6 +1,6 @@
 {
   "email_id": "email_502",
-  "timestamp": "2026-09-21T02:15:11.948789+00:00",
+  "timestamp": "2026-09-21T04:38:09.156552+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "wrong_doc_type",
   "can_compare": false,
@@ -64,13 +64,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "ROXCEL TRADING GMBH",
     "port_of_loading": "SINGAPORE (SGSIN)",
     "port_of_discharge": "ASHDOD, ISRAEL (ILASH)",
-    "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
+    "gross_weight_kg": 22318.0,
     "container_count": 1,
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
-    "gross_weight_kg": 22318.0
+    "notify_party": "ROXCEL TRADING GMBH",
+    "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA"
   },
   "bl_extracted": {
     "status": "NEEDS_REVIEW",
@@ -84,13 +84,13 @@
     "missing_fields": [],
     "audit_trail": [],
     "unresolved_terms": [],
-    "notify_party": null,
     "port_of_loading": null,
     "port_of_discharge": null,
-    "consignee": null,
+    "gross_weight_kg": null,
     "container_count": null,
     "shipper": null,
-    "gross_weight_kg": null
+    "notify_party": null,
+    "consignee": null
   },
   "field_matrix": [
     {

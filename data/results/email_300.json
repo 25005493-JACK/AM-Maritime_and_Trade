@@ -1,6 +1,6 @@
 {
   "email_id": "email_300",
-  "timestamp": "2026-09-21T02:15:10.294102+00:00",
+  "timestamp": "2026-09-21T04:38:06.255511+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -83,13 +83,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
     "port_of_loading": "NANTONG, CHINA",
     "port_of_discharge": "VALPARAISO, CHILE",
-    "consignee": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
+    "gross_weight_kg": 243168.0,
     "container_count": 12,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "gross_weight_kg": 243168.0
+    "notify_party": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
+    "consignee": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X"
   },
   "bl_extracted": {
     "status": "OK",
@@ -146,13 +146,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "NAGAPPA EXPORTS SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
     "port_of_loading": "NANTONG, CHINA",
     "port_of_discharge": "VALPARAISO, CHILE",
-    "consignee": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
+    "gross_weight_kg": 243168.0,
     "container_count": 12,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "gross_weight_kg": 243168.0
+    "notify_party": "NAGAPPA EXPORTS SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
+    "consignee": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X"
   },
   "field_matrix": [
     {

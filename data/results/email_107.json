@@ -1,6 +1,6 @@
 {
   "email_id": "email_107",
-  "timestamp": "2026-09-21T02:15:09.759607+00:00",
+  "timestamp": "2026-09-21T04:38:04.432382+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "term_unresolved",
   "can_compare": true,
@@ -64,13 +64,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
     "port_of_discharge": "MOMBASA, KENYA",
-    "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
+    "gross_weight_kg": 41124.0,
     "container_count": 2,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
-    "gross_weight_kg": 41124.0
+    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
+    "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025"
   },
   "bl_extracted": {
     "status": "NEEDS_REVIEW",
@@ -132,13 +132,13 @@
         "value": "41,124"
       }
     ],
-    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
     "port_of_discharge": "MOMBASA, KENYA",
-    "consignee": "VITAL SOLUTIONS PTE. LTD. KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
+    "gross_weight_kg": 41124.0,
     "container_count": 3,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
-    "gross_weight_kg": 41124.0
+    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
+    "consignee": "VITAL SOLUTIONS PTE. LTD. KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA"
   },
   "field_matrix": [
     {

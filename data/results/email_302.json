@@ -1,6 +1,6 @@
 {
   "email_id": "email_302",
-  "timestamp": "2026-09-21T02:15:10.337686+00:00",
+  "timestamp": "2026-09-21T04:38:06.406281+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
     "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
     "port_of_discharge": "BRISBANE, AUSTRALIA",
-    "consignee": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA",
+    "gross_weight_kg": 40176.0,
     "container_count": 2,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
-    "gross_weight_kg": 40176.0
+    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
+    "consignee": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA"
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
     "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
     "port_of_discharge": "BRISBANE, AUSTRALIA",
-    "consignee": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET SUITE 100 FRAMINGHAM, MA 01702, USA",
+    "gross_weight_kg": 40176.0,
     "container_count": 4,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
-    "gross_weight_kg": 40176.0
+    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
+    "consignee": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET SUITE 100 FRAMINGHAM, MA 01702, USA"
   },
   "field_matrix": [
     {

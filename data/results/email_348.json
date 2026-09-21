@@ -1,6 +1,6 @@
 {
   "email_id": "email_348",
-  "timestamp": "2026-09-21T02:15:10.471149+00:00",
+  "timestamp": "2026-09-21T04:38:06.714396+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
     "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
     "port_of_discharge": "JEBEL ALI, UAE (AEJEA)",
-    "consignee": "ORIENT LINKS CO (LLC)",
+    "gross_weight_kg": 334845.0,
     "container_count": 15,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "gross_weight_kg": 334845.0
+    "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
+    "consignee": "ORIENT LINKS CO (LLC)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
     "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
     "port_of_discharge": "JEBEL ALI, UAE (AEJEA)",
-    "consignee": "ORIENT LINKS CO (LLC)",
+    "gross_weight_kg": 334845.0,
     "container_count": 15,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "gross_weight_kg": 334845.0
+    "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
+    "consignee": "ORIENT LINKS CO (LLC)"
   },
   "field_matrix": [
     {
