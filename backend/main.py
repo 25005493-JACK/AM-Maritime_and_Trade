@@ -12,7 +12,7 @@ if PROJECT_ROOT not in sys.path:
 
 from fastapi import FastAPI, HTTPException, Body, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import JSONResponse, Response, FileResponse
 
 from backend.services.dataset_loader import loader
 from backend.services.classifier import classifier
@@ -93,6 +93,10 @@ def supabase_status():
         "supabase_url": os.getenv("SUPABASE_URL", "") if enabled else None,
         "message": "Connected to Supabase Cloud Infrastructure" if enabled else "Supabase credentials not configured yet. Set SUPABASE_URL and SUPABASE_ANON_KEY in .env"
     }
+
+@app.get("/presentation", response_class=FileResponse)
+def get_presentation():
+    return FileResponse(os.path.join(PROJECT_ROOT, "presentation.html"))
 
 @app.get("/api/emails")
 def get_emails(
