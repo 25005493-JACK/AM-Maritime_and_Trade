@@ -937,7 +937,8 @@ class DocumentComparator:
         if not email_id:
             return
         try:
-            results_dir = os.path.join("data", "results")
+            workspace_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            results_dir = os.path.join(workspace_root, ".runtime", "results")
             os.makedirs(results_dir, exist_ok=True)
             out_path = os.path.join(results_dir, f"{email_id}.json")
             record = {

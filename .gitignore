@@ -23,6 +23,7 @@ __pycache__/
 *.duckdb
 *.duckdb.wal
 backend/data/calendar_google_sync.json
+.runtime/
 
 # Office temporary lock files
 ~$*

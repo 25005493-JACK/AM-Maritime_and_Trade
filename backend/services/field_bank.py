@@ -365,8 +365,9 @@ class FieldBank:
         raw_value: str,
         doc_type: str = "SI"
     ):
-        """Appends unrecognised label candidate to data/term_candidates.csv."""
-        candidates_file = os.path.join("data", "term_candidates.csv")
+        """Appends unrecognised label candidates to ignored runtime state."""
+        workspace_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        candidates_file = os.path.join(workspace_root, ".runtime", "term_candidates.csv")
         os.makedirs(os.path.dirname(candidates_file), exist_ok=True)
         is_new = not os.path.exists(candidates_file)
         
