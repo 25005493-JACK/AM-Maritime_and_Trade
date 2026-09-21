@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
   Inbox, 
-  FileCheck2, 
   AlertTriangle, 
   BarChart3, 
   Award, 
@@ -15,7 +14,6 @@ import {
 export default function Sidebar({ activeTab, setActiveTab, stats, onRefresh, theme, onToggleTheme }) {
   const navItems = [
     { id: 'inbox', label: 'Inbox & Triage', icon: Inbox, count: stats?.total_emails || 0 },
-    { id: 'inspector', label: 'SI vs BL Inspector', icon: FileCheck2, count: stats?.comparison_requests || 0 },
     { id: 'calendar', label: 'Vessel Schedule Calendar', icon: CalendarIcon, badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' },
     { id: 'human_review', label: 'Human Review Queue', icon: AlertTriangle, count: stats?.human_review_count || 0, badgeColor: 'bg-amber-500/20 text-amber-400 border-amber-500/30' },
     { id: 'analytics', label: 'Vessel & Order Analytics', icon: BarChart3 },
