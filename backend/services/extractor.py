@@ -138,8 +138,16 @@ class DocumentExtractor:
                 )
 
             # text_based PDF
-            raw_text = self._extract_pdfplumber_text(path)
-            return self.extract_fields(raw_text, doc_type_hint=doc_type_hint, email_id=email_id)
+            try:
+                raw_text = self._extract_pdfplumber_text(path)
+                return self.extract_fields(raw_text, doc_type_hint=doc_type_hint, email_id=email_id)
+            except Exception as e:
+                return ExtractionResult(
+                    status="NEEDS_REVIEW",
+                    reason_code="corrupted_file",
+                    is_unreadable=True,
+                    message=f"Could not parse PDF: {str(e)}"
+                )
 
         # 2. TXT ROUTE
         elif ext == ".txt":
