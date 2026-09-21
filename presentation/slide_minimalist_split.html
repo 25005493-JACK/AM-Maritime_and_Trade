@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Averish Shipping AI — Value Proposition (Light Beige Editorial)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Light Beige / Warm Editorial Palette */
+      --color-beige-base: #F9F6F0;       /* Primary light beige background */
+      --color-beige-panel: #EDE7DC;      /* Subtle deeper beige for left block */
+      --color-card-bg: #FFFFFF;          /* Pure white card surface */
+      --color-border: #E2DBD0;           /* Soft warm beige border */
+      --color-border-subtle: #ECE6DC;    /* Hairline separator */
+      
+      /* Typography Colors */
+      --color-text-main: #2C2A29;        /* Soft charcoal (high contrast, warm) */
+      --color-text-muted: #6B665E;       /* Warm editorial gray */
+      --color-text-tertiary: #968F85;    /* Light metadata gray */
+      --color-accent-terracotta: #C8795B; /* Subtle warm accent */
+
+      --font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #EFEBE4;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      color: var(--color-text-main);
+      padding: 2rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 16:9 Presentation Canvas Container */
+    .slide-container {
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      position: relative;
+      background-color: var(--color-beige-base);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      box-shadow: 0 20px 50px -15px rgba(44, 42, 41, 0.08), 0 4px 12px -2px rgba(44, 42, 41, 0.03);
+      overflow: hidden;
+    }
+
+    /* Left Side Tone-on-Tone Light Beige Column (22%) */
+    .left-panel {
+      width: 22%;
+      background-color: var(--color-beige-panel);
+      border-right: 1px solid var(--color-border);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3.2rem 2rem;
+      color: var(--color-text-main);
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .top-left-meta {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+
+    .top-left-meta span {
+      display: block;
+      color: var(--color-text-main);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-top: 0.35rem;
+    }
+
+    .bottom-left-meta {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--color-text-tertiary);
+    }
+
+    /* Overlapping Arch Image Container (Flat Bottom, Rounded Pill Top) */
+    .arch-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 22%;
+      transform: translate(-50%, -50%);
+      width: 230px;
+      height: 380px;
+      z-index: 2;
+      border-radius: 200px 200px 0 0;
+      box-shadow: 0 16px 36px -8px rgba(44, 42, 41, 0.16);
+      overflow: hidden;
+      background-color: #E2DBD0;
+      border: 5px solid var(--color-beige-base);
+    }
+
+    .arch-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(108%);
+      display: block;
+    }
+
+    /* Right Side Light Beige Content Panel (78%) */
+    .right-panel {
+      flex: 1;
+      background-color: var(--color-beige-base);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3.2rem 3.8rem 2.8rem 8.5rem; /* Left indent accommodates overlapping arch */
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header Group */
+    .header-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .sub-heading {
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--color-accent-terracotta);
+    }
+
+    .main-heading {
+      font-family: var(--font-heading);
+      font-size: 2.15rem;
+      font-weight: 900;
+      line-height: 1.14;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--color-text-main);
+      max-width: 95%;
+    }
+
+    /* Minimalist 2x2 Value Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.6rem 2.8rem;
+      margin: 1.4rem 0;
+    }
+
+    .value-card {
+      display: flex;
+      flex-direction: column;
+      border-top: 2px solid var(--color-text-main);
+      padding-top: 0.85rem;
+    }
+
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .card-number {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--color-accent-terracotta);
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--color-text-main);
+    }
+
+    .card-body {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--color-text-muted);
+      font-weight: 400;
+    }
+
+    /* Horizontal Minimalist Process Flow */
+    .flow-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0.75rem 0;
+      margin-bottom: 0.9rem;
+    }
+
+    .flow-step {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .flow-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-tertiary);
+    }
+
+    .flow-value {
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: var(--color-text-main);
+    }
+
+    .flow-arrow {
+      font-size: 1.1rem;
+      color: var(--color-text-tertiary);
+      padding: 0 0.5rem;
+      user-select: none;
+    }
+
+    /* Footer Statement */
+    .footer-statement {
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      font-style: italic;
+      color: var(--color-text-main);
+      opacity: 0.92;
+      line-height: 1.4;
+    }
+
+    /* Responsive Adaptation */
+    @media (max-width: 1024px) {
+      .slide-container {
+        aspect-ratio: auto;
+        flex-direction: column;
+      }
+      .left-panel {
+        width: 100%;
+        padding: 2rem;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+      }
+      .arch-wrapper {
+        position: static;
+        transform: none;
+        margin: 1.5rem auto -3.5rem auto;
+        width: 200px;
+        height: 280px;
+      }
+      .right-panel {
+        padding: 4.5rem 2rem 2.5rem 2rem;
+      }
+      .main-heading {
+        font-size: 1.7rem;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.4rem;
+      }
+      .flow-strip {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+      .flow-arrow {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-container">
+
+    <!-- Solid Vertical Light Beige / Warm Sand Block (Left 22%) -->
+    <aside class="left-panel">
+      <div class="top-left-meta">
+        Averish Shipping AI
+        <span>VALUE PROPOSITION</span>
+      </div>
+      <div class="bottom-left-meta">
+        EXECUTIVE BRIEF // 01
+      </div>
+    </aside>
+
+    <!-- Overlapping Arch Shaped Grayscale Image -->
+    <div class="arch-wrapper">
+      <img 
+        class="arch-image" 
+        src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=800&auto=format&fit=crop" 
+        alt="Maritime logistics vessel" 
+      />
+    </div>
+
+    <!-- Main Light Beige Content Area (Right 78%) -->
+    <main class="right-panel">
+
+      <!-- Header Section -->
+      <header class="header-group">
+        <div class="sub-heading">QUANTIFIED OPERATIONAL VALUE</div>
+        <h1 class="main-heading">FROM DOCUMENT AUTOMATION TO OPERATIONAL IMPACT.</h1>
+      </header>
+
+      <!-- Minimalist 2x2 Cards Grid in Light Beige -->
+      <div class="cards-grid">
+        
+        <!-- 01 Less Repetitive Work -->
+        <article class="value-card">
+          <div class="card-title-row">
+            <span class="card-number">01</span>
+            <h2 class="card-title">LESS REPETITIVE WORK</h2>
+          </div>
+          <p class="card-body">
+            Reduces repeated manual correction of recurring carrier exception patterns through episodic learning.
+          </p>
+        </article>
+
+        <!-- 02 Lower Hallucination Risk -->
+        <article class="value-card">
+          <div class="card-title-row">
+            <span class="card-number">02</span>
+            <h2 class="card-title">LOWER HALLUCINATION RISK</h2>
+          </div>
+          <p class="card-body">
+            Unsupported outputs are challenged before becoming operational facts or customs declarations.
+          </p>
+        </article>
+
+        <!-- 03 Faster Exception Handling -->
+        <article class="value-card">
+          <div class="card-title-row">
+            <span class="card-number">03</span>
+            <h2 class="card-title">FASTER EXCEPTION HANDLING</h2>
+          </div>
+          <p class="card-body">
+            Failures become structured escalation (Refusal Certificates) rather than endless unguided retries.
+          </p>
+        </article>
+
+        <!-- 04 Expertise As Experience -->
+        <article class="value-card">
+          <div class="card-title-row">
+            <span class="card-number">04</span>
+            <h2 class="card-title">EXPERTISE AS EXPERIENCE</h2>
+          </div>
+          <p class="card-body">
+            Human domain corrections are converted into structured Reflexion lessons for the learning layer.
+          </p>
+        </article>
+
+      </div>
+
+      <!-- Horizontal Minimalist Process Flow -->
+      <section class="flow-strip">
+        <div class="flow-step">
+          <span class="flow-label">FROM PROBLEM</span>
+          <span class="flow-value">Human Fatigue</span>
+        </div>
+        
+        <div class="flow-arrow">→</div>
+
+        <div class="flow-step">
+          <span class="flow-label">THROUGH CONTROL</span>
+          <span class="flow-value">Controlled AI</span>
+        </div>
+        
+        <div class="flow-arrow">→</div>
+
+        <div class="flow-step">
+          <span class="flow-label">THROUGH FEEDBACK</span>
+          <span class="flow-value">Learning Signals</span>
+        </div>
+        
+        <div class="flow-arrow">→</div>
+
+        <div class="flow-step">
+          <span class="flow-label">TO SCALABLE IMPACT</span>
+          <span class="flow-value">More Scalable Operations</span>
+        </div>
+      </section>
+
+      <!-- Footer Statement -->
+      <footer class="footer-statement">
+        "DocuMatch shifts the operational paradigm from brute-force extraction to sustainable trade reliability."
+      </footer>
+
+    </main>
+
+  </div>
+
+</body>
+</html>
