@@ -10,9 +10,14 @@
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![Vercel](https://img.shields.io/badge/Vercel-Live_Production-black?logo=vercel&logoColor=white)](https://averishack.vercel.app)
 [![Supabase](https://img.shields.io/badge/Cloud-Supabase_PostgreSQL-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/)
 [![DCSA](https://img.shields.io/badge/Standard-DCSA_eBL_v3.0.3-0052CC)](https://dcsa.org/)
 [![License](https://img.shields.io/badge/Status-Working_Prototype-success)](#working-core-prototype)
+
+> 🚀 **Live Demo on Vercel**:  
+> • **Operations Dashboard**: [https://averishack.vercel.app](https://averishack.vercel.app)  
+> • **Presentation & Pitch Slides**: [https://averishack.vercel.app/presentation](https://averishack.vercel.app/presentation)
 
 ---
 
@@ -329,12 +334,17 @@ PORT=8000
 
 ### 3. Launch the Application
 
+#### 🌐 Live Cloud Deployment (Vercel)
+- **Live Production App**: [https://averishack.vercel.app](https://averishack.vercel.app)
+- **Interactive Pitch Slides**: [https://averishack.vercel.app/presentation](https://averishack.vercel.app/presentation)
+
+#### 💻 Local Development
 Launch both the backend and frontend services with a single command:
 ```bash
 python run_app.py
 ```
 
-- **Operations Dashboard**: [http://localhost:3000](http://localhost:3000)
+- **Local Operations Dashboard**: [http://localhost:3000](http://localhost:3000)
 - **OCR Observability Dashboard**: [http://localhost:3000/dashboard](http://localhost:3000/dashboard)
 - **Interactive Swagger API Documentation**: [http://localhost:8000/docs](http://localhost:8000/docs)
 - **Supabase Cloud Health Check**: [http://localhost:8000/api/supabase/status](http://localhost:8000/api/supabase/status)

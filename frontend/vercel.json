@@ -1,0 +1,18 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/api/emails/:id", "destination": "/api/emails/:id.json" },
+    { "source": "/api/emails", "destination": "/api/emails.json" },
+    { "source": "/api/analytics", "destination": "/api/analytics.json" },
+    { "source": "/api/calendar", "destination": "/api/calendar.json" },
+    { "source": "/api/reflections", "destination": "/api/reflections.json" },
+    { "source": "/api/dcsa/analytics", "destination": "/api/dcsa_analytics.json" },
+    { "source": "/api/ocr/dashboard", "destination": "/api/ocr_dashboard.json" },
+    { "source": "/api/settings/automation-level", "destination": "/api/automation_level.json" },
+    { "source": "/api/routing-policy", "destination": "/api/routing_policy.json" },
+    { "source": "/presentation", "destination": "/presentation.html" },
+    { "source": "/slides", "destination": "/presentation.html" },
+    { "source": "/((?!api/|assets/|presentation\\.html|favicon\\.ico).*)", "destination": "/index.html" }
+  ]
+}

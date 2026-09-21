@@ -5,6 +5,7 @@ frontend/node_modules/
 # Build outputs
 dist/
 frontend/dist/
+.vercel/
 
 # Python cache & test output
 __pycache__/
@@ -27,3 +28,4 @@ backend/data/calendar_google_sync.json
 
 # Office temporary lock files
 ~$*
+.vercel
