@@ -1,6 +1,6 @@
 {
   "email_id": "email_504",
-  "timestamp": "2026-09-21T02:15:11.964253+00:00",
+  "timestamp": "2026-09-21T15:13:04.058863+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "wrong_doc_type",
   "can_compare": false,
@@ -64,13 +64,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
     "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
-    "port_of_discharge": "ASHDOD, ISRAEL (ILASH)",
     "consignee": "PACIFIC OFFICE (M) SDN BHD LOT 6, JALAN P/7; SECTION 13, 43650 BANDAR BARU BANGI; SELANGOR, MALAYSIA",
+    "gross_weight_kg": 221170.0,
     "container_count": 10,
+    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
-    "gross_weight_kg": 221170.0
+    "port_of_discharge": "ASHDOD, ISRAEL (ILASH)"
   },
   "bl_extracted": {
     "status": "NEEDS_REVIEW",
@@ -84,13 +84,13 @@
     "missing_fields": [],
     "audit_trail": [],
     "unresolved_terms": [],
-    "notify_party": null,
     "port_of_loading": null,
-    "port_of_discharge": null,
     "consignee": null,
+    "gross_weight_kg": null,
     "container_count": null,
+    "notify_party": null,
     "shipper": null,
-    "gross_weight_kg": null
+    "port_of_discharge": null
   },
   "field_matrix": [
     {

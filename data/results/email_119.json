@@ -1,6 +1,6 @@
 {
   "email_id": "email_119",
-  "timestamp": "2026-09-21T02:15:09.781422+00:00",
+  "timestamp": "2026-09-21T15:13:03.311957+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "CLIFFORD PAPER INC",
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "port_of_discharge": "SAVANNAH, US (USSAV)",
     "consignee": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA",
+    "gross_weight_kg": 322590.0,
     "container_count": 15,
+    "notify_party": "CLIFFORD PAPER INC",
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "gross_weight_kg": 322590.0
+    "port_of_discharge": "SAVANNAH, US (USSAV)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "CLIFFORD PAPER INC",
     "port_of_loading": "SINGAPORE, SINGAPORE (MYPKG)",
-    "port_of_discharge": "SAVANNAH, US (USSAV)",
     "consignee": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA",
+    "gross_weight_kg": 322590.0,
     "container_count": 15,
+    "notify_party": "CLIFFORD PAPER INC",
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "gross_weight_kg": 322590.0
+    "port_of_discharge": "SAVANNAH, US (USSAV)"
   },
   "field_matrix": [
     {

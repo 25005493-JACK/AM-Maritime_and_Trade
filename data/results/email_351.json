@@ -1,6 +1,6 @@
 {
   "email_id": "email_351",
-  "timestamp": "2026-09-21T02:15:10.756236+00:00",
+  "timestamp": "2026-09-21T15:13:03.723403+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -84,13 +84,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
-    "port_of_discharge": "ASHDOD, ISRAEL",
     "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
+    "gross_weight_kg": 359415.0,
     "container_count": 15,
+    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
-    "gross_weight_kg": 359415.0
+    "port_of_discharge": "ASHDOD, ISRAEL"
   },
   "bl_extracted": {
     "status": "OK",
@@ -147,13 +147,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "/Intermediate ConsKiTgPne CeO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
-    "port_of_discharge": "ASHDOD, ISRAEL",
     "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
+    "gross_weight_kg": 360415.0,
     "container_count": 16,
+    "notify_party": "/Intermediate ConsKiTgPne CeO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
-    "gross_weight_kg": 360415.0
+    "port_of_discharge": "ASHDOD, ISRAEL"
   },
   "field_matrix": [
     {

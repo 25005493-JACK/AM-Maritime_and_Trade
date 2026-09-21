@@ -1,6 +1,6 @@
 {
   "email_id": "email_426",
-  "timestamp": "2026-09-21T02:15:11.272521+00:00",
+  "timestamp": "2026-09-21T15:13:03.897105+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
     "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
-    "port_of_discharge": "NEW YORK, US (USNYC)",
     "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
+    "gross_weight_kg": 219740.0,
     "container_count": 10,
+    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "gross_weight_kg": 219740.0
+    "port_of_discharge": "NEW YORK, US (USNYC)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
     "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
-    "port_of_discharge": "KLAIPEDA, LITHUANIA (USNYC)",
     "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
+    "gross_weight_kg": 219740.0,
     "container_count": 11,
+    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "gross_weight_kg": 219740.0
+    "port_of_discharge": "KLAIPEDA, LITHUANIA (USNYC)"
   },
   "field_matrix": [
     {

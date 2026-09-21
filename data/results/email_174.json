@@ -1,6 +1,6 @@
 {
   "email_id": "email_174",
-  "timestamp": "2026-09-21T02:15:09.964840+00:00",
+  "timestamp": "2026-09-21T15:13:03.406021+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "TOAN LUC PAPER JOINT STOCK COMPANY",
     "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "port_of_discharge": "CONAKRY, GUINEA (GNCKY)",
     "consignee": "TOAN LUC PAPER JOINT STOCK COMPANY LOT B, TAN DONG HIEP B IZ; DI AN, BINH DUONG, VIETNAM",
+    "gross_weight_kg": 20532.0,
     "container_count": 1,
+    "notify_party": "TOAN LUC PAPER JOINT STOCK COMPANY",
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
-    "gross_weight_kg": 20532.0
+    "port_of_discharge": "CONAKRY, GUINEA (GNCKY)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "MOORIM SP CO., LTD",
     "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (GNCKY)",
     "consignee": "TOAN LUC PAPER JOINT STOCK COMPANY LOT B, TAN DONG HIEP B IZ; DI AN, BINH DUONG, VIETNAM",
+    "gross_weight_kg": 20532.0,
     "container_count": 1,
+    "notify_party": "MOORIM SP CO., LTD",
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
-    "gross_weight_kg": 20532.0
+    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (GNCKY)"
   },
   "field_matrix": [
     {

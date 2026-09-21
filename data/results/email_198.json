@@ -1,6 +1,6 @@
 {
   "email_id": "email_198",
-  "timestamp": "2026-09-21T02:15:09.991650+00:00",
+  "timestamp": "2026-09-21T15:13:03.423692+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "UAB NOVAKOPA",
     "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "port_of_discharge": "APAPA, NIGERIA (NGAPP)",
     "consignee": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
+    "gross_weight_kg": 105675.0,
     "container_count": 5,
+    "notify_party": "UAB NOVAKOPA",
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
-    "gross_weight_kg": 105675.0
+    "port_of_discharge": "APAPA, NIGERIA (NGAPP)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "UAB NOVAKOPA",
     "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "port_of_discharge": "APAPA, NIGERIA (NGAPP)",
     "consignee": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
+    "gross_weight_kg": 105675.0,
     "container_count": 5,
+    "notify_party": "UAB NOVAKOPA",
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
-    "gross_weight_kg": 105675.0
+    "port_of_discharge": "APAPA, NIGERIA (NGAPP)"
   },
   "field_matrix": [
     {

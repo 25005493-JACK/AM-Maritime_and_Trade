@@ -259,7 +259,7 @@ export default function GmailSettingsModal({
             <div className="max-w-3xl space-y-6 text-xs">
               <div className="grid grid-cols-4 gap-4 py-3 border-b" style={{ borderColor: 'var(--gmail-border)' }}>
                 <span className="font-semibold text-slate-700 dark:text-slate-300">Language</span>
-                <span className="col-span-3 text-slate-600 dark:text-slate-400">English (United States) — Averish Freight AI</span>
+                <span className="col-span-3 text-slate-600 dark:text-slate-400">English (United States) — DocuMatch</span>
               </div>
               
               <div className="grid grid-cols-4 gap-4 py-3 border-b" style={{ borderColor: 'var(--gmail-border)' }}>
@@ -305,7 +305,7 @@ export default function GmailSettingsModal({
           {/* OTHER TABS PLACEHOLDER */}
           {!['Advanced', 'Themes', 'General'].includes(activeSettingsTab) && (
             <div className="py-12 text-center text-slate-400">
-              <p className="text-sm">Configured for Google Workspace & Averish Maritime Operations</p>
+              <p className="text-sm">Configured for Google Workspace & DocuMatch Maritime Operations</p>
               <p className="text-xs text-slate-500 mt-1">Check 'Advanced' tab to customize Preview Pane and Auto-advance.</p>
             </div>
           )}

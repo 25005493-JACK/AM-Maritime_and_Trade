@@ -1,6 +1,6 @@
 {
   "email_id": "email_313",
-  "timestamp": "2026-09-21T02:15:10.424002+00:00",
+  "timestamp": "2026-09-21T15:13:03.640234+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -83,13 +83,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD #42-01 SUNTEC TOWER 3 SINGAPORE 038988",
     "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
-    "port_of_discharge": "HOCHIMINH CITY, VIETNAM",
     "consignee": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD #42-01 SUNTEC TOWER 3 SINGAPORE 038988",
+    "gross_weight_kg": 118270.0,
     "container_count": 5,
+    "notify_party": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD #42-01 SUNTEC TOWER 3 SINGAPORE 038988",
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
-    "gross_weight_kg": 118270.0
+    "port_of_discharge": "HOCHIMINH CITY, VIETNAM"
   },
   "bl_extracted": {
     "status": "OK",
@@ -146,13 +146,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD #42-01 SUNTEC TOWER 3 SINGAPORE 038988",
     "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
-    "port_of_discharge": "HOCHIMINH CITY, VIETNAM",
     "consignee": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD #42-01 SUNTEC TOWER 3 SINGAPORE 038988",
+    "gross_weight_kg": 117770.0,
     "container_count": 4,
+    "notify_party": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD #42-01 SUNTEC TOWER 3 SINGAPORE 038988",
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
-    "gross_weight_kg": 117770.0
+    "port_of_discharge": "HOCHIMINH CITY, VIETNAM"
   },
   "field_matrix": [
     {

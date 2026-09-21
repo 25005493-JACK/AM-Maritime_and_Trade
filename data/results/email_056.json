@@ -1,6 +1,6 @@
 {
   "email_id": "email_056",
-  "timestamp": "2026-09-21T02:15:09.236841+00:00",
+  "timestamp": "2026-09-21T15:13:03.190371+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "MOORIM SP CO., LTD",
     "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "port_of_discharge": "KARACHI, PAKISTAN (PKKHI)",
     "consignee": "MOORIM SP CO., LTD 656, GANGNAM-DAERO, GANGNAM-GU; SEOUL, SOUTH KOREA; T. 82-2-3485-1500",
+    "gross_weight_kg": 20131.0,
     "container_count": 1,
+    "notify_party": "MOORIM SP CO., LTD",
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "gross_weight_kg": 20131.0
+    "port_of_discharge": "KARACHI, PAKISTAN (PKKHI)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "MOORIM SP CO., LTD",
     "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "port_of_discharge": "KARACHI, PAKISTAN (PKKHI)",
     "consignee": "MOORIM SP CO., LTD 656, GANGNAM-DAERO, GANGNAM-GU; SEOUL, SOUTH KOREA; T. 82-2-3485-1500",
+    "gross_weight_kg": 20131.0,
     "container_count": 1,
+    "notify_party": "MOORIM SP CO., LTD",
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "gross_weight_kg": 20131.0
+    "port_of_discharge": "KARACHI, PAKISTAN (PKKHI)"
   },
   "field_matrix": [
     {

@@ -66,7 +66,7 @@ class EventBus:
         return {
             "specversion": "1.0",
             "type": "io.maritime.verification.completed",
-            "source": "/averish/verification-engine",
+            "source": "/documatch/verification-engine",
             "id": str(uuid.uuid4()),
             "time": datetime.now(timezone.utc).isoformat(),
             "datacontenttype": "application/json",

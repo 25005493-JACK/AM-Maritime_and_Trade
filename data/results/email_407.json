@@ -1,6 +1,6 @@
 {
   "email_id": "email_407",
-  "timestamp": "2026-09-21T02:15:11.107731+00:00",
+  "timestamp": "2026-09-21T15:13:03.836816+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "/Intermediate ConsNigAnGeAePPA EXPORTS",
     "port_of_loading": "NHAVA SHEVA, INDIA",
-    "port_of_discharge": "YANGON, MYANMAR",
     "consignee": "NAGAPPA EXPORTS",
+    "gross_weight_kg": 285720.0,
     "container_count": 12,
+    "notify_party": "/Intermediate ConsNigAnGeAePPA EXPORTS",
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
-    "gross_weight_kg": 285720.0
+    "port_of_discharge": "YANGON, MYANMAR"
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "NAGAPPA EXPORTS",
     "port_of_loading": "NHAVA SHEVA, INDIA",
-    "port_of_discharge": "YANGON, MYANMAR",
     "consignee": "NAGAPPA EXPORTS",
+    "gross_weight_kg": 285720.0,
     "container_count": 12,
+    "notify_party": "NAGAPPA EXPORTS",
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
-    "gross_weight_kg": 285720.0
+    "port_of_discharge": "YANGON, MYANMAR"
   },
   "field_matrix": [
     {

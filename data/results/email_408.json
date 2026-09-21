@@ -1,6 +1,6 @@
 {
   "email_id": "email_408",
-  "timestamp": "2026-09-21T02:15:11.113911+00:00",
+  "timestamp": "2026-09-21T15:13:03.839771+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
     "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
-    "port_of_discharge": "KOPER, SLOVENIA (SIKOP)",
     "consignee": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA",
+    "gross_weight_kg": 223290.0,
     "container_count": 10,
+    "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "gross_weight_kg": 223290.0
+    "port_of_discharge": "KOPER, SLOVENIA (SIKOP)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
     "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
-    "port_of_discharge": "KOPER, SLOVENIA (SIKOP)",
     "consignee": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA",
+    "gross_weight_kg": 223290.0,
     "container_count": 10,
+    "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "gross_weight_kg": 223290.0
+    "port_of_discharge": "KOPER, SLOVENIA (SIKOP)"
   },
   "field_matrix": [
     {

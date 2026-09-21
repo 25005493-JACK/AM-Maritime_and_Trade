@@ -1,6 +1,6 @@
 {
   "email_id": "email_498",
-  "timestamp": "2026-09-21T02:15:11.747180+00:00",
+  "timestamp": "2026-09-21T15:13:04.031811+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "UAB NOVAKOPA",
     "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (VNSGN)",
     "consignee": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
+    "gross_weight_kg": 268980.0,
     "container_count": 12,
+    "notify_party": "UAB NOVAKOPA",
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "gross_weight_kg": 268980.0
+    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (VNSGN)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "UAB NOVAKOPA",
     "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (VNSGN)",
     "consignee": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
+    "gross_weight_kg": 268980.0,
     "container_count": 12,
+    "notify_party": "UAB NOVAKOPA",
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "gross_weight_kg": 268980.0
+    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (VNSGN)"
   },
   "field_matrix": [
     {

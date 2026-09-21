@@ -27,7 +27,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend/ /app/backend/
 COPY "test data/" "/app/test data/"
 COPY tests/ /app/tests/
-COPY submission.json /app/submission.json
 
 # Expose HTTP port 8080 as specified in Page 3
 EXPOSE 8080

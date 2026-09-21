@@ -1,6 +1,6 @@
 {
   "email_id": "email_034",
-  "timestamp": "2026-09-21T02:15:09.076668+00:00",
+  "timestamp": "2026-09-21T15:13:03.152517+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "UAB NOVAKOPA",
     "port_of_loading": "SINGAPORE (SGSIN)",
-    "port_of_discharge": "CONAKRY, GUINEA (GNCKY)",
     "consignee": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
+    "gross_weight_kg": 105815.0,
     "container_count": 5,
+    "notify_party": "UAB NOVAKOPA",
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
-    "gross_weight_kg": 105815.0
+    "port_of_discharge": "CONAKRY, GUINEA (GNCKY)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "notify_party": "UAB NOVAKOPA",
     "port_of_loading": "SINGAPORE (SGSIN)",
-    "port_of_discharge": "CONAKRY, GUINEA (GNCKY)",
     "consignee": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
+    "gross_weight_kg": 105815.0,
     "container_count": 5,
+    "notify_party": "UAB NOVAKOPA",
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
-    "gross_weight_kg": 105815.0
+    "port_of_discharge": "CONAKRY, GUINEA (GNCKY)"
   },
   "field_matrix": [
     {
