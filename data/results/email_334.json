@@ -1,6 +1,6 @@
 {
   "email_id": "email_334",
-  "timestamp": "2026-09-21T11:15:50.383818+00:00",
+  "timestamp": "2026-09-21T13:59:13.068300+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -84,12 +84,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "EAST BRIGHT FZ-LLC",
-    "port_of_loading": "SINGAPORE (SGSIN)",
-    "container_count": 6,
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "port_of_discharge": "YANGON, MYANMAR (MMRGN)",
     "consignee": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
-    "gross_weight_kg": 127692.0
+    "gross_weight_kg": 127692.0,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "container_count": 6,
+    "port_of_loading": "SINGAPORE (SGSIN)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -147,12 +147,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "EAST BRIGHT FZ-LLC",
-    "port_of_loading": "SINGAPORE (SGSIN)",
-    "container_count": 6,
-    "shipper": "APRIL FINE PAPER TRADING 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "port_of_discharge": "YANGON, MYANMAR (MMRGN)",
     "consignee": "INTERNATIONAL FOREST PRODUCTS LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
-    "gross_weight_kg": 127692.0
+    "gross_weight_kg": 127692.0,
+    "shipper": "APRIL FINE PAPER TRADING 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "container_count": 6,
+    "port_of_loading": "SINGAPORE (SGSIN)"
   },
   "field_matrix": [
     {

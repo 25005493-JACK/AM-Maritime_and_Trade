@@ -1,6 +1,6 @@
 {
   "email_id": "email_243",
-  "timestamp": "2026-09-21T11:15:50.102992+00:00",
+  "timestamp": "2026-09-21T13:59:12.788362+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -84,12 +84,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
-    "container_count": 5,
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "port_of_discharge": "HOUSTON, US",
     "consignee": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
-    "gross_weight_kg": 100445.0
+    "gross_weight_kg": 100445.0,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "container_count": 5,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA"
   },
   "bl_extracted": {
     "status": "OK",
@@ -147,12 +147,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
-    "container_count": 5,
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "port_of_discharge": "MOMBASA, KENYA",
     "consignee": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
-    "gross_weight_kg": 100445.0
+    "gross_weight_kg": 100445.0,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "container_count": 5,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA"
   },
   "field_matrix": [
     {

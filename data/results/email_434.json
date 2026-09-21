@@ -1,6 +1,6 @@
 {
   "email_id": "email_434",
-  "timestamp": "2026-09-21T11:15:50.808750+00:00",
+  "timestamp": "2026-09-21T13:59:13.806869+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -83,12 +83,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "TOPKOPY MIDDLE EAST FZE",
-    "port_of_loading": "NHAVA SHEVA, INDIA",
-    "container_count": 12,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
     "port_of_discharge": "BUSAN, SOUTH KOREA",
     "consignee": "TOPKOPY MIDDLE EAST FZE",
-    "gross_weight_kg": 261480.0
+    "gross_weight_kg": 261480.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
+    "container_count": 12,
+    "port_of_loading": "NHAVA SHEVA, INDIA"
   },
   "bl_extracted": {
     "status": "OK",
@@ -146,12 +146,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "TOPKOPY MIDDLE EAST FZE",
-    "port_of_loading": "NHAVA SHEVA, INDIA",
-    "container_count": 12,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
     "port_of_discharge": "CEBU, PHILIPPINES",
     "consignee": "TOPKOPY MIDDLE EAST FZE",
-    "gross_weight_kg": 261480.0
+    "gross_weight_kg": 261480.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
+    "container_count": 12,
+    "port_of_loading": "NHAVA SHEVA, INDIA"
   },
   "field_matrix": [
     {

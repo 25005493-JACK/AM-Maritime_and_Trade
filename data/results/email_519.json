@@ -1,6 +1,6 @@
 {
   "email_id": "email_519",
-  "timestamp": "2026-09-21T11:15:52.110760+00:00",
+  "timestamp": "2026-09-21T13:59:14.053320+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "missing_value",
   "can_compare": true,
@@ -19,8 +19,8 @@
     "is_wrong_doc_type": false,
     "confidence": 0.65,
     "missing_fields": [
-      "container_count",
-      "shipper"
+      "shipper",
+      "container_count"
     ],
     "audit_trail": [
       {
@@ -68,12 +68,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "UAB NOVAKOPA",
-    "port_of_loading": "BUATAN, INDONESIA",
-    "container_count": null,
-    "shipper": null,
     "port_of_discharge": "BUSAN, SOUTH KOREA",
     "consignee": "UAB NOVAKOPA",
-    "gross_weight_kg": 70572.0
+    "gross_weight_kg": 70572.0,
+    "shipper": null,
+    "container_count": null,
+    "port_of_loading": "BUATAN, INDONESIA"
   },
   "bl_extracted": {
     "status": "OK",
@@ -131,12 +131,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "UAB NOVAKOPA",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
-    "container_count": 3,
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "port_of_discharge": "BUSAN, SOUTH KOREA (KRPUS)",
     "consignee": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
-    "gross_weight_kg": 70572.0
+    "gross_weight_kg": 70572.0,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "container_count": 3,
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
   },
   "field_matrix": [
     {

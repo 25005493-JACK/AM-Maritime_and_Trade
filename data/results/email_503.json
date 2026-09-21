@@ -1,6 +1,6 @@
 {
   "email_id": "email_503",
-  "timestamp": "2026-09-21T11:15:50.981608+00:00",
+  "timestamp": "2026-09-21T13:59:13.995620+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "wrong_doc_type",
   "can_compare": false,
@@ -65,12 +65,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
-    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
-    "container_count": 1,
-    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "port_of_discharge": "HOCHIMINH CITY, VIETNAM (VNSGN)",
     "consignee": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA",
-    "gross_weight_kg": 21772.0
+    "gross_weight_kg": 21772.0,
+    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+    "container_count": 1,
+    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)"
   },
   "bl_extracted": {
     "status": "NEEDS_REVIEW",
@@ -85,12 +85,12 @@
     "audit_trail": [],
     "unresolved_terms": [],
     "notify_party": null,
-    "port_of_loading": null,
-    "container_count": null,
-    "shipper": null,
     "port_of_discharge": null,
     "consignee": null,
-    "gross_weight_kg": null
+    "gross_weight_kg": null,
+    "shipper": null,
+    "container_count": null,
+    "port_of_loading": null
   },
   "field_matrix": [
     {

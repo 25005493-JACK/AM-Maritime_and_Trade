@@ -1,6 +1,6 @@
 {
   "email_id": "email_307",
-  "timestamp": "2026-09-21T11:15:50.304847+00:00",
+  "timestamp": "2026-09-21T13:59:12.956842+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -81,12 +81,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
-    "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "container_count": 1,
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "port_of_discharge": "KOPER, SLOVENIA (SIKOP)",
     "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA",
-    "gross_weight_kg": 23869.0
+    "gross_weight_kg": 23869.0,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "container_count": 1,
+    "port_of_loading": "NANTONG, CHINA (CNNTG)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -144,12 +144,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
-    "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "container_count": 1,
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "port_of_discharge": "KOPER, SLOVENIA (SIKOP)",
     "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA",
-    "gross_weight_kg": 23869.0
+    "gross_weight_kg": 23869.0,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "container_count": 1,
+    "port_of_loading": "NANTONG, CHINA (CNNTG)"
   },
   "field_matrix": [
     {

@@ -1,6 +1,6 @@
 {
   "email_id": "email_474",
-  "timestamp": "2026-09-21T11:15:50.878554+00:00",
+  "timestamp": "2026-09-21T13:59:13.874318+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -81,12 +81,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "CLIFFORD PAPER INC",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
-    "container_count": 15,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "NEW YORK, US (USNYC)",
     "consignee": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA",
-    "gross_weight_kg": 334605.0
+    "gross_weight_kg": 334605.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 15,
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -144,12 +144,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "CLIFFORD PAPER INC",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
-    "container_count": 15,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "NEW YORK, US (USNYC)",
     "consignee": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA",
-    "gross_weight_kg": 334605.0
+    "gross_weight_kg": 334605.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 15,
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
   },
   "field_matrix": [
     {

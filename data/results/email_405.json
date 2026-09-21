@@ -1,6 +1,6 @@
 {
   "email_id": "email_405",
-  "timestamp": "2026-09-21T11:15:50.556961+00:00",
+  "timestamp": "2026-09-21T13:59:13.361598+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -81,12 +81,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "HABRAS INTERNATIONAL LIMITED",
-    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
-    "container_count": 4,
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "port_of_discharge": "LONG BEACH, US (USLGB)",
     "consignee": "HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE",
-    "gross_weight_kg": 82932.0
+    "gross_weight_kg": 82932.0,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "container_count": 4,
+    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -144,12 +144,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "HABRAS INTERNATIONAL LIMITED",
-    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
-    "container_count": 4,
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "port_of_discharge": "LONG BEACH, US (USLGB)",
     "consignee": "HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE",
-    "gross_weight_kg": 82932.0
+    "gross_weight_kg": 82932.0,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "container_count": 4,
+    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)"
   },
   "field_matrix": [
     {

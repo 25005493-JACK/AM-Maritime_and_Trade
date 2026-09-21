@@ -1,6 +1,6 @@
 {
   "email_id": "email_178",
-  "timestamp": "2026-09-21T11:15:49.999887+00:00",
+  "timestamp": "2026-09-21T13:59:12.644997+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -83,12 +83,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "3S PAPER PRODUCTS SDN BHD",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "container_count": 6,
-    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "port_of_discharge": "CALLAO, PERU (PECLL)",
     "consignee": "ORIENT LINKS CO (LLC)",
-    "gross_weight_kg": 132516.0
+    "gross_weight_kg": 132516.0,
+    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+    "container_count": 6,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -146,12 +146,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "3S PAPER PRODUCTS SDN BHD",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "container_count": 7,
-    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "port_of_discharge": "CALLAO, PERU (PECLL)",
     "consignee": "ORIENT LINKS CO (LLC)",
-    "gross_weight_kg": 132516.0
+    "gross_weight_kg": 132516.0,
+    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+    "container_count": 7,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)"
   },
   "field_matrix": [
     {

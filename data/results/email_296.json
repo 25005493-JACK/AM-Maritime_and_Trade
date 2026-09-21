@@ -1,6 +1,6 @@
 {
   "email_id": "email_296",
-  "timestamp": "2026-09-21T11:15:50.212327+00:00",
+  "timestamp": "2026-09-21T13:59:12.908252+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -81,12 +81,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "SAFQA LIMITED",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "container_count": 1,
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "port_of_discharge": "KLAIPEDA, LITHUANIA (LTKLJ)",
     "consignee": "SAFQA LIMITED",
-    "gross_weight_kg": 21401.0
+    "gross_weight_kg": 21401.0,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "container_count": 1,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -144,12 +144,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "SAFQA LIMITED",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "container_count": 1,
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "port_of_discharge": "KLAIPEDA, LITHUANIA (LTKLJ)",
     "consignee": "SAFQA LIMITED",
-    "gross_weight_kg": 21401.0
+    "gross_weight_kg": 21401.0,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "container_count": 1,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)"
   },
   "field_matrix": [
     {

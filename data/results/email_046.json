@@ -1,6 +1,6 @@
 {
   "email_id": "email_046",
-  "timestamp": "2026-09-21T11:15:49.139417+00:00",
+  "timestamp": "2026-09-21T13:59:11.950316+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -83,12 +83,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "TOPKOPY MIDDLE EAST FZE",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "container_count": 12,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "SAVANNAH, US (USSAV)",
     "consignee": "SAFQA LIMITED",
-    "gross_weight_kg": 257340.0
+    "gross_weight_kg": 257340.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 12,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -146,12 +146,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "MOORIM SP CO., LTD",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "container_count": 12,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "SAVANNAH, US (USSAV)",
     "consignee": "SAFQA LIMITED",
-    "gross_weight_kg": 257340.0
+    "gross_weight_kg": 257340.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 12,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)"
   },
   "field_matrix": [
     {

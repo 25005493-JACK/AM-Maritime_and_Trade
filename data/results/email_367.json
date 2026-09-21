@@ -1,6 +1,6 @@
 {
   "email_id": "email_367",
-  "timestamp": "2026-09-21T11:15:50.516847+00:00",
+  "timestamp": "2026-09-21T13:59:13.286421+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -81,12 +81,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "ROXCEL TRADING GMBH",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
-    "container_count": 1,
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "port_of_discharge": "MERSIN, TURKEY (TRMER)",
     "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
-    "gross_weight_kg": 20648.0
+    "gross_weight_kg": 20648.0,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "container_count": 1,
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -144,12 +144,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "ROXCEL TRADING GMBH",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
-    "container_count": 1,
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "port_of_discharge": "MERSIN, TURKEY (TRMER)",
     "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
-    "gross_weight_kg": 20648.0
+    "gross_weight_kg": 20648.0,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "container_count": 1,
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
   },
   "field_matrix": [
     {

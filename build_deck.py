@@ -24,20 +24,29 @@ def build_deck():
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {{
-      --bg-midnight: #070B14;
-      --bg-surface: #0E1626;
-      --bg-card: rgba(18, 28, 48, 0.75);
-      --border-card: rgba(56, 189, 248, 0.15);
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --accent-cyan: #38BDF8;
-      --accent-blue: #3B82F6;
-      --accent-indigo: #6366F1;
-      --accent-green: #10B981;
-      --accent-red: #EF4444;
-      --accent-amber: #F59E0B;
-      --text-main: #F8FAFC;
-      --text-muted: #94A3B8;
-      --text-dim: #64748B;
+      /* Light Beige / Warm Editorial Palette */
+      --bg-editorial: #F9F6F0;
+      --bg-surface: #F3EFE6;
+      --bg-card: #FFFFFF;
+      --border-card: #E8E2D9;
+      --border-subtle: #E2DBD0;
+      --card-shadow: 0 10px 25px -5px rgba(44, 42, 41, 0.05), 0 4px 10px -2px rgba(44, 42, 41, 0.02);
+
+      /* Sophisticated Earthy Accent Colors */
+      --accent-cyan: #2A7B9B;        /* Muted Ocean Teal */
+      --accent-blue: #3A5A80;        /* Muted Navy */
+      --accent-indigo: #56507A;      /* Slate Indigo */
+      --accent-green: #3B7A57;       /* Deep Forest / Sage Green */
+      --accent-red: #B84A39;         /* Earthy Terracotta Red */
+      --accent-amber: #C07D38;       /* Warm Ochre / Amber */
+      --accent-terracotta: #C8795B;  /* Editorial Terracotta */
+      --accent-sage: #7A8B6E;        /* Sage */
+      --accent-mustard: #D4A373;     /* Warm Mustard */
+
+      /* Warm Charcoal & Editorial Text Hierarchy */
+      --text-main: #2C2A29;          /* Soft charcoal */
+      --text-muted: #5C5750;         /* Warm gray */
+      --text-dim: #8C857B;           /* Muted sand gray */
     }}
 
     * {{
@@ -47,7 +56,7 @@ def build_deck():
     }}
 
     body {{
-      background-color: #030712;
+      background-color: #EFEBE4;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--text-main);
       overflow: hidden;
@@ -57,6 +66,7 @@ def build_deck():
       align-items: center;
       justify-content: center;
       user-select: none;
+      -webkit-font-smoothing: antialiased;
     }}
 
     /* 16:9 Presentation Viewport Container */
@@ -66,8 +76,10 @@ def build_deck():
       height: 56.25vw; /* 16:9 ratio */
       max-height: 100vh;
       max-width: 177.78vh; /* 16:9 ratio */
-      background: radial-gradient(circle at 50% -20%, rgba(30, 58, 138, 0.35) 0%, #080D1A 65%, #050811 100%);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      background: var(--bg-editorial);
+      border: 1px solid var(--border-card);
+      border-radius: 4px;
+      box-shadow: 0 25px 60px -15px rgba(44, 42, 41, 0.12), 0 0 0 1px rgba(232, 226, 217, 0.6);
       overflow: hidden;
     }}
 
@@ -100,7 +112,7 @@ def build_deck():
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-card);
       padding-bottom: 0.8vw;
       margin-bottom: 1.2vw;
     }}
@@ -115,11 +127,12 @@ def build_deck():
       width: 1.8vw;
       height: 1.8vw;
       border-radius: 0.4vw;
-      background: linear-gradient(135deg, #0284C7, #4F46E5);
+      background: #FFFFFF;
+      border: 1px solid var(--border-card);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+      box-shadow: var(--card-shadow);
       font-size: 1vw;
     }}
 
@@ -127,7 +140,7 @@ def build_deck():
       font-size: 1.05vw;
       font-weight: 700;
       letter-spacing: -0.02em;
-      color: #FFFFFF;
+      color: var(--text-main);
       font-family: 'Google Sans', sans-serif;
     }}
 
@@ -136,9 +149,9 @@ def build_deck():
       font-weight: 600;
       padding: 0.2vw 0.5vw;
       border-radius: 0.25vw;
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      color: var(--accent-cyan);
+      background: rgba(200, 121, 91, 0.1);
+      border: 1px solid rgba(200, 121, 91, 0.25);
+      color: var(--accent-terracotta);
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }}
@@ -151,7 +164,7 @@ def build_deck():
 
     .category-label {{
       font-size: 0.75vw;
-      color: var(--text-dim);
+      color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.08em;
       font-weight: 600;
@@ -161,11 +174,12 @@ def build_deck():
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.85vw;
       font-weight: 600;
-      color: var(--accent-cyan);
-      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      background: #FFFFFF;
       padding: 0.2vw 0.6vw;
       border-radius: 0.3vw;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-card);
+      box-shadow: var(--card-shadow);
     }}
 
     /* Main Slide Body */
@@ -196,12 +210,12 @@ def build_deck():
       font-size: 2.2vw;
       line-height: 1.18;
       font-weight: 700;
-      color: #FFFFFF;
+      color: var(--text-main);
       letter-spacing: -0.03em;
     }}
 
     h1.slide-title.alert {{
-      color: #F87171;
+      color: #B84A39;
     }}
 
     p.slide-sub {{
@@ -234,26 +248,26 @@ def build_deck():
       bottom: 1.5vw;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(249, 246, 240, 0.95);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--border-card);
       border-radius: 9999px;
       padding: 0.4vw 0.8vw;
       display: flex;
       align-items: center;
       gap: 0.8vw;
       z-index: 1000;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 10px 30px rgba(44, 42, 41, 0.12);
     }}
 
     .hud-btn {{
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
+      background: #FFFFFF;
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
       padding: 0.35vw 0.75vw;
       border-radius: 9999px;
       font-size: 0.75vw;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -262,9 +276,9 @@ def build_deck():
     }}
 
     .hud-btn:hover {{
-      background: rgba(56, 189, 248, 0.25);
-      border-color: var(--accent-cyan);
-      color: var(--accent-cyan);
+      background: #EFEBE4;
+      border-color: var(--accent-terracotta);
+      color: var(--accent-terracotta);
     }}
 
     .slide-dots {{
@@ -276,14 +290,14 @@ def build_deck():
       width: 0.5vw;
       height: 0.5vw;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
+      background: #D9D2C5;
       cursor: pointer;
       transition: all 0.2s;
     }}
 
     .dot.active {{
-      background: var(--accent-cyan);
-      box-shadow: 0 0 8px var(--accent-cyan);
+      background: var(--accent-terracotta);
+      box-shadow: 0 0 8px rgba(200, 121, 91, 0.4);
       transform: scale(1.25);
     }}
 
@@ -308,22 +322,21 @@ def build_deck():
 
     .glass-card {{
       background: var(--bg-card);
-      backdrop-filter: blur(12px);
       border: 1px solid var(--border-card);
       border-radius: 0.8vw;
       padding: 1.2vw;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      box-shadow: var(--card-shadow);
       position: relative;
     }}
 
     .glass-card.alert-card {{
-      border-color: rgba(239, 68, 68, 0.4);
-      background: rgba(36, 15, 20, 0.6);
+      border-color: rgba(184, 74, 57, 0.3);
+      background: #FFF8F6;
     }}
 
     .glass-card.highlight-card {{
-      border-color: rgba(56, 189, 248, 0.5);
-      background: rgba(14, 30, 56, 0.7);
+      border-color: rgba(42, 123, 155, 0.35);
+      background: #F4F8FA;
     }}
 
     /* Badges & Tags */
@@ -339,33 +352,33 @@ def build_deck():
     }}
 
     .pill-tag.red {{
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.35);
-      color: #F87171;
+      background: #FDEEEB;
+      border: 1px solid #F8C7C0;
+      color: #B84A39;
     }}
 
     .pill-tag.green {{
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: #34D399;
+      background: #EDF5F0;
+      border: 1px solid #C3DFC9;
+      color: #356745;
     }}
 
     .pill-tag.cyan {{
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      color: #38BDF8;
+      background: #EDF6F9;
+      border: 1px solid #C6E4ED;
+      color: #1E667E;
     }}
 
     .pill-tag.amber {{
-      background: rgba(245, 158, 11, 0.15);
-      border: 1px solid rgba(245, 158, 11, 0.35);
-      color: #FBBF24;
+      background: #FEF7ED;
+      border: 1px solid #F8DFC0;
+      color: #9A5D18;
     }}
 
     /* Terminal Window Mock */
     .terminal-window {{
-      background: #090D16;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #242936; color: #E8E4DD;
+      border: 1px solid var(--border-card);
       border-radius: 0.6vw;
       overflow: hidden;
       font-family: 'JetBrains Mono', monospace;
@@ -395,19 +408,19 @@ def build_deck():
     .terminal-content {{
       padding: 0.9vw 1.2vw;
       line-height: 1.6;
-      color: #CBD5E1;
+      color: #5C5750;
     }}
 
     /* Document Preview Frame */
     .doc-preview-frame {{
-      background: #1E293B;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #FAF8F5;
+      border: 1px solid var(--border-card);
       border-radius: 0.5vw;
       padding: 0.8vw;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.7vw;
       line-height: 1.5;
-      color: #E2E8F0;
+      color: var(--text-main);
       max-height: 16vw;
       overflow-y: auto;
     }}
@@ -420,38 +433,38 @@ def build_deck():
     }}
 
     .matrix-table th {{
-      background: rgba(255, 255, 255, 0.06);
+      background: #EFEBE4;
       text-align: left;
       padding: 0.55vw 0.8vw;
       font-weight: 600;
-      color: var(--text-muted);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-card);
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }}
 
     .matrix-table td {{
       padding: 0.5vw 0.8vw;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      color: #E2E8F0;
+      border-bottom: 1px solid #EFEBE4;
+      color: var(--text-main);
     }}
 
     .matrix-table tr:hover td {{
-      background: rgba(56, 189, 248, 0.04);
+      background: #F4F0E8;
     }}
 
     .matrix-table .check-yes {{
-      color: #10B981;
+      color: var(--accent-green);
       font-weight: 700;
     }}
 
     .matrix-table .check-no {{
-      color: #EF4444;
+      color: var(--accent-red);
       font-weight: 700;
     }}
 
     .matrix-table .check-var {{
-      color: #94A3B8;
+      color: #6B665E;
       font-weight: 400;
     }}
 
@@ -463,7 +476,7 @@ def build_deck():
       border-radius: 0 0.4vw 0.4vw 0;
       font-size: 0.9vw;
       font-weight: 600;
-      color: #FFFFFF;
+      color: var(--text-main);
       margin-top: 0.8vw;
     }}
 
@@ -507,33 +520,33 @@ def build_deck():
         <!-- Operational Fatigue Loop Visual -->
         <div style="display: flex; align-items: center; justify-content: space-between; margin: 1.8vw 0; position: relative;">
           
-          <div class="glass-card" style="flex: 1; text-align: center; border-color: rgba(255, 255, 255, 0.1);">
+          <div class="glass-card" style="flex: 1; text-align: center; border-color: var(--border-card);">
             <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">🤖</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">AI Extraction Error</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">AI Extraction Error</div>
             <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Model guesses on edge case</div>
           </div>
 
           <div style="color: var(--accent-cyan); font-size: 1.2vw; padding: 0 0.6vw;">➔</div>
 
-          <div class="glass-card" style="flex: 1; text-align: center; border-color: rgba(255, 255, 255, 0.1);">
+          <div class="glass-card" style="flex: 1; text-align: center; border-color: var(--border-card);">
             <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">🔍</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Human Checks</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Human Checks</div>
             <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Operator reviews documents</div>
           </div>
 
           <div style="color: var(--accent-cyan); font-size: 1.2vw; padding: 0 0.6vw;">➔</div>
 
-          <div class="glass-card" style="flex: 1; text-align: center; border-color: rgba(255, 255, 255, 0.1);">
+          <div class="glass-card" style="flex: 1; text-align: center; border-color: var(--border-card);">
             <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">✏️</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Human Correction</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Human Correction</div>
             <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Fixes container / weight discrepancy</div>
           </div>
 
           <div style="color: var(--accent-cyan); font-size: 1.2vw; padding: 0 0.6vw;">➔</div>
 
-          <div class="glass-card" style="flex: 1; text-align: center; border-color: rgba(255, 255, 255, 0.1);">
+          <div class="glass-card" style="flex: 1; text-align: center; border-color: var(--border-card);">
             <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">🔄</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Similar Exception Appears</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Similar Exception Appears</div>
             <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Same carrier format next morning</div>
           </div>
 
@@ -541,13 +554,13 @@ def build_deck():
 
           <div class="glass-card alert-card" style="flex: 1.3; text-align: center; box-shadow: 0 0 25px rgba(239, 68, 68, 0.25);">
             <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">⚠️</div>
-            <div style="font-size: 0.95vw; font-weight: 800; color: #EF4444; letter-spacing: 0.04em;">HUMAN FATIGUE</div>
-            <div style="font-size: 0.65vw; color: #FCA5A5; margin-top: 0.2vw;">Repeated clerical triage overhead</div>
+            <div style="font-size: 0.95vw; font-weight: 800; color: #B84A39; letter-spacing: 0.04em;">HUMAN FATIGUE</div>
+            <div style="font-size: 0.65vw; color: #8C3426; margin-top: 0.2vw;">Repeated clerical triage overhead</div>
           </div>
         </div>
 
-        <div class="glass-card" style="background: rgba(15, 23, 42, 0.6); border-left: 4px solid var(--accent-cyan); padding: 0.9vw 1.4vw;">
-          <p style="font-size: 0.95vw; color: #E2E8F0; font-style: italic;">
+        <div class="glass-card" style="background: #FFFFFF; border: 1px solid var(--border-card); border-left: 4px solid var(--accent-cyan); padding: 0.9vw 1.4vw;">
+          <p style="font-size: 0.95vw; color: var(--text-main); font-style: italic;">
             “When every exception still requires human attention, automation can simply move the workload instead of removing it.”
           </p>
         </div>
@@ -591,35 +604,35 @@ def build_deck():
           <!-- Left: Typical OCR + LLM -->
           <div class="glass-card" style="border-color: rgba(239, 68, 68, 0.3);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8vw;">
-              <span style="font-size: 0.95vw; font-weight: 700; color: #FCA5A5;">Typical OCR + LLM Pipeline</span>
+              <span style="font-size: 0.95vw; font-weight: 700; color: #8C3426;">Typical OCR + LLM Pipeline</span>
               <span class="pill-tag red">Stateless Extraction</span>
             </div>
 
             <!-- Steps -->
             <div style="display: flex; align-items: center; gap: 0.5vw; margin-bottom: 1vw; font-size: 0.75vw; font-family: 'JetBrains Mono', monospace;">
-              <span style="padding: 0.3vw 0.6vw; background: rgba(255,255,255,0.06); border-radius: 0.25vw;">Document</span>
+              <span style="padding: 0.3vw 0.6vw; background: #EFEBE4; border-radius: 0.25vw;">Document</span>
               <span>➔</span>
-              <span style="padding: 0.3vw 0.6vw; background: rgba(255,255,255,0.06); border-radius: 0.25vw;">OCR</span>
+              <span style="padding: 0.3vw 0.6vw; background: #EFEBE4; border-radius: 0.25vw;">OCR</span>
               <span>➔</span>
-              <span style="padding: 0.3vw 0.6vw; background: rgba(255,255,255,0.06); border-radius: 0.25vw;">LLM</span>
+              <span style="padding: 0.3vw 0.6vw; background: #EFEBE4; border-radius: 0.25vw;">LLM</span>
               <span>➔</span>
-              <span style="padding: 0.3vw 0.6vw; background: rgba(239, 68, 68, 0.2); border-radius: 0.25vw; color: #F87171; font-weight: 700;">Blind Answer</span>
+              <span style="padding: 0.3vw 0.6vw; background: #FCE8E4; border-radius: 0.25vw; color: #B84A39; font-weight: 700;">Blind Answer</span>
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 0.4vw; font-size: 0.75vw;">
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #FDA4AF;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
                 <span>✕</span> <span><strong>Wrong document:</strong> Processes Certificate of Origin as BL</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #FDA4AF;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
                 <span>✕</span> <span><strong>Incomplete extraction:</strong> Fails silently on unread fields</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #FDA4AF;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
                 <span>✕</span> <span><strong>Unsupported values:</strong> Guesses container counts from pixel noise</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #FDA4AF;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
                 <span>✕</span> <span><strong>Plausible hallucination:</strong> Fabricates port codes</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #FDA4AF;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
                 <span>✕</span> <span><strong>Repeated correction:</strong> No memory of yesterday's fix</span>
               </div>
             </div>
@@ -634,33 +647,33 @@ def build_deck():
 
             <!-- Steps -->
             <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 1vw; font-size: 0.7vw; font-family: 'JetBrains Mono', monospace; flex-wrap: wrap;">
-              <span style="padding: 0.25vw 0.5vw; background: rgba(56, 189, 248, 0.15); border-radius: 0.2vw;">Intent</span>
+              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Intent</span>
               <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: rgba(56, 189, 248, 0.15); border-radius: 0.2vw;">Validate</span>
+              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Validate</span>
               <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: rgba(56, 189, 248, 0.15); border-radius: 0.2vw;">Extract</span>
+              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Extract</span>
               <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: rgba(56, 189, 248, 0.15); border-radius: 0.2vw;">Verify</span>
+              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Verify</span>
               <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: rgba(56, 189, 248, 0.15); border-radius: 0.2vw;">Decision</span>
+              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Decision</span>
               <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: rgba(16, 185, 129, 0.25); border-radius: 0.2vw; color: #34D399; font-weight: 700;">Act / Stop</span>
+              <span style="padding: 0.25vw 0.5vw; background: #E3EFE7; border-radius: 0.2vw; color: #2E6B47; font-weight: 700;">Act / Stop</span>
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 0.4vw; font-size: 0.75vw;">
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #BAE6FD;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
                 <span>✓</span> <span><strong>Pre-execution Gate:</strong> Halts before reading wrong documents</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #BAE6FD;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
                 <span>✓</span> <span><strong>Data Sufficiency:</strong> Rejects unreadable scanned faxes safely</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #BAE6FD;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
                 <span>✓</span> <span><strong>Provenance Validation:</strong> Enforces exact byte offsets</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #BAE6FD;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
                 <span>✓</span> <span><strong>Circuit Breaker:</strong> Trips at 3 failures & generates Refusal Certificate</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #BAE6FD;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
                 <span>✓</span> <span><strong>Stateful Memory:</strong> Converts corrections into Reflexion lessons</span>
               </div>
             </div>
@@ -712,13 +725,13 @@ def build_deck():
           <div style="display: flex; flex-direction: column; gap: 1vw;">
             <div class="glass-card" style="border-left: 3px solid var(--accent-cyan);">
               <div style="font-size: 0.7vw; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase;">GATE 01 — VALIDATE</div>
-              <div style="font-size: 0.8vw; font-weight: 600; color: #F8FAFC; margin-top: 0.2vw;">Is this the correct task?</div>
+              <div style="font-size: 0.8vw; font-weight: 600; color: var(--text-main); margin-top: 0.2vw;">Is this the correct task?</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Separates request intent from document validity.</div>
             </div>
 
             <div class="glass-card" style="border-left: 3px solid var(--accent-blue);">
               <div style="font-size: 0.7vw; font-weight: 700; color: var(--accent-blue); text-transform: uppercase;">GATE 02 — SUFFICIENCY</div>
-              <div style="font-size: 0.8vw; font-weight: 600; color: #F8FAFC; margin-top: 0.2vw;">Do we have enough information?</div>
+              <div style="font-size: 0.8vw; font-weight: 600; color: var(--text-main); margin-top: 0.2vw;">Do we have enough information?</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Refuses to guess on image scans with no text layer.</div>
             </div>
           </div>
@@ -730,7 +743,7 @@ def build_deck():
             </div>
 
             <!-- Feedback Cycle -->
-            <div style="display: flex; flex-direction: column; gap: 0.5vw; font-size: 0.75vw; text-align: left; background: rgba(0,0,0,0.3); padding: 0.8vw; border-radius: 0.5vw; border: 1px dashed rgba(56,189,248,0.3);">
+            <div style="display: flex; flex-direction: column; gap: 0.5vw; font-size: 0.75vw; text-align: left; background: #F4EFE6; border: 1px solid #E8E2D9; padding: 0.8vw; border-radius: 0.5vw; border: 1px dashed rgba(56,189,248,0.3);">
               <div style="display: flex; align-items: center; gap: 0.5vw;">
                 <span style="color: var(--accent-cyan); font-weight: 700;">1.</span> <span>Human Reviewer resolves conflicted field</span>
               </div>
@@ -750,13 +763,13 @@ def build_deck():
           <div style="display: flex; flex-direction: column; gap: 1vw;">
             <div class="glass-card" style="border-left: 3px solid var(--accent-green);">
               <div style="font-size: 0.7vw; font-weight: 700; color: var(--accent-green); text-transform: uppercase;">GATE 03 — PROVENANCE</div>
-              <div style="font-size: 0.8vw; font-weight: 600; color: #F8FAFC; margin-top: 0.2vw;">Is answer supported by evidence?</div>
+              <div style="font-size: 0.8vw; font-weight: 600; color: var(--text-main); margin-top: 0.2vw;">Is answer supported by evidence?</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Exact character offset grounding in source contract.</div>
             </div>
 
             <div class="glass-card alert-card" style="border-left: 3px solid var(--accent-red);">
-              <div style="font-size: 0.7vw; font-weight: 700; color: #EF4444; text-transform: uppercase;">GATE 04 — CIRCUIT BREAKER</div>
-              <div style="font-size: 0.8vw; font-weight: 600; color: #F8FAFC; margin-top: 0.2vw;">Should the AI stop?</div>
+              <div style="font-size: 0.7vw; font-weight: 700; color: #B84A39; text-transform: uppercase;">GATE 04 — CIRCUIT BREAKER</div>
+              <div style="font-size: 0.8vw; font-weight: 600; color: var(--text-main); margin-top: 0.2vw;">Should the AI stop?</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Trips at 3 failures & generates Refusal Certificate.</div>
             </div>
           </div>
@@ -806,31 +819,31 @@ def build_deck():
           
           <div class="glass-card" style="border-top: 3px solid var(--accent-red);">
             <span class="pill-tag red" style="margin-bottom: 0.6vw;">Gate 01</span>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Wrong Document</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Wrong Document</div>
             <div style="font-size: 0.75vw; color: var(--accent-cyan); font-weight: 600; margin: 0.3vw 0;">Document Validity Gate</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); line-height: 1.45;">
               Stops before extraction if attachment is Certificate of Origin, invoice, or packing list.
             </p>
-            <div style="margin-top: 0.8vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #EF4444;">
+            <div style="margin-top: 0.8vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #B84A39;">
               ✕ Pre-extraction HALT
             </div>
           </div>
 
           <div class="glass-card" style="border-top: 3px solid var(--accent-amber);">
             <span class="pill-tag amber" style="margin-bottom: 0.6vw;">Gate 02</span>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Missing Information</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Missing Information</div>
             <div style="font-size: 0.75vw; color: var(--accent-cyan); font-weight: 600; margin: 0.3vw 0;">Data Sufficiency Check</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); line-height: 1.45;">
               Evaluates selectable text layer & contrast. Refuses to guess on illegible scans.
             </p>
-            <div style="margin-top: 0.8vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #F59E0B;">
+            <div style="margin-top: 0.8vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #9A5D18;">
               ✕ scanned_not_processed
             </div>
           </div>
 
           <div class="glass-card" style="border-top: 3px solid var(--accent-cyan);">
             <span class="pill-tag cyan" style="margin-bottom: 0.6vw;">Gate 03</span>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Unsupported Answer</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Unsupported Answer</div>
             <div style="font-size: 0.75vw; color: var(--accent-cyan); font-weight: 600; margin: 0.3vw 0;">Provenance Validation</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); line-height: 1.45;">
               Checks exact byte offset against contract. Validates port against UN/LOCODE standard.
@@ -842,19 +855,19 @@ def build_deck():
 
           <div class="glass-card alert-card" style="border-top: 3px solid var(--accent-red);">
             <span class="pill-tag red" style="margin-bottom: 0.6vw;">Gate 04</span>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Repeated Failure</div>
-            <div style="font-size: 0.75vw; color: #EF4444; font-weight: 600; margin: 0.3vw 0;">Circuit Breaker</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Repeated Failure</div>
+            <div style="font-size: 0.75vw; color: #B84A39; font-weight: 600; margin: 0.3vw 0;">Circuit Breaker</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); line-height: 1.45;">
               Stops at 3 consecutive failures. Issues structured Refusal Certificate to carrier.
             </p>
-            <div style="margin-top: 0.8vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #EF4444;">
+            <div style="margin-top: 0.8vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #B84A39;">
               ✕ Refusal Certificate Issued
             </div>
           </div>
 
         </div>
 
-        <div style="display: flex; justify-content: center; align-items: center; gap: 1vw; background: rgba(0, 0, 0, 0.4); padding: 0.6vw; border-radius: 0.5vw; border: 1px solid rgba(255, 255, 255, 0.08);">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 1vw; background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.6vw; border-radius: 0.5vw; border: 1px solid rgba(255, 255, 255, 0.08);">
           <span style="font-size: 0.75vw; color: var(--text-muted);">ALL GATES ESCALATE TO:</span>
           <span class="pill-tag cyan" style="font-size: 0.75vw; font-weight: 700;">Human Review Queue (Propose-and-Confirm Panel)</span>
         </div>
@@ -904,10 +917,10 @@ def build_deck():
                 <span>FROM: faraz_ali@aprilasia.com</span>
                 <span class="pill-tag cyan">email_505</span>
               </div>
-              <div style="font-size: 0.75vw; font-weight: 700; color: #F8FAFC; margin-bottom: 0.3vw;">
+              <div style="font-size: 0.75vw; font-weight: 700; color: var(--text-main); margin-bottom: 0.3vw;">
                 RE_ AFEMY - CEBU_PHILIPPINES - OOCL(OOLU8243017646) - 5AKR-31538
               </div>
-              <div style="font-size: 0.7vw; color: #CBD5E1; background: rgba(0,0,0,0.3); padding: 0.5vw; border-radius: 0.3vw; font-family: 'JetBrains Mono', monospace; line-height: 1.4;">
+              <div style="font-size: 0.7vw; color: #5C5750; background: #F4EFE6; border: 1px solid #E8E2D9; padding: 0.5vw; border-radius: 0.3vw; font-family: 'JetBrains Mono', monospace; line-height: 1.4;">
                 “Dear Team,<br>
                 Please find attached the SI and the Certificate of Origin for PSGSE4489880. Kindly confirm the BL is in order...”
               </div>
@@ -916,10 +929,10 @@ def build_deck():
             <!-- Real Attachment Preview -->
             <div class="glass-card alert-card" style="padding: 0.8vw;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
-                <span style="font-size: 0.7vw; font-weight: 700; color: #FCA5A5;">ATTACHMENT: email_505_BL.txt</span>
+                <span style="font-size: 0.7vw; font-weight: 700; color: #8C3426;">ATTACHMENT: email_505_BL.txt</span>
                 <span class="pill-tag red">NON-COMPLIANT DOC</span>
               </div>
-              <div class="doc-preview-frame" style="max-height: 8vw; font-size: 0.65vw; background: #0E1626;">
+              <div class="doc-preview-frame" style="max-height: 8vw; font-size: 0.65vw; background: #242936; color: #E8E4DD;">
                 CERTIFICATE OF ORIGIN<br>
                 ========================================<br>
                 Exporter: APRIL FINE PAPER TRADING<br>
@@ -927,7 +940,7 @@ def build_deck():
                 Country of Origin: MALAYSIA / INDONESIA / CHINA<br>
                 HS Code: 48025500<br>
                 Description: FUJITO PAPERONE INKJET PAPER<br>
-                <span style="background: rgba(239, 68, 68, 0.3); color: #FCA5A5; font-weight: 700; padding: 0 0.2vw;">*** CERTIFICATE OF ORIGIN - NOT AN SI OR BL ***</span>
+                <span style="background: rgba(239, 68, 68, 0.3); color: #8C3426; font-weight: 700; padding: 0 0.2vw;">*** CERTIFICATE OF ORIGIN - NOT AN SI OR BL ***</span>
               </div>
             </div>
           </div>
@@ -941,27 +954,27 @@ def build_deck():
               </div>
 
               <div style="display: flex; flex-direction: column; gap: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.75vw;">
-                <div style="background: rgba(0,0,0,0.4); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
+                <div style="background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
                   <span style="color: var(--text-dim);">Intent Detection</span>
-                  <span style="color: #34D399; font-weight: 700;">BL_COMPARISON ✓</span>
+                  <span style="color: #2E6B47; font-weight: 700;">BL_COMPARISON ✓</span>
                 </div>
 
-                <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
-                  <span style="color: #FCA5A5;">Document Validity Gate</span>
-                  <span style="color: #EF4444; font-weight: 800;">FAILED ✕</span>
+                <div style="background: #FDEEEB; border: 1px solid rgba(239, 68, 68, 0.3); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
+                  <span style="color: #8C3426;">Document Validity Gate</span>
+                  <span style="color: #B84A39; font-weight: 800;">FAILED ✕</span>
                 </div>
 
-                <div style="background: rgba(0,0,0,0.4); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
+                <div style="background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
                   <span style="color: var(--text-dim);">Detected Document</span>
-                  <span style="color: #FBBF24;">Certificate of Origin</span>
+                  <span style="color: #9A5D18;">Certificate of Origin</span>
                 </div>
 
-                <div style="background: rgba(0,0,0,0.4); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
+                <div style="background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
                   <span style="color: var(--text-dim);">Downstream Comparison</span>
-                  <span style="color: #94A3B8;">SUPPRESSED (0 Calls)</span>
+                  <span style="color: #6B665E;">SUPPRESSED (0 Calls)</span>
                 </div>
 
-                <div style="background: rgba(0,0,0,0.4); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
+                <div style="background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
                   <span style="color: var(--text-dim);">Action</span>
                   <span style="color: var(--accent-cyan); font-weight: 700;">ROUTED TO HUMAN REVIEW</span>
                 </div>
@@ -969,7 +982,7 @@ def build_deck():
             </div>
 
             <div style="margin-top: 1vw; padding-top: 0.8vw; border-top: 1px solid rgba(255,255,255,0.1);">
-              <div style="font-size: 1.1vw; font-weight: 800; color: #FFFFFF; font-family: 'Google Sans', sans-serif;">
+              <div style="font-size: 1.1vw; font-weight: 800; color: var(--text-main); font-family: 'Google Sans', sans-serif;">
                 “Validate before you generate.”
               </div>
               <div style="font-size: 0.7vw; color: var(--accent-cyan); margin-top: 0.2vw;">
@@ -1021,12 +1034,12 @@ def build_deck():
           <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6vw;">
-                <span style="font-size: 0.8vw; font-weight: 700; color: #F8FAFC;">Actual PDF Render (email_512_SI & BL)</span>
+                <span style="font-size: 0.8vw; font-weight: 700; color: var(--text-main);">Actual PDF Render (email_512_SI & BL)</span>
                 <span class="pill-tag amber">Scanned Fax (Image-Only)</span>
               </div>
               
               <!-- Actual rendered image previews from test data/attachments/ -->
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8vw; background: rgba(0,0,0,0.5); padding: 0.6vw; border-radius: 0.4vw; border: 1px solid rgba(255,255,255,0.08);">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8vw; background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.6vw; border-radius: 0.4vw; border: 1px solid rgba(255,255,255,0.08);">
                 <div style="text-align: center;">
                   <div style="font-size: 0.6vw; color: var(--text-dim); margin-bottom: 0.2vw;">email_512_SI.pdf</div>
                   <img src="data:image/png;base64,{b64_si}" style="width: 100%; height: 9.5vw; object-fit: contain; background: white; border-radius: 0.2vw;" alt="email_512_SI actual scan" />
@@ -1038,7 +1051,7 @@ def build_deck():
               </div>
             </div>
 
-            <div style="margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #F59E0B; background: rgba(245, 158, 11, 0.1); padding: 0.4vw 0.6vw; border-radius: 0.3vw;">
+            <div style="margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #9A5D18; background: #FEF7ED; padding: 0.4vw 0.6vw; border-radius: 0.3vw;">
               [PyMuPDF Diagnostic] Selectable text length: 0 chars | Raster DPI: 150 (Scan)
             </div>
           </div>
@@ -1047,8 +1060,8 @@ def build_deck():
           <div style="display: flex; flex-direction: column; gap: 0.8vw;">
             
             <div class="glass-card" style="border-left: 4px solid var(--accent-red); padding: 0.8vw;">
-              <div style="font-size: 0.75vw; font-weight: 700; color: #F87171; text-transform: uppercase;">Typical Document AI Pipeline</div>
-              <div style="font-size: 0.75vw; color: #E2E8F0; margin-top: 0.3vw; font-family: 'JetBrains Mono', monospace;">
+              <div style="font-size: 0.75vw; font-weight: 700; color: #B84A39; text-transform: uppercase;">Typical Document AI Pipeline</div>
+              <div style="font-size: 0.75vw; color: var(--text-main); margin-top: 0.3vw; font-family: 'JetBrains Mono', monospace;">
                 Incomplete OCR ➔ Hallucinated LLM Inference ➔ Plausible Typo
               </div>
               <p style="font-size: 0.68vw; color: var(--text-dim); margin-top: 0.3vw;">
@@ -1061,16 +1074,16 @@ def build_deck():
                 <span style="font-size: 0.75vw; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase;">Averish Policy</span>
                 <span class="pill-tag green">SAFE HALT</span>
               </div>
-              <div style="font-size: 0.75vw; color: #E2E8F0; margin-top: 0.3vw; font-family: 'JetBrains Mono', monospace;">
+              <div style="font-size: 0.75vw; color: var(--text-main); margin-top: 0.3vw; font-family: 'JetBrains Mono', monospace;">
                 Insufficient Evidence ➔ Execution Stopped ➔ Human Review
               </div>
-              <div style="margin-top: 0.4vw; font-size: 0.7vw; color: #BAE6FD;">
+              <div style="margin-top: 0.4vw; font-size: 0.7vw; color: #1E667E;">
                 Status: <span style="font-family: 'JetBrains Mono'; font-weight: 700;">scanned_not_processed</span>
               </div>
             </div>
 
-            <div style="background: rgba(14, 30, 56, 0.6); padding: 0.8vw; border-radius: 0.4vw; border: 1px solid rgba(56, 189, 248, 0.3);">
-              <div style="font-size: 1.1vw; font-weight: 800; color: #FFFFFF; font-family: 'Google Sans', sans-serif;">
+            <div style="background: #FFFFFF; border: 1px solid var(--border-card); padding: 0.8vw; border-radius: 0.4vw; border: 1px solid rgba(56, 189, 248, 0.3);">
+              <div style="font-size: 1.1vw; font-weight: 800; color: var(--text-main); font-family: 'Google Sans', sans-serif;">
                 “Uncertainty is a valid system state.”
               </div>
               <div style="font-size: 0.7vw; color: var(--text-muted); margin-top: 0.2vw;">
@@ -1130,7 +1143,7 @@ def build_deck():
               BILL OF LADING (DRAFT)<br>
               ========================================<br>
               SHIPPER: APRIL FAR EAST SDN BHD<br>
-              <span style="background: rgba(56, 189, 248, 0.25); color: #38BDF8; font-weight: 700;">To the Order of: UAB NOVAKOPA</span><br>
+              <span style="background: #DFEFF5; color: #2A7B9B; font-weight: 700;">To the Order of: UAB NOVAKOPA</span><br>
               &nbsp;&nbsp;RAKEZ AMENITY CENTER, UAE<br>
               POD: KARACHI, PAKISTAN (PKKHI)<br>
               Container Count: 6 x 40'HC<br>
@@ -1142,12 +1155,12 @@ def build_deck():
           <div class="glass-card highlight-card" style="text-align: center; padding: 1.2vw 0.8vw;">
             <div style="font-size: 0.7vw; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase;">02. AI EXTRACTION & PROVENANCE</div>
             
-            <div style="margin: 0.8vw 0; font-family: 'JetBrains Mono', monospace; font-size: 0.75vw; background: rgba(0,0,0,0.4); padding: 0.6vw; border-radius: 0.3vw; text-align: left;">
+            <div style="margin: 0.8vw 0; font-family: 'JetBrains Mono', monospace; font-size: 0.75vw; background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.6vw; border-radius: 0.3vw; text-align: left;">
               <div>field: <span style="color: var(--accent-cyan);">consignee</span></div>
-              <div>proposed: <span style="color: #FCA5A5;">"UAB NOVAKOPA"</span></div>
-              <div>si_reference: <span style="color: #34D399;">"EAST BRIGHT FZ-LLC"</span></div>
+              <div>proposed: <span style="color: #8C3426;">"UAB NOVAKOPA"</span></div>
+              <div>si_reference: <span style="color: #2E6B47;">"EAST BRIGHT FZ-LLC"</span></div>
               <div>char_offsets: <span style="color: var(--text-dim);">[128 - 140]</span></div>
-              <div>agreement: <span style="color: #EF4444; font-weight: 700;">CONFLICT</span></div>
+              <div>agreement: <span style="color: #B84A39; font-weight: 700;">CONFLICT</span></div>
             </div>
 
             <div style="display: flex; justify-content: center; gap: 0.5vw;">
@@ -1159,15 +1172,15 @@ def build_deck():
           <!-- Dual Outcomes -->
           <div style="display: flex; flex-direction: column; gap: 0.8vw;">
             <div class="glass-card" style="border-left: 3px solid var(--accent-green); padding: 0.7vw;">
-              <div style="font-size: 0.7vw; font-weight: 700; color: #34D399;">EVIDENCE VERIFIED</div>
+              <div style="font-size: 0.7vw; font-weight: 700; color: #2E6B47;">EVIDENCE VERIFIED</div>
               <div style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.2vw;">
                 Source match confirms offset & entity &rarr; Auto-Accepted.
               </div>
             </div>
 
             <div class="glass-card alert-card" style="border-left: 3px solid var(--accent-red); padding: 0.7vw;">
-              <div style="font-size: 0.7vw; font-weight: 700; color: #EF4444;">EVIDENCE MISSING / CONFLICT</div>
-              <div style="font-size: 0.65vw; color: #FCA5A5; margin-top: 0.2vw;">
+              <div style="font-size: 0.7vw; font-weight: 700; color: #B84A39;">EVIDENCE MISSING / CONFLICT</div>
+              <div style="font-size: 0.65vw; color: #8C3426; margin-top: 0.2vw;">
                 Never guess winner &rarr; Route to Propose-and-Confirm Panel.
               </div>
             </div>
@@ -1175,8 +1188,8 @@ def build_deck():
 
         </div>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(14, 30, 56, 0.7); border: 1px solid rgba(56, 189, 248, 0.2); padding: 0.7vw 1.2vw; border-radius: 0.4vw;">
-          <span style="font-size: 0.8vw; font-weight: 600; color: #FFFFFF;">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #FAF7F2; border: 1px dashed var(--border-card); border: 1px solid rgba(56, 189, 248, 0.2); padding: 0.7vw 1.2vw; border-radius: 0.4vw;">
+          <span style="font-size: 0.8vw; font-weight: 600; color: var(--text-main);">
             “OCR extracts. LLM interprets. Provenance verifies.”
           </span>
           <span style="font-size: 0.75vw; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace;">
@@ -1227,20 +1240,20 @@ def build_deck():
               <span class="term-dot r"></span>
               <span class="term-dot y"></span>
               <span class="term-dot g"></span>
-              <span style="font-size: 0.65vw; color: #94A3B8; margin-left: 0.5vw;">python demo_trust_features.py --step 3</span>
+              <span style="font-size: 0.65vw; color: #6B665E; margin-left: 0.5vw;">python demo_trust_features.py --step 3</span>
             </div>
             <div class="terminal-content" style="font-size: 0.65vw; line-height: 1.5;">
-              <span style="color: #38BDF8;">STEP 3 - Red Team: Remove field (circuit breaker)</span><br>
+              <span style="color: #2A7B9B;">STEP 3 - Red Team: Remove field (circuit breaker)</span><br>
               &nbsp;&nbsp;Removed 4 required field line(s) from the draft BL.<br>
-              &nbsp;&nbsp;<span style="color: #F87171; font-weight: 700;">3 consecutive AI extractions failed validation</span><br>
+              &nbsp;&nbsp;<span style="color: #B84A39; font-weight: 700;">3 consecutive AI extractions failed validation</span><br>
               &nbsp;&nbsp;failed fields: port_of_loading, port_of_discharge, container_count<br>
               &nbsp;&nbsp;&nbsp;&nbsp;- port_of_loading: source_match: no value could be proposed<br>
               &nbsp;&nbsp;&nbsp;&nbsp;- port_of_discharge: source_match: no value could be proposed<br>
               &nbsp;&nbsp;&nbsp;&nbsp;- container_count: source_match: no value could be proposed<br><br>
-              <span style="color: #EF4444; font-weight: 800;">[!] CIRCUIT BREAKER TRIPPED — EXECUTION HALTED</span><br>
-              &nbsp;&nbsp;<span style="color: #FBBF24;">suggested recipient: carrier</span><br>
-              &nbsp;&nbsp;<span style="color: #FBBF24;">estimated delay: 16.0h (240 min per unresolved field)</span><br>
-              &nbsp;&nbsp;<span style="color: #94A3B8;">AI processing stopped: no further AI guesses were made.</span>
+              <span style="color: #B84A39; font-weight: 800;">[!] CIRCUIT BREAKER TRIPPED — EXECUTION HALTED</span><br>
+              &nbsp;&nbsp;<span style="color: #9A5D18;">suggested recipient: carrier</span><br>
+              &nbsp;&nbsp;<span style="color: #9A5D18;">estimated delay: 16.0h (240 min per unresolved field)</span><br>
+              &nbsp;&nbsp;<span style="color: #6B665E;">AI processing stopped: no further AI guesses were made.</span>
             </div>
           </div>
 
@@ -1248,25 +1261,25 @@ def build_deck():
           <div class="glass-card alert-card" style="display: flex; flex-direction: column; justify-content: space-between;">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6vw;">
-                <span style="font-size: 0.85vw; font-weight: 800; color: #EF4444;">DCSA REFUSAL CERTIFICATE</span>
+                <span style="font-size: 0.85vw; font-weight: 800; color: #B84A39;">DCSA REFUSAL CERTIFICATE</span>
                 <span class="pill-tag red">Actionable Escalation</span>
               </div>
 
-              <p style="font-size: 0.7vw; color: #CBD5E1; margin-bottom: 0.8vw;">
+              <p style="font-size: 0.7vw; color: #5C5750; margin-bottom: 0.8vw;">
                 Instead of manufacturing hallucinated data or stalling in an infinite retry loop, Averish issues an immutable, structured refusal report:
               </p>
 
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; background: rgba(0,0,0,0.5); padding: 0.7vw; border-radius: 0.4vw; display: flex; flex-direction: column; gap: 0.4vw;">
-                <div><span style="color: var(--text-dim);">failed_fields:</span> <span style="color: #FCA5A5;">["port_of_loading", "port_of_discharge", "container_count"]</span></div>
-                <div><span style="color: var(--text-dim);">circuit_breaker:</span> <span style="color: #EF4444; font-weight: 700;">TRIPPED (threshold: 3)</span></div>
-                <div><span style="color: var(--text-dim);">suggested_recipient:</span> <span style="color: #38BDF8; font-weight: 700;">carrier</span></div>
-                <div><span style="color: var(--text-dim);">estimated_delay_hours:</span> <span style="color: #FBBF24; font-weight: 700;">16.0</span></div>
-                <div><span style="color: var(--text-dim);">remediation:</span> <span style="color: #E2E8F0;">Query ocean carrier booking desk for missing container manifest</span></div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.7vw; border-radius: 0.4vw; display: flex; flex-direction: column; gap: 0.4vw;">
+                <div><span style="color: var(--text-dim);">failed_fields:</span> <span style="color: #8C3426;">["port_of_loading", "port_of_discharge", "container_count"]</span></div>
+                <div><span style="color: var(--text-dim);">circuit_breaker:</span> <span style="color: #B84A39; font-weight: 700;">TRIPPED (threshold: 3)</span></div>
+                <div><span style="color: var(--text-dim);">suggested_recipient:</span> <span style="color: #2A7B9B; font-weight: 700;">carrier</span></div>
+                <div><span style="color: var(--text-dim);">estimated_delay_hours:</span> <span style="color: #9A5D18; font-weight: 700;">16.0</span></div>
+                <div><span style="color: var(--text-dim);">remediation:</span> <span style="color: var(--text-main);">Query ocean carrier booking desk for missing container manifest</span></div>
               </div>
             </div>
 
             <div style="margin-top: 0.8vw; padding-top: 0.6vw; border-top: 1px solid rgba(239, 68, 68, 0.2);">
-              <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">
+              <div style="font-size: 0.9vw; font-weight: 700; color: var(--text-main);">
                 “Failure becomes an actionable operational state.”
               </div>
               <div style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.1vw;">
@@ -1320,20 +1333,20 @@ def build_deck():
           
           <!-- BEFORE: Stateless Fatigue -->
           <div class="glass-card" style="border-color: rgba(239, 68, 68, 0.3);">
-            <div style="font-size: 0.85vw; font-weight: 700; color: #FCA5A5; margin-bottom: 0.5vw;">
+            <div style="font-size: 0.85vw; font-weight: 700; color: #8C3426; margin-bottom: 0.5vw;">
               BEFORE: Stateless Document Tools
             </div>
             
             <div style="display: flex; flex-direction: column; gap: 0.35vw; font-size: 0.7vw; font-family: 'JetBrains Mono', monospace;">
-              <div style="padding: 0.3vw 0.5vw; background: rgba(0,0,0,0.3); border-radius: 0.25vw;">1. AI extraction error on unfamiliar layout</div>
+              <div style="padding: 0.3vw 0.5vw; background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.25vw;">1. AI extraction error on unfamiliar layout</div>
               <div style="text-align: center; color: var(--text-dim);">↓</div>
-              <div style="padding: 0.3vw 0.5vw; background: rgba(0,0,0,0.3); border-radius: 0.25vw;">2. Human operator manually corrects field</div>
+              <div style="padding: 0.3vw 0.5vw; background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.25vw;">2. Human operator manually corrects field</div>
               <div style="text-align: center; color: var(--text-dim);">↓</div>
-              <div style="padding: 0.3vw 0.5vw; background: rgba(239, 68, 68, 0.15); color: #FCA5A5; border-radius: 0.25vw;">3. Same carrier format arrives next day</div>
+              <div style="padding: 0.3vw 0.5vw; background: #FDEEEB; color: #8C3426; border-radius: 0.25vw;">3. Same carrier format arrives next day</div>
               <div style="text-align: center; color: var(--text-dim);">↓</div>
-              <div style="padding: 0.3vw 0.5vw; background: rgba(0,0,0,0.3); border-radius: 0.25vw;">4. Model repeats exact same error</div>
+              <div style="padding: 0.3vw 0.5vw; background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.25vw;">4. Model repeats exact same error</div>
               <div style="text-align: center; color: var(--text-dim);">↓</div>
-              <div style="padding: 0.3vw 0.5vw; background: rgba(239, 68, 68, 0.25); color: #EF4444; font-weight: 800; border-radius: 0.25vw; text-align: center;">5. HUMAN FATIGUE</div>
+              <div style="padding: 0.3vw 0.5vw; background: #FCE8E4; color: #B84A39; font-weight: 800; border-radius: 0.25vw; text-align: center;">5. HUMAN FATIGUE</div>
             </div>
           </div>
 
@@ -1344,17 +1357,17 @@ def build_deck():
                 AVERISH: Closed-Loop Reflexion Engine
               </div>
               
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; background: rgba(0,0,0,0.4); padding: 0.6vw; border-radius: 0.3vw; line-height: 1.45; color: #CBD5E1; border: 1px solid rgba(56, 189, 248, 0.2);">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.6vw; border-radius: 0.3vw; line-height: 1.45; color: #5C5750; border: 1px solid rgba(56, 189, 248, 0.2);">
                 <span style="color: var(--accent-cyan); font-weight: 700;">[Reflexion Lesson Generated from email_004]:</span><br>
                 “When extracting port_of_discharge from evergreen-line-2e1d0e.com SI documents, look for 'PORT KLANG' in context instead of accepting 'PORT'. Verify keyword delimiters and line boundaries.”<br><br>
-                <span style="color: #FBBF24;">[Thompson Sampling Update]:</span><br>
+                <span style="color: #9A5D18;">[Thompson Sampling Update]:</span><br>
                 Prior: Beta(1.0, 1.0) [50% Trust] ➔ Posterior: Beta(1.0, 2.0) [33% Trust]<br>
-                <span style="color: #34D399; font-weight: 700;">Action: Policy automatically routes to Human-First queue to prevent error recurrence.</span>
+                <span style="color: #2E6B47; font-weight: 700;">Action: Policy automatically routes to Human-First queue to prevent error recurrence.</span>
               </div>
             </div>
 
             <div style="font-size: 0.68vw; color: var(--text-dim); margin-top: 0.6vw; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.4vw;">
-              <strong style="color: #F8FAFC;">Technical Note:</strong> Current demo: reflection generation verified. Next stage: full reflection retrieval & learning loop.
+              <strong style="color: var(--text-main);">Technical Note:</strong> Current demo: reflection generation verified. Next stage: full reflection retrieval & learning loop.
             </div>
           </div>
 
@@ -1405,10 +1418,10 @@ def build_deck():
                 <span class="pill-tag cyan" style="font-size: 0.6vw;">STAGE 01</span>
                 <span style="font-size: 0.9vw;">📥</span>
               </div>
-              <div style="font-size: 0.82vw; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Multi-Source Ingestion</div>
+              <div style="font-size: 0.82vw; font-weight: 700; color: var(--text-main); line-height: 1.2;">Multi-Source Ingestion</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.3vw;">Unstructured Trade Feeds</div>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.45;">
+            <div style="background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.45;">
               • Scanned Ocean B/L & SIs<br>
               • Commercial Invoices & Emails<br>
               • Docling Layout OCR Parsing<br>
@@ -1420,26 +1433,26 @@ def build_deck():
           <div style="display: flex; align-items: center; justify-content: center; color: var(--accent-cyan); font-size: 1vw;">➔</div>
 
           <!-- Stage 2: Tri-Stage Defensive Gates -->
-          <div class="glass-card" style="border-top: 3px solid #F59E0B; padding: 0.9vw; display: flex; flex-direction: column; justify-content: space-between; background: rgba(18, 28, 48, 0.85);">
+          <div class="glass-card" style="border-top: 3px solid #F59E0B; padding: 0.9vw; display: flex; flex-direction: column; justify-content: space-between; background: #FFFFFF; border: 1px solid var(--border-card);">
             <div>
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4vw;">
                 <span class="pill-tag amber" style="font-size: 0.6vw;">STAGE 02: GATES</span>
                 <span style="font-size: 0.9vw;">🛡️</span>
               </div>
-              <div style="font-size: 0.82vw; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Tri-Gate Verification</div>
+              <div style="font-size: 0.82vw; font-weight: 700; color: var(--text-main); line-height: 1.2;">Tri-Gate Verification</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.3vw;">Zero-Tolerance Trust Filters</div>
             </div>
             <div style="display: flex; flex-direction: column; gap: 0.3vw; margin-top: 0.5vw;">
-              <div style="background: rgba(239, 68, 68, 0.12); border-left: 2.5px solid #EF4444; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
-                <strong style="color: #FCA5A5;">Gate 1: Document Validity</strong><br>
+              <div style="background: #FDEEEB; border-left: 2.5px solid #EF4444; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
+                <strong style="color: #8C3426;">Gate 1: Document Validity</strong><br>
                 <span style="color: var(--text-muted);">Rejects wrong attachments (email_004)</span>
               </div>
-              <div style="background: rgba(245, 158, 11, 0.12); border-left: 2.5px solid #F59E0B; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
-                <strong style="color: #FCD34D;">Gate 2: Data Sufficiency</strong><br>
+              <div style="background: #FEF7ED; border-left: 2.5px solid #F59E0B; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
+                <strong style="color: #9A5D18;">Gate 2: Data Sufficiency</strong><br>
                 <span style="color: var(--text-muted);">Halts on degraded/missing text (email_512)</span>
               </div>
-              <div style="background: rgba(56, 189, 248, 0.12); border-left: 2.5px solid #38BDF8; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
-                <strong style="color: #BAE6FD;">Gate 3: Provenance Anchoring</strong><br>
+              <div style="background: #EDF6F9; border-left: 2.5px solid #38BDF8; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
+                <strong style="color: #1E667E;">Gate 3: Provenance Anchoring</strong><br>
                 <span style="color: var(--text-muted);">Validates pixel coordinates (email_505)</span>
               </div>
             </div>
@@ -1455,15 +1468,15 @@ def build_deck():
                 <span class="pill-tag cyan" style="font-size: 0.6vw;">STAGE 03</span>
                 <span style="font-size: 0.9vw;">⚖️</span>
               </div>
-              <div style="font-size: 0.82vw; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Decision Boundary</div>
+              <div style="font-size: 0.82vw; font-weight: 700; color: var(--text-main); line-height: 1.2;">Decision Boundary</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.3vw;">Confidence & Circuit Breaker</div>
             </div>
             <div style="display: flex; flex-direction: column; gap: 0.35vw; margin-top: 0.6vw;">
-              <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 0.3vw; padding: 0.35vw; font-size: 0.58vw;">
-                <span style="color: #34D399; font-weight: 700;">Score ≥ 0.85:</span> Automated release to EDI / ERP booking.
+              <div style="background: #EDF5F0; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 0.3vw; padding: 0.35vw; font-size: 0.58vw;">
+                <span style="color: #2E6B47; font-weight: 700;">Score ≥ 0.85:</span> Automated release to EDI / ERP booking.
               </div>
-              <div style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 0.3vw; padding: 0.35vw; font-size: 0.58vw;">
-                <span style="color: #F87171; font-weight: 700;">Score &lt; 0.85:</span> Circuit Breaker emits <em>Refusal Certificate</em>.
+              <div style="background: #FDEEEB; border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 0.3vw; padding: 0.35vw; font-size: 0.58vw;">
+                <span style="color: #B84A39; font-weight: 700;">Score &lt; 0.85:</span> Circuit Breaker emits <em>Refusal Certificate</em>.
               </div>
             </div>
           </div>
@@ -1478,10 +1491,10 @@ def build_deck():
                 <span class="pill-tag green" style="font-size: 0.6vw;">STAGE 04 & 05</span>
                 <span style="font-size: 0.9vw;">🚀</span>
               </div>
-              <div style="font-size: 0.82vw; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Action & Reflexion</div>
+              <div style="font-size: 0.82vw; font-weight: 700; color: var(--text-main); line-height: 1.2;">Action & Reflexion</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.3vw;">Execution & Self-Learning</div>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.45;">
+            <div style="background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.45;">
               • Direct CargoWise / SAP Push<br>
               • One-Click Human Correction<br>
               • Reflexion Lesson Generation<br>
@@ -1492,11 +1505,11 @@ def build_deck():
         </div>
 
         <!-- Continuous Learning Feedback Loop Banner -->
-        <div style="background: rgba(14, 30, 56, 0.7); border: 1px dashed rgba(56, 189, 248, 0.35); border-radius: 0.5vw; padding: 0.6vw 1.2vw; display: flex; align-items: center; justify-content: space-between;">
+        <div style="background: #FAF7F2; border: 1px dashed var(--border-card); border: 1px dashed rgba(56, 189, 248, 0.35); border-radius: 0.5vw; padding: 0.6vw 1.2vw; display: flex; align-items: center; justify-content: space-between;">
           <div style="display: flex; align-items: center; gap: 0.8vw;">
-            <span style="background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-cyan); border-radius: 50%; width: 1.6vw; height: 1.6vw; display: flex; align-items: center; justify-content: center; font-size: 0.8vw; color: var(--accent-cyan);">⟳</span>
+            <span style="background: #EDF6F9; border: 1px solid var(--accent-cyan); border-radius: 50%; width: 1.6vw; height: 1.6vw; display: flex; align-items: center; justify-content: center; font-size: 0.8vw; color: var(--accent-cyan);">⟳</span>
             <div>
-              <div style="font-size: 0.78vw; font-weight: 700; color: #F8FAFC;">The Reflexion Closed Loop</div>
+              <div style="font-size: 0.78vw; font-weight: 700; color: var(--text-main);">The Reflexion Closed Loop</div>
               <div style="font-size: 0.62vw; color: var(--text-muted);">
                 Human exception resolution feeds structured JSON reflection lessons back into the agent prompt context, permanently eliminating repeated failures.
               </div>
@@ -1548,12 +1561,12 @@ def build_deck():
                 <span class="pill-tag cyan" style="font-size: 0.58vw;">BACKEND</span>
                 <span style="font-size: 0.8vw;">⚡</span>
               </div>
-              <div style="font-size: 0.88vw; font-weight: 700; color: #FFFFFF;">FastAPI Async Engine</div>
+              <div style="font-size: 0.88vw; font-weight: 700; color: var(--text-main);">FastAPI Async Engine</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Asynchronous event loop with non-blocking multi-gate evaluations and strict Pydantic v2 schemas.
               </p>
             </div>
-            <div style="background: #090D16; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #38BDF8; line-height: 1.4;">
+            <div style="background: #242936; color: #E8E4DD; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #2A7B9B; line-height: 1.4;">
               • Python 3.11 + Uvicorn<br>
               • Pydantic v2 Type Safety<br>
               • &lt; 850ms Verification SLA<br>
@@ -1568,12 +1581,12 @@ def build_deck():
                 <span class="pill-tag cyan" style="font-size: 0.58vw;">AI ENGINE</span>
                 <span style="font-size: 0.8vw;">👁️</span>
               </div>
-              <div style="font-size: 0.88vw; font-weight: 700; color: #FFFFFF;">Gemini 2.5 Flash Vision</div>
+              <div style="font-size: 0.88vw; font-weight: 700; color: var(--text-main);">Gemini 2.5 Flash Vision</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Multimodal extraction with Docling spatial coordinate bounding-boxes at zero temperature.
               </p>
             </div>
-            <div style="background: #090D16; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #818CF8; line-height: 1.4;">
+            <div style="background: #242936; color: #E8E4DD; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #4B4673; line-height: 1.4;">
               • Temperature: 0.0 (Deterministic)<br>
               • Bounding Box [x0,y0,x1,y1]<br>
               • Docling PDF Layout Parser<br>
@@ -1588,12 +1601,12 @@ def build_deck():
                 <span class="pill-tag green" style="font-size: 0.58vw;">LEARNING</span>
                 <span style="font-size: 0.8vw;">🧠</span>
               </div>
-              <div style="font-size: 0.88vw; font-weight: 700; color: #FFFFFF;">Episodic Memory Engine</div>
+              <div style="font-size: 0.88vw; font-weight: 700; color: var(--text-main);">Episodic Memory Engine</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Reflexion-based episodic memory with Thompson Sampling Bayesian bandits for route reliability.
               </p>
             </div>
-            <div style="background: #090D16; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #34D399; line-height: 1.4;">
+            <div style="background: #242936; color: #E8E4DD; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #2E6B47; line-height: 1.4;">
               • Thompson Bandit Prior Beta(α,β)<br>
               • Structured JSON Lessons<br>
               • Dynamic Context Prompt Injection<br>
@@ -1608,12 +1621,12 @@ def build_deck():
                 <span class="pill-tag amber" style="font-size: 0.58vw;">DATA & SSE</span>
                 <span style="font-size: 0.8vw;">📡</span>
               </div>
-              <div style="font-size: 0.88vw; font-weight: 700; color: #FFFFFF;">Supabase Real-time Telemetry</div>
+              <div style="font-size: 0.88vw; font-weight: 700; color: var(--text-main);">Supabase Real-time Telemetry</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Real-time pipeline event audit trail with SSE streaming and cryptographically hashed certificates.
               </p>
             </div>
-            <div style="background: #090D16; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #FBBF24; line-height: 1.4;">
+            <div style="background: #242936; color: #E8E4DD; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #9A5D18; line-height: 1.4;">
               • Supabase PostgreSQL Tables<br>
               • Real-time SSE Event Stream<br>
               • SHA-256 Provenance Hashes<br>
@@ -1662,42 +1675,42 @@ def build_deck():
           <!-- Item 1: Blurry / Degraded Scans -->
           <div class="glass-card" style="padding: 0.8vw 1vw;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3vw;">
-              <span style="font-size: 0.75vw; font-weight: 700; color: #EF4444;">CHALLENGE 01: Low-Res & Skewed Scans (email_512)</span>
+              <span style="font-size: 0.75vw; font-weight: 700; color: #B84A39;">CHALLENGE 01: Low-Res & Skewed Scans (email_512)</span>
               <span class="pill-tag red" style="font-size: 0.55vw;">OCR FAILURE</span>
             </div>
             <p style="font-size: 0.65vw; color: var(--text-muted); line-height: 1.4;">
-              <strong style="color: #E2E8F0;">The Hurdle:</strong> Faxed bills of lading with smudged container numbers cause standard LLMs to invent plausible digits, leading to costly customs fines.
+              <strong style="color: var(--text-main);">The Hurdle:</strong> Faxed bills of lading with smudged container numbers cause standard LLMs to invent plausible digits, leading to costly customs fines.
             </p>
-            <div style="background: rgba(16, 185, 129, 0.1); border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #D1FAE5; line-height: 1.4;">
-              <strong style="color: #34D399;">Engineered Solution:</strong> Data Sufficiency Gate with pixel-contrast thresholding. If evidence is degraded below readability threshold, Averish explicitly refuses rather than guessing.
+            <div style="background: #EDF5F0; border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #1F4D33; line-height: 1.4;">
+              <strong style="color: #2E6B47;">Engineered Solution:</strong> Data Sufficiency Gate with pixel-contrast thresholding. If evidence is degraded below readability threshold, Averish explicitly refuses rather than guessing.
             </div>
           </div>
 
           <!-- Item 2: Plausible Fictions -->
           <div class="glass-card" style="padding: 0.8vw 1vw;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3vw;">
-              <span style="font-size: 0.75vw; font-weight: 700; color: #F59E0B;">CHALLENGE 02: Silent Hallucinations (email_505)</span>
+              <span style="font-size: 0.75vw; font-weight: 700; color: #9A5D18;">CHALLENGE 02: Silent Hallucinations (email_505)</span>
               <span class="pill-tag amber" style="font-size: 0.55vw;">PHANTOM DATA</span>
             </div>
             <p style="font-size: 0.65vw; color: var(--text-muted); line-height: 1.4;">
-              <strong style="color: #E2E8F0;">The Hurdle:</strong> Generative models frequently inject typical carrier terms (e.g. vessel names, discharge ports) absent from the underlying document.
+              <strong style="color: var(--text-main);">The Hurdle:</strong> Generative models frequently inject typical carrier terms (e.g. vessel names, discharge ports) absent from the underlying document.
             </p>
-            <div style="background: rgba(16, 185, 129, 0.1); border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #D1FAE5; line-height: 1.4;">
-              <strong style="color: #34D399;">Engineered Solution:</strong> Zero-Tolerance Provenance Anchoring. Every single extracted field must map directly to verifiable bounding-box coordinates in the original PDF canvas.
+            <div style="background: #EDF5F0; border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #1F4D33; line-height: 1.4;">
+              <strong style="color: #2E6B47;">Engineered Solution:</strong> Zero-Tolerance Provenance Anchoring. Every single extracted field must map directly to verifiable bounding-box coordinates in the original PDF canvas.
             </div>
           </div>
 
           <!-- Item 3: Operator Fatigue -->
           <div class="glass-card" style="padding: 0.8vw 1vw;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3vw;">
-              <span style="font-size: 0.75vw; font-weight: 700; color: #38BDF8;">CHALLENGE 03: Repetitive Human Exception Fatigue</span>
+              <span style="font-size: 0.75vw; font-weight: 700; color: #2A7B9B;">CHALLENGE 03: Repetitive Human Exception Fatigue</span>
               <span class="pill-tag cyan" style="font-size: 0.55vw;">OPERATOR BURNOUT</span>
             </div>
             <p style="font-size: 0.65vw; color: var(--text-muted); line-height: 1.4;">
-              <strong style="color: #E2E8F0;">The Hurdle:</strong> Human clerks manually fix the exact same carrier formatting quirks dozens of times per week because conventional AI has zero episodic memory.
+              <strong style="color: var(--text-main);">The Hurdle:</strong> Human clerks manually fix the exact same carrier formatting quirks dozens of times per week because conventional AI has zero episodic memory.
             </p>
-            <div style="background: rgba(16, 185, 129, 0.1); border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #D1FAE5; line-height: 1.4;">
-              <strong style="color: #34D399;">Engineered Solution:</strong> Reflexion Self-Learning Loop. Human corrections generate structured reflection lessons injected dynamically into future runs for that specific carrier.
+            <div style="background: #EDF5F0; border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #1F4D33; line-height: 1.4;">
+              <strong style="color: #2E6B47;">Engineered Solution:</strong> Reflexion Self-Learning Loop. Human corrections generate structured reflection lessons injected dynamically into future runs for that specific carrier.
             </div>
           </div>
 
@@ -1708,10 +1721,10 @@ def build_deck():
               <span class="pill-tag red" style="font-size: 0.55vw;">RETRY LOOP</span>
             </div>
             <p style="font-size: 0.65vw; color: var(--text-muted); line-height: 1.4;">
-              <strong style="color: #E2E8F0;">The Hurdle:</strong> Unbounded autonomous agents burn costly tokens in endless retry loops when presented with fundamentally invalid trade documents.
+              <strong style="color: var(--text-main);">The Hurdle:</strong> Unbounded autonomous agents burn costly tokens in endless retry loops when presented with fundamentally invalid trade documents.
             </p>
-            <div style="background: rgba(16, 185, 129, 0.1); border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #D1FAE5; line-height: 1.4;">
-              <strong style="color: #34D399;">Engineered Solution:</strong> Hard Circuit Breaker (MAX_RETRIES = 2). Cuts execution cleanly and generates an actionable Refusal Certificate for immediate human resolution.
+            <div style="background: #EDF5F0; border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #1F4D33; line-height: 1.4;">
+              <strong style="color: #2E6B47;">Engineered Solution:</strong> Hard Circuit Breaker (MAX_RETRIES = 2). Cuts execution cleanly and generates an actionable Refusal Certificate for immediate human resolution.
             </div>
           </div>
 
@@ -1754,48 +1767,48 @@ def build_deck():
         <div class="card-grid-4" style="margin: 1.1vw 0;">
           
           <!-- Card 01: Terracotta -->
-          <div class="glass-card" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #C8795B; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
+          <div class="glass-card" style="background: #FFFFFF; border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #C8795B; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
             <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.4vw;">
               <span style="width: 6px; height: 6px; border-radius: 50%; background: #C8795B;"></span>
               <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; font-weight: 600; color: #9E988F;">01</span>
             </div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC; letter-spacing: 0.02em;">LESS REPETITIVE WORK</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); letter-spacing: 0.02em;">LESS REPETITIVE WORK</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
               Reduces repeated manual correction of recurring carrier exception patterns through episodic learning.
             </p>
           </div>
 
           <!-- Card 02: Sage Green -->
-          <div class="glass-card" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #7A8B6E; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
+          <div class="glass-card" style="background: #FFFFFF; border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #7A8B6E; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
             <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.4vw;">
               <span style="width: 6px; height: 6px; border-radius: 50%; background: #7A8B6E;"></span>
               <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; font-weight: 600; color: #9E988F;">02</span>
             </div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC; letter-spacing: 0.02em;">LOWER HALLUCINATION RISK</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); letter-spacing: 0.02em;">LOWER HALLUCINATION RISK</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
               Unsupported outputs are challenged before becoming operational facts or customs declarations.
             </p>
           </div>
 
           <!-- Card 03: Muted Navy -->
-          <div class="glass-card" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #4A5D70; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
+          <div class="glass-card" style="background: #FFFFFF; border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #4A5D70; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
             <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.4vw;">
               <span style="width: 6px; height: 6px; border-radius: 50%; background: #4A5D70;"></span>
               <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; font-weight: 600; color: #9E988F;">03</span>
             </div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC; letter-spacing: 0.02em;">FASTER EXCEPTION HANDLING</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); letter-spacing: 0.02em;">FASTER EXCEPTION HANDLING</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
               Failures become structured escalation (Refusal Certificates) rather than endless unguided retries.
             </p>
           </div>
 
           <!-- Card 04: Warm Mustard -->
-          <div class="glass-card" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #D4A373; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
+          <div class="glass-card" style="background: #FFFFFF; border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #D4A373; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
             <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.4vw;">
               <span style="width: 6px; height: 6px; border-radius: 50%; background: #D4A373;"></span>
               <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; font-weight: 600; color: #9E988F;">04</span>
             </div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC; letter-spacing: 0.02em;">EXPERTISE AS EXPERIENCE</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); letter-spacing: 0.02em;">EXPERTISE AS EXPERIENCE</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
               Human domain corrections are converted into structured Reflexion lessons for the learning layer.
             </p>
@@ -1804,7 +1817,7 @@ def build_deck():
         </div>
 
         <!-- Flow Diagram Ribbon (Timeline Style) -->
-        <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(232, 226, 217, 0.15); padding: 0.75vw 1.5vw; border-radius: 0.6vw;">
+        <div style="display: flex; align-items: center; justify-content: space-between; background: #FAF7F2; border: 1px solid rgba(232, 226, 217, 0.15); padding: 0.75vw 1.5vw; border-radius: 0.6vw;">
           <div style="text-align: center;">
             <div style="font-size: 0.65vw; color: #9E988F; text-transform: uppercase;">From Challenge</div>
             <div style="font-size: 0.88vw; font-weight: 700; color: #C8795B;">Human Fatigue</div>
@@ -1822,12 +1835,12 @@ def build_deck():
           <div style="color: #A39B92; font-size: 1.1vw;">➔</div>
           <div style="text-align: center;">
             <div style="font-size: 0.65vw; color: #9E988F; text-transform: uppercase;">To Scalable Impact</div>
-            <div style="font-size: 0.88vw; font-weight: 700; color: #F8FAFC;">More Scalable Operations</div>
+            <div style="font-size: 0.88vw; font-weight: 700; color: var(--text-main);">More Scalable Operations</div>
           </div>
         </div>
 
         <div class="takeaway-banner" style="background: rgba(239, 235, 228, 0.08); border-left-color: #C8795B; margin-top: 0.7vw; padding: 0.7vw 1.2vw;">
-          <span style="color: #F8FAFC;">DocuMatch shifts the operational paradigm from brute-force extraction to sustainable trade reliability.</span>
+          <span style="color: var(--text-main);">DocuMatch shifts the operational paradigm from brute-force extraction to sustainable trade reliability.</span>
         </div>
       </div>
 
@@ -1925,10 +1938,10 @@ def build_deck():
         </div>
 
         <!-- Highlight Differentiation -->
-        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(14, 30, 56, 0.9); border: 1px solid var(--accent-cyan); padding: 0.6vw 1.2vw; border-radius: 0.4vw;">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #FFFFFF; border: 1px solid var(--border-card); border: 1px solid var(--accent-cyan); padding: 0.6vw 1.2vw; border-radius: 0.4vw;">
           <div>
             <div style="font-size: 0.65vw; color: var(--accent-cyan); font-weight: 700; text-transform: uppercase;">OUR CORE DIFFERENTIATION</div>
-            <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">“The control + learning layer around AI.”</div>
+            <div style="font-size: 0.9vw; font-weight: 700; color: var(--text-main);">“The control + learning layer around AI.”</div>
           </div>
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.75vw; color: var(--accent-cyan);">
             Extract ➔ Verify ➔ Learn ➔ Control
@@ -1974,14 +1987,14 @@ def build_deck():
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
                 <span class="pill-tag cyan" style="font-size: 0.58vw;">PHASE 01: Q1–Q2 2026</span>
-                <span style="font-size: 0.75vw; color: #34D399; font-weight: 600;">IN PROGRESS</span>
+                <span style="font-size: 0.75vw; color: #2E6B47; font-weight: 600;">IN PROGRESS</span>
               </div>
-              <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">Multi-Document Triangulation</div>
+              <div style="font-size: 0.9vw; font-weight: 700; color: var(--text-main);">Multi-Document Triangulation</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Cross-document discrepancy detection across the entire maritime shipment bundle.
               </p>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
+            <div style="background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
               • Cross-validation: SI ➔ Ocean B/L ➔ Invoice<br>
               • Automated HS code & weight variance detection<br>
               • Coverage expansion to 20+ ocean container liners<br>
@@ -1994,14 +2007,14 @@ def build_deck():
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
                 <span class="pill-tag cyan" style="font-size: 0.58vw;">PHASE 02: Q3–Q4 2026</span>
-                <span style="font-size: 0.75vw; color: #F59E0B; font-weight: 600;">PLANNED</span>
+                <span style="font-size: 0.75vw; color: #9A5D18; font-weight: 600;">PLANNED</span>
               </div>
-              <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">Enterprise ERP & Port Sync</div>
+              <div style="font-size: 0.9vw; font-weight: 700; color: var(--text-main);">Enterprise ERP & Port Sync</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Bi-directional connectors for global forwarding software and port terminal operating systems.
               </p>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
+            <div style="background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
               • Native CargoWise & SAP Logistics API connectors<br>
               • Federated Reflexion memory across forwarder desks<br>
               • Automated Slack / Teams exception webhooks<br>
@@ -2014,14 +2027,14 @@ def build_deck():
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
                 <span class="pill-tag green" style="font-size: 0.58vw;">PHASE 03: 2027+</span>
-                <span style="font-size: 0.75vw; color: #38BDF8; font-weight: 600;">VISION</span>
+                <span style="font-size: 0.75vw; color: #2A7B9B; font-weight: 600;">VISION</span>
               </div>
-              <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">Autonomous Trade Mesh</div>
+              <div style="font-size: 0.9vw; font-weight: 700; color: var(--text-main);">Autonomous Trade Mesh</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Verifiable cryptographic provenance certificates for legal customs & demurrage dispute protection.
               </p>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
+            <div style="background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
               • Tamper-proof cryptographic Refusal Certificates<br>
               • AI-mediated detention & demurrage arbitration<br>
               • Global carrier reliability compliance index<br>
@@ -2065,11 +2078,11 @@ def build_deck():
         </div>
 
         <!-- Complete Architecture Flow -->
-        <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.4); padding: 1vw 1.2vw; border-radius: 0.6vw; border: 1px solid rgba(255,255,255,0.1); margin: 0.8vw 0;">
+        <div style="display: flex; align-items: center; justify-content: space-between; background: #F3EFE6; border: 1px solid var(--border-card); padding: 1vw 1.2vw; border-radius: 0.6vw; border: 1px solid rgba(255,255,255,0.1); margin: 0.8vw 0;">
           
           <div style="text-align: center;">
             <div style="font-size: 0.65vw; color: var(--text-dim);">STAGE 01</div>
-            <div style="font-size: 0.8vw; font-weight: 700; color: #F8FAFC;">HUMAN EXPERTISE</div>
+            <div style="font-size: 0.8vw; font-weight: 700; color: var(--text-main);">HUMAN EXPERTISE</div>
           </div>
           <div style="color: var(--accent-cyan); font-size: 1vw;">➔</div>
 
@@ -2081,7 +2094,7 @@ def build_deck():
 
           <div style="text-align: center;">
             <div style="font-size: 0.65vw; color: var(--text-dim);">STAGE 03</div>
-            <div style="font-size: 0.8vw; font-weight: 700; color: #A7F3D0;">REFLECTION</div>
+            <div style="font-size: 0.8vw; font-weight: 700; color: #2E6B47;">REFLECTION</div>
           </div>
           <div style="color: var(--accent-cyan); font-size: 1vw;">➔</div>
 
@@ -2093,13 +2106,13 @@ def build_deck():
 
           <div style="text-align: center;">
             <div style="font-size: 0.65vw; color: var(--text-dim);">STAGE 05</div>
-            <div style="font-size: 0.8vw; font-weight: 700; color: #FDE68A;">PROVENANCE</div>
+            <div style="font-size: 0.8vw; font-weight: 700; color: #9A5D18;">PROVENANCE</div>
           </div>
           <div style="color: var(--accent-cyan); font-size: 1vw;">➔</div>
 
           <div style="text-align: center;">
             <div style="font-size: 0.65vw; color: var(--text-dim);">STAGE 06</div>
-            <div style="font-size: 0.8vw; font-weight: 700; color: #6EE7B7;">TRUSTWORTHY OPS</div>
+            <div style="font-size: 0.8vw; font-weight: 700; color: #2E6B47;">TRUSTWORTHY OPS</div>
           </div>
 
         </div>
@@ -2122,7 +2135,7 @@ def build_deck():
           </div>
 
           <div class="glass-card" style="text-align: center; padding: 0.8vw;">
-            <div style="font-size: 1.1vw; font-weight: 800; color: #EF4444;">CONTROL</div>
+            <div style="font-size: 1.1vw; font-weight: 800; color: #B84A39;">CONTROL</div>
             <div style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.2vw;">Defensive failure boundaries</div>
           </div>
         </div>

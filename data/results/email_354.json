@@ -1,6 +1,6 @@
 {
   "email_id": "email_354",
-  "timestamp": "2026-09-21T11:15:50.504852+00:00",
+  "timestamp": "2026-09-21T13:59:13.264314+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -84,12 +84,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
-    "container_count": 1,
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "port_of_discharge": "VALPARAISO, CHILE",
     "consignee": "HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE",
-    "gross_weight_kg": 20603.0
+    "gross_weight_kg": 20603.0,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "container_count": 1,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA"
   },
   "bl_extracted": {
     "status": "OK",
@@ -147,12 +147,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "NAGAPPA EXPORTS OFFICE 1204, THE BURLINGTON TOWER BUSINESS BAY, DUBAI, UAE",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
-    "container_count": 1,
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
     "port_of_discharge": "VALPARAISO, CHILE",
     "consignee": "HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER BUSINESS BAY, DUBAI, UAE",
-    "gross_weight_kg": 22603.0
+    "gross_weight_kg": 22603.0,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
+    "container_count": 1,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA"
   },
   "field_matrix": [
     {

@@ -1,6 +1,6 @@
 {
   "email_id": "email_144",
-  "timestamp": "2026-09-21T11:15:49.912386+00:00",
+  "timestamp": "2026-09-21T13:59:12.521522+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -84,12 +84,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "NAGAPPA EXPORTS",
-    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
-    "container_count": 12,
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "port_of_discharge": "MERSIN, TURKEY (TRMER)",
     "consignee": "NAGAPPA EXPORTS",
-    "gross_weight_kg": 264180.0
+    "gross_weight_kg": 264180.0,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "container_count": 12,
+    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -147,12 +147,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "NAGAPPA EXPORTS",
-    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
-    "container_count": 11,
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "port_of_discharge": "MERSIN, TURKEY (TRMER)",
     "consignee": "PACIFIC OFFICE (M) SDN BHD",
-    "gross_weight_kg": 264180.0
+    "gross_weight_kg": 264180.0,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "container_count": 11,
+    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)"
   },
   "field_matrix": [
     {

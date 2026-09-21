@@ -1,6 +1,6 @@
 {
   "email_id": "email_208",
-  "timestamp": "2026-09-21T11:15:50.070494+00:00",
+  "timestamp": "2026-09-21T13:59:12.743064+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -83,12 +83,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "/Intermediate ConsCigEnReIEeX ZONE INDUSTRIELLE CONAKRY, GUINEA",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
-    "container_count": 6,
-    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6 BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI 59200 KUALA LUMPUR, MALAYSIA",
     "port_of_discharge": "FREMANTLE, AUSTRALIA",
     "consignee": "CERIEX ZONE INDUSTRIELLE CONAKRY, GUINEA",
-    "gross_weight_kg": 143940.0
+    "gross_weight_kg": 143940.0,
+    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6 BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI 59200 KUALA LUMPUR, MALAYSIA",
+    "container_count": 6,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA"
   },
   "bl_extracted": {
     "status": "OK",
@@ -146,12 +146,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "CERIEX ZONE INDUSTRIELLE CONAKRY, GUINEA",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
-    "container_count": 6,
-    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6 BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI 59200 KUALA LUMPUR, MALAYSIA",
     "port_of_discharge": "FREMANTLE, AUSTRALIA",
     "consignee": "CERIEX ZONE INDUSTRIELLE CONAKRY, GUINEA",
-    "gross_weight_kg": 143940.0
+    "gross_weight_kg": 143940.0,
+    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6 BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI 59200 KUALA LUMPUR, MALAYSIA",
+    "container_count": 6,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA"
   },
   "field_matrix": [
     {

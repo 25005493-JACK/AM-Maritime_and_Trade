@@ -1,6 +1,6 @@
 {
   "email_id": "email_462",
-  "timestamp": "2026-09-21T11:15:50.871554+00:00",
+  "timestamp": "2026-09-21T13:59:13.859018+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -81,12 +81,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "ORIENT LINKS CO (LLC) P.O. BOX 61041; JEBEL ALI, DUBAI, UAE",
-    "port_of_loading": "BUATAN, INDONESIA",
-    "container_count": 5,
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "port_of_discharge": "CONAKRY, GUINEA",
     "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
-    "gross_weight_kg": 116055.0
+    "gross_weight_kg": 116055.0,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "container_count": 5,
+    "port_of_loading": "BUATAN, INDONESIA"
   },
   "bl_extracted": {
     "status": "OK",
@@ -144,12 +144,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "ORIENT LINKS CO (LLC)",
-    "port_of_loading": "BUATAN, INDONESIA",
-    "container_count": 5,
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1 SINGAPORE 048624",
     "port_of_discharge": "CONAKRY, GUINEA",
     "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6 RAWANG INTEGRATED INDUSTRIAL PARK 48000 RAWANG, SELANGOR, MALAYSIA",
-    "gross_weight_kg": 116055.0
+    "gross_weight_kg": 116055.0,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1 SINGAPORE 048624",
+    "container_count": 5,
+    "port_of_loading": "BUATAN, INDONESIA"
   },
   "field_matrix": [
     {

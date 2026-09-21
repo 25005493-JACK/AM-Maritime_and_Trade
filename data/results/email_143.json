@@ -1,6 +1,6 @@
 {
   "email_id": "email_143",
-  "timestamp": "2026-09-21T11:15:49.909386+00:00",
+  "timestamp": "2026-09-21T13:59:12.513629+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -81,12 +81,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "SAFQA LIMITED",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "container_count": 2,
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "port_of_discharge": "GDANSK, POLAND (PLGDN)",
     "consignee": "SAFQA LIMITED",
-    "gross_weight_kg": 42486.0
+    "gross_weight_kg": 42486.0,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "container_count": 2,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -144,12 +144,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "SAFQA LIMITED",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "container_count": 2,
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "port_of_discharge": "GDANSK, POLAND (PLGDN)",
     "consignee": "SAFQA LIMITED",
-    "gross_weight_kg": 42486.0
+    "gross_weight_kg": 42486.0,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "container_count": 2,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)"
   },
   "field_matrix": [
     {

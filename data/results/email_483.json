@@ -1,6 +1,6 @@
 {
   "email_id": "email_483",
-  "timestamp": "2026-09-21T11:15:50.902825+00:00",
+  "timestamp": "2026-09-21T13:59:13.904190+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -81,12 +81,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "3S PAPER PRODUCTS SDN BHD",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "container_count": 10,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "HOUSTON, US (USHOU)",
     "consignee": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
-    "gross_weight_kg": 238630.0
+    "gross_weight_kg": 238630.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 10,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -144,12 +144,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "3S PAPER PRODUCTS SDN BHD",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
-    "container_count": 10,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "HOUSTON, US (USHOU)",
     "consignee": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
-    "gross_weight_kg": 238630.0
+    "gross_weight_kg": 238630.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 10,
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)"
   },
   "field_matrix": [
     {

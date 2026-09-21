@@ -1,6 +1,6 @@
 {
   "email_id": "email_121",
-  "timestamp": "2026-09-21T11:15:49.891494+00:00",
+  "timestamp": "2026-09-21T13:59:12.474492+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -83,12 +83,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "CLIFFORD PAPER INC",
-    "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "container_count": 1,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "BRISBANE, AUSTRALIA (AUBNE)",
     "consignee": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA",
-    "gross_weight_kg": 20842.0
+    "gross_weight_kg": 20842.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 1,
+    "port_of_loading": "NANTONG, CHINA (CNNTG)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -146,12 +146,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "CLIFFORD PAPER INC",
-    "port_of_loading": "NANTONG, CHINA (CNNTG)",
-    "container_count": 1,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "BRISBANE, AUSTRALIA (AUBNE)",
     "consignee": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA",
-    "gross_weight_kg": 21342.0
+    "gross_weight_kg": 21342.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 1,
+    "port_of_loading": "NANTONG, CHINA (CNNTG)"
   },
   "field_matrix": [
     {

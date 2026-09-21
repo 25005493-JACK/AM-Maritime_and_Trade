@@ -1,6 +1,6 @@
 {
   "email_id": "email_496",
-  "timestamp": "2026-09-21T11:15:50.924165+00:00",
+  "timestamp": "2026-09-21T13:59:13.927922+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -81,12 +81,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
-    "port_of_loading": "NANTONG, CHINA",
-    "container_count": 15,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "PYEONGTAEK, SOUTH KOREA",
     "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
-    "gross_weight_kg": 328665.0
+    "gross_weight_kg": 328665.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 15,
+    "port_of_loading": "NANTONG, CHINA"
   },
   "bl_extracted": {
     "status": "OK",
@@ -144,12 +144,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
-    "port_of_loading": "NANTONG, CHINA",
-    "container_count": 15,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "PYEONGTAEK, SOUTH KOREA",
     "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
-    "gross_weight_kg": 328665.0
+    "gross_weight_kg": 328665.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 15,
+    "port_of_loading": "NANTONG, CHINA"
   },
   "field_matrix": [
     {

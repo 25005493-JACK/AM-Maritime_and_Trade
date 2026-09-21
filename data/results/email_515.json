@@ -1,6 +1,6 @@
 {
   "email_id": "email_515",
-  "timestamp": "2026-09-21T11:15:52.088680+00:00",
+  "timestamp": "2026-09-21T13:59:14.031698+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "corrupted_file",
   "can_compare": false,
@@ -65,12 +65,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "3S PAPER PRODUCTS SDN BHD",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
-    "container_count": 1,
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "port_of_discharge": "AQABA, JORDAN (JOAQB)",
     "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
-    "gross_weight_kg": 21949.0
+    "gross_weight_kg": 21949.0,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "container_count": 1,
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
   },
   "bl_extracted": {
     "status": "NEEDS_REVIEW",
@@ -85,12 +85,12 @@
     "audit_trail": [],
     "unresolved_terms": [],
     "notify_party": null,
-    "port_of_loading": null,
-    "container_count": null,
-    "shipper": null,
     "port_of_discharge": null,
     "consignee": null,
-    "gross_weight_kg": null
+    "gross_weight_kg": null,
+    "shipper": null,
+    "container_count": null,
+    "port_of_loading": null
   },
   "field_matrix": [
     {

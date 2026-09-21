@@ -1,6 +1,6 @@
 {
   "email_id": "email_097",
-  "timestamp": "2026-09-21T11:15:49.840290+00:00",
+  "timestamp": "2026-09-21T13:59:12.410501+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -84,12 +84,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "NAGAPPA EXPORTS NEW NO : 23, L-BLOCK, 17TH STREET; ANNA NAGAR EAST; CHENNAI, TAMIL NADU 600102; GST NO - 33AACFN6792L1ZU",
-    "port_of_loading": "SINGAPORE",
-    "container_count": 10,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "BRISBANE, AUSTRALIA",
     "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
-    "gross_weight_kg": 216950.0
+    "gross_weight_kg": 216950.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 10,
+    "port_of_loading": "SINGAPORE"
   },
   "bl_extracted": {
     "status": "OK",
@@ -147,12 +147,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "NAGAPPA EXPORTS",
-    "port_of_loading": "SINGAPORE",
-    "container_count": 11,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
     "port_of_discharge": "BRISBANE, AUSTRALIA",
     "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5 1010 VIENNA, AUSTRIA",
-    "gross_weight_kg": 215950.0
+    "gross_weight_kg": 215950.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
+    "container_count": 11,
+    "port_of_loading": "SINGAPORE"
   },
   "field_matrix": [
     {

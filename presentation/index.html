@@ -9,20 +9,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-midnight: #070B14;
-      --bg-surface: #0E1626;
-      --bg-card: rgba(18, 28, 48, 0.75);
-      --border-card: rgba(56, 189, 248, 0.15);
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --accent-cyan: #38BDF8;
-      --accent-blue: #3B82F6;
-      --accent-indigo: #6366F1;
-      --accent-green: #10B981;
-      --accent-red: #EF4444;
-      --accent-amber: #F59E0B;
-      --text-main: #F8FAFC;
-      --text-muted: #94A3B8;
-      --text-dim: #64748B;
+      /* Light Beige / Warm Editorial Palette */
+      --bg-editorial: #F9F6F0;
+      --bg-surface: #F3EFE6;
+      --bg-card: #FFFFFF;
+      --border-card: #E8E2D9;
+      --border-subtle: #E2DBD0;
+      --card-shadow: 0 10px 25px -5px rgba(44, 42, 41, 0.05), 0 4px 10px -2px rgba(44, 42, 41, 0.02);
+
+      /* Sophisticated Earthy Accent Colors */
+      --accent-cyan: #2A7B9B;        /* Muted Ocean Teal */
+      --accent-blue: #3A5A80;        /* Muted Navy */
+      --accent-indigo: #56507A;      /* Slate Indigo */
+      --accent-green: #3B7A57;       /* Deep Forest / Sage Green */
+      --accent-red: #B84A39;         /* Earthy Terracotta Red */
+      --accent-amber: #C07D38;       /* Warm Ochre / Amber */
+      --accent-terracotta: #C8795B;  /* Editorial Terracotta */
+      --accent-sage: #7A8B6E;        /* Sage */
+      --accent-mustard: #D4A373;     /* Warm Mustard */
+
+      /* Warm Charcoal & Editorial Text Hierarchy */
+      --text-main: #2C2A29;          /* Soft charcoal */
+      --text-muted: #5C5750;         /* Warm gray */
+      --text-dim: #8C857B;           /* Muted sand gray */
     }
 
     * {
@@ -32,7 +41,7 @@
     }
 
     body {
-      background-color: #030712;
+      background-color: #EFEBE4;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--text-main);
       overflow: hidden;
@@ -42,6 +51,7 @@
       align-items: center;
       justify-content: center;
       user-select: none;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* 16:9 Presentation Viewport Container */
@@ -51,8 +61,10 @@
       height: 56.25vw; /* 16:9 ratio */
       max-height: 100vh;
       max-width: 177.78vh; /* 16:9 ratio */
-      background: radial-gradient(circle at 50% -20%, rgba(30, 58, 138, 0.35) 0%, #080D1A 65%, #050811 100%);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      background: var(--bg-editorial);
+      border: 1px solid var(--border-card);
+      border-radius: 4px;
+      box-shadow: 0 25px 60px -15px rgba(44, 42, 41, 0.12), 0 0 0 1px rgba(232, 226, 217, 0.6);
       overflow: hidden;
     }
 
@@ -85,7 +97,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-card);
       padding-bottom: 0.8vw;
       margin-bottom: 1.2vw;
     }
@@ -100,11 +112,12 @@
       width: 1.8vw;
       height: 1.8vw;
       border-radius: 0.4vw;
-      background: linear-gradient(135deg, #0284C7, #4F46E5);
+      background: #FFFFFF;
+      border: 1px solid var(--border-card);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+      box-shadow: var(--card-shadow);
       font-size: 1vw;
     }
 
@@ -112,7 +125,7 @@
       font-size: 1.05vw;
       font-weight: 700;
       letter-spacing: -0.02em;
-      color: #FFFFFF;
+      color: var(--text-main);
       font-family: 'Google Sans', sans-serif;
     }
 
@@ -121,9 +134,9 @@
       font-weight: 600;
       padding: 0.2vw 0.5vw;
       border-radius: 0.25vw;
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      color: var(--accent-cyan);
+      background: rgba(200, 121, 91, 0.1);
+      border: 1px solid rgba(200, 121, 91, 0.25);
+      color: var(--accent-terracotta);
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -136,7 +149,7 @@
 
     .category-label {
       font-size: 0.75vw;
-      color: var(--text-dim);
+      color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.08em;
       font-weight: 600;
@@ -146,11 +159,12 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.85vw;
       font-weight: 600;
-      color: var(--accent-cyan);
-      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      background: #FFFFFF;
       padding: 0.2vw 0.6vw;
       border-radius: 0.3vw;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-card);
+      box-shadow: var(--card-shadow);
     }
 
     /* Main Slide Body */
@@ -181,12 +195,12 @@
       font-size: 2.2vw;
       line-height: 1.18;
       font-weight: 700;
-      color: #FFFFFF;
+      color: var(--text-main);
       letter-spacing: -0.03em;
     }
 
     h1.slide-title.alert {
-      color: #F87171;
+      color: #B84A39;
     }
 
     p.slide-sub {
@@ -219,26 +233,26 @@
       bottom: 1.5vw;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(249, 246, 240, 0.95);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--border-card);
       border-radius: 9999px;
       padding: 0.4vw 0.8vw;
       display: flex;
       align-items: center;
       gap: 0.8vw;
       z-index: 1000;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 10px 30px rgba(44, 42, 41, 0.12);
     }
 
     .hud-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
+      background: #FFFFFF;
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
       padding: 0.35vw 0.75vw;
       border-radius: 9999px;
       font-size: 0.75vw;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -247,9 +261,9 @@
     }
 
     .hud-btn:hover {
-      background: rgba(56, 189, 248, 0.25);
-      border-color: var(--accent-cyan);
-      color: var(--accent-cyan);
+      background: #EFEBE4;
+      border-color: var(--accent-terracotta);
+      color: var(--accent-terracotta);
     }
 
     .slide-dots {
@@ -261,14 +275,14 @@
       width: 0.5vw;
       height: 0.5vw;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
+      background: #D9D2C5;
       cursor: pointer;
       transition: all 0.2s;
     }
 
     .dot.active {
-      background: var(--accent-cyan);
-      box-shadow: 0 0 8px var(--accent-cyan);
+      background: var(--accent-terracotta);
+      box-shadow: 0 0 8px rgba(200, 121, 91, 0.4);
       transform: scale(1.25);
     }
 
@@ -293,22 +307,21 @@
 
     .glass-card {
       background: var(--bg-card);
-      backdrop-filter: blur(12px);
       border: 1px solid var(--border-card);
       border-radius: 0.8vw;
       padding: 1.2vw;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      box-shadow: var(--card-shadow);
       position: relative;
     }
 
     .glass-card.alert-card {
-      border-color: rgba(239, 68, 68, 0.4);
-      background: rgba(36, 15, 20, 0.6);
+      border-color: rgba(184, 74, 57, 0.3);
+      background: #FFF8F6;
     }
 
     .glass-card.highlight-card {
-      border-color: rgba(56, 189, 248, 0.5);
-      background: rgba(14, 30, 56, 0.7);
+      border-color: rgba(42, 123, 155, 0.35);
+      background: #F4F8FA;
     }
 
     /* Badges & Tags */
@@ -324,33 +337,33 @@
     }
 
     .pill-tag.red {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.35);
-      color: #F87171;
+      background: #FDEEEB;
+      border: 1px solid #F8C7C0;
+      color: #B84A39;
     }
 
     .pill-tag.green {
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: #34D399;
+      background: #EDF5F0;
+      border: 1px solid #C3DFC9;
+      color: #356745;
     }
 
     .pill-tag.cyan {
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      color: #38BDF8;
+      background: #EDF6F9;
+      border: 1px solid #C6E4ED;
+      color: #1E667E;
     }
 
     .pill-tag.amber {
-      background: rgba(245, 158, 11, 0.15);
-      border: 1px solid rgba(245, 158, 11, 0.35);
-      color: #FBBF24;
+      background: #FEF7ED;
+      border: 1px solid #F8DFC0;
+      color: #9A5D18;
     }
 
     /* Terminal Window Mock */
     .terminal-window {
-      background: #090D16;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #242936; color: #E8E4DD;
+      border: 1px solid var(--border-card);
       border-radius: 0.6vw;
       overflow: hidden;
       font-family: 'JetBrains Mono', monospace;
@@ -380,19 +393,19 @@
     .terminal-content {
       padding: 0.9vw 1.2vw;
       line-height: 1.6;
-      color: #CBD5E1;
+      color: #5C5750;
     }
 
     /* Document Preview Frame */
     .doc-preview-frame {
-      background: #1E293B;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #FAF8F5;
+      border: 1px solid var(--border-card);
       border-radius: 0.5vw;
       padding: 0.8vw;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.7vw;
       line-height: 1.5;
-      color: #E2E8F0;
+      color: var(--text-main);
       max-height: 16vw;
       overflow-y: auto;
     }
@@ -405,38 +418,38 @@
     }
 
     .matrix-table th {
-      background: rgba(255, 255, 255, 0.06);
+      background: #EFEBE4;
       text-align: left;
       padding: 0.55vw 0.8vw;
       font-weight: 600;
-      color: var(--text-muted);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-card);
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
 
     .matrix-table td {
       padding: 0.5vw 0.8vw;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      color: #E2E8F0;
+      border-bottom: 1px solid #EFEBE4;
+      color: var(--text-main);
     }
 
     .matrix-table tr:hover td {
-      background: rgba(56, 189, 248, 0.04);
+      background: #F4F0E8;
     }
 
     .matrix-table .check-yes {
-      color: #10B981;
+      color: var(--accent-green);
       font-weight: 700;
     }
 
     .matrix-table .check-no {
-      color: #EF4444;
+      color: var(--accent-red);
       font-weight: 700;
     }
 
     .matrix-table .check-var {
-      color: #94A3B8;
+      color: #6B665E;
       font-weight: 400;
     }
 
@@ -448,7 +461,7 @@
       border-radius: 0 0.4vw 0.4vw 0;
       font-size: 0.9vw;
       font-weight: 600;
-      color: #FFFFFF;
+      color: var(--text-main);
       margin-top: 0.8vw;
     }
 
@@ -492,33 +505,33 @@
         <!-- Operational Fatigue Loop Visual -->
         <div style="display: flex; align-items: center; justify-content: space-between; margin: 1.8vw 0; position: relative;">
           
-          <div class="glass-card" style="flex: 1; text-align: center; border-color: rgba(255, 255, 255, 0.1);">
+          <div class="glass-card" style="flex: 1; text-align: center; border-color: var(--border-card);">
             <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">🤖</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">AI Extraction Error</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">AI Extraction Error</div>
             <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Model guesses on edge case</div>
           </div>
 
           <div style="color: var(--accent-cyan); font-size: 1.2vw; padding: 0 0.6vw;">➔</div>
 
-          <div class="glass-card" style="flex: 1; text-align: center; border-color: rgba(255, 255, 255, 0.1);">
+          <div class="glass-card" style="flex: 1; text-align: center; border-color: var(--border-card);">
             <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">🔍</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Human Checks</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Human Checks</div>
             <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Operator reviews documents</div>
           </div>
 
           <div style="color: var(--accent-cyan); font-size: 1.2vw; padding: 0 0.6vw;">➔</div>
 
-          <div class="glass-card" style="flex: 1; text-align: center; border-color: rgba(255, 255, 255, 0.1);">
+          <div class="glass-card" style="flex: 1; text-align: center; border-color: var(--border-card);">
             <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">✏️</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Human Correction</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Human Correction</div>
             <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Fixes container / weight discrepancy</div>
           </div>
 
           <div style="color: var(--accent-cyan); font-size: 1.2vw; padding: 0 0.6vw;">➔</div>
 
-          <div class="glass-card" style="flex: 1; text-align: center; border-color: rgba(255, 255, 255, 0.1);">
+          <div class="glass-card" style="flex: 1; text-align: center; border-color: var(--border-card);">
             <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">🔄</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Similar Exception Appears</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Similar Exception Appears</div>
             <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Same carrier format next morning</div>
           </div>
 
@@ -526,13 +539,13 @@
 
           <div class="glass-card alert-card" style="flex: 1.3; text-align: center; box-shadow: 0 0 25px rgba(239, 68, 68, 0.25);">
             <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">⚠️</div>
-            <div style="font-size: 0.95vw; font-weight: 800; color: #EF4444; letter-spacing: 0.04em;">HUMAN FATIGUE</div>
-            <div style="font-size: 0.65vw; color: #FCA5A5; margin-top: 0.2vw;">Repeated clerical triage overhead</div>
+            <div style="font-size: 0.95vw; font-weight: 800; color: #B84A39; letter-spacing: 0.04em;">HUMAN FATIGUE</div>
+            <div style="font-size: 0.65vw; color: #8C3426; margin-top: 0.2vw;">Repeated clerical triage overhead</div>
           </div>
         </div>
 
-        <div class="glass-card" style="background: rgba(15, 23, 42, 0.6); border-left: 4px solid var(--accent-cyan); padding: 0.9vw 1.4vw;">
-          <p style="font-size: 0.95vw; color: #E2E8F0; font-style: italic;">
+        <div class="glass-card" style="background: #FFFFFF; border: 1px solid var(--border-card); border-left: 4px solid var(--accent-cyan); padding: 0.9vw 1.4vw;">
+          <p style="font-size: 0.95vw; color: var(--text-main); font-style: italic;">
             “When every exception still requires human attention, automation can simply move the workload instead of removing it.”
           </p>
         </div>
@@ -576,35 +589,35 @@
           <!-- Left: Typical OCR + LLM -->
           <div class="glass-card" style="border-color: rgba(239, 68, 68, 0.3);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8vw;">
-              <span style="font-size: 0.95vw; font-weight: 700; color: #FCA5A5;">Typical OCR + LLM Pipeline</span>
+              <span style="font-size: 0.95vw; font-weight: 700; color: #8C3426;">Typical OCR + LLM Pipeline</span>
               <span class="pill-tag red">Stateless Extraction</span>
             </div>
 
             <!-- Steps -->
             <div style="display: flex; align-items: center; gap: 0.5vw; margin-bottom: 1vw; font-size: 0.75vw; font-family: 'JetBrains Mono', monospace;">
-              <span style="padding: 0.3vw 0.6vw; background: rgba(255,255,255,0.06); border-radius: 0.25vw;">Document</span>
+              <span style="padding: 0.3vw 0.6vw; background: #EFEBE4; border-radius: 0.25vw;">Document</span>
               <span>➔</span>
-              <span style="padding: 0.3vw 0.6vw; background: rgba(255,255,255,0.06); border-radius: 0.25vw;">OCR</span>
+              <span style="padding: 0.3vw 0.6vw; background: #EFEBE4; border-radius: 0.25vw;">OCR</span>
               <span>➔</span>
-              <span style="padding: 0.3vw 0.6vw; background: rgba(255,255,255,0.06); border-radius: 0.25vw;">LLM</span>
+              <span style="padding: 0.3vw 0.6vw; background: #EFEBE4; border-radius: 0.25vw;">LLM</span>
               <span>➔</span>
-              <span style="padding: 0.3vw 0.6vw; background: rgba(239, 68, 68, 0.2); border-radius: 0.25vw; color: #F87171; font-weight: 700;">Blind Answer</span>
+              <span style="padding: 0.3vw 0.6vw; background: #FCE8E4; border-radius: 0.25vw; color: #B84A39; font-weight: 700;">Blind Answer</span>
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 0.4vw; font-size: 0.75vw;">
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #FDA4AF;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
                 <span>✕</span> <span><strong>Wrong document:</strong> Processes Certificate of Origin as BL</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #FDA4AF;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
                 <span>✕</span> <span><strong>Incomplete extraction:</strong> Fails silently on unread fields</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #FDA4AF;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
                 <span>✕</span> <span><strong>Unsupported values:</strong> Guesses container counts from pixel noise</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #FDA4AF;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
                 <span>✕</span> <span><strong>Plausible hallucination:</strong> Fabricates port codes</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #FDA4AF;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
                 <span>✕</span> <span><strong>Repeated correction:</strong> No memory of yesterday's fix</span>
               </div>
             </div>
@@ -619,33 +632,33 @@
 
             <!-- Steps -->
             <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 1vw; font-size: 0.7vw; font-family: 'JetBrains Mono', monospace; flex-wrap: wrap;">
-              <span style="padding: 0.25vw 0.5vw; background: rgba(56, 189, 248, 0.15); border-radius: 0.2vw;">Intent</span>
+              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Intent</span>
               <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: rgba(56, 189, 248, 0.15); border-radius: 0.2vw;">Validate</span>
+              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Validate</span>
               <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: rgba(56, 189, 248, 0.15); border-radius: 0.2vw;">Extract</span>
+              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Extract</span>
               <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: rgba(56, 189, 248, 0.15); border-radius: 0.2vw;">Verify</span>
+              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Verify</span>
               <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: rgba(56, 189, 248, 0.15); border-radius: 0.2vw;">Decision</span>
+              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Decision</span>
               <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: rgba(16, 185, 129, 0.25); border-radius: 0.2vw; color: #34D399; font-weight: 700;">Act / Stop</span>
+              <span style="padding: 0.25vw 0.5vw; background: #E3EFE7; border-radius: 0.2vw; color: #2E6B47; font-weight: 700;">Act / Stop</span>
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 0.4vw; font-size: 0.75vw;">
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #BAE6FD;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
                 <span>✓</span> <span><strong>Pre-execution Gate:</strong> Halts before reading wrong documents</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #BAE6FD;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
                 <span>✓</span> <span><strong>Data Sufficiency:</strong> Rejects unreadable scanned faxes safely</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #BAE6FD;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
                 <span>✓</span> <span><strong>Provenance Validation:</strong> Enforces exact byte offsets</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #BAE6FD;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
                 <span>✓</span> <span><strong>Circuit Breaker:</strong> Trips at 3 failures & generates Refusal Certificate</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #BAE6FD;">
+              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
                 <span>✓</span> <span><strong>Stateful Memory:</strong> Converts corrections into Reflexion lessons</span>
               </div>
             </div>
@@ -697,13 +710,13 @@
           <div style="display: flex; flex-direction: column; gap: 1vw;">
             <div class="glass-card" style="border-left: 3px solid var(--accent-cyan);">
               <div style="font-size: 0.7vw; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase;">GATE 01 — VALIDATE</div>
-              <div style="font-size: 0.8vw; font-weight: 600; color: #F8FAFC; margin-top: 0.2vw;">Is this the correct task?</div>
+              <div style="font-size: 0.8vw; font-weight: 600; color: var(--text-main); margin-top: 0.2vw;">Is this the correct task?</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Separates request intent from document validity.</div>
             </div>
 
             <div class="glass-card" style="border-left: 3px solid var(--accent-blue);">
               <div style="font-size: 0.7vw; font-weight: 700; color: var(--accent-blue); text-transform: uppercase;">GATE 02 — SUFFICIENCY</div>
-              <div style="font-size: 0.8vw; font-weight: 600; color: #F8FAFC; margin-top: 0.2vw;">Do we have enough information?</div>
+              <div style="font-size: 0.8vw; font-weight: 600; color: var(--text-main); margin-top: 0.2vw;">Do we have enough information?</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Refuses to guess on image scans with no text layer.</div>
             </div>
           </div>
@@ -715,7 +728,7 @@
             </div>
 
             <!-- Feedback Cycle -->
-            <div style="display: flex; flex-direction: column; gap: 0.5vw; font-size: 0.75vw; text-align: left; background: rgba(0,0,0,0.3); padding: 0.8vw; border-radius: 0.5vw; border: 1px dashed rgba(56,189,248,0.3);">
+            <div style="display: flex; flex-direction: column; gap: 0.5vw; font-size: 0.75vw; text-align: left; background: #F4EFE6; border: 1px solid #E8E2D9; padding: 0.8vw; border-radius: 0.5vw; border: 1px dashed rgba(56,189,248,0.3);">
               <div style="display: flex; align-items: center; gap: 0.5vw;">
                 <span style="color: var(--accent-cyan); font-weight: 700;">1.</span> <span>Human Reviewer resolves conflicted field</span>
               </div>
@@ -735,13 +748,13 @@
           <div style="display: flex; flex-direction: column; gap: 1vw;">
             <div class="glass-card" style="border-left: 3px solid var(--accent-green);">
               <div style="font-size: 0.7vw; font-weight: 700; color: var(--accent-green); text-transform: uppercase;">GATE 03 — PROVENANCE</div>
-              <div style="font-size: 0.8vw; font-weight: 600; color: #F8FAFC; margin-top: 0.2vw;">Is answer supported by evidence?</div>
+              <div style="font-size: 0.8vw; font-weight: 600; color: var(--text-main); margin-top: 0.2vw;">Is answer supported by evidence?</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Exact character offset grounding in source contract.</div>
             </div>
 
             <div class="glass-card alert-card" style="border-left: 3px solid var(--accent-red);">
-              <div style="font-size: 0.7vw; font-weight: 700; color: #EF4444; text-transform: uppercase;">GATE 04 — CIRCUIT BREAKER</div>
-              <div style="font-size: 0.8vw; font-weight: 600; color: #F8FAFC; margin-top: 0.2vw;">Should the AI stop?</div>
+              <div style="font-size: 0.7vw; font-weight: 700; color: #B84A39; text-transform: uppercase;">GATE 04 — CIRCUIT BREAKER</div>
+              <div style="font-size: 0.8vw; font-weight: 600; color: var(--text-main); margin-top: 0.2vw;">Should the AI stop?</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Trips at 3 failures & generates Refusal Certificate.</div>
             </div>
           </div>
@@ -791,31 +804,31 @@
           
           <div class="glass-card" style="border-top: 3px solid var(--accent-red);">
             <span class="pill-tag red" style="margin-bottom: 0.6vw;">Gate 01</span>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Wrong Document</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Wrong Document</div>
             <div style="font-size: 0.75vw; color: var(--accent-cyan); font-weight: 600; margin: 0.3vw 0;">Document Validity Gate</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); line-height: 1.45;">
               Stops before extraction if attachment is Certificate of Origin, invoice, or packing list.
             </p>
-            <div style="margin-top: 0.8vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #EF4444;">
+            <div style="margin-top: 0.8vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #B84A39;">
               ✕ Pre-extraction HALT
             </div>
           </div>
 
           <div class="glass-card" style="border-top: 3px solid var(--accent-amber);">
             <span class="pill-tag amber" style="margin-bottom: 0.6vw;">Gate 02</span>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Missing Information</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Missing Information</div>
             <div style="font-size: 0.75vw; color: var(--accent-cyan); font-weight: 600; margin: 0.3vw 0;">Data Sufficiency Check</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); line-height: 1.45;">
               Evaluates selectable text layer & contrast. Refuses to guess on illegible scans.
             </p>
-            <div style="margin-top: 0.8vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #F59E0B;">
+            <div style="margin-top: 0.8vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #9A5D18;">
               ✕ scanned_not_processed
             </div>
           </div>
 
           <div class="glass-card" style="border-top: 3px solid var(--accent-cyan);">
             <span class="pill-tag cyan" style="margin-bottom: 0.6vw;">Gate 03</span>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Unsupported Answer</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Unsupported Answer</div>
             <div style="font-size: 0.75vw; color: var(--accent-cyan); font-weight: 600; margin: 0.3vw 0;">Provenance Validation</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); line-height: 1.45;">
               Checks exact byte offset against contract. Validates port against UN/LOCODE standard.
@@ -827,19 +840,19 @@
 
           <div class="glass-card alert-card" style="border-top: 3px solid var(--accent-red);">
             <span class="pill-tag red" style="margin-bottom: 0.6vw;">Gate 04</span>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">Repeated Failure</div>
-            <div style="font-size: 0.75vw; color: #EF4444; font-weight: 600; margin: 0.3vw 0;">Circuit Breaker</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Repeated Failure</div>
+            <div style="font-size: 0.75vw; color: #B84A39; font-weight: 600; margin: 0.3vw 0;">Circuit Breaker</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); line-height: 1.45;">
               Stops at 3 consecutive failures. Issues structured Refusal Certificate to carrier.
             </p>
-            <div style="margin-top: 0.8vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #EF4444;">
+            <div style="margin-top: 0.8vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #B84A39;">
               ✕ Refusal Certificate Issued
             </div>
           </div>
 
         </div>
 
-        <div style="display: flex; justify-content: center; align-items: center; gap: 1vw; background: rgba(0, 0, 0, 0.4); padding: 0.6vw; border-radius: 0.5vw; border: 1px solid rgba(255, 255, 255, 0.08);">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 1vw; background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.6vw; border-radius: 0.5vw; border: 1px solid rgba(255, 255, 255, 0.08);">
           <span style="font-size: 0.75vw; color: var(--text-muted);">ALL GATES ESCALATE TO:</span>
           <span class="pill-tag cyan" style="font-size: 0.75vw; font-weight: 700;">Human Review Queue (Propose-and-Confirm Panel)</span>
         </div>
@@ -889,10 +902,10 @@
                 <span>FROM: faraz_ali@aprilasia.com</span>
                 <span class="pill-tag cyan">email_505</span>
               </div>
-              <div style="font-size: 0.75vw; font-weight: 700; color: #F8FAFC; margin-bottom: 0.3vw;">
+              <div style="font-size: 0.75vw; font-weight: 700; color: var(--text-main); margin-bottom: 0.3vw;">
                 RE_ AFEMY - CEBU_PHILIPPINES - OOCL(OOLU8243017646) - 5AKR-31538
               </div>
-              <div style="font-size: 0.7vw; color: #CBD5E1; background: rgba(0,0,0,0.3); padding: 0.5vw; border-radius: 0.3vw; font-family: 'JetBrains Mono', monospace; line-height: 1.4;">
+              <div style="font-size: 0.7vw; color: #5C5750; background: #F4EFE6; border: 1px solid #E8E2D9; padding: 0.5vw; border-radius: 0.3vw; font-family: 'JetBrains Mono', monospace; line-height: 1.4;">
                 “Dear Team,<br>
                 Please find attached the SI and the Certificate of Origin for PSGSE4489880. Kindly confirm the BL is in order...”
               </div>
@@ -901,10 +914,10 @@
             <!-- Real Attachment Preview -->
             <div class="glass-card alert-card" style="padding: 0.8vw;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
-                <span style="font-size: 0.7vw; font-weight: 700; color: #FCA5A5;">ATTACHMENT: email_505_BL.txt</span>
+                <span style="font-size: 0.7vw; font-weight: 700; color: #8C3426;">ATTACHMENT: email_505_BL.txt</span>
                 <span class="pill-tag red">NON-COMPLIANT DOC</span>
               </div>
-              <div class="doc-preview-frame" style="max-height: 8vw; font-size: 0.65vw; background: #0E1626;">
+              <div class="doc-preview-frame" style="max-height: 8vw; font-size: 0.65vw; background: #242936; color: #E8E4DD;">
                 CERTIFICATE OF ORIGIN<br>
                 ========================================<br>
                 Exporter: APRIL FINE PAPER TRADING<br>
@@ -912,7 +925,7 @@
                 Country of Origin: MALAYSIA / INDONESIA / CHINA<br>
                 HS Code: 48025500<br>
                 Description: FUJITO PAPERONE INKJET PAPER<br>
-                <span style="background: rgba(239, 68, 68, 0.3); color: #FCA5A5; font-weight: 700; padding: 0 0.2vw;">*** CERTIFICATE OF ORIGIN - NOT AN SI OR BL ***</span>
+                <span style="background: rgba(239, 68, 68, 0.3); color: #8C3426; font-weight: 700; padding: 0 0.2vw;">*** CERTIFICATE OF ORIGIN - NOT AN SI OR BL ***</span>
               </div>
             </div>
           </div>
@@ -926,27 +939,27 @@
               </div>
 
               <div style="display: flex; flex-direction: column; gap: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.75vw;">
-                <div style="background: rgba(0,0,0,0.4); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
+                <div style="background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
                   <span style="color: var(--text-dim);">Intent Detection</span>
-                  <span style="color: #34D399; font-weight: 700;">BL_COMPARISON ✓</span>
+                  <span style="color: #2E6B47; font-weight: 700;">BL_COMPARISON ✓</span>
                 </div>
 
-                <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
-                  <span style="color: #FCA5A5;">Document Validity Gate</span>
-                  <span style="color: #EF4444; font-weight: 800;">FAILED ✕</span>
+                <div style="background: #FDEEEB; border: 1px solid rgba(239, 68, 68, 0.3); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
+                  <span style="color: #8C3426;">Document Validity Gate</span>
+                  <span style="color: #B84A39; font-weight: 800;">FAILED ✕</span>
                 </div>
 
-                <div style="background: rgba(0,0,0,0.4); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
+                <div style="background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
                   <span style="color: var(--text-dim);">Detected Document</span>
-                  <span style="color: #FBBF24;">Certificate of Origin</span>
+                  <span style="color: #9A5D18;">Certificate of Origin</span>
                 </div>
 
-                <div style="background: rgba(0,0,0,0.4); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
+                <div style="background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
                   <span style="color: var(--text-dim);">Downstream Comparison</span>
-                  <span style="color: #94A3B8;">SUPPRESSED (0 Calls)</span>
+                  <span style="color: #6B665E;">SUPPRESSED (0 Calls)</span>
                 </div>
 
-                <div style="background: rgba(0,0,0,0.4); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
+                <div style="background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.5vw 0.8vw; border-radius: 0.3vw; display: flex; justify-content: space-between;">
                   <span style="color: var(--text-dim);">Action</span>
                   <span style="color: var(--accent-cyan); font-weight: 700;">ROUTED TO HUMAN REVIEW</span>
                 </div>
@@ -954,7 +967,7 @@
             </div>
 
             <div style="margin-top: 1vw; padding-top: 0.8vw; border-top: 1px solid rgba(255,255,255,0.1);">
-              <div style="font-size: 1.1vw; font-weight: 800; color: #FFFFFF; font-family: 'Google Sans', sans-serif;">
+              <div style="font-size: 1.1vw; font-weight: 800; color: var(--text-main); font-family: 'Google Sans', sans-serif;">
                 “Validate before you generate.”
               </div>
               <div style="font-size: 0.7vw; color: var(--accent-cyan); margin-top: 0.2vw;">
@@ -1006,12 +1019,12 @@
           <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6vw;">
-                <span style="font-size: 0.8vw; font-weight: 700; color: #F8FAFC;">Actual PDF Render (email_512_SI & BL)</span>
+                <span style="font-size: 0.8vw; font-weight: 700; color: var(--text-main);">Actual PDF Render (email_512_SI & BL)</span>
                 <span class="pill-tag amber">Scanned Fax (Image-Only)</span>
               </div>
               
               <!-- Actual rendered image previews from test data/attachments/ -->
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8vw; background: rgba(0,0,0,0.5); padding: 0.6vw; border-radius: 0.4vw; border: 1px solid rgba(255,255,255,0.08);">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8vw; background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.6vw; border-radius: 0.4vw; border: 1px solid rgba(255,255,255,0.08);">
                 <div style="text-align: center;">
                   <div style="font-size: 0.6vw; color: var(--text-dim); margin-bottom: 0.2vw;">email_512_SI.pdf</div>
                   <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABNkAAAbaCAIAAAB3QTY3AAAACXBIWXMAABcSAAAXEgFnn9JSAAB5aElEQVR4nOzd578W1b3w4ecvScxJxSMCgoAoSlfpIL1KFaQoRQxgiUKiMX7Og1EjekSUYkOUagMFpSoggiBdinTpvbqfn6yT8c7eCMRHJ8nJdb3wM3v2mjVrhrz5Zua+9/8pAgAAgHz9n3/0AgAAAPi3o0UBAADImxYFAAAgb1oUAACAvGlRAAAA8qZFAQAAyJsWBQAAIG9aFAAAgLxpUQAAAPKmRQEAAMibFgUAACBvWhQAAIC8aVEAAADypkUBAADImxYFAAAgb1oUAACAvGlRAAAA8qZFAQAAyJsWBQAAIG9aFAAAgLxpUQAAAPKmRQEAAMibFgUAACBvWhQAAIC8aVEAAADypkUBAADImxYFAAAgb1oUAACAvGlRAAAA8qZFAQAAyJsWBQAAIG9aFAAAgLxpUQAAAPKmRQEAAMibFgUAACBvWhQAAIC8aVEAAADypkUBAADImxYFAAAgb1oUAACAvGlRAAAA8qZFAQAAyJsWBQAAIG9aFAAAgLxpUQAAAPKmRQEAAMibFgUAACBvWhQAAIC8aVEAAADypkUBAADImxYFAAAgb1oUAACAvGlRAAAA8qZFAQAAyJsWBQAAIG9aFAAAgLxpUQAAAPKmRQEAAMibFgUAACBvWhQAAIC8aVEAAADypkUBAADImxYFAAAgb1oUAACAvGlRAAAA8qZFAQAAyJsWBQAAIG9aFAAAgLxpUQAAAPKmRQEAAMibFgUAACBvWhQAAIC8aVEAAADypkUBAADImxYFAAAgb1oUAACAvGlRAAAA8qZFAQAAyJsWBQAAIG9aFAAAgLxpUQAAAPKmRQEAAMibFgUAACBvWhQAAIC8adGiFStWtG/fvlGjRk2bNl29evWZM2fKly+/d+/ebECFChX27NmTNr766qvYKFu27M0339ywYcO6det+8MEHp06dKleuXLE9lSpV2rlzZwy+6qqr4ldphnDNNdfs2LEjNiZMmBAnvemmm5o3b75y5co4b3bGa6+9dtu2bbFx9dVXx4Bdu3al/VWrVv3yyy9j4/PPP+/SpUta87Jly9599922bdvG2X/yk5/UqVMnNsaNGxeLvPHGGxs0aFCjRo0pU6YcO3asevXqGzduTFPF9hdffBEbb7zxRsxTr169Fi1aLF26NFY+a9asuCExyU9/+tPatWvHxpgxYypXrrxu3boYP23atDhpzBzT/uUvfzlw4EDsrFatWpx38+bNafL47Zo1a368fzIAAOBfnRYtilqLBD179uzbb7/ds2fPQ4cOXbRFIxHTRhRXkyZNYnDFihV3796d9kSqxfisRaPiotPeeuutEydOFP21RefNm9epU6cY8PXXX48aNSpKMk2YZC163XXXxbHTp08/fvx4UUGLtmzZ8tNPPz19+vTMmTP79OmTTh1uuOGGLAhje9OmTbERDRlLigNLtujChQtvvfXW2IjLT0vaunVrtoxatWqtX78+2455Yny7du1SOceN6tat22uvvXbkyJFYZAyIrD169GiRFgUAAC5GixZVqVIlui7i6tSpUx9//HH899JbtOhcW0YKZi1adK4kd+3aVdiikydPbt26dZoktehtt902e/bskydPxp5oudST0aXZDFmLvv7661Gq6dFo1qK1a9desGDBqXOWLFmSSrXoO1o0pq1Zs2Zsl2zROO8777yTHf6HP/whzpsto2SLxvg333zz2LFjaefy5cu7d+++ZcuWaNGXXnopsjadUYsCAAAXpkWLJk6cGPHZo0ePmTNnRtrFnktv0fnz57dr127fvn1Zi2Z7Cls0Njp27BgVd+LEidSiEYeRcFn1FVPYolu3bu3cufO0adOiGLMWnTJlSszTrVu3t99+OyvJou9o0VhSNGSsoWSL1qtXLwrzu5ZRskUbNGiwatWqs2fPpp3R0rEnxkSLrl279vbbb3/jjTcirbUoAABwYVr0GwcOHJgwYULt2rWHDRt29OjR0qVL161bt+FfXXbZZak8i31eNDKsdevW6YXV9HnRtGfFihWxp1iLfvzxx61atYqmTS0aoZha9IUXXmjevHmVKlXS4KRYiy5atKhNmza7du3KWjQcPHgwwi9i8v7779+/f3/aWdiiMWc0YayqVKlSS5YsOX36dMkWjd9GQ37vFo20jvuTtWicJT0a1aIAAMCF/bu36N69excvXhydlrajG/ft2/d3vaObFL6jmxRr0djo1KnT9OnTr7rqqmjRDh06zJo1K72jG1UZO1N8JsVaNDa6du06derUOG+0aKzwk08+SZ8+je0aNWpkgXre56KRuyNGjIhejZEbNmyI8ozrjbaMLu3evXv2jm7sf+CBBwqTuGSL9u3bt/Ad3WXLlvXo0SO9oxstGnt69+79+uuvRzNrUQAA4AL+3Vs0Wi7C7/PPPz9z5kx0V+PGjQ8cOPAjteiiRYtatmz5q1/9Klp0ypQpkaPpu4ueeeaZyy+//MItGsHcunXrX//615GdUZW1a9dOCf3FF1+0atVq+/bt6cDztujq1aujIeNcKRSPHj06Z86ciNs46t13301PMmMZEaUxLH3Hb/Jd312Ublf67qKJEyem7y5KLbp06dKOHTv+5je/0aIAAMAF/Lu3aJg9e3ajRo0aNmzYpEmTyMUIvB+pRUOXLl0uu+yyiMBov8cee6x69epx3meffbZs2bJZTxadr0VD9+7df/azn23ZsiW2IyabN2/eoEGDWPO8efPS89Wi72jR48ePx1k2ndOpU6cG5yxYsCAdNWrUqBtvvLF+/foRpelP2mTLKNmisTF16tQ4acRn4d90yVo0RND+4he/WLVq1ff9BwEAAP7306IAAADkTYsCAACQNy0KAABA3rQoAAAAedOiAAAA5E2LAgAAkDctCgAAQN60KAAAAHnTogAAAORNiwIAAJA3LQoAAEDetCgAAAB506IAAADkTYsCAACQNy0KAABA3rQoAAAAedOiAAAA5E2LAgAAkDctCgAAQN60KAAAAHnTogAAAORNiwIAAJA3LQoAAEDetCgAAAB506IAAADkTYsCAACQNy0KAABA3rQoAAAAedOiAAAA5E2LAgAAkDctCgAAQN60KAAAAHnTogAAAORNiwIAAJA3LQoAAEDetCgAAAB506IAAADkTYsCAACQNy0KAABA3rQoAAAAedOiAAAA5E2LAgAAkDctCgAAQN60KAAAAHnTogAAAORNiwIAAJA3LQoAAEDetCgAAAB506IAAADkTYsCAACQNy0KAABA3rQoAAAAedOiAAAA5E2LAgAAkDctCgAAQN60KAAAAHnTogAAAORNiwIAAJA3LQoAAEDetCgAAAB506IAAADkTYsCAACQNy0KAABA3rQoAAAAedOiAAAA5E2LAgAAkDctCgAAQN60KAAAAHnTogAAAORNiwIAAJA3LQoAAEDetCgAAAB506IAAADkTYsCAACQNy0KAABA3rQoAAAAedOiAAAA5E2LAgAAkDctCgAAQN60KAAAAHnTogAAAORNiwIAAJA3LQoAAEDetCgAAAB506IAAADkTYsCAACQNy0KAABA3rQoAAAAedOiAAAA5E2LAgAAkDctCgAAQN60KAAAAHnTogAAAORNiwIAAJA3LQoAAEDetCgAAAB506IAAADkTYsCAACQNy0KAABA3rQoAAAAedOi5OfUqVNff/31d/1qwYIFhw4dynlJAADAP4QWJSfz589PqVmzZs3mzZtv2bIl7R82bFipUqVWrFgRG8uWLTt9+nR2yJo1a3r16tWoUaOmTZtGqZ48efKmm26qVatWw4YN69at+8QTT+zduzeG3XzzzbFz3bp16agYH/Nkk9SrVy/O2KBBgxo1ajz33HP79+9v0qTJ0qVLswEx+SeffBIbMW2MSZM/9thjX3311Y9/VwAA4N+UFv0f0ULt27dP2bN69eozZ86UL19+z549hWPWrl07ZsyYY8eO/RgLmDhxYiTZ8uXL49TxY8WKFaO7Uhe9//77kWGVKlW68cYbU1NNmzbt+PHj119/fSq6bKOYKlWqxCENz/nTn/504MCB2Dlp0qTSpUsvXrw4VV/VqlXr1KmTpp08eXJ2dTFn7E/HPvLII/v27YudMaBMmTILFy5Mx8aN6tGjR7ppixYtmjlzZseOHWP8ZZddlorx+eefP3jwYIyMaLzvvvu2bt1adC4dK1euHJ359Tk9e/b8zW9+8/nnn7/77ruRl7t27crW36VLl3nz5sW1f/DBB/3799+0aVOs87PPPotfxTr79es3atSoaMvUkBMmTEitW6xFGzdu/Omnn8bGhg0bbrnllrjD39Wi8dslS5bERtzbQYMG/fd//3dqXQAA4AenRf9HRE5K0LfffjvqKKqmZIv+qPr27Tt06NAXXnjhyJEj8eO11167bdu2onMB3Lx58507d1533XVffvll7Fm3bl301fbt2y/aotWqVYt+K7ZzwIABgwcPjkpM5RYV98UXX8TG+vXrI8Y2b96chtWsWTP2FDv2rrvuimNHjx6dsrZDhw4fffTRqVOnZs2adeedd6bUDBHAkZqFB0bDv/jii+moaNE48J133jl69Ghc3bBhw8qWLRstGodH2UYxZkfFembMmHHixIk4RfRk3JmsRYvOPTXt2rVrzBAtGvctbRd9d4tG98Z54/CLtmi67bGYlStXXvhfDQAA+H606P+I9otiiRaN7Fm0aFH8N1r0nnvuiW6J0nvllVeiiGLY1VdfnV7djI1B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AACQNy0KAABA3rQoAAAAedOiAAAA5E2LAgAAkDctCgAAQN60KAAAAHnTogAAAORNiwIAAJA3LQoAAEDetCgAAAB506IAAADkTYsCAACQNy1Kfvr06fP8889fe+21q1atih/ffPPNZs2a1alTp2bNmk888cS+fftiZ+1zNmzYkA6pX7/+ihUrYuOmm26qVatWw3Meeuih3bt333zzzXFggwYN4r+vvvpqDGvXrt3KlSu//vrrGH/77be/9dZbx44di+3GjRt/+umnhStp0qTJJ598UrgnFtOiRYu6des2b9587ty5J06cyOWWAADAvykt+o2XX345Uieyp2XLlmvWrDlz5szfO8PatWvHjh179OjRH2N5mddff/3yyy+PrEorvP7667ds2VJy2MSJE6O14ooiq5YtW3b69OnYWa1atY0bN6YB1atXT9tVq1aNFIycq1GjxuTJk6Pc3njjjaZNm8axUYlLly49depUNu3q1atvu+22Ro0axYDFixfPmDGjQ4cOUYaXXXZZqsQXXnjh0KFDU6ZMKVeu3Pz58+O8s2fP7tixYzYmnTQaMlr0o48+il/F8uJa4qgePXpETx4+fLhevXrRlnEJsV1U0KKx8dlnnxVeZky7fPny2Pjiiy+iQmPO4cOHP/fcc9G0CxcuvOuuu2J/GnnRFl2yZEksIBZz9uzZRYsW9ezZM9UyAADwI9GiRXPmzGnVqtXu3bu//vrrDz74oHXr1gcPHvxHL+r87rjjjiFDhkTypU47b4suWLCga9euX375ZVzO6NGj27dvv2PHjqLvaNFI0BRs69evv+WWWyZMmNCtW7fNmzfHsXGWSM2tW7dmM8dUH3/8cdTprFmzYiXbtm1L+6NmI8WzYXfffffgwYPj1Pv37892RtxGyqbt1KL9+vWbNm1aVu/RmVGAsZho0aj6Ll26pEejl9Kisdpoy9jetGlTLHLlypWxvHfffTc9FC26hBaNuzpp0qR0V8OIESPWrVsXXXop/ygAAMD3oEWLOnXq9OGHH6aHh+Gee+6JiIo07dy5c/RPixYtotMiSypUqDB06NBomBtuuOGVV145ceLEuHHjIrGi8aZMmRI/VqxYcdeuXXv27OnRo0cc2L179yuuuCL2xJyVK1eOPGvatGkc+9JLLx0/fvzAgQODBg1q1qxZjHz//fdPnjwZe6LiCvfEPLGMbJ1x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/+i1/At4+eWX9+zZU6tWrdq1azdo0KBmzZqvvfbaihUrWrduvWbNmq+//jrGdO/e/d133z1+/Hhs169fP35bOEMc9dlnnxXumTZtWrNmzerWrdu8efMFCxacPHkyzysCAAC+Hy36jSuuuKJevXoHDx5MP5YvX37v3r0lhz399NNHjx5du3bt2LFjjx07FnviqMceeyz6KnXUd4ni+s1vfhNZdebMmfjxmmuu2bFjR8lhEyZMaNSo0U033RRZFYNPnz4dO6+77rqtW7emAVWrVv3yyy9jo3LlyjfeeGOEWY0aNSLGotwmTpzYpEmTdOzy5cvTscmqVau6desWMzdt2nTp0qVReu3atWvYsOFPfvKTaMLYiMs5fPjwpEmTrrzyyo8//jiOnTVrVvv27eNXP/3pT9OYMWPGxEnXrVtXdC7/YqpYQJz9L3/5y4EDB2Jn9erV69Sps3nz5nTS+O3q1atjI4IzzRA2btwYe26++eZYUtG5km/VqlXM+cADDzz//PP79++fP3/+gAEDskku2qKLFi2Kdl25cuXZs2c/+uij2E4rBAAA/slp0W9cddVV0U4RaadOnSr67hatUKHCV199VbinUqVKu3fvvuj8vXv3Hjp06AsvvBApW/QdLRoZ1qlTp9gfWTtq1Ki2bdumc523RbONSK/GjRu//vrrXbp0iWFx7OjRoyMjd+7cmc3cunXrJUuWRGG+9957ffv2zX4VJfnFF19kwwYOHDh48OBowqzJQ61atdavX5+2IynjdAsXLoyUjfyLrj506FBUbpT2kSNHIkRj8BtvvBHbRQUtGnmcNjJZi8ZqozZjOxo1PRrt1atXLDI9FC26hBa9++67p06dms4Y/uu//iv61jNqAAD456dFvxEtOn369ObNm6cMSy0akdm5c+fIoRYtWkSPjRgx4rLLLmvYsOGBAweuvvrqCMUXX3zx5z//ebTWDTfcsHTp0oi9w4cPR4M1adJk37592eTHjh2LeRYvXhxFmvaft0V79Ogxe/bs9IppxFVE465du6LWLtyiMaBatWqxqvfff//EiRPp2H79+m3fvj17VBsrnDdv3qlzPvnkk6z0Cls0dt5+++3Rw/37949js1WVbNE+ffq8+eab6bFwWL58effu3bds2RIt+tJLL916662bNm0qurQW/eijj2KpcWxsDxs2LC75tttuSz8mF23R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hw4d+tvf/jYWsHfv3mLXlbVobMTiJ0yYcOjQoaKCFm3cuHFMGxvHjx8fMGDAs88+G61b2KL333//3XffHQ0c/1Lf794CAADfjxb91lVXXZWCJyooemb//v0XGHz11VdfIGAiPnft2lX44/9Pi36PAwtVq1atdu3aU6dOjcYrurQWHThw4ODBg0ePHn3w4MFPPvkk+nPbtm2x/+jRoy1atEhHDRo0KI3JMjV07Nhx4cKFkaCzZ8++8847Y/GX2KJnzpxp1arVypUrv/766w8//PD3v/99nDEasl+/fjFVFOOmTZuKXVdhi77wwgtdu3Zdu3Zt0flatOjcv2n37t1jJVmLxuR33XXXzJkzI3ezZ6oAAEA+tOi3shYNlSpVinrp3Llz/fr1o77Wr19/9uzZChUqdOvW7cknn/zjH//4s5/9LBIo9WpEaYRQgwYNmjdvHjk0fvz4X/ziF9FgX3755Xmfi8b46KI0fvU5rVu3rlq16qOPPnr48OE9e/b06tUrztujR4/LL788tWgWpTEswuyWW2654YYb4kQRhzG+T58+MVus7corr9yyZUscXni6aNEJEya0b98+9eRFWzQiLWaYN29e//79t2/fHpXYtGnTqLWoxMjCYcOGRWbHmN69e8+dOzeqtbCW457MmjXr5MmTkaORfLG8S2zREDNPnz79yJEjjzzySJRz3IqI0meeeWb37t1xuyJTi73wXNiisRHV+uqrrx46dOi8LXr69Om427E/a9FYfEy+Y8eOuNgY5m1qAADIkxb9VtaikWFt2rSJtBs7dmxE16RJkyL2InKi9N54440IraK/fS561113jRkz5tixY5MnT+7bt++BAwciZS/wXDRi8oUXXohOmzJlyh133BHJ995778X4qMRovyFDhsR547ex84orroigLSpo0ZjqoYceOnjwYOyvXbt27Lznnnvi7JFw77//fqxw06ZNsV1YVtGisTMuJ04Xi7xoi0ZMjhw5ct++fR07dowIjwS977773n777Tj2D3/4Q+RirC2i9Omnn47b1alTp8jvGJMmid9GJEfDT5s2Lb3DXNiicRuj0lOCFn5eNMozXe+f/vSniMOYM3o15nz44YdvvPHGGFmmTJm4xvQKbqZYi0ZPpkej523REydOtGrVKoZlLRrnirXF5GXLli18CRkAAMiBFv1W+rxogwYNWrduHS1U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CgAAQN60KAAAAHnTogAAAORNiwIAAJA3LQoAAEDetCgAAAB506IAAADkTYsCAACQNy0KAABA3rQoAAAAedOiAAAA5E2LAgAAkDctCgAAQN60KAAAAHnTogAAAORNi/6NV1555aabbqpfv37Lli1Xr1595syZSzzwmWeeOXLkSLGda9euHTt27NGjR3/AFZ49e/bhhx9u2LBhvXr1lixZcvr06Us5au7cueXKlfviiy8OHTrUv3//uMA2bdqsW7cuLrBGjRqxP/03G1+zZs0NGzbExqRJkxo3bhznatGiRZzu1KlTP+C1AAAA/7a06LfmzJnTqlWrXbt2ff311x988EHr1q0PHDhwicdWrFhx9+7dP+rykqjlhx56aP/+/e+9917Pnj0v5aQRybfeeusvf/nLjRs3PvbYY3/+85/j8HHjxg0fPnzPnj0XaNGFCxd26tRp/fr1EcDz58+P7S+//PLHvDgAAODfhRb9VufOnSNBs0d/99xzz759+yL2unTpUr9+/RYtWqQqu/rqq4cOHdqkSZMbbrghyvDEiROPP/74z372s4YNG3788cctW7asWrXqf/3Xf6XHpJUrV965c2faGDx4cNOmTeOol1566dixYxG6gwYNatasWUz+/vvvnzx5MoZde+21cbonnnjimWeeqVu3brVq1d54442IwKw5O3bsuGjRolhkjB89evTBgwfT/gEDBsRijh49OmzYsBdeeOHw4cPZdT388MNxxlh2tGgs75NPPjl9+nQkd/Pmzbds2RKZGoV53ha944473n777Vhq2hkNvHXr1gj1H/1fAgAA+N9Oi34rGjI9FC3cGY03duzY48ePT5o0qU+fPtF+ZcqUefTRR6P6IuQiLL/66quivz4XfeCBB2bNmhUb119/farHrEXLly//yCOPRKBG+FWvXj123nfffZG+kZTbt2+Pso1Tx7AoxgkTJsTpokLXrVsX9Xv33XfHiaKB03pif7RlJGXbtm2XLVuWvaMbE0Zbzpgxo1u3bumMydKlS3v37h174sBo0Vq1akVzxjXGhLVr1449adh5W7RBgwZr1qwRnwAAwA9Oi36rSpUq0WzF0isCdceOHbEzojG29+zZc+WVV0anpTiMdEzNmVo0UvOVV14ZPnz4r3/96+xxaNooV65cdF06KnbGnJGFdevWbXhOpUqVtm3bFmeJjYjV2Lj33ns7duw4derU6NLC9Vx33XXPP/98lPDMmTPbt29fmJ3RzNdcc83ChQuzR7ux5pjk008/jWS9cIvGpdWpU6fhX/385z+PDI7lrV69WosCAAA/OC36rTZt2nz44YfpSWME2KBBgw4dOhTtV6xFy5cvn56FFhV8TDRtdOvW7ZlnnonYizHFWjQGxDzpqCjG2K5evfrmzZtTFi5evPjEiRNF597RjShNw2Jnr169br/99r1792aLjFBMsXrmzJmYofADnHHqOHzWrFnpdd/w1ltvRU/Wq1cvjvrJT37SoUOHGjVqFHtHN40873PRHj16vP322ymG44wPPvhgdgkAAAD/P7Tot6ZPnx45GrUZ3TV16tSePXtGiw4YMGD8+PHRY1OmTOndu/fBgwevvvrqki1aoUKFaM4qVapEwm3cuLF06dLFWjTbKPpri/br12/cuHFHjx794IMPOnXqFOct+muLxnlvvfXW2Ijfppd1s3d0hw8f/s4778R6Pv744xiTzblp06ZIzWjpjh07bt++veTDzPRctPC7i4YNG5ZOWvQdLTpjxoxYWBwVs8VJ77jjjpj5x7n3AADAvxct+jeefPLJqLIGDRpEg23evDkKMGKvc+fO9evXb968eWrC87bobbfd1qpVqwcffDAOj2OvvPLK9DU/F2jR6Lpu3brFuRo3bpxeoy0qeC46evToevXqRUCOGDGiXbt22XcX7d27N5I4DmnatGnhH1np3r175OKJEyceeuihZ599Nmq22KWlFi35N13Sb7/rb7o899xz6Y/cROKuWrXq0v/IDQAAwAVoUQAAAPKmRQEAAMibFgUAAOD/sXdn31ZVZ8KH/4+6KOsmjiqUIQrGXkGNNB44ICBtJIjYJIAJInaQkcYqY0xFo1Xy6UhUFNDEaIIEkWgwJKI0QaQTBASk7xE4cGgO8r0yy+WuQ1MMk3otzfNcnLH23HOvudbeV7+x1t4nmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxYFAAAgmxb9L88991xdXV2HDh169uz53nvvNTU1feZd3X333b/61a8aGxtju1u3biNGjNi1a1ds33fffb/+9a/37dvXbP7y5cvHjRvX0NBw3L1dfPHF69atazb4i1/8ouyzVoyMHj26RYsWH3zwQRmZOHFir1692rZtG+vu3bt31qxZffr06dKly9VXXz1lypRyhGHmzJlXXXVVx44d46lRo0Zt27at2ueMGTNat24dR1g70qZNm2XLllUj8drycNOmTf369fvLX/7ywgsv9OjRI97M+BsPDx48eKrvHQAA8PdBi37sz3/+89e//vXt27d/9NFHjz32WATbsaV36iJEf/jDH+7evTvysnv37pFkpe769u37GSr3uC16ySWXrF27ttng9ddf/9BDD51zzjmlRXfs2BEj8dqVK1fW19fH/M6dO0d2RhnGdkTymjVrygsnT5781FNPffjhh812GMc/aNCg008/fcWKFdXIDTfcECPHtuiBAwduuumm2NX06dNj4/333483Mxp7wIABVRsDAAAUWvRjAwcOfOONNw4dOhTbe/bsufnmm3fu3Bkp1aZNm8GDBz/66KORbVFldXV11157bYTZ2LFjozDbtm370ksvPfHEE9X2/v37Yw8RnKVsZ8yY8cADD0SqbdiwIVIt8m/Lli2RfCNHjuzRo0fsbdq0aTEeL7nwwgtjTiTrt771rRiPRVu2bLl+/fojR1v0zjvvjKa99NJLx48fv3fv3jier3zlKzEtdrJ58+bqLLZu3Rqhe9lll5X2W7Vq1csvvxz1uG/fviuuuGL16tX9+/d/9dVX4yAXLVoUR1Ul4tNPP/3b3/722AuzcfDPPvvs+eefX7VojEyYMCFGaq+Ulha99957I+PjffvOd74zderUcvk3jvaOO+6IpePN/F/79AAAgC8eLfqx6L2IumN7KYIwIi1y8bbbbnvmmWcaGxvj4dChQ88888zoqyi0ESNGxJxqu1xajP187Wtfix3+53/+5yuvvBLlOX369Llz50ZSRqp997vf/dOf/hT7jPjs2rVricnSonfddVesEv32hz/8IZYol0O/+tWv/uhHP9q9e3escuWVV5ZALddFox4PHz7c7JirFq1MmjTp9ttvjwyOBG3dunWU5GmnnRb9WcXnT3/60+HDh9fX1/fu3XvOnDnlltp33nln2LBhcVSxaGnRMhIHEGfXrEX/7d/+LQ5+48aN8TBO6t133z32wAAAACpa9GMXXHBBadEnnniie/fu8TCiMcZbtWoVCRfj0X4RWrERDRnbN95444ABA15++eV4GA0W25MnTy4XRYvBgwdHfMbfKMbnn3/+sccee/zxxydMmBCdGWnXqVOnLkedd955EXux29Ki0XiRkfHw0KFDkaClRc8999wq7aKZy625x71Ht2jWojHtmmuuWbhwYVNTUxx2+WLqa6+9FoVcXVN98MEHx4wZEyE9bdq06667LtaN87r++uvffvvtOJLSojEyaNCgOKkYadai7dq1O+ecc6699tpySJ07d168eHEc8HPPPde3b9+LLrqouqwKAABQaNGP9e7du7pHd9euXWeccUb5hmebNm3KRkRgbYvG4Jw5c26++eZvfvObMb/arr5y+eijj0Z5xm63b98eJXbrrbfGhEWLFsUSbdu2XbNmTewqai1eWAq2tGg8VVo0VokELS0aT1XfF60S9BRbNNK3X79+U6dOLT9TdPnll69cuTL2H10ahblq1aoyLZaOwyjjV111Vcx55ZVX6urqrr766gjm0047rX///mPHjo2RUtFlJF5VXh67imodOnToww8/vGPHjltuuWXKlCnlHt3du3fHSS1ZsuRv/5kBAABfZFr0Y7/5zW8irspvF0VGnn766bF9pKZFb7vttvHjx0fRvfTSS1GV0WNbtmyJ0rvgggs6duy4efPm2L7oootisOzwzTffjB2WX9CNffbs2TNeUnb17W9/e9y4cZFq06dP/8Y3vlEGS4vGU+XaaaRgdY9u7W8XVQkaa0VwxsyT3KMb695+++1PP/30nj17ylMDBw6cPHlynMW8efPKZcyYGd179913//KXv2xoaJg/f375uaPaHVb36FaOvUd32bJl8SZEu7766qsTJ0684YYbym8XRcGeffbZWhQAAGhGi34squnf//3fL7300vr6+ieffDI6sFmLRmhFpNXV1UVVRoY9/vjjkaBt27Z9+OGHH3nkkWo74rDsMDZatmz51FNPlQuSt9xyy+DBg8t9v9Gcsd25c+euXbu+88475WJsadGIwCjYWCXisFWrVtVvFx3bokOGDOndu3ez3y4qqhaNbI6dtG/fPjK4V69eGzdujGKM+u181Ouvv7548eI4qVhlzZo1AwYMiMHu3bvPnj272b9gOcUWjY3f//733bp1W7p06ZgxY2JOnEhsnH/++THyN/uoAACALwUt+n/IqFGjZs2aFSm4cOHCfv36HduZf1sRzy+88MKJ/q8pAADA/x4t+n/I4sWLI0G7d+9eX1//5ptvNrs+CQAA8KWhRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRQEAAMimRY/cf//9Y8eO3b9/f3k4cODAWbNmHTp06DPv8Lzzztu8eXOzwXPOOadjx47btm0rDy+44IKNGzeW7RdeeOFf/uVfFixY0NTUFA+/+tWvdujQoUuXLp06dZo2bdqBAwdicN26dTfeeGMM9urVa8mSJWXmrl27Ro0a1aJFizVr1tSu9cYbb7Rq1Wr16tXl4c9+9rMnn3xy9+7d5eGQIUOmT59ezveSSy656qqrOnfu3K5duwkTJjQ0NMTOY6H6+vprrrlm7ty5O3bsGDFiRF1dXd++fd97771Yd8+ePTESL+nTp8/SpUtjZPTo0d26dYtjixM844wzli1b9pnfOgAA4O+EFj0ye/bsm266qaRaxFi02c6dO/+aHR63Rc8///zY85QpU0oE1rbosGHD7rnnnujhWD0eXnTRRevXr4+NiLqePXtu2rQptuMIJ02a1NjYOHPmzGi/7du3HzmazQ899NDZZ59d26KxkwEDBnzlK1+pWjSSMpYo+9m7d29EZjX/8ssvX7lyZVkrAnjVqlX9+vWbM2dOpHhk8K233hoH9vDDD0eRjh8//l//9V+3bt36H//xHzESBxDtGiNbtmypln7ppZceeOCB2hEAAIDj0qJHmpqaIsmisj766KPf//733/3udyMFhw8f3r1797q6uj/96U8HDx585pln2rdv37Zt2wjCJ554IrIttiO9ortGjBjRo0ePmPnHP/4xZh75pEUHDx4cCVetEi06ceLEPn36lEujVYvu27fvhhtuiPwbOnRoeapq0XDZZZeV7Vjugw8+iCOMo62vry+Dcczx8NJLL61t0R/96EfPPffcueeeG/OrE+zSpUt0Zrz89ddf/8EPfhAvLE9VLRpPdevWLfK1U6dOccoHDhyIc3n77bdj8C9/+UukaZxRr169YkIVq3HuvXv3jt2WXcUeooHjJX/NJWUAAODvhBb9WJRnKcl77rnntddeu/3229944414GMkXkblz585Ix0i7FStW3HbbbWeeeWYkWWxHhQ4bNuzPf/5zmRm9V2KytGhDQ8Phw4erJaJFN23aFLX28ssv79+/v2rRWG7MmDF79uyJ0lu3bl0UXdWiM2fOjPnlMuONN9747LPP7t2799VXX23duvXatWurPde26Lx584YMGRKrR8RWLRpGjRoVmd3Y2HjvvfdOmTIlAriMVy06e/bsqVOnxjH/7ne/u/jiiwcNGjR58uRYLgp8+fLlcVRxLlHgcdbxd9myZWUkwjWeLbuK9yFWqS72AgAAnIQW/VgE2H333RfpFeUZPRl1d/XVV3c5KsJy69atd955Z8nIAwcO1G63a9eudmZEYETaie7RjRaN5Ovdu3fssGrR6Lcrrrjiqquuatmy5Ysvvhi5WL4vWr6QuWDBgnKZMTJ16NChXbt2/clPftKmTZvjtmgcz3XXXTd//vx4SbMWjc68//77t2/fXq5kxkGW8fJ90VjuH//xHyMsSwPv2rVr4sSJcQCjR48+99xzT7FFv/nNb0aOVl+7BQAAOAkt+rGor+7du7/11lvDhw/fs2fPhRdeGKFYcivqsdx5W75WGsW1e/fuOXPm3HzzzbHdqlWr6LcyMwbL7wydpEWPHP2S5+TJk1u3bh1LNDU19e/fv1z5nDFjxve+972dO3fW3qNb+fnPfx6RHAtFYcZLyq6KqkUjjzt27FjaONoyurT66mYcczycNm1ahHTtsVXXRSMyL7744rlz586bN69cNd2xY0f79u2jmU/lHt1FixYNGzastpABAABOQov+l69//esjRox48cUXoyeHDBkyYcKE/fv3v/7665Fw69at69u379atW/fu3RtJGb0XGRbbkawxPn78+MbGxj/+8Y8DBgwoXxAtLRoTjr1HNzYi7SLhTj/99GjR2B49enT5qaTYSTRkzDlui0Yk/+pXv4p9PvLII4899lj1o7hH/vs9upVm10VDxHPZSUNDQ3VsVYvGGcW5LFy4MM5u5syZkd/ld4xGjhxZ/XbRvffeG9Nqf7uojMTL77777t/97nex27/dBwIAAHyZadH/8otf/OKf//mfyzc2N2zYMHDgwM6dO3ft2nXRokVNTU0///nPy+8VPXJUBFtsR5K9//77gwYNKjOrf8py7bXX3nfffX369Cm/dltULRriJf/0T/8UqzzwwAPPP/989e3N8u9kImWPbdFyOTSOIXqyXCCtnjrFFh03btxZZ5317rvvRoVGbMfqRz65R7e+vj6O/7XXXosenjFjRqRynFG3bt2mT58ea/2P/9Nl7dq13/jGN6qf7QUAAPgfaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyaVEAAACyadFPtWzZslOnTp07d27Xrt2LL7544MCBk88/99xzt2zZUj1ctmzZM888s3fv3s+w9O7du4cOHVpXV9e3b99Vq1YdPnx45MiRXbt27dKlS8eOHVu0aLFu3bqYc+utt5Y5K1eujDlvvfXWlVdeGccc00aPHr1jx46Y8+1vf7vMWbFiRcyJke985zu1I7HcxIkTe/Xq1bZt2+effz4OeM+ePcOHDy9z4iyamppmz57dr1+/2O3VV1/98ssv79u3b9asWR06dIiDicFRo0Zt3bp1/fr13/rWt+rr62NX8+fPP3To0IYNG4YMGVI78hne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FAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxaFAAAgGxa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e/6PzQkAAM1oUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUQAAALJpUeD/t1/HAgAAAACD/K1nsassAgCAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAm4sCAABwc1EAAABuLgoAAMDNRQEAALi5KAAAADcXBQAA4OaiAAAA3FwUAACAWxHNIL5LnzT5AAAAAElFTkSuQmCC" style="width: 100%; height: 9.5vw; object-fit: contain; background: white; border-radius: 0.2vw;" alt="email_512_SI actual scan" />
@@ -1023,7 +1036,7 @@
               </div>
             </div>
 
-            <div style="margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #F59E0B; background: rgba(245, 158, 11, 0.1); padding: 0.4vw 0.6vw; border-radius: 0.3vw;">
+            <div style="margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; color: #9A5D18; background: #FEF7ED; padding: 0.4vw 0.6vw; border-radius: 0.3vw;">
               [PyMuPDF Diagnostic] Selectable text length: 0 chars | Raster DPI: 150 (Scan)
             </div>
           </div>
@@ -1032,8 +1045,8 @@
           <div style="display: flex; flex-direction: column; gap: 0.8vw;">
             
             <div class="glass-card" style="border-left: 4px solid var(--accent-red); padding: 0.8vw;">
-              <div style="font-size: 0.75vw; font-weight: 700; color: #F87171; text-transform: uppercase;">Typical Document AI Pipeline</div>
-              <div style="font-size: 0.75vw; color: #E2E8F0; margin-top: 0.3vw; font-family: 'JetBrains Mono', monospace;">
+              <div style="font-size: 0.75vw; font-weight: 700; color: #B84A39; text-transform: uppercase;">Typical Document AI Pipeline</div>
+              <div style="font-size: 0.75vw; color: var(--text-main); margin-top: 0.3vw; font-family: 'JetBrains Mono', monospace;">
                 Incomplete OCR ➔ Hallucinated LLM Inference ➔ Plausible Typo
               </div>
               <p style="font-size: 0.68vw; color: var(--text-dim); margin-top: 0.3vw;">
@@ -1046,16 +1059,16 @@
                 <span style="font-size: 0.75vw; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase;">Averish Policy</span>
                 <span class="pill-tag green">SAFE HALT</span>
               </div>
-              <div style="font-size: 0.75vw; color: #E2E8F0; margin-top: 0.3vw; font-family: 'JetBrains Mono', monospace;">
+              <div style="font-size: 0.75vw; color: var(--text-main); margin-top: 0.3vw; font-family: 'JetBrains Mono', monospace;">
                 Insufficient Evidence ➔ Execution Stopped ➔ Human Review
               </div>
-              <div style="margin-top: 0.4vw; font-size: 0.7vw; color: #BAE6FD;">
+              <div style="margin-top: 0.4vw; font-size: 0.7vw; color: #1E667E;">
                 Status: <span style="font-family: 'JetBrains Mono'; font-weight: 700;">scanned_not_processed</span>
               </div>
             </div>
 
-            <div style="background: rgba(14, 30, 56, 0.6); padding: 0.8vw; border-radius: 0.4vw; border: 1px solid rgba(56, 189, 248, 0.3);">
-              <div style="font-size: 1.1vw; font-weight: 800; color: #FFFFFF; font-family: 'Google Sans', sans-serif;">
+            <div style="background: #FFFFFF; border: 1px solid var(--border-card); padding: 0.8vw; border-radius: 0.4vw; border: 1px solid rgba(56, 189, 248, 0.3);">
+              <div style="font-size: 1.1vw; font-weight: 800; color: var(--text-main); font-family: 'Google Sans', sans-serif;">
                 “Uncertainty is a valid system state.”
               </div>
               <div style="font-size: 0.7vw; color: var(--text-muted); margin-top: 0.2vw;">
@@ -1115,7 +1128,7 @@
               BILL OF LADING (DRAFT)<br>
               ========================================<br>
               SHIPPER: APRIL FAR EAST SDN BHD<br>
-              <span style="background: rgba(56, 189, 248, 0.25); color: #38BDF8; font-weight: 700;">To the Order of: UAB NOVAKOPA</span><br>
+              <span style="background: #DFEFF5; color: #2A7B9B; font-weight: 700;">To the Order of: UAB NOVAKOPA</span><br>
               &nbsp;&nbsp;RAKEZ AMENITY CENTER, UAE<br>
               POD: KARACHI, PAKISTAN (PKKHI)<br>
               Container Count: 6 x 40'HC<br>
@@ -1127,12 +1140,12 @@
           <div class="glass-card highlight-card" style="text-align: center; padding: 1.2vw 0.8vw;">
             <div style="font-size: 0.7vw; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase;">02. AI EXTRACTION & PROVENANCE</div>
             
-            <div style="margin: 0.8vw 0; font-family: 'JetBrains Mono', monospace; font-size: 0.75vw; background: rgba(0,0,0,0.4); padding: 0.6vw; border-radius: 0.3vw; text-align: left;">
+            <div style="margin: 0.8vw 0; font-family: 'JetBrains Mono', monospace; font-size: 0.75vw; background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.6vw; border-radius: 0.3vw; text-align: left;">
               <div>field: <span style="color: var(--accent-cyan);">consignee</span></div>
-              <div>proposed: <span style="color: #FCA5A5;">"UAB NOVAKOPA"</span></div>
-              <div>si_reference: <span style="color: #34D399;">"EAST BRIGHT FZ-LLC"</span></div>
+              <div>proposed: <span style="color: #8C3426;">"UAB NOVAKOPA"</span></div>
+              <div>si_reference: <span style="color: #2E6B47;">"EAST BRIGHT FZ-LLC"</span></div>
               <div>char_offsets: <span style="color: var(--text-dim);">[128 - 140]</span></div>
-              <div>agreement: <span style="color: #EF4444; font-weight: 700;">CONFLICT</span></div>
+              <div>agreement: <span style="color: #B84A39; font-weight: 700;">CONFLICT</span></div>
             </div>
 
             <div style="display: flex; justify-content: center; gap: 0.5vw;">
@@ -1144,15 +1157,15 @@
           <!-- Dual Outcomes -->
           <div style="display: flex; flex-direction: column; gap: 0.8vw;">
             <div class="glass-card" style="border-left: 3px solid var(--accent-green); padding: 0.7vw;">
-              <div style="font-size: 0.7vw; font-weight: 700; color: #34D399;">EVIDENCE VERIFIED</div>
+              <div style="font-size: 0.7vw; font-weight: 700; color: #2E6B47;">EVIDENCE VERIFIED</div>
               <div style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.2vw;">
                 Source match confirms offset & entity &rarr; Auto-Accepted.
               </div>
             </div>
 
             <div class="glass-card alert-card" style="border-left: 3px solid var(--accent-red); padding: 0.7vw;">
-              <div style="font-size: 0.7vw; font-weight: 700; color: #EF4444;">EVIDENCE MISSING / CONFLICT</div>
-              <div style="font-size: 0.65vw; color: #FCA5A5; margin-top: 0.2vw;">
+              <div style="font-size: 0.7vw; font-weight: 700; color: #B84A39;">EVIDENCE MISSING / CONFLICT</div>
+              <div style="font-size: 0.65vw; color: #8C3426; margin-top: 0.2vw;">
                 Never guess winner &rarr; Route to Propose-and-Confirm Panel.
               </div>
             </div>
@@ -1160,8 +1173,8 @@
 
         </div>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(14, 30, 56, 0.7); border: 1px solid rgba(56, 189, 248, 0.2); padding: 0.7vw 1.2vw; border-radius: 0.4vw;">
-          <span style="font-size: 0.8vw; font-weight: 600; color: #FFFFFF;">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #FAF7F2; border: 1px dashed var(--border-card); border: 1px solid rgba(56, 189, 248, 0.2); padding: 0.7vw 1.2vw; border-radius: 0.4vw;">
+          <span style="font-size: 0.8vw; font-weight: 600; color: var(--text-main);">
             “OCR extracts. LLM interprets. Provenance verifies.”
           </span>
           <span style="font-size: 0.75vw; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace;">
@@ -1212,20 +1225,20 @@
               <span class="term-dot r"></span>
               <span class="term-dot y"></span>
               <span class="term-dot g"></span>
-              <span style="font-size: 0.65vw; color: #94A3B8; margin-left: 0.5vw;">python demo_trust_features.py --step 3</span>
+              <span style="font-size: 0.65vw; color: #6B665E; margin-left: 0.5vw;">python demo_trust_features.py --step 3</span>
             </div>
             <div class="terminal-content" style="font-size: 0.65vw; line-height: 1.5;">
-              <span style="color: #38BDF8;">STEP 3 - Red Team: Remove field (circuit breaker)</span><br>
+              <span style="color: #2A7B9B;">STEP 3 - Red Team: Remove field (circuit breaker)</span><br>
               &nbsp;&nbsp;Removed 4 required field line(s) from the draft BL.<br>
-              &nbsp;&nbsp;<span style="color: #F87171; font-weight: 700;">3 consecutive AI extractions failed validation</span><br>
+              &nbsp;&nbsp;<span style="color: #B84A39; font-weight: 700;">3 consecutive AI extractions failed validation</span><br>
               &nbsp;&nbsp;failed fields: port_of_loading, port_of_discharge, container_count<br>
               &nbsp;&nbsp;&nbsp;&nbsp;- port_of_loading: source_match: no value could be proposed<br>
               &nbsp;&nbsp;&nbsp;&nbsp;- port_of_discharge: source_match: no value could be proposed<br>
               &nbsp;&nbsp;&nbsp;&nbsp;- container_count: source_match: no value could be proposed<br><br>
-              <span style="color: #EF4444; font-weight: 800;">[!] CIRCUIT BREAKER TRIPPED — EXECUTION HALTED</span><br>
-              &nbsp;&nbsp;<span style="color: #FBBF24;">suggested recipient: carrier</span><br>
-              &nbsp;&nbsp;<span style="color: #FBBF24;">estimated delay: 16.0h (240 min per unresolved field)</span><br>
-              &nbsp;&nbsp;<span style="color: #94A3B8;">AI processing stopped: no further AI guesses were made.</span>
+              <span style="color: #B84A39; font-weight: 800;">[!] CIRCUIT BREAKER TRIPPED — EXECUTION HALTED</span><br>
+              &nbsp;&nbsp;<span style="color: #9A5D18;">suggested recipient: carrier</span><br>
+              &nbsp;&nbsp;<span style="color: #9A5D18;">estimated delay: 16.0h (240 min per unresolved field)</span><br>
+              &nbsp;&nbsp;<span style="color: #6B665E;">AI processing stopped: no further AI guesses were made.</span>
             </div>
           </div>
 
@@ -1233,25 +1246,25 @@
           <div class="glass-card alert-card" style="display: flex; flex-direction: column; justify-content: space-between;">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6vw;">
-                <span style="font-size: 0.85vw; font-weight: 800; color: #EF4444;">DCSA REFUSAL CERTIFICATE</span>
+                <span style="font-size: 0.85vw; font-weight: 800; color: #B84A39;">DCSA REFUSAL CERTIFICATE</span>
                 <span class="pill-tag red">Actionable Escalation</span>
               </div>
 
-              <p style="font-size: 0.7vw; color: #CBD5E1; margin-bottom: 0.8vw;">
+              <p style="font-size: 0.7vw; color: #5C5750; margin-bottom: 0.8vw;">
                 Instead of manufacturing hallucinated data or stalling in an infinite retry loop, Averish issues an immutable, structured refusal report:
               </p>
 
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; background: rgba(0,0,0,0.5); padding: 0.7vw; border-radius: 0.4vw; display: flex; flex-direction: column; gap: 0.4vw;">
-                <div><span style="color: var(--text-dim);">failed_fields:</span> <span style="color: #FCA5A5;">["port_of_loading", "port_of_discharge", "container_count"]</span></div>
-                <div><span style="color: var(--text-dim);">circuit_breaker:</span> <span style="color: #EF4444; font-weight: 700;">TRIPPED (threshold: 3)</span></div>
-                <div><span style="color: var(--text-dim);">suggested_recipient:</span> <span style="color: #38BDF8; font-weight: 700;">carrier</span></div>
-                <div><span style="color: var(--text-dim);">estimated_delay_hours:</span> <span style="color: #FBBF24; font-weight: 700;">16.0</span></div>
-                <div><span style="color: var(--text-dim);">remediation:</span> <span style="color: #E2E8F0;">Query ocean carrier booking desk for missing container manifest</span></div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.7vw; border-radius: 0.4vw; display: flex; flex-direction: column; gap: 0.4vw;">
+                <div><span style="color: var(--text-dim);">failed_fields:</span> <span style="color: #8C3426;">["port_of_loading", "port_of_discharge", "container_count"]</span></div>
+                <div><span style="color: var(--text-dim);">circuit_breaker:</span> <span style="color: #B84A39; font-weight: 700;">TRIPPED (threshold: 3)</span></div>
+                <div><span style="color: var(--text-dim);">suggested_recipient:</span> <span style="color: #2A7B9B; font-weight: 700;">carrier</span></div>
+                <div><span style="color: var(--text-dim);">estimated_delay_hours:</span> <span style="color: #9A5D18; font-weight: 700;">16.0</span></div>
+                <div><span style="color: var(--text-dim);">remediation:</span> <span style="color: var(--text-main);">Query ocean carrier booking desk for missing container manifest</span></div>
               </div>
             </div>
 
             <div style="margin-top: 0.8vw; padding-top: 0.6vw; border-top: 1px solid rgba(239, 68, 68, 0.2);">
-              <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">
+              <div style="font-size: 0.9vw; font-weight: 700; color: var(--text-main);">
                 “Failure becomes an actionable operational state.”
               </div>
               <div style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.1vw;">
@@ -1305,20 +1318,20 @@
           
           <!-- BEFORE: Stateless Fatigue -->
           <div class="glass-card" style="border-color: rgba(239, 68, 68, 0.3);">
-            <div style="font-size: 0.85vw; font-weight: 700; color: #FCA5A5; margin-bottom: 0.5vw;">
+            <div style="font-size: 0.85vw; font-weight: 700; color: #8C3426; margin-bottom: 0.5vw;">
               BEFORE: Stateless Document Tools
             </div>
             
             <div style="display: flex; flex-direction: column; gap: 0.35vw; font-size: 0.7vw; font-family: 'JetBrains Mono', monospace;">
-              <div style="padding: 0.3vw 0.5vw; background: rgba(0,0,0,0.3); border-radius: 0.25vw;">1. AI extraction error on unfamiliar layout</div>
+              <div style="padding: 0.3vw 0.5vw; background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.25vw;">1. AI extraction error on unfamiliar layout</div>
               <div style="text-align: center; color: var(--text-dim);">↓</div>
-              <div style="padding: 0.3vw 0.5vw; background: rgba(0,0,0,0.3); border-radius: 0.25vw;">2. Human operator manually corrects field</div>
+              <div style="padding: 0.3vw 0.5vw; background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.25vw;">2. Human operator manually corrects field</div>
               <div style="text-align: center; color: var(--text-dim);">↓</div>
-              <div style="padding: 0.3vw 0.5vw; background: rgba(239, 68, 68, 0.15); color: #FCA5A5; border-radius: 0.25vw;">3. Same carrier format arrives next day</div>
+              <div style="padding: 0.3vw 0.5vw; background: #FDEEEB; color: #8C3426; border-radius: 0.25vw;">3. Same carrier format arrives next day</div>
               <div style="text-align: center; color: var(--text-dim);">↓</div>
-              <div style="padding: 0.3vw 0.5vw; background: rgba(0,0,0,0.3); border-radius: 0.25vw;">4. Model repeats exact same error</div>
+              <div style="padding: 0.3vw 0.5vw; background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.25vw;">4. Model repeats exact same error</div>
               <div style="text-align: center; color: var(--text-dim);">↓</div>
-              <div style="padding: 0.3vw 0.5vw; background: rgba(239, 68, 68, 0.25); color: #EF4444; font-weight: 800; border-radius: 0.25vw; text-align: center;">5. HUMAN FATIGUE</div>
+              <div style="padding: 0.3vw 0.5vw; background: #FCE8E4; color: #B84A39; font-weight: 800; border-radius: 0.25vw; text-align: center;">5. HUMAN FATIGUE</div>
             </div>
           </div>
 
@@ -1329,17 +1342,17 @@
                 AVERISH: Closed-Loop Reflexion Engine
               </div>
               
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; background: rgba(0,0,0,0.4); padding: 0.6vw; border-radius: 0.3vw; line-height: 1.45; color: #CBD5E1; border: 1px solid rgba(56, 189, 248, 0.2);">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.65vw; background: #F3EFE6; border: 1px solid var(--border-card); padding: 0.6vw; border-radius: 0.3vw; line-height: 1.45; color: #5C5750; border: 1px solid rgba(56, 189, 248, 0.2);">
                 <span style="color: var(--accent-cyan); font-weight: 700;">[Reflexion Lesson Generated from email_004]:</span><br>
                 “When extracting port_of_discharge from evergreen-line-2e1d0e.com SI documents, look for 'PORT KLANG' in context instead of accepting 'PORT'. Verify keyword delimiters and line boundaries.”<br><br>
-                <span style="color: #FBBF24;">[Thompson Sampling Update]:</span><br>
+                <span style="color: #9A5D18;">[Thompson Sampling Update]:</span><br>
                 Prior: Beta(1.0, 1.0) [50% Trust] ➔ Posterior: Beta(1.0, 2.0) [33% Trust]<br>
-                <span style="color: #34D399; font-weight: 700;">Action: Policy automatically routes to Human-First queue to prevent error recurrence.</span>
+                <span style="color: #2E6B47; font-weight: 700;">Action: Policy automatically routes to Human-First queue to prevent error recurrence.</span>
               </div>
             </div>
 
             <div style="font-size: 0.68vw; color: var(--text-dim); margin-top: 0.6vw; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.4vw;">
-              <strong style="color: #F8FAFC;">Technical Note:</strong> Current demo: reflection generation verified. Next stage: full reflection retrieval & learning loop.
+              <strong style="color: var(--text-main);">Technical Note:</strong> Current demo: reflection generation verified. Next stage: full reflection retrieval & learning loop.
             </div>
           </div>
 
@@ -1390,10 +1403,10 @@
                 <span class="pill-tag cyan" style="font-size: 0.6vw;">STAGE 01</span>
                 <span style="font-size: 0.9vw;">📥</span>
               </div>
-              <div style="font-size: 0.82vw; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Multi-Source Ingestion</div>
+              <div style="font-size: 0.82vw; font-weight: 700; color: var(--text-main); line-height: 1.2;">Multi-Source Ingestion</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.3vw;">Unstructured Trade Feeds</div>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.45;">
+            <div style="background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.45;">
               • Scanned Ocean B/L & SIs<br>
               • Commercial Invoices & Emails<br>
               • Docling Layout OCR Parsing<br>
@@ -1405,26 +1418,26 @@
           <div style="display: flex; align-items: center; justify-content: center; color: var(--accent-cyan); font-size: 1vw;">➔</div>
 
           <!-- Stage 2: Tri-Stage Defensive Gates -->
-          <div class="glass-card" style="border-top: 3px solid #F59E0B; padding: 0.9vw; display: flex; flex-direction: column; justify-content: space-between; background: rgba(18, 28, 48, 0.85);">
+          <div class="glass-card" style="border-top: 3px solid #F59E0B; padding: 0.9vw; display: flex; flex-direction: column; justify-content: space-between; background: #FFFFFF; border: 1px solid var(--border-card);">
             <div>
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4vw;">
                 <span class="pill-tag amber" style="font-size: 0.6vw;">STAGE 02: GATES</span>
                 <span style="font-size: 0.9vw;">🛡️</span>
               </div>
-              <div style="font-size: 0.82vw; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Tri-Gate Verification</div>
+              <div style="font-size: 0.82vw; font-weight: 700; color: var(--text-main); line-height: 1.2;">Tri-Gate Verification</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.3vw;">Zero-Tolerance Trust Filters</div>
             </div>
             <div style="display: flex; flex-direction: column; gap: 0.3vw; margin-top: 0.5vw;">
-              <div style="background: rgba(239, 68, 68, 0.12); border-left: 2.5px solid #EF4444; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
-                <strong style="color: #FCA5A5;">Gate 1: Document Validity</strong><br>
+              <div style="background: #FDEEEB; border-left: 2.5px solid #EF4444; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
+                <strong style="color: #8C3426;">Gate 1: Document Validity</strong><br>
                 <span style="color: var(--text-muted);">Rejects wrong attachments (email_004)</span>
               </div>
-              <div style="background: rgba(245, 158, 11, 0.12); border-left: 2.5px solid #F59E0B; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
-                <strong style="color: #FCD34D;">Gate 2: Data Sufficiency</strong><br>
+              <div style="background: #FEF7ED; border-left: 2.5px solid #F59E0B; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
+                <strong style="color: #9A5D18;">Gate 2: Data Sufficiency</strong><br>
                 <span style="color: var(--text-muted);">Halts on degraded/missing text (email_512)</span>
               </div>
-              <div style="background: rgba(56, 189, 248, 0.12); border-left: 2.5px solid #38BDF8; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
-                <strong style="color: #BAE6FD;">Gate 3: Provenance Anchoring</strong><br>
+              <div style="background: #EDF6F9; border-left: 2.5px solid #38BDF8; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
+                <strong style="color: #1E667E;">Gate 3: Provenance Anchoring</strong><br>
                 <span style="color: var(--text-muted);">Validates pixel coordinates (email_505)</span>
               </div>
             </div>
@@ -1440,15 +1453,15 @@
                 <span class="pill-tag cyan" style="font-size: 0.6vw;">STAGE 03</span>
                 <span style="font-size: 0.9vw;">⚖️</span>
               </div>
-              <div style="font-size: 0.82vw; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Decision Boundary</div>
+              <div style="font-size: 0.82vw; font-weight: 700; color: var(--text-main); line-height: 1.2;">Decision Boundary</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.3vw;">Confidence & Circuit Breaker</div>
             </div>
             <div style="display: flex; flex-direction: column; gap: 0.35vw; margin-top: 0.6vw;">
-              <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 0.3vw; padding: 0.35vw; font-size: 0.58vw;">
-                <span style="color: #34D399; font-weight: 700;">Score ≥ 0.85:</span> Automated release to EDI / ERP booking.
+              <div style="background: #EDF5F0; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 0.3vw; padding: 0.35vw; font-size: 0.58vw;">
+                <span style="color: #2E6B47; font-weight: 700;">Score ≥ 0.85:</span> Automated release to EDI / ERP booking.
               </div>
-              <div style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 0.3vw; padding: 0.35vw; font-size: 0.58vw;">
-                <span style="color: #F87171; font-weight: 700;">Score &lt; 0.85:</span> Circuit Breaker emits <em>Refusal Certificate</em>.
+              <div style="background: #FDEEEB; border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 0.3vw; padding: 0.35vw; font-size: 0.58vw;">
+                <span style="color: #B84A39; font-weight: 700;">Score &lt; 0.85:</span> Circuit Breaker emits <em>Refusal Certificate</em>.
               </div>
             </div>
           </div>
@@ -1463,10 +1476,10 @@
                 <span class="pill-tag green" style="font-size: 0.6vw;">STAGE 04 & 05</span>
                 <span style="font-size: 0.9vw;">🚀</span>
               </div>
-              <div style="font-size: 0.82vw; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Action & Reflexion</div>
+              <div style="font-size: 0.82vw; font-weight: 700; color: var(--text-main); line-height: 1.2;">Action & Reflexion</div>
               <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.3vw;">Execution & Self-Learning</div>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.45;">
+            <div style="background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.45;">
               • Direct CargoWise / SAP Push<br>
               • One-Click Human Correction<br>
               • Reflexion Lesson Generation<br>
@@ -1477,11 +1490,11 @@
         </div>
 
         <!-- Continuous Learning Feedback Loop Banner -->
-        <div style="background: rgba(14, 30, 56, 0.7); border: 1px dashed rgba(56, 189, 248, 0.35); border-radius: 0.5vw; padding: 0.6vw 1.2vw; display: flex; align-items: center; justify-content: space-between;">
+        <div style="background: #FAF7F2; border: 1px dashed var(--border-card); border: 1px dashed rgba(56, 189, 248, 0.35); border-radius: 0.5vw; padding: 0.6vw 1.2vw; display: flex; align-items: center; justify-content: space-between;">
           <div style="display: flex; align-items: center; gap: 0.8vw;">
-            <span style="background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-cyan); border-radius: 50%; width: 1.6vw; height: 1.6vw; display: flex; align-items: center; justify-content: center; font-size: 0.8vw; color: var(--accent-cyan);">⟳</span>
+            <span style="background: #EDF6F9; border: 1px solid var(--accent-cyan); border-radius: 50%; width: 1.6vw; height: 1.6vw; display: flex; align-items: center; justify-content: center; font-size: 0.8vw; color: var(--accent-cyan);">⟳</span>
             <div>
-              <div style="font-size: 0.78vw; font-weight: 700; color: #F8FAFC;">The Reflexion Closed Loop</div>
+              <div style="font-size: 0.78vw; font-weight: 700; color: var(--text-main);">The Reflexion Closed Loop</div>
               <div style="font-size: 0.62vw; color: var(--text-muted);">
                 Human exception resolution feeds structured JSON reflection lessons back into the agent prompt context, permanently eliminating repeated failures.
               </div>
@@ -1533,12 +1546,12 @@
                 <span class="pill-tag cyan" style="font-size: 0.58vw;">BACKEND</span>
                 <span style="font-size: 0.8vw;">⚡</span>
               </div>
-              <div style="font-size: 0.88vw; font-weight: 700; color: #FFFFFF;">FastAPI Async Engine</div>
+              <div style="font-size: 0.88vw; font-weight: 700; color: var(--text-main);">FastAPI Async Engine</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Asynchronous event loop with non-blocking multi-gate evaluations and strict Pydantic v2 schemas.
               </p>
             </div>
-            <div style="background: #090D16; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #38BDF8; line-height: 1.4;">
+            <div style="background: #242936; color: #E8E4DD; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #2A7B9B; line-height: 1.4;">
               • Python 3.11 + Uvicorn<br>
               • Pydantic v2 Type Safety<br>
               • &lt; 850ms Verification SLA<br>
@@ -1553,12 +1566,12 @@
                 <span class="pill-tag cyan" style="font-size: 0.58vw;">AI ENGINE</span>
                 <span style="font-size: 0.8vw;">👁️</span>
               </div>
-              <div style="font-size: 0.88vw; font-weight: 700; color: #FFFFFF;">Gemini 2.5 Flash Vision</div>
+              <div style="font-size: 0.88vw; font-weight: 700; color: var(--text-main);">Gemini 2.5 Flash Vision</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Multimodal extraction with Docling spatial coordinate bounding-boxes at zero temperature.
               </p>
             </div>
-            <div style="background: #090D16; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #818CF8; line-height: 1.4;">
+            <div style="background: #242936; color: #E8E4DD; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #4B4673; line-height: 1.4;">
               • Temperature: 0.0 (Deterministic)<br>
               • Bounding Box [x0,y0,x1,y1]<br>
               • Docling PDF Layout Parser<br>
@@ -1573,12 +1586,12 @@
                 <span class="pill-tag green" style="font-size: 0.58vw;">LEARNING</span>
                 <span style="font-size: 0.8vw;">🧠</span>
               </div>
-              <div style="font-size: 0.88vw; font-weight: 700; color: #FFFFFF;">Episodic Memory Engine</div>
+              <div style="font-size: 0.88vw; font-weight: 700; color: var(--text-main);">Episodic Memory Engine</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Reflexion-based episodic memory with Thompson Sampling Bayesian bandits for route reliability.
               </p>
             </div>
-            <div style="background: #090D16; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #34D399; line-height: 1.4;">
+            <div style="background: #242936; color: #E8E4DD; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #2E6B47; line-height: 1.4;">
               • Thompson Bandit Prior Beta(α,β)<br>
               • Structured JSON Lessons<br>
               • Dynamic Context Prompt Injection<br>
@@ -1593,12 +1606,12 @@
                 <span class="pill-tag amber" style="font-size: 0.58vw;">DATA & SSE</span>
                 <span style="font-size: 0.8vw;">📡</span>
               </div>
-              <div style="font-size: 0.88vw; font-weight: 700; color: #FFFFFF;">Supabase Real-time Telemetry</div>
+              <div style="font-size: 0.88vw; font-weight: 700; color: var(--text-main);">Supabase Real-time Telemetry</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Real-time pipeline event audit trail with SSE streaming and cryptographically hashed certificates.
               </p>
             </div>
-            <div style="background: #090D16; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #FBBF24; line-height: 1.4;">
+            <div style="background: #242936; color: #E8E4DD; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #9A5D18; line-height: 1.4;">
               • Supabase PostgreSQL Tables<br>
               • Real-time SSE Event Stream<br>
               • SHA-256 Provenance Hashes<br>
@@ -1647,42 +1660,42 @@
           <!-- Item 1: Blurry / Degraded Scans -->
           <div class="glass-card" style="padding: 0.8vw 1vw;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3vw;">
-              <span style="font-size: 0.75vw; font-weight: 700; color: #EF4444;">CHALLENGE 01: Low-Res & Skewed Scans (email_512)</span>
+              <span style="font-size: 0.75vw; font-weight: 700; color: #B84A39;">CHALLENGE 01: Low-Res & Skewed Scans (email_512)</span>
               <span class="pill-tag red" style="font-size: 0.55vw;">OCR FAILURE</span>
             </div>
             <p style="font-size: 0.65vw; color: var(--text-muted); line-height: 1.4;">
-              <strong style="color: #E2E8F0;">The Hurdle:</strong> Faxed bills of lading with smudged container numbers cause standard LLMs to invent plausible digits, leading to costly customs fines.
+              <strong style="color: var(--text-main);">The Hurdle:</strong> Faxed bills of lading with smudged container numbers cause standard LLMs to invent plausible digits, leading to costly customs fines.
             </p>
-            <div style="background: rgba(16, 185, 129, 0.1); border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #D1FAE5; line-height: 1.4;">
-              <strong style="color: #34D399;">Engineered Solution:</strong> Data Sufficiency Gate with pixel-contrast thresholding. If evidence is degraded below readability threshold, Averish explicitly refuses rather than guessing.
+            <div style="background: #EDF5F0; border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #1F4D33; line-height: 1.4;">
+              <strong style="color: #2E6B47;">Engineered Solution:</strong> Data Sufficiency Gate with pixel-contrast thresholding. If evidence is degraded below readability threshold, Averish explicitly refuses rather than guessing.
             </div>
           </div>
 
           <!-- Item 2: Plausible Fictions -->
           <div class="glass-card" style="padding: 0.8vw 1vw;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3vw;">
-              <span style="font-size: 0.75vw; font-weight: 700; color: #F59E0B;">CHALLENGE 02: Silent Hallucinations (email_505)</span>
+              <span style="font-size: 0.75vw; font-weight: 700; color: #9A5D18;">CHALLENGE 02: Silent Hallucinations (email_505)</span>
               <span class="pill-tag amber" style="font-size: 0.55vw;">PHANTOM DATA</span>
             </div>
             <p style="font-size: 0.65vw; color: var(--text-muted); line-height: 1.4;">
-              <strong style="color: #E2E8F0;">The Hurdle:</strong> Generative models frequently inject typical carrier terms (e.g. vessel names, discharge ports) absent from the underlying document.
+              <strong style="color: var(--text-main);">The Hurdle:</strong> Generative models frequently inject typical carrier terms (e.g. vessel names, discharge ports) absent from the underlying document.
             </p>
-            <div style="background: rgba(16, 185, 129, 0.1); border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #D1FAE5; line-height: 1.4;">
-              <strong style="color: #34D399;">Engineered Solution:</strong> Zero-Tolerance Provenance Anchoring. Every single extracted field must map directly to verifiable bounding-box coordinates in the original PDF canvas.
+            <div style="background: #EDF5F0; border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #1F4D33; line-height: 1.4;">
+              <strong style="color: #2E6B47;">Engineered Solution:</strong> Zero-Tolerance Provenance Anchoring. Every single extracted field must map directly to verifiable bounding-box coordinates in the original PDF canvas.
             </div>
           </div>
 
           <!-- Item 3: Operator Fatigue -->
           <div class="glass-card" style="padding: 0.8vw 1vw;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3vw;">
-              <span style="font-size: 0.75vw; font-weight: 700; color: #38BDF8;">CHALLENGE 03: Repetitive Human Exception Fatigue</span>
+              <span style="font-size: 0.75vw; font-weight: 700; color: #2A7B9B;">CHALLENGE 03: Repetitive Human Exception Fatigue</span>
               <span class="pill-tag cyan" style="font-size: 0.55vw;">OPERATOR BURNOUT</span>
             </div>
             <p style="font-size: 0.65vw; color: var(--text-muted); line-height: 1.4;">
-              <strong style="color: #E2E8F0;">The Hurdle:</strong> Human clerks manually fix the exact same carrier formatting quirks dozens of times per week because conventional AI has zero episodic memory.
+              <strong style="color: var(--text-main);">The Hurdle:</strong> Human clerks manually fix the exact same carrier formatting quirks dozens of times per week because conventional AI has zero episodic memory.
             </p>
-            <div style="background: rgba(16, 185, 129, 0.1); border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #D1FAE5; line-height: 1.4;">
-              <strong style="color: #34D399;">Engineered Solution:</strong> Reflexion Self-Learning Loop. Human corrections generate structured reflection lessons injected dynamically into future runs for that specific carrier.
+            <div style="background: #EDF5F0; border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #1F4D33; line-height: 1.4;">
+              <strong style="color: #2E6B47;">Engineered Solution:</strong> Reflexion Self-Learning Loop. Human corrections generate structured reflection lessons injected dynamically into future runs for that specific carrier.
             </div>
           </div>
 
@@ -1693,10 +1706,10 @@
               <span class="pill-tag red" style="font-size: 0.55vw;">RETRY LOOP</span>
             </div>
             <p style="font-size: 0.65vw; color: var(--text-muted); line-height: 1.4;">
-              <strong style="color: #E2E8F0;">The Hurdle:</strong> Unbounded autonomous agents burn costly tokens in endless retry loops when presented with fundamentally invalid trade documents.
+              <strong style="color: var(--text-main);">The Hurdle:</strong> Unbounded autonomous agents burn costly tokens in endless retry loops when presented with fundamentally invalid trade documents.
             </p>
-            <div style="background: rgba(16, 185, 129, 0.1); border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #D1FAE5; line-height: 1.4;">
-              <strong style="color: #34D399;">Engineered Solution:</strong> Hard Circuit Breaker (MAX_RETRIES = 2). Cuts execution cleanly and generates an actionable Refusal Certificate for immediate human resolution.
+            <div style="background: #EDF5F0; border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #1F4D33; line-height: 1.4;">
+              <strong style="color: #2E6B47;">Engineered Solution:</strong> Hard Circuit Breaker (MAX_RETRIES = 2). Cuts execution cleanly and generates an actionable Refusal Certificate for immediate human resolution.
             </div>
           </div>
 
@@ -1739,48 +1752,48 @@
         <div class="card-grid-4" style="margin: 1.1vw 0;">
           
           <!-- Card 01: Terracotta -->
-          <div class="glass-card" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #C8795B; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
+          <div class="glass-card" style="background: #FFFFFF; border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #C8795B; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
             <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.4vw;">
               <span style="width: 6px; height: 6px; border-radius: 50%; background: #C8795B;"></span>
               <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; font-weight: 600; color: #9E988F;">01</span>
             </div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC; letter-spacing: 0.02em;">LESS REPETITIVE WORK</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); letter-spacing: 0.02em;">LESS REPETITIVE WORK</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
               Reduces repeated manual correction of recurring carrier exception patterns through episodic learning.
             </p>
           </div>
 
           <!-- Card 02: Sage Green -->
-          <div class="glass-card" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #7A8B6E; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
+          <div class="glass-card" style="background: #FFFFFF; border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #7A8B6E; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
             <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.4vw;">
               <span style="width: 6px; height: 6px; border-radius: 50%; background: #7A8B6E;"></span>
               <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; font-weight: 600; color: #9E988F;">02</span>
             </div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC; letter-spacing: 0.02em;">LOWER HALLUCINATION RISK</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); letter-spacing: 0.02em;">LOWER HALLUCINATION RISK</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
               Unsupported outputs are challenged before becoming operational facts or customs declarations.
             </p>
           </div>
 
           <!-- Card 03: Muted Navy -->
-          <div class="glass-card" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #4A5D70; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
+          <div class="glass-card" style="background: #FFFFFF; border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #4A5D70; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
             <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.4vw;">
               <span style="width: 6px; height: 6px; border-radius: 50%; background: #4A5D70;"></span>
               <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; font-weight: 600; color: #9E988F;">03</span>
             </div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC; letter-spacing: 0.02em;">FASTER EXCEPTION HANDLING</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); letter-spacing: 0.02em;">FASTER EXCEPTION HANDLING</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
               Failures become structured escalation (Refusal Certificates) rather than endless unguided retries.
             </p>
           </div>
 
           <!-- Card 04: Warm Mustard -->
-          <div class="glass-card" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #D4A373; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
+          <div class="glass-card" style="background: #FFFFFF; border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #D4A373; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
             <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.4vw;">
               <span style="width: 6px; height: 6px; border-radius: 50%; background: #D4A373;"></span>
               <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; font-weight: 600; color: #9E988F;">04</span>
             </div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC; letter-spacing: 0.02em;">EXPERTISE AS EXPERIENCE</div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); letter-spacing: 0.02em;">EXPERTISE AS EXPERIENCE</div>
             <p style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
               Human domain corrections are converted into structured Reflexion lessons for the learning layer.
             </p>
@@ -1789,7 +1802,7 @@
         </div>
 
         <!-- Flow Diagram Ribbon (Timeline Style) -->
-        <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(232, 226, 217, 0.15); padding: 0.75vw 1.5vw; border-radius: 0.6vw;">
+        <div style="display: flex; align-items: center; justify-content: space-between; background: #FAF7F2; border: 1px solid rgba(232, 226, 217, 0.15); padding: 0.75vw 1.5vw; border-radius: 0.6vw;">
           <div style="text-align: center;">
             <div style="font-size: 0.65vw; color: #9E988F; text-transform: uppercase;">From Challenge</div>
             <div style="font-size: 0.88vw; font-weight: 700; color: #C8795B;">Human Fatigue</div>
@@ -1807,12 +1820,12 @@
           <div style="color: #A39B92; font-size: 1.1vw;">➔</div>
           <div style="text-align: center;">
             <div style="font-size: 0.65vw; color: #9E988F; text-transform: uppercase;">To Scalable Impact</div>
-            <div style="font-size: 0.88vw; font-weight: 700; color: #F8FAFC;">More Scalable Operations</div>
+            <div style="font-size: 0.88vw; font-weight: 700; color: var(--text-main);">More Scalable Operations</div>
           </div>
         </div>
 
         <div class="takeaway-banner" style="background: rgba(239, 235, 228, 0.08); border-left-color: #C8795B; margin-top: 0.7vw; padding: 0.7vw 1.2vw;">
-          <span style="color: #F8FAFC;">DocuMatch shifts the operational paradigm from brute-force extraction to sustainable trade reliability.</span>
+          <span style="color: var(--text-main);">DocuMatch shifts the operational paradigm from brute-force extraction to sustainable trade reliability.</span>
         </div>
       </div>
 
@@ -1910,10 +1923,10 @@
         </div>
 
         <!-- Highlight Differentiation -->
-        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(14, 30, 56, 0.9); border: 1px solid var(--accent-cyan); padding: 0.6vw 1.2vw; border-radius: 0.4vw;">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #FFFFFF; border: 1px solid var(--border-card); border: 1px solid var(--accent-cyan); padding: 0.6vw 1.2vw; border-radius: 0.4vw;">
           <div>
             <div style="font-size: 0.65vw; color: var(--accent-cyan); font-weight: 700; text-transform: uppercase;">OUR CORE DIFFERENTIATION</div>
-            <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">“The control + learning layer around AI.”</div>
+            <div style="font-size: 0.9vw; font-weight: 700; color: var(--text-main);">“The control + learning layer around AI.”</div>
           </div>
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.75vw; color: var(--accent-cyan);">
             Extract ➔ Verify ➔ Learn ➔ Control
@@ -1959,14 +1972,14 @@
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
                 <span class="pill-tag cyan" style="font-size: 0.58vw;">PHASE 01: Q1–Q2 2026</span>
-                <span style="font-size: 0.75vw; color: #34D399; font-weight: 600;">IN PROGRESS</span>
+                <span style="font-size: 0.75vw; color: #2E6B47; font-weight: 600;">IN PROGRESS</span>
               </div>
-              <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">Multi-Document Triangulation</div>
+              <div style="font-size: 0.9vw; font-weight: 700; color: var(--text-main);">Multi-Document Triangulation</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Cross-document discrepancy detection across the entire maritime shipment bundle.
               </p>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
+            <div style="background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
               • Cross-validation: SI ➔ Ocean B/L ➔ Invoice<br>
               • Automated HS code & weight variance detection<br>
               • Coverage expansion to 20+ ocean container liners<br>
@@ -1979,14 +1992,14 @@
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
                 <span class="pill-tag cyan" style="font-size: 0.58vw;">PHASE 02: Q3–Q4 2026</span>
-                <span style="font-size: 0.75vw; color: #F59E0B; font-weight: 600;">PLANNED</span>
+                <span style="font-size: 0.75vw; color: #9A5D18; font-weight: 600;">PLANNED</span>
               </div>
-              <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">Enterprise ERP & Port Sync</div>
+              <div style="font-size: 0.9vw; font-weight: 700; color: var(--text-main);">Enterprise ERP & Port Sync</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Bi-directional connectors for global forwarding software and port terminal operating systems.
               </p>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
+            <div style="background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
               • Native CargoWise & SAP Logistics API connectors<br>
               • Federated Reflexion memory across forwarder desks<br>
               • Automated Slack / Teams exception webhooks<br>
@@ -1999,14 +2012,14 @@
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
                 <span class="pill-tag green" style="font-size: 0.58vw;">PHASE 03: 2027+</span>
-                <span style="font-size: 0.75vw; color: #38BDF8; font-weight: 600;">VISION</span>
+                <span style="font-size: 0.75vw; color: #2A7B9B; font-weight: 600;">VISION</span>
               </div>
-              <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">Autonomous Trade Mesh</div>
+              <div style="font-size: 0.9vw; font-weight: 700; color: var(--text-main);">Autonomous Trade Mesh</div>
               <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
                 Verifiable cryptographic provenance certificates for legal customs & demurrage dispute protection.
               </p>
             </div>
-            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
+            <div style="background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
               • Tamper-proof cryptographic Refusal Certificates<br>
               • AI-mediated detention & demurrage arbitration<br>
               • Global carrier reliability compliance index<br>
@@ -2050,11 +2063,11 @@
         </div>
 
         <!-- Complete Architecture Flow -->
-        <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.4); padding: 1vw 1.2vw; border-radius: 0.6vw; border: 1px solid rgba(255,255,255,0.1); margin: 0.8vw 0;">
+        <div style="display: flex; align-items: center; justify-content: space-between; background: #F3EFE6; border: 1px solid var(--border-card); padding: 1vw 1.2vw; border-radius: 0.6vw; border: 1px solid rgba(255,255,255,0.1); margin: 0.8vw 0;">
           
           <div style="text-align: center;">
             <div style="font-size: 0.65vw; color: var(--text-dim);">STAGE 01</div>
-            <div style="font-size: 0.8vw; font-weight: 700; color: #F8FAFC;">HUMAN EXPERTISE</div>
+            <div style="font-size: 0.8vw; font-weight: 700; color: var(--text-main);">HUMAN EXPERTISE</div>
           </div>
           <div style="color: var(--accent-cyan); font-size: 1vw;">➔</div>
 
@@ -2066,7 +2079,7 @@
 
           <div style="text-align: center;">
             <div style="font-size: 0.65vw; color: var(--text-dim);">STAGE 03</div>
-            <div style="font-size: 0.8vw; font-weight: 700; color: #A7F3D0;">REFLECTION</div>
+            <div style="font-size: 0.8vw; font-weight: 700; color: #2E6B47;">REFLECTION</div>
           </div>
           <div style="color: var(--accent-cyan); font-size: 1vw;">➔</div>
 
@@ -2078,13 +2091,13 @@
 
           <div style="text-align: center;">
             <div style="font-size: 0.65vw; color: var(--text-dim);">STAGE 05</div>
-            <div style="font-size: 0.8vw; font-weight: 700; color: #FDE68A;">PROVENANCE</div>
+            <div style="font-size: 0.8vw; font-weight: 700; color: #9A5D18;">PROVENANCE</div>
           </div>
           <div style="color: var(--accent-cyan); font-size: 1vw;">➔</div>
 
           <div style="text-align: center;">
             <div style="font-size: 0.65vw; color: var(--text-dim);">STAGE 06</div>
-            <div style="font-size: 0.8vw; font-weight: 700; color: #6EE7B7;">TRUSTWORTHY OPS</div>
+            <div style="font-size: 0.8vw; font-weight: 700; color: #2E6B47;">TRUSTWORTHY OPS</div>
           </div>
 
         </div>
@@ -2107,7 +2120,7 @@
           </div>
 
           <div class="glass-card" style="text-align: center; padding: 0.8vw;">
-            <div style="font-size: 1.1vw; font-weight: 800; color: #EF4444;">CONTROL</div>
+            <div style="font-size: 1.1vw; font-weight: 800; color: #B84A39;">CONTROL</div>
             <div style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.2vw;">Defensive failure boundaries</div>
           </div>
         </div>

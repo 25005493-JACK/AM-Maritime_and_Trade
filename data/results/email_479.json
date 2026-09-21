@@ -1,6 +1,6 @@
 {
   "email_id": "email_479",
-  "timestamp": "2026-09-21T11:15:50.881554+00:00",
+  "timestamp": "2026-09-21T13:59:13.880874+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -81,12 +81,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "SAFQA LIMITED",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
-    "container_count": 10,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "PYEONGTAEK, SOUTH KOREA (KRPTK)",
     "consignee": "ORIENT LINKS CO (LLC)",
-    "gross_weight_kg": 236690.0
+    "gross_weight_kg": 236690.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 10,
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -144,12 +144,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "SAFQA LIMITED",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
-    "container_count": 10,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "PYEONGTAEK, SOUTH KOREA (KRPTK)",
     "consignee": "ORIENT LINKS CO (LLC)",
-    "gross_weight_kg": 236690.0
+    "gross_weight_kg": 236690.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 10,
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
   },
   "field_matrix": [
     {

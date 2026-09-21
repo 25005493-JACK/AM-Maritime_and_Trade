@@ -1,6 +1,6 @@
 {
   "email_id": "email_361",
-  "timestamp": "2026-09-21T11:15:50.509449+00:00",
+  "timestamp": "2026-09-21T13:59:13.272833+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -83,12 +83,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "ROXCEL TRADING GMBH",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "container_count": 10,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "BRISBANE, AUSTRALIA (AUBNE)",
     "consignee": "PACIFIC OFFICE (M) SDN BHD LOT 6, JALAN P/7; SECTION 13, 43650 BANDAR BARU BANGI; SELANGOR, MALAYSIA",
-    "gross_weight_kg": 239590.0
+    "gross_weight_kg": 239590.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 10,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -146,12 +146,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "ROXCEL TRADING GMBH",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
-    "container_count": 10,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "MOMBASA, KENYA (AUBNE)",
     "consignee": "PACIFIC OFFICE (M) SDN BHD LOT 6, JALAN P/7; SECTION 13, 43650 BANDAR BARU BANGI; SELANGOR, MALAYSIA",
-    "gross_weight_kg": 238590.0
+    "gross_weight_kg": 238590.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 10,
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)"
   },
   "field_matrix": [
     {

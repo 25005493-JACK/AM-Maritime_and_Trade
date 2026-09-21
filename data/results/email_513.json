@@ -1,6 +1,6 @@
 {
   "email_id": "email_513",
-  "timestamp": "2026-09-21T11:15:51.648613+00:00",
+  "timestamp": "2026-09-21T13:59:14.022416+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "scanned_not_processed",
   "can_compare": true,
@@ -22,12 +22,12 @@
     "audit_trail": [],
     "unresolved_terms": [],
     "notify_party": null,
-    "port_of_loading": null,
-    "container_count": null,
-    "shipper": null,
     "port_of_discharge": null,
     "consignee": null,
-    "gross_weight_kg": null
+    "gross_weight_kg": null,
+    "shipper": null,
+    "container_count": null,
+    "port_of_loading": null
   },
   "bl_extracted": {
     "status": "NEEDS_REVIEW",
@@ -42,12 +42,12 @@
     "audit_trail": [],
     "unresolved_terms": [],
     "notify_party": null,
-    "port_of_loading": null,
-    "container_count": null,
-    "shipper": null,
     "port_of_discharge": null,
     "consignee": null,
-    "gross_weight_kg": null
+    "gross_weight_kg": null,
+    "shipper": null,
+    "container_count": null,
+    "port_of_loading": null
   },
   "field_matrix": [
     {

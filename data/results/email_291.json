@@ -1,6 +1,6 @@
 {
   "email_id": "email_291",
-  "timestamp": "2026-09-21T11:15:50.208246+00:00",
+  "timestamp": "2026-09-21T13:59:12.901793+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -84,12 +84,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA",
-    "port_of_loading": "NANTONG, CHINA",
-    "container_count": 1,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "port_of_discharge": "SAVANNAH, US",
     "consignee": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA",
-    "gross_weight_kg": 21745.0
+    "gross_weight_kg": 21745.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "container_count": 1,
+    "port_of_loading": "NANTONG, CHINA"
   },
   "bl_extracted": {
     "status": "OK",
@@ -147,12 +147,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET SUITE 100 FRAMINGHAM, MA 01702, USA",
-    "port_of_loading": "NANTONG, CHINA",
-    "container_count": 3,
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
     "port_of_discharge": "SAVANNAH, US",
     "consignee": "TOPKOPY MIDDLE EAST FZE 6 HOLLIS STREET SUITE 100 FRAMINGHAM, MA 01702, USA",
-    "gross_weight_kg": 21745.0
+    "gross_weight_kg": 21745.0,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
+    "container_count": 3,
+    "port_of_loading": "NANTONG, CHINA"
   },
   "field_matrix": [
     {

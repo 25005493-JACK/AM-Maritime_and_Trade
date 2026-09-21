@@ -1,6 +1,6 @@
 {
   "email_id": "email_096",
-  "timestamp": "2026-09-21T11:15:49.811185+00:00",
+  "timestamp": "2026-09-21T13:59:12.387900+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -81,12 +81,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "PACIFIC OFFICE (M) SDN BHD",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
-    "container_count": 15,
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "port_of_discharge": "JEBEL ALI, UAE (AEJEA)",
     "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
-    "gross_weight_kg": 310125.0
+    "gross_weight_kg": 310125.0,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "container_count": 15,
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
   },
   "bl_extracted": {
     "status": "OK",
@@ -144,12 +144,12 @@
     ],
     "unresolved_terms": [],
     "notify_party": "PACIFIC OFFICE (M) SDN BHD",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
-    "container_count": 15,
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "port_of_discharge": "JEBEL ALI, UAE (AEJEA)",
     "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
-    "gross_weight_kg": 310125.0
+    "gross_weight_kg": 310125.0,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "container_count": 15,
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
   },
   "field_matrix": [
     {
