@@ -33,7 +33,7 @@ export default function App() {
     document.documentElement.setAttribute('data-theme', newTheme);
   };
 
-  // Mouse Drag Handler for Resizing Right Bar
+  // Flexible Mouse Drag Handler for Resizing Right Bar (Prevents crushing left panel)
   const handleMouseDownResize = (e) => {
     e.preventDefault();
     isDraggingRef.current = true;
@@ -41,11 +41,17 @@ export default function App() {
     const handleMouseMove = (moveEvent) => {
       if (!isDraggingRef.current) return;
       const windowWidth = window.innerWidth;
-      const newWidth = windowWidth - moveEvent.clientX;
-      // Clamp width between 350px and 950px
-      if (newWidth >= 350 && newWidth <= 950) {
-        setInspectorWidth(newWidth);
-      }
+      const sidebarWidth = 256; // 64 * 4 = 256px
+      const availableWidth = windowWidth - sidebarWidth;
+      
+      // Right width calculated from mouse position
+      const targetRightWidth = windowWidth - moveEvent.clientX;
+      
+      // Clamp right width between 350px and (availableWidth - 380px) to prevent crushing inbox feed
+      const maxAllowedRight = Math.max(350, availableWidth - 380);
+      const clampedWidth = Math.min(Math.max(targetRightWidth, 350), maxAllowedRight);
+
+      setInspectorWidth(clampedWidth);
     };
 
     const handleMouseUp = () => {
@@ -221,9 +227,9 @@ export default function App() {
       {/* Main Active Tab Container */}
       <main className="flex-1 flex overflow-hidden">
         {activeTab === 'inbox' && (
-          <div className="flex-1 flex relative">
-            {/* Left Inbox Feed */}
-            <div className="flex-1 flex flex-col min-w-[300px] overflow-hidden">
+          <div className="flex-1 flex relative overflow-x-auto">
+            {/* Left Inbox Feed (Flexible min-width, never squeezed out) */}
+            <div className="flex-1 flex flex-col min-w-[380px] overflow-hidden">
               <InboxFeed
                 emails={emails}
                 selectedEmailId={selectedEmailId}
@@ -239,10 +245,10 @@ export default function App() {
               title="Drag to resize Inspector panel width"
             />
 
-            {/* Right Resizable Inspector Panel (Includes Full Exact Shipment Audit Timeline) */}
+            {/* Right Resizable Inspector Panel */}
             <div
               style={{ width: `${inspectorWidth}px` }}
-              className="hidden lg:flex flex-col border-l border-slate-800 shrink-0 overflow-hidden"
+              className="hidden lg:flex flex-col border-l border-slate-800 shrink-0 min-w-[350px] overflow-hidden"
             >
               <SplitScreenInspector
                 emailDetail={emailDetail}
@@ -250,13 +256,6 @@ export default function App() {
               />
             </div>
           </div>
-        )}
-
-        {activeTab === 'inspector' && (
-          <SplitScreenInspector
-            emailDetail={emailDetail}
-            onOpenOverrideModal={() => setShowOverrideModal(true)}
-          />
         )}
 
         {activeTab === 'calendar' && (
