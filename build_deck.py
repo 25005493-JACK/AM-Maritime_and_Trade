@@ -484,6 +484,84 @@ def build_deck():
       background: linear-gradient(90deg, rgba(239, 68, 68, 0.2), rgba(245, 158, 11, 0.1));
       border-left-color: var(--accent-red);
     }}
+
+    /* Flowchart & Architecture Elements */
+    .flow-step-pill {{
+      background: #FFFFFF;
+      border: 1px solid var(--border-card);
+      border-radius: 0.35vw;
+      padding: 0.32vw 0.65vw;
+      font-size: 0.68vw;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.4vw;
+      box-shadow: 0 2px 5px rgba(44, 42, 41, 0.04);
+      transition: transform 0.15s ease;
+    }}
+    .flow-arrow-down {{
+      color: var(--accent-terracotta);
+      font-size: 0.75vw;
+      line-height: 1;
+      text-align: center;
+      margin: 0.05vw 0;
+    }}
+    .fatigue-hero-badge {{
+      background: linear-gradient(135deg, #FFF6F3 0%, #FDEEEB 100%);
+      border: 2px solid #B84A39;
+      border-radius: 0.6vw;
+      padding: 0.7vw 1.2vw;
+      text-align: center;
+      box-shadow: 0 10px 30px -5px rgba(184, 74, 57, 0.22);
+    }}
+    .fatigue-hero-title {{
+      font-family: 'Inter', sans-serif;
+      font-size: 1.8vw;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      color: #B84A39;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }}
+
+    /* Hero Architecture Diagram */
+    .hero-arch-box {{
+      background: #FFFFFF;
+      border: 1px solid var(--border-card);
+      border-radius: 0.45vw;
+      padding: 0.45vw 0.8vw;
+      box-shadow: 0 2px 8px rgba(44, 42, 41, 0.04);
+      transition: all 0.2s ease;
+    }}
+    .hero-arch-box:hover {{
+      border-color: var(--accent-cyan);
+      transform: translateY(-1px);
+    }}
+    .hero-arch-title {{
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74vw;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }}
+    .hero-arch-desc {{
+      font-size: 0.62vw;
+      color: var(--text-muted);
+      margin-top: 0.15vw;
+      line-height: 1.35;
+    }}
+    .hero-arch-connector {{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-cyan);
+      font-size: 0.75vw;
+      height: 0.85vw;
+      font-weight: bold;
+    }}
   </style>
 </head>
 <body>
@@ -493,201 +571,390 @@ def build_deck():
     
 
 <!-- =================================================================== -->
-    <!-- SLIDE 1: HUMAN FATIGUE -->
+    <!-- SLIDE 1: SCREEN 1 — HUMAN FATIGUE (0:00–0:35) -->
     <!-- =================================================================== -->
     <div class="slide active" id="slide-1">
       <div class="slide-header">
         <div class="brand-cluster">
           <div class="brand-logo-icon">🚢</div>
           <span class="brand-title">Averish Shipping AI</span>
-          <span class="brand-badge">Operational Reality</span>
+          <span class="brand-badge" style="background: #FEF7ED; border-color: #F8DFC0; color: #C07D38;">Problem Statement · 0:00–0:35</span>
         </div>
         <div class="header-right">
-          <span class="category-label">Human Fatigue</span>
+          <span class="category-label">SCREEN 1 — Human Fatigue</span>
           <span class="slide-number-badge">01 / 16</span>
         </div>
       </div>
 
       <div class="slide-body">
         <div class="headline-wrap">
-          <div class="headline-pre">The Enterprise Dilemma</div>
-          <h1 class="slide-title">AI was supposed to reduce workload.</h1>
-          <p class="slide-sub">
-            Traditional document AI acts as an isolated extraction transaction — each exception requires human intervention, but the system learns nothing from the correction.
-          </p>
+          <div class="headline-pre" style="color: #C8795B;">SCREEN 1 — Operational Reality (0:00–0:35)</div>
+          <h1 class="slide-title" style="font-family: 'Playfair Display', Georgia, serif; font-size: 2.2vw; line-height: 1.15;">
+            In shipping operations, AI was supposed to reduce workload.<br>Instead, it created <span style="color: #B84A39;">Human Fatigue</span>.
+          </h1>
         </div>
 
-        <!-- Operational Fatigue Loop Visual -->
-        <div style="display: flex; align-items: center; justify-content: space-between; margin: 1.8vw 0; position: relative;">
+        <!-- 2-Column Main Content: Left Workflow vs Right Voiceover & Turning Question -->
+        <div style="display: grid; grid-template-columns: 1.05fr 1fr; gap: 1.8vw; margin-top: 0.8vw; align-items: stretch;">
           
-          <div class="glass-card" style="flex: 1; text-align: center; border-color: var(--border-card);">
-            <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">🤖</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">AI Extraction Error</div>
-            <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Model guesses on edge case</div>
+          <!-- Left Column: The Simple Exception Workflow -->
+          <div class="glass-card" style="background: #FFFFFF; border: 1px solid var(--border-card); padding: 0.9vw 1.2vw; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6vw;">
+                <span style="font-size: 0.72vw; font-weight: 700; color: #6B665E; text-transform: uppercase; letter-spacing: 0.05em;">THE REPETITIVE EXCEPTION LOOP</span>
+                <span class="pill-tag red" style="font-size: 0.58vw;">OPERATIONAL BOTTLENECK</span>
+              </div>
+
+              <!-- Simple 8-Step Flowchart in 2 parallel columns with bridge -->
+              <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.35vw; align-items: center; margin-bottom: 0.6vw;">
+                
+                <!-- Left Chain: Steps 1 to 4 -->
+                <div style="display: flex; flex-direction: column; gap: 0.25vw;">
+                  <div class="flow-step-pill" style="border-left: 3.5px solid #2A7B9B;">
+                    <span style="color: #2A7B9B;">📨</span> <span>SHIPPING EMAIL</span>
+                  </div>
+                  <div class="flow-arrow-down">↓</div>
+                  <div class="flow-step-pill" style="border-left: 3.5px solid #3A5A80;">
+                    <span style="color: #3A5A80;">📄</span> <span>DOCUMENTS</span>
+                  </div>
+                  <div class="flow-arrow-down">↓</div>
+                  <div class="flow-step-pill" style="border-left: 3.5px solid #56507A;">
+                    <span style="color: #56507A;">🤖</span> <span>AI EXTRACTION</span>
+                  </div>
+                  <div class="flow-arrow-down">↓</div>
+                  <div class="flow-step-pill" style="border-left: 3.5px solid #C07D38; background: #FEF8EF;">
+                    <span style="color: #C07D38;">⚠️</span> <span style="font-weight: 700; color: #9A5D18;">EXCEPTION</span>
+                  </div>
+                </div>
+
+                <!-- Bridge Arrow between left chain and right chain -->
+                <div style="display: flex; align-items: center; justify-content: center; padding: 0 0.3vw; color: #C8795B; font-size: 1.1vw; font-weight: bold;">
+                  ➔
+                </div>
+
+                <!-- Right Chain: Steps 5 to 8 -->
+                <div style="display: flex; flex-direction: column; gap: 0.25vw;">
+                  <div class="flow-step-pill" style="border-left: 3.5px solid #C8795B;">
+                    <span style="color: #C8795B;">🔍</span> <span>HUMAN CHECK</span>
+                  </div>
+                  <div class="flow-arrow-down">↓</div>
+                  <div class="flow-step-pill" style="border-left: 3.5px solid #7A8B6E;">
+                    <span style="color: #7A8B6E;">✏️</span> <span>HUMAN CORRECTION</span>
+                  </div>
+                  <div class="flow-arrow-down">↓</div>
+                  <div class="flow-step-pill" style="border-left: 3.5px solid #C07D38; background: #FEF8EF;">
+                    <span style="color: #C07D38;">🔄</span> <span style="font-weight: 700; color: #9A5D18;">ANOTHER EXCEPTION</span>
+                  </div>
+                  <div class="flow-arrow-down">↓</div>
+                  <div class="flow-step-pill" style="border-left: 3.5px solid #C8795B;">
+                    <span style="color: #C8795B;">🔍</span> <span>HUMAN CHECK AGAIN</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- HUGE HERO BADGE: HUMAN FATIGUE -->
+            <div class="fatigue-hero-badge">
+              <div style="display: flex; align-items: center; justify-content: center; gap: 0.6vw;">
+                <span style="font-size: 1.5vw;">⚠️</span>
+                <span class="fatigue-hero-title">HUMAN FATIGUE</span>
+                <span style="font-size: 1.5vw;">⚠️</span>
+              </div>
+              <p style="font-size: 0.66vw; color: #8C3426; margin-top: 0.25vw; font-weight: 500;">
+                The problem is no longer only AI accuracy. It becomes human fatigue.
+              </p>
+            </div>
           </div>
 
-          <div style="color: var(--accent-cyan); font-size: 1.2vw; padding: 0 0.6vw;">➔</div>
+          <!-- Right Column: Voiceover Narration & Hero Setup Question -->
+          <div style="display: flex; flex-direction: column; justify-content: space-between;">
+            
+            <!-- Voiceover Script Cards -->
+            <div style="display: flex; flex-direction: column; gap: 0.55vw;">
+              
+              <div class="glass-card" style="background: #FFFFFF; border: 1px solid var(--border-card); border-left: 3.5px solid #2A7B9B; padding: 0.65vw 0.9vw;">
+                <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.2vw;">
+                  <span style="font-size: 0.72vw;">🎙️</span>
+                  <span style="font-size: 0.6vw; font-weight: 700; color: #2A7B9B; text-transform: uppercase;">Voiceover · The Intent</span>
+                </div>
+                <p style="font-size: 0.82vw; color: var(--text-main); line-height: 1.4; font-style: italic;">
+                  “In shipping operations, AI is supposed to reduce workload.”
+                </p>
+              </div>
 
-          <div class="glass-card" style="flex: 1; text-align: center; border-color: var(--border-card);">
-            <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">🔍</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Human Checks</div>
-            <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Operator reviews documents</div>
+              <div class="glass-card" style="background: #FFFFFF; border: 1px solid var(--border-card); border-left: 3.5px solid #C07D38; padding: 0.65vw 0.9vw;">
+                <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.2vw;">
+                  <span style="font-size: 0.72vw;">⚠️</span>
+                  <span style="font-size: 0.6vw; font-weight: 700; color: #C07D38; text-transform: uppercase;">Voiceover · The Reality</span>
+                </div>
+                <p style="font-size: 0.8vw; color: var(--text-main); line-height: 1.4; font-style: italic;">
+                  “But when documents are <span style="background: #FEF7ED; color: #9A5D18; padding: 0.05vw 0.3vw; border-radius: 0.2vw; font-weight: 600;">missing</span>, <span style="background: #FEF7ED; color: #9A5D18; padding: 0.05vw 0.3vw; border-radius: 0.2vw; font-weight: 600;">unreadable</span>, <span style="background: #FEF7ED; color: #9A5D18; padding: 0.05vw 0.3vw; border-radius: 0.2vw; font-weight: 600;">incorrect</span>, or <span style="background: #FEF7ED; color: #9A5D18; padding: 0.05vw 0.3vw; border-radius: 0.2vw; font-weight: 600;">inconsistent</span>, humans still have to check the AI's output.”
+                </p>
+              </div>
+
+              <div class="glass-card" style="background: #FFFFFF; border: 1px solid var(--border-card); border-left: 3.5px solid #B84A39; padding: 0.65vw 0.9vw;">
+                <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.2vw;">
+                  <span style="font-size: 0.72vw;">🔄</span>
+                  <span style="font-size: 0.6vw; font-weight: 700; color: #B84A39; text-transform: uppercase;">Voiceover · The Shift</span>
+                </div>
+                <p style="font-size: 0.8vw; color: var(--text-main); line-height: 1.4; font-style: italic;">
+                  “And when the same type of exception happens repeatedly, the problem is no longer only AI accuracy. <strong style="color: #B84A39;">It becomes human fatigue.</strong>”
+                </p>
+              </div>
+
+            </div>
+
+            <!-- The Setup: Hero Technical Transition Question -->
+            <div style="background: linear-gradient(135deg, #FFFFFF 0%, #F5F9FA 100%); border: 1.5px solid #2A7B9B; border-left: 5px solid #2A7B9B; border-radius: 0.55vw; padding: 0.8vw 1.1vw; box-shadow: 0 6px 18px rgba(42, 123, 155, 0.08); margin-top: 0.5vw;">
+              <div style="font-size: 0.68vw; font-weight: 700; color: #2A7B9B; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2vw;">
+                OUR TECHNICAL QUESTION
+              </div>
+              <p style="font-size: 0.8vw; color: var(--text-muted); line-height: 1.35;">
+                “So instead of asking only, <em>‘Can AI extract the answer?’</em> we asked a different question:”
+              </p>
+              <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.3vw; font-weight: 700; color: #1E667E; margin: 0.3vw 0; line-height: 1.25;">
+                “Should AI be allowed to act on that answer?”
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.4vw; font-size: 0.68vw; color: #5C5750; font-weight: 600;">
+                <span>➔</span> <span>That question sets up our entire decision-control architecture.</span>
+              </div>
+            </div>
+
           </div>
 
-          <div style="color: var(--accent-cyan); font-size: 1.2vw; padding: 0 0.6vw;">➔</div>
-
-          <div class="glass-card" style="flex: 1; text-align: center; border-color: var(--border-card);">
-            <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">✏️</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Human Correction</div>
-            <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Fixes container / weight discrepancy</div>
-          </div>
-
-          <div style="color: var(--accent-cyan); font-size: 1.2vw; padding: 0 0.6vw;">➔</div>
-
-          <div class="glass-card" style="flex: 1; text-align: center; border-color: var(--border-card);">
-            <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">🔄</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main);">Similar Exception Appears</div>
-            <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.2vw;">Same carrier format next morning</div>
-          </div>
-
-          <div style="color: var(--accent-cyan); font-size: 1.2vw; padding: 0 0.6vw;">➔</div>
-
-          <div class="glass-card alert-card" style="flex: 1.3; text-align: center; box-shadow: 0 0 25px rgba(239, 68, 68, 0.25);">
-            <div style="font-size: 1.3vw; margin-bottom: 0.3vw;">⚠️</div>
-            <div style="font-size: 0.95vw; font-weight: 800; color: #B84A39; letter-spacing: 0.04em;">HUMAN FATIGUE</div>
-            <div style="font-size: 0.65vw; color: #8C3426; margin-top: 0.2vw;">Repeated clerical triage overhead</div>
-          </div>
         </div>
 
-        <div class="glass-card" style="background: #FFFFFF; border: 1px solid var(--border-card); border-left: 4px solid var(--accent-cyan); padding: 0.9vw 1.4vw;">
-          <p style="font-size: 0.95vw; color: var(--text-main); font-style: italic;">
-            “When every exception still requires human attention, automation can simply move the workload instead of removing it.”
-          </p>
-        </div>
-
-        <div class="takeaway-banner alert">
-          The problem is not only AI accuracy. It is the operational cost of repeated correction.
+        <div class="takeaway-banner alert" style="margin-top: 0.7vw; padding: 0.45vw 1vw; font-size: 0.76vw;">
+          The bottleneck is not extraction. It is the cost of repetitive human intervention when AI lacks decision boundaries.
         </div>
       </div>
 
       <div class="slide-footer">
-        <span>Averish Shipping AI — Maritime Document Intelligence</span>
-        <span class="footer-quote">Core Finding: Stateless automation shifts human labor rather than eliminating it.</span>
+        <span>Averish Shipping AI — SCREEN 1 · 0:00–0:35 Problem Statement</span>
+        <span class="footer-quote">Voiceover: “Should AI be allowed to act on that answer?”</span>
       </div>
     </div>
 
 
 
 <!-- =================================================================== -->
-    <!-- SLIDE 2: MARKET GAP -->
+    <!-- SLIDE 2: SCREEN 2 — DECISION-CONTROL ARCHITECTURE (0:35–1:00) -->
     <!-- =================================================================== -->
     <div class="slide" id="slide-2">
       <div class="slide-header">
         <div class="brand-cluster">
           <div class="brand-logo-icon">🚢</div>
           <span class="brand-title">Averish Shipping AI</span>
-          <span class="brand-badge">Market Gap Analysis</span>
+          <span class="brand-badge" style="background: #EDF6F9; border-color: #C6E4ED; color: #1E667E;">Architecture · 0:35–1:00</span>
         </div>
         <div class="header-right">
-          <span class="category-label">Architectural Gap</span>
+          <span class="category-label">SCREEN 2 — Unique Technical Architecture</span>
           <span class="slide-number-badge">02 / 16</span>
         </div>
       </div>
 
       <div class="slide-body">
         <div class="headline-wrap">
-          <div class="headline-pre">Decision Layer vs. Extraction Pipe</div>
-          <h1 class="slide-title">OCR + LLM can generate an answer.<br>But should it act on that answer?</h1>
+          <div class="headline-pre" style="color: #2A7B9B;">SCREEN 2 — YOUR UNIQUE TECHNICAL ARCHITECTURE (0:35–1:00)</div>
+          <h1 class="slide-title" style="font-family: 'Playfair Display', Georgia, serif; font-size: 2.2vw; line-height: 1.15;">
+            Averish Decision-Control Architecture
+          </h1>
         </div>
 
-        <div class="card-grid-2" style="margin-top: 0.8vw;">
-          <!-- Left: Typical OCR + LLM -->
-          <div class="glass-card" style="border-color: rgba(239, 68, 68, 0.3);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8vw;">
-              <span style="font-size: 0.95vw; font-weight: 700; color: #8C3426;">Typical OCR + LLM Pipeline</span>
-              <span class="pill-tag red">Stateless Extraction</span>
+        <!-- 2-Column Hero Layout: Left Hero Diagram (60%) vs Right Strategic Depth (40%) -->
+        <div style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.8vw; margin-top: 0.7vw; align-items: stretch;">
+          
+          <!-- Left Column: The Complete Hero Technical Architecture Flowchart -->
+          <div class="glass-card" style="background: #FFFFFF; border: 1.5px solid var(--border-card); padding: 0.8vw 1.2vw; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 24px rgba(44,42,41,0.06);">
+            
+            <!-- Banner Header -->
+            <div style="text-align: center; margin-bottom: 0.35vw;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.75vw; font-weight: 800; color: #2A7B9B; letter-spacing: 0.08em; background: #EDF6F9; padding: 0.2vw 0.8vw; border-radius: 0.25vw; border: 1px solid #C6E4ED;">
+                AVERISH SHIPPING AI · DECISION-CONTROL LAYER
+              </span>
             </div>
 
-            <!-- Steps -->
-            <div style="display: flex; align-items: center; gap: 0.5vw; margin-bottom: 1vw; font-size: 0.75vw; font-family: 'JetBrains Mono', monospace;">
-              <span style="padding: 0.3vw 0.6vw; background: #EFEBE4; border-radius: 0.25vw;">Document</span>
-              <span>➔</span>
-              <span style="padding: 0.3vw 0.6vw; background: #EFEBE4; border-radius: 0.25vw;">OCR</span>
-              <span>➔</span>
-              <span style="padding: 0.3vw 0.6vw; background: #EFEBE4; border-radius: 0.25vw;">LLM</span>
-              <span>➔</span>
-              <span style="padding: 0.3vw 0.6vw; background: #FCE8E4; border-radius: 0.25vw; color: #B84A39; font-weight: 700;">Blind Answer</span>
+            <!-- Root Input Node -->
+            <div style="display: flex; justify-content: center;">
+              <div style="background: #F4EFE6; border: 1px solid #E8E2D9; border-radius: 0.35vw; padding: 0.25vw 0.8vw; font-size: 0.7vw; font-weight: 700; color: var(--text-main); display: inline-flex; align-items: center; gap: 0.4vw;">
+                <span>📧</span> <span>Email / Documents (B/L, Booking, SI, Invoices)</span>
+              </div>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 0.4vw; font-size: 0.75vw;">
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
-                <span>✕</span> <span><strong>Wrong document:</strong> Processes Certificate of Origin as BL</span>
+            <div class="hero-arch-connector">│<br>▼</div>
+
+            <!-- Node 1: Intent Engine -->
+            <div class="hero-arch-box" style="border-left: 3.5px solid #56507A;">
+              <div class="hero-arch-title">
+                <span style="color: #56507A;">1. INTENT ENGINE</span>
+                <span class="pill-tag cyan" style="font-size: 0.52vw; padding: 0.1vw 0.4vw;">CLASSIFY</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
-                <span>✕</span> <span><strong>Incomplete extraction:</strong> Fails silently on unread fields</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
-                <span>✕</span> <span><strong>Unsupported values:</strong> Guesses container counts from pixel noise</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
-                <span>✕</span> <span><strong>Plausible hallucination:</strong> Fabricates port codes</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #8C3426;">
-                <span>✕</span> <span><strong>Repeated correction:</strong> No memory of yesterday's fix</span>
+              <div class="hero-arch-desc">
+                <strong>What task is needed?</strong> Identifies trade task, document requirements, and verification policy.
               </div>
             </div>
+
+            <div class="hero-arch-connector">▼</div>
+
+            <!-- Node 2: Validation Gates -->
+            <div class="hero-arch-box" style="border-left: 3.5px solid #C07D38;">
+              <div class="hero-arch-title">
+                <span style="color: #9A5D18;">2. VALIDATION GATES</span>
+                <span class="pill-tag amber" style="font-size: 0.52vw; padding: 0.1vw 0.4vw;">PRE-EXECUTION</span>
+              </div>
+              <div class="hero-arch-desc">
+                <strong>Right document? Enough information?</strong> Halts wrong attachments & unreadable fax scans.
+              </div>
+            </div>
+
+            <div class="hero-arch-connector">▼</div>
+
+            <!-- Node 3: AI Extraction -->
+            <div class="hero-arch-box" style="border-left: 3.5px solid #2A7B9B;">
+              <div class="hero-arch-title">
+                <span style="color: #1E667E;">3. AI EXTRACTION</span>
+                <span class="pill-tag cyan" style="font-size: 0.52vw; padding: 0.1vw 0.4vw;">OCR + LLM</span>
+              </div>
+              <div class="hero-arch-desc">
+                Spatial Docling coordinate parser + Multimodal Gemini vision at 0.0 temperature.
+              </div>
+            </div>
+
+            <div class="hero-arch-connector">▼</div>
+
+            <!-- Node 4: Provenance -->
+            <div class="hero-arch-box" style="border-left: 3.5px solid #3A5A80;">
+              <div class="hero-arch-title">
+                <span style="color: #3A5A80;">4. PROVENANCE</span>
+                <span class="pill-tag green" style="font-size: 0.52vw; padding: 0.1vw 0.4vw;">EVIDENCE CHAIN</span>
+              </div>
+              <div class="hero-arch-desc">
+                <strong>Where is the evidence?</strong> Enforces physical pixel bounding boxes & byte-level grounding.
+              </div>
+            </div>
+
+            <div class="hero-arch-connector">▼</div>
+
+            <!-- Decision Split Fork: Trusted vs Uncertain -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8vw; position: relative;">
+              
+              <!-- Left Branch: Trusted -> Automate -->
+              <div style="background: #EDF5F0; border: 1.5px solid #A3D4B5; border-radius: 0.4vw; padding: 0.4vw 0.6vw; text-align: center;">
+                <div style="font-size: 0.68vw; font-weight: 800; color: #2E6B47; font-family: 'JetBrains Mono', monospace;">
+                  TRUSTED (≥ 0.85)
+                </div>
+                <div style="color: #2E6B47; font-size: 0.7vw; margin: 0.1vw 0;">↓</div>
+                <div style="background: #2E6B47; color: white; border-radius: 0.25vw; padding: 0.2vw 0.4vw; font-size: 0.68vw; font-weight: 700; letter-spacing: 0.04em;">
+                  AUTOMATE
+                </div>
+                <div style="font-size: 0.55vw; color: #1F4D33; margin-top: 0.2vw;">Direct EDI / ERP release</div>
+              </div>
+
+              <!-- Right Branch: Uncertain -> Human Review -->
+              <div style="background: #FDEEEB; border: 1.5px solid #F8C7C0; border-radius: 0.4vw; padding: 0.4vw 0.6vw; text-align: center;">
+                <div style="font-size: 0.68vw; font-weight: 800; color: #B84A39; font-family: 'JetBrains Mono', monospace;">
+                  UNCERTAIN (&lt; 0.85)
+                </div>
+                <div style="color: #B84A39; font-size: 0.7vw; margin: 0.1vw 0;">↓</div>
+                <div style="background: #B84A39; color: white; border-radius: 0.25vw; padding: 0.2vw 0.4vw; font-size: 0.68vw; font-weight: 700; letter-spacing: 0.04em;">
+                  HUMAN REVIEW
+                </div>
+                <div style="font-size: 0.55vw; color: #8C3426; margin-top: 0.2vw;">Triage UI + Refusal Cert</div>
+              </div>
+
+            </div>
+
+            <div class="hero-arch-connector">▼</div>
+
+            <!-- Node 5: Learning Agent -->
+            <div class="hero-arch-box" style="border-left: 3.5px solid #7B5EA7;">
+              <div class="hero-arch-title">
+                <span style="color: #5B3E87;">5. LEARNING AGENT</span>
+                <span class="pill-tag cyan" style="font-size: 0.52vw; padding: 0.1vw 0.4vw;">REFLEXION</span>
+              </div>
+              <div class="hero-arch-desc">
+                <strong>Human correction → Reflection → Experience.</strong> Closed-loop episodic memory updates.
+              </div>
+            </div>
+
+            <div class="hero-arch-connector">▼</div>
+
+            <!-- Node 6: Automation License -->
+            <div class="hero-arch-box" style="border-left: 3.5px solid #D4A373; background: #FFFDF9;">
+              <div class="hero-arch-title">
+                <span style="color: #9A5D18;">6. AUTOMATION LICENSE</span>
+                <span class="pill-tag amber" style="font-size: 0.52vw; padding: 0.1vw 0.4vw;">GOVERNANCE</span>
+              </div>
+              <div class="hero-arch-desc">
+                <strong>L0 → L1 → L2 → L3.</strong> Progressive autonomous release authority earned per trade lane.
+              </div>
+            </div>
+
           </div>
 
-          <!-- Right: Averish -->
-          <div class="glass-card highlight-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8vw;">
-              <span style="font-size: 0.95vw; font-weight: 700; color: var(--accent-cyan);">Averish Decision Architecture</span>
-              <span class="pill-tag green">Bounded Learning Agent</span>
+          <!-- Right Column: Deep-Dive Strategic Pillars (Explaining why this wins) -->
+          <div style="display: flex; flex-direction: column; justify-content: space-between;">
+            
+            <div style="display: flex; flex-direction: column; gap: 0.6vw;">
+              
+              <!-- Pillar 1: Pre-Execution Gates -->
+              <div class="glass-card" style="background: #FFFFFF; border: 1px solid var(--border-card); border-left: 3.5px solid #C07D38; padding: 0.8vw 1vw;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3vw;">
+                  <span style="font-size: 0.74vw; font-weight: 700; color: var(--text-main);">PRE-EXECUTION DEFENSE</span>
+                  <span class="pill-tag amber" style="font-size: 0.55vw;">GATES 1 & 2</span>
+                </div>
+                <p style="font-size: 0.68vw; color: var(--text-muted); line-height: 1.45;">
+                  Traditional AI runs OCR and LLMs on everything, failing unpredictably. Averish validates intent and document sufficiency <em>before</em> running models — eliminating 70% of downstream hallucinations.
+                </p>
+              </div>
+
+              <!-- Pillar 2: Grounded Provenance -->
+              <div class="glass-card" style="background: #FFFFFF; border: 1px solid var(--border-card); border-left: 3.5px solid #2A7B9B; padding: 0.8vw 1vw;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3vw;">
+                  <span style="font-size: 0.74vw; font-weight: 700; color: var(--text-main);">EVIDENCE-BOUND GROUNDING</span>
+                  <span class="pill-tag cyan" style="font-size: 0.55vw;">GATES 3 & 4</span>
+                </div>
+                <p style="font-size: 0.68vw; color: var(--text-muted); line-height: 1.45;">
+                  No ungrounded guesses. Every extracted entity must point to physical pixel coordinates and character byte offsets, backed by a cryptographic SHA-256 evidence chain.
+                </p>
+              </div>
+
+              <!-- Pillar 3: Episodic Reflexion -->
+              <div class="glass-card" style="background: #FFFFFF; border: 1px solid var(--border-card); border-left: 3.5px solid #7B5EA7; padding: 0.8vw 1vw;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3vw;">
+                  <span style="font-size: 0.74vw; font-weight: 700; color: var(--text-main);">EPISODIC REFLEXION & LICENSING</span>
+                  <span class="pill-tag green" style="font-size: 0.55vw;">GATES 5 & 6</span>
+                </div>
+                <p style="font-size: 0.68vw; color: var(--text-muted); line-height: 1.45;">
+                  Human corrections are never wasted. The system converts operator fixes into structured reflection lessons, progressively upgrading routes from L0 (Manual) to L3 (Autonomous).
+                </p>
+              </div>
+
             </div>
 
-            <!-- Steps -->
-            <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 1vw; font-size: 0.7vw; font-family: 'JetBrains Mono', monospace; flex-wrap: wrap;">
-              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Intent</span>
-              <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Validate</span>
-              <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Extract</span>
-              <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Verify</span>
-              <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: #EDF6F9; border-radius: 0.2vw;">Decision</span>
-              <span>➔</span>
-              <span style="padding: 0.25vw 0.5vw; background: #E3EFE7; border-radius: 0.2vw; color: #2E6B47; font-weight: 700;">Act / Stop</span>
+            <!-- Takeaway Banner -->
+            <div style="background: #FAF7F2; border: 1.5px solid var(--border-card); border-left: 4px solid var(--accent-cyan); border-radius: 0.5vw; padding: 0.75vw 1.1vw; margin-top: 0.5vw;">
+              <div style="font-size: 0.68vw; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase;">
+                THE PARADIGM SHIFT
+              </div>
+              <p style="font-size: 0.8vw; font-weight: 600; color: var(--text-main); margin-top: 0.2vw;">
+                “The market focuses on extraction. Averish wraps a decision layer around AI.”
+              </p>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 0.4vw; font-size: 0.75vw;">
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
-                <span>✓</span> <span><strong>Pre-execution Gate:</strong> Halts before reading wrong documents</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
-                <span>✓</span> <span><strong>Data Sufficiency:</strong> Rejects unreadable scanned faxes safely</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
-                <span>✓</span> <span><strong>Provenance Validation:</strong> Enforces exact byte offsets</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
-                <span>✓</span> <span><strong>Circuit Breaker:</strong> Trips at 3 failures & generates Refusal Certificate</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.5vw; color: #1E667E;">
-                <span>✓</span> <span><strong>Stateful Memory:</strong> Converts corrections into Reflexion lessons</span>
-              </div>
-            </div>
           </div>
+
         </div>
 
-        <div class="takeaway-banner">
-          “The market focuses on extraction. Averish adds a decision layer around AI.”
+        <div class="takeaway-banner" style="margin-top: 0.7vw; padding: 0.45vw 1vw; font-size: 0.76vw;">
+          Averish replaces blind generative guesses with bounded verification, structured refusal, and closed-loop episodic memory.
         </div>
       </div>
 
       <div class="slide-footer">
-        <span>Averish Shipping AI — Decision Boundary vs Extraction Pipe</span>
-        <span class="footer-quote">Design Principle: AI should earn the right to act.</span>
+        <span>Averish Shipping AI — SCREEN 2 · 0:35–1:00 Unique Technical Architecture</span>
+        <span class="footer-quote">Core Philosophy: AI earns the right to act through verifiable evidence and episodic experience.</span>
       </div>
     </div>
 
@@ -2209,7 +2476,7 @@ def build_deck():
       }});
 
       const padded = currentSlide < 10 ? `0${{currentSlide}}` : `${{currentSlide}}`;
-      indicator.textContent = `${{padded}} / 12`;
+      indicator.textContent = `${{padded}} / ${{TOTAL_SLIDES}}`;
     }}
 
     function nextSlide() {{
