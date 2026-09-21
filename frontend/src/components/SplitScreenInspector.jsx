@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ConflictEvidencePanel from './ConflictEvidencePanel.jsx';
+import ReasoningReceipt from './ReasoningReceipt.jsx';
 import { 
   FileCheck2, 
   AlertTriangle, 
@@ -529,6 +530,9 @@ export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOve
         {(verif.defect_fields?.length > 0 || status === 'MISMATCH') && !isMissingAttachment && (
           <ConflictEvidencePanel emailId={email.id} onShowToast={onShowToast} />
         )}
+
+        {/* Auditable reasoning: rules vs AI vs human per field */}
+        <ReasoningReceipt emailId={email.id} shipmentId={verif.shipment_id} />
 
         {/* 7-Field Side-by-Side Comparison Matrix */}
         {verif.field_matrix && (

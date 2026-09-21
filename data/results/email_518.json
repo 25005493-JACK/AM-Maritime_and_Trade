@@ -1,8 +1,10 @@
 {
   "email_id": "email_518",
-  "timestamp": "2026-09-20T09:51:51.277806+00:00",
+  "timestamp": "2026-09-21T02:15:13.649176+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "missing_value",
+  "can_compare": true,
+  "document_validity": null,
   "has_defect": false,
   "defect_fields": [],
   "summary_message": "Human Review Required: Missing required shipment values for: Gross Weight (kg), Port of Discharge (POD).",
@@ -65,13 +67,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "MOORIM SP CO., LTD",
+    "port_of_loading": "NANTONG, CHINA",
     "port_of_discharge": null,
     "consignee": "MOORIM SP CO., LTD",
-    "notify_party": "MOORIM SP CO., LTD",
-    "gross_weight_kg": null,
     "container_count": 6,
     "shipper": "APRIL FINE PAPER TRADING",
-    "port_of_loading": "NANTONG, CHINA"
+    "gross_weight_kg": null
   },
   "bl_extracted": {
     "status": "OK",
@@ -128,13 +130,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "MOORIM SP CO., LTD",
+    "port_of_loading": "NANTONG, CHINA (CNNTG)",
     "port_of_discharge": "APAPA, NIGERIA (NGAPP)",
     "consignee": "MOORIM SP CO., LTD 656, GANGNAM-DAERO, GANGNAM-GU; SEOUL, SOUTH KOREA; T. 82-2-3485-1500",
-    "notify_party": "MOORIM SP CO., LTD",
-    "gross_weight_kg": 134586.0,
     "container_count": 6,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "port_of_loading": "NANTONG, CHINA (CNNTG)"
+    "gross_weight_kg": 134586.0
   },
   "field_matrix": [
     {
@@ -143,7 +145,12 @@
       "si_value": "APRIL FINE PAPER TRADING",
       "bl_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -151,7 +158,12 @@
       "si_value": "MOORIM SP CO., LTD",
       "bl_value": "MOORIM SP CO., LTD 656, GANGNAM-DAERO, GANGNAM-GU; SEOUL, SOUTH KOREA; T. 82-2-3485-1500",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "notify_party",
@@ -159,7 +171,12 @@
       "si_value": "MOORIM SP CO., LTD",
       "bl_value": "MOORIM SP CO., LTD",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "port_of_loading",
@@ -167,7 +184,12 @@
       "si_value": "NANTONG, CHINA",
       "bl_value": "NANTONG, CHINA (CNNTG)",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -175,7 +197,12 @@
       "si_value": "N/A",
       "bl_value": "APAPA, NIGERIA (NGAPP)",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "MISSING",
+      "normalization_notes": "Review required: extraction_missing",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (extraction_missing)",
+      "status": "NEEDS_REVIEW",
+      "reason": "extraction_missing"
     },
     {
       "field_key": "container_count",
@@ -183,7 +210,12 @@
       "si_value": "6",
       "bl_value": "6",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -191,7 +223,12 @@
       "si_value": "N/A",
       "bl_value": "134586.0",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "MISSING",
+      "normalization_notes": "Review required: extraction_missing",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (extraction_missing)",
+      "status": "NEEDS_REVIEW",
+      "reason": "extraction_missing"
     }
   ]
 }

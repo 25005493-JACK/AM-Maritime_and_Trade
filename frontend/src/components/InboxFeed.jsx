@@ -277,6 +277,20 @@ export default function InboxFeed({ emails, isLoading, selectedEmailId, onSelect
                         {email.company}
                       </span>
                     )}
+                    {email.automation && email.automation.state !== 'none' && (
+                      <span
+                        title={`${email.automation.level_label} - ${email.automation.counts?.auto_processed || 0} field(s) auto-written, ${email.automation.counts?.flagged_for_review || 0} for review`}
+                        className={`text-[10px] font-mono px-1.5 py-0.5 rounded border shrink-0 ${
+                          email.automation.state === 'auto_processed'
+                            ? 'bg-emerald-950/60 text-emerald-300 border-emerald-700/60'
+                            : 'bg-amber-950/60 text-amber-300 border-amber-700/60'
+                        }`}
+                      >
+                        {email.automation.state === 'auto_processed'
+                          ? `AUTO-PROCESSED · L${email.automation.level}`
+                          : `NEEDS YOU · L${email.automation.level}`}
+                      </span>
+                    )}
                   </div>
                   <span className="text-xs font-mono text-slate-500 shrink-0">
                     {new Date(email.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

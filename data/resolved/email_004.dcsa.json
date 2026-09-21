@@ -1,0 +1,165 @@
+{
+  "record_type": "resolved_transport_document",
+  "email_id": "email_004",
+  "shipment_id": "email_004",
+  "generated_at": "2026-09-20T17:08:31.819949+00:00",
+  "reviewer": "Pohyi Chong",
+  "standard": {
+    "name": "DCSA Bill of Lading (eBL) v3.0.3",
+    "information_model": "DCSA Information Model 3.x (UN/CEFACT Multi-Modal Transport RDM aligned)",
+    "sources": {
+      "bol_readme": "https://github.com/dcsaorg/DCSA-OpenAPI/blob/master/ebl/v3/README.md",
+      "bol_spec": "https://github.com/dcsaorg/DCSA-OpenAPI/blob/master/ebl/v3/EBL_v3.0.3.yaml",
+      "issuance_readme": "https://github.com/dcsaorg/DCSA-OpenAPI/blob/master/ebl/v3/issuance/README.md",
+      "booking_spec": "https://github.com/dcsaorg/DCSA-OpenAPI/blob/master/bkg/v2/BKG_v2.0.0.yaml",
+      "standard_page": "https://dcsa.org/standards/bill-of-lading/"
+    }
+  },
+  "field_mapping": {
+    "consignee": "documentParties.consignee",
+    "container_count": "utilizedTransportEquipments",
+    "gross_weight_kg": "consignmentItems[].cargoItems[].cargoGrossWeight",
+    "port_of_discharge": "portOfDischarge",
+    "port_of_loading": "portOfLoading",
+    "shipper": "documentParties.shipper"
+  },
+  "transportDocument": {
+    "documentParties": {
+      "shipper": {
+        "partyName": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6",
+        "addressLines": [
+          "BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI",
+          "59200 KUALA LUMPUR, MALAYSIA"
+        ]
+      },
+      "consignee": {
+        "partyName": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER",
+        "addressLines": [
+          "AL HAMRA INDUSTRIAL ZONE, RAK, UAE"
+        ]
+      }
+    },
+    "portOfLoading": {
+      "UNLocationCode": "CNNTG",
+      "locationName": "NANTONG, CHINA (CNNTG)"
+    },
+    "portOfDischarge": {
+      "UNLocationCode": "PKKHI",
+      "locationName": "KARACHI, PAKISTAN (PKKHI)"
+    },
+    "consignmentItems": [
+      {
+        "cargoItems": [
+          {
+            "cargoGrossWeight": 131058.0,
+            "cargoGrossWeightUnit": "KGM"
+          }
+        ]
+      }
+    ],
+    "utilizedTransportEquipments": [
+      {
+        "equipment": {}
+      },
+      {
+        "equipment": {}
+      },
+      {
+        "equipment": {}
+      },
+      {
+        "equipment": {}
+      },
+      {
+        "equipment": {}
+      },
+      {
+        "equipment": {}
+      }
+    ]
+  },
+  "internal_only_fields": {},
+  "field_evidence": {
+    "consignee": {
+      "internal_field": "consignee",
+      "dcsa_field": "documentParties.consignee",
+      "dcsa_object": "Consignee",
+      "internal_only": false,
+      "value": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+      "sources": [
+        {
+          "document": "email_004_SI.txt",
+          "document_type": "SI",
+          "value": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+          "char_offset": 228,
+          "line_number": 6,
+          "exact_text": "Consignee (Non-Negotiable): EAST BRIGHT FZ-LLC",
+          "span_match": "whitespace_tolerant",
+          "found_in_document": true
+        },
+        {
+          "document": "email_004_BL.txt",
+          "document_type": "BL",
+          "value": "UAB NOVAKOPA RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+          "char_offset": 219,
+          "line_number": 6,
+          "exact_text": "To the Order of: UAB NOVAKOPA",
+          "span_match": "whitespace_tolerant",
+          "found_in_document": true
+        }
+      ],
+      "validation": {
+        "source_match": "pass",
+        "whitelist": {
+          "status": "n/a",
+          "table": null,
+          "details": "No code list applies to this field."
+        }
+      },
+      "agreement": "conflict"
+    }
+  },
+  "review_decisions": [
+    {
+      "field_key": "consignee",
+      "dcsa_field": "documentParties.consignee",
+      "internal_only": false,
+      "chosen": "si",
+      "origin": "email_004_SI.txt",
+      "value": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+      "rejected_values": {
+        "si": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+        "bl": "UAB NOVAKOPA RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE"
+      },
+      "reviewer": "Pohyi Chong",
+      "timestamp": "2026-09-20T17:08:31.819949+00:00",
+      "note": "",
+      "evidence": [
+        {
+          "document": "email_004_SI.txt",
+          "document_type": "SI",
+          "value": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+          "char_offset": 228,
+          "line_number": 6,
+          "exact_text": "Consignee (Non-Negotiable): EAST BRIGHT FZ-LLC",
+          "span_match": "whitespace_tolerant",
+          "found_in_document": true
+        },
+        {
+          "document": "email_004_BL.txt",
+          "document_type": "BL",
+          "value": "UAB NOVAKOPA RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
+          "char_offset": 219,
+          "line_number": 6,
+          "exact_text": "To the Order of: UAB NOVAKOPA",
+          "span_match": "whitespace_tolerant",
+          "found_in_document": true
+        }
+      ]
+    }
+  ],
+  "pending_decisions": [
+    "notify_party"
+  ],
+  "notice": "Reviewer-confirmed field values expressed with DCSA Bill of Lading field names. This is a document-mapping record, not a certificate: it carries no cryptographic hash or signature, asserts no legal validity, and only records which source documents the reviewer accepted for each field."
+}

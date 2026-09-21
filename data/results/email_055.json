@@ -1,15 +1,30 @@
 {
   "email_id": "email_055",
-  "timestamp": "2026-09-20T09:51:50.119691+00:00",
-  "status": "MISMATCH",
+  "timestamp": "2026-09-21T02:15:09.232855+00:00",
+  "status": "OK",
   "review_reason": null,
-  "has_defect": true,
-  "defect_fields": [
-    "consignee",
-    "notify_party"
-  ],
-  "summary_message": "Found 2 field mismatch(es): Consignee, Notify Party.",
-  "recommended_action": "Issue discrepancy notice to carrier for Consignee, Notify Party.",
+  "can_compare": true,
+  "document_validity": {
+    "doc_type_guess": "si",
+    "coverage_ratio": 1.0,
+    "matched_fields": [
+      "shipper",
+      "consignee",
+      "notify_party",
+      "port_of_loading",
+      "port_of_discharge",
+      "container_count",
+      "gross_weight_kg"
+    ],
+    "missing_fields": [],
+    "is_comparable": true,
+    "min_coverage_threshold": 0.6,
+    "reason": "Document qualifies as comparable SI with 100.0% field coverage (7/7 fields)."
+  },
+  "has_defect": false,
+  "defect_fields": [],
+  "summary_message": "No mismatch detected.",
+  "recommended_action": "Approve draft BL and confirm with shipper for document release.",
   "si_extracted": {
     "status": "OK",
     "reason_code": null,
@@ -65,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES",
+    "port_of_loading": "SINGAPORE",
     "port_of_discharge": "KARACHI, PAKISTAN",
     "consignee": "AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES",
-    "notify_party": "AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES",
-    "gross_weight_kg": 243588.0,
     "container_count": 12,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "port_of_loading": "SINGAPORE"
+    "gross_weight_kg": 243588.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -128,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "AL GURG STATIONERY LLC",
+    "port_of_loading": "SINGAPORE",
     "port_of_discharge": "KARACHI, PAKISTAN",
     "consignee": "AL GURG STATIONERY LLC",
-    "notify_party": "AL GURG STATIONERY LLC",
-    "gross_weight_kg": 243588.0,
     "container_count": 12,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
-    "port_of_loading": "SINGAPORE"
+    "gross_weight_kg": 243588.0
   },
   "field_matrix": [
     {
@@ -143,23 +158,41 @@
       "si_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
       "bl_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "NORMALIZED",
+      "normalization_notes": "Formatting-only difference (case / punctuation / P.O. BOX normalized)",
+      "is_formatting_difference": true,
+      "diff_summary": "Matched (Normalized: Formatting-only difference (case / punctuation / P.O. BOX normalized))",
+      "status": "OK",
+      "note": "formatting_only",
+      "reason": null
     },
     {
       "field_key": "consignee",
       "field_name": "Consignee",
       "si_value": "AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES",
       "bl_value": "AL GURG STATIONERY LLC",
-      "is_match": false,
-      "diff_summary": "SI: AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES / BL: AL GURG STATIONERY LLC"
+      "is_match": true,
+      "match_type": "NORMALIZED",
+      "normalization_notes": "Party name matches; trailing address detail ignored (trailing_address_stripped)",
+      "is_formatting_difference": true,
+      "diff_summary": "Matched (Normalized: Party name matches; trailing address detail ignored (trailing_address_stripped))",
+      "status": "OK",
+      "note": "formatting_only",
+      "reason": "trailing_address_stripped"
     },
     {
       "field_key": "notify_party",
       "field_name": "Notify Party",
       "si_value": "AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES",
       "bl_value": "AL GURG STATIONERY LLC",
-      "is_match": false,
-      "diff_summary": "SI: AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES / BL: AL GURG STATIONERY LLC"
+      "is_match": true,
+      "match_type": "NORMALIZED",
+      "normalization_notes": "Party name matches; trailing address detail ignored (trailing_address_stripped)",
+      "is_formatting_difference": true,
+      "diff_summary": "Matched (Normalized: Party name matches; trailing address detail ignored (trailing_address_stripped))",
+      "status": "OK",
+      "note": "formatting_only",
+      "reason": "trailing_address_stripped"
     },
     {
       "field_key": "port_of_loading",
@@ -167,7 +200,13 @@
       "si_value": "SINGAPORE [SGSIN]",
       "bl_value": "SINGAPORE [SGSIN]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: SGSIN",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -175,7 +214,13 @@
       "si_value": "KARACHI, PAKISTAN [PKKHI]",
       "bl_value": "KARACHI, PAKISTAN [PKKHI]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: PKKHI",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -183,7 +228,13 @@
       "si_value": "12",
       "bl_value": "12",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -191,7 +242,13 @@
       "si_value": "243,588.00 kg",
       "bl_value": "243,588.00 kg",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     }
   ]
 }

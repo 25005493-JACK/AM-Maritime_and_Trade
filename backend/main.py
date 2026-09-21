@@ -20,6 +20,15 @@ from backend.services.comparator import comparator
 from backend.services.evaluator import evaluator
 from backend.services.calendar_service import calendar_service
 from backend.services.event_logger import event_logger
+from backend.services import dcsa_mapping, correction_flow, field_evidence
+from backend.services import reasoning_receipt, red_team
+from backend.services.automation import automation
+from backend.services.circuit_breaker import circuit_breaker
+from backend.services.corrections_log import (
+    append_corrections,
+    dcsa_field_dispute_counts,
+    read_corrections,
+)
 
 app = FastAPI(
     title="Intelligent Shipping Document & Inbox Management API",
@@ -139,6 +148,13 @@ def get_emails(
             if e.get("verification") and e["verification"].get("status") == stat_upper
         ]
 
+    # Attach the live automation decision for the current level - this is what
+    # flips inbox cards between "Needs You" and "Auto-processed".
+    filtered = [
+        {**entry, "automation": automation.apply(entry.get("verification"))}
+        for entry in filtered
+    ]
+
     total_filtered = len(filtered)
     if limit is not None:
         paginated = filtered[offset : offset + limit]
@@ -248,29 +264,332 @@ def apply_human_override(payload: Dict[str, Any] = Body(...)):
             metadata=corr
         )
 
-    # Append to data/corrections.csv (append-only flat CSV)
+    # Append to data/corrections.csv (append-only flat CSV). The DCSA field
+    # column is filled from the mapping catalog so analytics can group
+    # corrections by DCSA-standard field.
     try:
-        corrections_csv = os.path.join("data", "corrections.csv")
-        os.makedirs(os.path.dirname(corrections_csv), exist_ok=True)
-        is_new = not os.path.exists(corrections_csv)
-        import csv
-        with open(corrections_csv, "a", encoding="utf-8", newline="") as f:
-            writer = csv.writer(f)
-            if is_new:
-                writer.writerow(["timestamp", "email_id", "field", "original_value", "corrected_value", "reviewer"])
-            for corr in corrections:
-                writer.writerow([
-                    ts,
-                    email_id,
-                    corr.get("field", ""),
-                    corr.get("original_ai_value", ""),
-                    corr.get("corrected_value", ""),
-                    reviewer
-                ])
+        append_corrections([
+            {
+                "timestamp": ts,
+                "email_id": email_id,
+                "field": corr.get("field", ""),
+                "dcsa_field": dcsa_mapping.dcsa_field_name(corr.get("field", "")) or "",
+                "original_value": corr.get("original_ai_value", ""),
+                "corrected_value": corr.get("corrected_value", ""),
+                "resolution": "human_selected:legacy_override",
+                "reviewer": reviewer,
+                "evidence_summary": "",
+            }
+            for corr in corrections
+        ])
     except Exception as ex:
         print(f"Failed to append to corrections.csv: {ex}")
 
     return {"status": "success", "updated_verification": res}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DCSA alignment: mapping catalog, propose-and-confirm corrections, DCSA export
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.get("/api/dcsa/mapping")
+def get_dcsa_mapping():
+    """DCSA Bill of Lading field mapping catalog, coverage and provenance."""
+    return {
+        "standard": dcsa_mapping.DCSA_STANDARD,
+        "information_model": dcsa_mapping.DCSA_INFORMATION_MODEL,
+        "sources": dcsa_mapping.DCSA_SOURCES,
+        "coverage": dcsa_mapping.coverage_report(),
+        "mappings": dcsa_mapping.all_mappings(),
+    }
+
+@app.get("/api/dcsa/analytics")
+def get_dcsa_analytics():
+    """Dispute counts grouped by DCSA-standard field (corrections.csv)."""
+    rows = dcsa_field_dispute_counts()
+    recent = read_corrections()[-10:]
+    return {
+        "question": "Which DCSA-standard fields cause the most carrier disputes?",
+        "standard": dcsa_mapping.DCSA_STANDARD,
+        "total_corrections": sum(row["count"] for row in rows),
+        "by_dcsa_field": rows,
+        "recent_corrections": recent,
+    }
+
+@app.get("/api/shipments/{email_id}/corrections")
+@app.get("/api/verify/{email_id}/corrections")
+def get_conflict_proposals(email_id: str):
+    """Side-by-side evidence for conflicting fields.
+
+    Returns proposals only - the endpoint never resolves a conflict, because the
+    SI and the draft BL are treated as equal-weight sources until a reviewer
+    decides.
+    """
+    email = loader.get_email(email_id)
+    if not email:
+        raise HTTPException(status_code=404, detail=f"Unknown email {email_id}")
+    si_text, bl_text = _get_email_doc_texts(email)
+    verification = comparator.compare_documents(
+        si_text, bl_text, overrides=HUMAN_OVERRIDES.get(email_id), email_metadata=email
+    )
+    return correction_flow.build_conflict_proposals(email_id, verification, si_text, bl_text, email)
+
+@app.post("/api/corrections/resolve")
+def resolve_conflicts(payload: Dict[str, Any] = Body(...)):
+    """Apply explicit human decisions and emit a DCSA-structured resolved record."""
+    global PROCESSED_SUMMARY_CACHE
+    email_id = (payload.get("email_id") or "").strip()
+    if not email_id:
+        raise HTTPException(status_code=400, detail="email_id is required")
+    decisions = payload.get("decisions") or []
+    reviewer = payload.get("reviewer_name") or payload.get("reviewer")
+
+    email = loader.get_email(email_id)
+    if not email:
+        raise HTTPException(status_code=404, detail=f"Unknown email {email_id}")
+    si_text, bl_text = _get_email_doc_texts(email)
+    verification = comparator.compare_documents(
+        si_text, bl_text, overrides=HUMAN_OVERRIDES.get(email_id), email_metadata=email
+    )
+
+    try:
+        result = correction_flow.apply_human_resolution(
+            email_id,
+            decisions,
+            reviewer,
+            verification=verification,
+            si_text=si_text,
+            bl_text=bl_text,
+            email=email,
+            timestamp=payload.get("timestamp"),
+        )
+    except correction_flow.HumanDecisionRequired as ex:
+        # 409: the request tried to let the pipeline decide. That is not allowed.
+        raise HTTPException(status_code=409, detail=str(ex))
+
+    shipment_id = _derive_shipment_id_from_email(email)
+    for decision in result["resolved_bl"]["review_decisions"]:
+        event_logger.log_timeline_event(
+            shipment_id=shipment_id,
+            actor="human",
+            actor_name=result["reviewer"],
+            action_text=(
+                f"{result['reviewer']} resolved {decision['field_key']} "
+                f"({decision['dcsa_field'] or 'internal-only'}) to "
+                f"{decision['value']!r} from {decision['origin']}"
+            ),
+            stage="review",
+            email_id=email_id,
+            related_field=decision["field_key"],
+            linked_event_id=f"{email_id}:ai-mismatch",
+            metadata={
+                "dcsa_field": decision["dcsa_field"],
+                "chosen": decision["chosen"],
+                "rejected_values": decision["rejected_values"],
+            },
+        )
+
+    PROCESSED_SUMMARY_CACHE = None
+    return result
+
+@app.get("/api/shipments/{email_id}/resolved")
+def get_resolved_record(email_id: str, download: bool = Query(False, description="Download as a .dcsa.json file")):
+    """The reviewer-confirmed record, structured by DCSA field names."""
+    record = correction_flow.load_resolved_record(email_id)
+    if record is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No resolved record for {email_id}. Resolve the conflicts first (POST /api/corrections/resolve).",
+        )
+    if download:
+        return Response(
+            content=correction_flow.export_dcsa_json(record),
+            media_type="application/json",
+            headers={"Content-Disposition": f"attachment; filename={email_id}.dcsa.json"},
+        )
+    return record
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Reasoning receipt, refusal certificate, red team, automation level
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _shipment_documents(shipment_id: str) -> List[Dict[str, Any]]:
+    """SI/BL documents belonging to a shipment, ready for the receipt builder."""
+    documents: List[Dict[str, Any]] = []
+    for entry in _ensure_processed_cache():
+        email = loader.get_email(entry["id"]) or entry
+        if _derive_shipment_id_from_email(email) != shipment_id:
+            continue
+        if not (entry.get("classification") or {}).get("is_comparison_request"):
+            continue
+        si_text, bl_text = _get_email_doc_texts(email)
+        verification = entry.get("verification") or {}
+        validity = verification.get("document_validity") or {}
+        scan_notes = []
+        if validity.get("doc_type_guess") == "unreadable":
+            scan_notes.append("attachment flagged as low-quality/unreadable by the document validity check")
+        documents.append({
+            "email_id": entry["id"],
+            "si_text": si_text,
+            "bl_text": bl_text,
+            "names": field_evidence.attachment_names(email),
+            "email": email,
+            "scan_notes": scan_notes,
+        })
+    return documents
+
+@app.get("/shipments/{shipment_id}/receipt")
+@app.get("/api/shipments/{shipment_id}/receipt")
+def get_shipment_receipt(shipment_id: str, persist: bool = Query(True, description="Persist rows to DuckDB")):
+    """Ordered field-level decision receipt for the shipment's document set."""
+    documents = _shipment_documents(shipment_id)
+    if not documents:
+        raise HTTPException(status_code=404, detail=f"No comparable documents found for shipment {shipment_id}")
+    return reasoning_receipt.build_receipt(
+        shipment_id, documents, overrides_by_email=HUMAN_OVERRIDES, persist=persist
+    )
+
+@app.get("/api/verify/{email_id}/receipt")
+def get_email_receipt(email_id: str, persist: bool = Query(False, description="Persist rows to DuckDB")):
+    """Convenience alias: receipt for the shipment the given email belongs to."""
+    email = loader.get_email(email_id)
+    if not email:
+        raise HTTPException(status_code=404, detail=f"Unknown email {email_id}")
+    shipment_id = _derive_shipment_id_from_email(email)
+    documents = _shipment_documents(shipment_id)
+    if not documents:
+        raise HTTPException(status_code=404, detail=f"No comparable documents found for email {email_id}")
+    return reasoning_receipt.build_receipt(
+        shipment_id, documents, overrides_by_email=HUMAN_OVERRIDES, persist=persist
+    )
+
+@app.get("/shipments/{shipment_id}/refusal-certificate")
+@app.get("/api/shipments/{shipment_id}/refusal-certificate")
+def get_refusal_certificate(shipment_id: str):
+    """Structured refusal produced when the AI circuit breaker tripped."""
+    documents = _shipment_documents(shipment_id)
+    if not documents:
+        raise HTTPException(status_code=404, detail=f"No comparable documents found for shipment {shipment_id}")
+    receipt = reasoning_receipt.build_receipt(
+        shipment_id, documents, overrides_by_email=HUMAN_OVERRIDES, persist=False
+    )
+    certificate = receipt.get("refusal_certificate")
+    if not certificate:
+        return {
+            "certificate": None,
+            "circuit_breaker": receipt.get("circuit_breaker"),
+            "note": "Circuit breaker did not trip: no AI field failed validation consecutively.",
+        }
+    return {"certificate": certificate, "circuit_breaker": receipt.get("circuit_breaker")}
+
+@app.get("/api/red-team/transforms")
+@app.get("/red-team/transforms")
+def red_team_transforms():
+    """The adversarial transforms the demo can rehearse."""
+    return {"transforms": red_team.transform_catalog()}
+
+@app.post("/api/shipments/{email_id}/red-team")
+@app.post("/shipments/{email_id}/red-team")
+def run_red_team(email_id: str, payload: Dict[str, Any] = Body(...)):
+    """Apply an adversarial transform and run it through the unchanged pipeline."""
+    transform = (payload.get("transform") or "").strip()
+    if not transform:
+        raise HTTPException(status_code=400, detail="transform is required")
+    email = loader.get_email(email_id)
+    if not email:
+        raise HTTPException(status_code=404, detail=f"Unknown email {email_id}")
+
+    si_text, bl_text = _get_email_doc_texts(email)
+    override = HUMAN_OVERRIDES.get(email_id)
+
+    # Deliberately NO attachment paths / email id here: the comparator would
+    # otherwise re-extract from the original attachments and ignore the mutated
+    # text, and it would overwrite the stored result for this email. Subject/body
+    # are kept only for the shipment-reference helper.
+    pipeline_metadata = {"subject": email.get("subject"), "body": email.get("body")}
+
+    before = comparator.compare_documents(si_text, bl_text, overrides=override, email_metadata=pipeline_metadata)
+
+    try:
+        mutated_si, mutated_bl, notes = red_team.apply_transform(si_text, bl_text, transform)
+    except ValueError as ex:
+        raise HTTPException(status_code=400, detail=str(ex))
+
+    shipment_id = _derive_shipment_id_from_email(email)
+    receipt = reasoning_receipt.build_receipt(
+        f"{shipment_id}#redteam:{transform}",
+        [{
+            "email_id": email_id,
+            "si_text": mutated_si,
+            "bl_text": mutated_bl,
+            "names": field_evidence.attachment_names(email),
+            "email": pipeline_metadata,
+        }],
+        overrides_by_email=HUMAN_OVERRIDES,
+        persist=False,
+    )
+    mutated_verification = comparator.compare_documents(
+        mutated_si, mutated_bl, overrides=override, email_metadata=pipeline_metadata
+    )
+    ai_attempts = receipt["documents"][0]["ai_attempts"] if receipt.get("documents") else []
+
+    return {
+        "email_id": email_id,
+        "shipment_id": shipment_id,
+        "transform": transform,
+        "notes": notes,
+        "before": {
+            "status": before.get("status"),
+            "defect_fields": before.get("defect_fields"),
+            "review_reason": before.get("review_reason"),
+        },
+        "after": {
+            "status": mutated_verification.get("status"),
+            "defect_fields": mutated_verification.get("defect_fields"),
+            "review_reason": mutated_verification.get("review_reason"),
+            "document_validity": mutated_verification.get("document_validity"),
+        },
+        "triggered": {
+            "ai_invoked": bool(ai_attempts),
+            "ai_fields_attempted": [a["field_key"] for a in ai_attempts],
+            "ai_accepted": [a["field_key"] for a in ai_attempts if a.get("accepted")],
+            "circuit_breaker_tripped": bool(receipt.get("refusal_certificate")),
+        },
+        "verification": mutated_verification,
+        "receipt": receipt,
+        "refusal_certificate": receipt.get("refusal_certificate"),
+    }
+
+@app.get("/settings/automation-level")
+@app.get("/api/settings/automation-level")
+def get_automation_level():
+    return automation.level_info()
+
+@app.post("/settings/automation-level")
+@app.post("/api/settings/automation-level")
+def set_automation_level(payload: Dict[str, Any] = Body(...)):
+    """Set the session automation level (in-memory; no persistence by design)."""
+    raw_level = payload.get("level")
+    try:
+        level = int(raw_level)
+    except (TypeError, ValueError):
+        raise HTTPException(status_code=400, detail="level must be an integer 0-3")
+    try:
+        result = automation.set_level(level)
+    except ValueError as ex:
+        raise HTTPException(status_code=400, detail=str(ex))
+    return {**result, "preview": automation.preview(_ensure_processed_cache(), level)}
+
+@app.get("/settings/automation-level/preview")
+@app.get("/api/settings/automation-level/preview")
+def preview_automation_level(level: Optional[int] = Query(None, description="0-3; defaults to the current level")):
+    """Live metrics for the requested level, computed from the loaded inbox."""
+    if level is not None and level not in (0, 1, 2, 3):
+        raise HTTPException(status_code=400, detail="level must be 0-3")
+    return automation.preview(
+        _ensure_processed_cache(), level if level is not None else automation.get_level()
+    )
 
 @app.get("/api/review-decisions/export")
 def export_review_decisions():
@@ -723,6 +1042,7 @@ def get_shipments(
             "needs_review": needs_review,
             "client": client_name,
             "event_count": len(eps),
+            "automation": automation.apply(bl_ep.get("verification")),
         })
 
     # Sort: Shipments needing review first, then by latest timestamp descending

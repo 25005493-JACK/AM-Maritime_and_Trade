@@ -1,8 +1,26 @@
 {
   "email_id": "email_068",
-  "timestamp": "2026-09-20T09:51:50.366273+00:00",
+  "timestamp": "2026-09-21T02:15:09.646686+00:00",
   "status": "OK",
   "review_reason": null,
+  "can_compare": true,
+  "document_validity": {
+    "doc_type_guess": "si",
+    "coverage_ratio": 1.0,
+    "matched_fields": [
+      "shipper",
+      "consignee",
+      "notify_party",
+      "port_of_loading",
+      "port_of_discharge",
+      "container_count",
+      "gross_weight_kg"
+    ],
+    "missing_fields": [],
+    "is_comparable": true,
+    "min_coverage_threshold": 0.6,
+    "reason": "Document qualifies as comparable SI with 100.0% field coverage (7/7 fields)."
+  },
   "has_defect": false,
   "defect_fields": [],
   "summary_message": "No mismatch detected.",
@@ -62,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
     "port_of_discharge": "YANGON, MYANMAR (MMRGN)",
     "consignee": "PACIFIC OFFICE (M) SDN BHD LOT 6, JALAN P/7; SECTION 13, 43650 BANDAR BARU BANGI; SELANGOR, MALAYSIA",
-    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
-    "gross_weight_kg": 81100.0,
     "container_count": 4,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
+    "gross_weight_kg": 81100.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -125,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
     "port_of_discharge": "YANGON, MYANMAR (MMRGN)",
     "consignee": "PACIFIC OFFICE (M) SDN BHD LOT 6, JALAN P/7; SECTION 13, 43650 BANDAR BARU BANGI; SELANGOR, MALAYSIA",
-    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
-    "gross_weight_kg": 81100.0,
     "container_count": 4,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
+    "gross_weight_kg": 81100.0
   },
   "field_matrix": [
     {
@@ -140,7 +158,13 @@
       "si_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
       "bl_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -148,7 +172,13 @@
       "si_value": "PACIFIC OFFICE (M) SDN BHD LOT 6, JALAN P/7; SECTION 13, 43650 BANDAR BARU BANGI; SELANGOR, MALAYSIA",
       "bl_value": "PACIFIC OFFICE (M) SDN BHD LOT 6, JALAN P/7; SECTION 13, 43650 BANDAR BARU BANGI; SELANGOR, MALAYSIA",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "notify_party",
@@ -156,7 +186,13 @@
       "si_value": "PACIFIC OFFICE (M) SDN BHD",
       "bl_value": "PACIFIC OFFICE (M) SDN BHD",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "port_of_loading",
@@ -164,7 +200,13 @@
       "si_value": "BUATAN, INDONESIA (IDBUA) [IDBUA]",
       "bl_value": "BUATAN, INDONESIA (IDBUA) [IDBUA]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: IDBUA",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -172,7 +214,13 @@
       "si_value": "YANGON, MYANMAR (MMRGN) [MMRGN]",
       "bl_value": "YANGON, MYANMAR (MMRGN) [MMRGN]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: MMRGN",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -180,7 +228,13 @@
       "si_value": "4",
       "bl_value": "4",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -188,7 +242,13 @@
       "si_value": "81,100.00 kg",
       "bl_value": "81,100.00 kg",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     }
   ]
 }

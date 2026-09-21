@@ -13,31 +13,31 @@
     "SPAM": 37
   },
   "status_distribution": {
-    "OK": 451,
-    "MISMATCH": 38,
-    "NEEDS_REVIEW": 31
+    "OK": 458,
+    "MISMATCH": 41,
+    "NEEDS_REVIEW": 21
   },
   "review_reasons_breakdown": {
-    "missing_value": 15,
     "term_unresolved": 1,
     "wrong_doc_type": 5,
     "missing_attachment": 5,
     "corrupted_file": 2,
-    "scanned_not_processed": 3
+    "scanned_not_processed": 3,
+    "missing_value": 5
   },
   "defect_field_counts": {
-    "consignee": 8,
-    "notify_party": 13,
-    "container_count": 16,
-    "gross_weight_kg": 9,
-    "shipper": 11,
+    "consignee": 6,
+    "notify_party": 11,
+    "container_count": 18,
+    "gross_weight_kg": 12,
     "port_of_loading": 1,
-    "port_of_discharge": 1
+    "port_of_discharge": 2,
+    "shipper": 6
   },
   "scoreboard": {
-    "OK": 60,
-    "MISMATCH": 38,
-    "NEEDS_REVIEW": 31
+    "OK": 67,
+    "MISMATCH": 41,
+    "NEEDS_REVIEW": 21
   },
   "message": "Self-evaluation completed successfully across the 520 inbox dataset."
 }

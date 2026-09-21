@@ -1,8 +1,26 @@
 {
   "email_id": "email_391",
-  "timestamp": "2026-09-20T09:51:50.916513+00:00",
+  "timestamp": "2026-09-21T02:15:10.875337+00:00",
   "status": "OK",
   "review_reason": null,
+  "can_compare": true,
+  "document_validity": {
+    "doc_type_guess": "si",
+    "coverage_ratio": 1.0,
+    "matched_fields": [
+      "shipper",
+      "consignee",
+      "notify_party",
+      "port_of_loading",
+      "port_of_discharge",
+      "container_count",
+      "gross_weight_kg"
+    ],
+    "missing_fields": [],
+    "is_comparable": true,
+    "min_coverage_threshold": 0.6,
+    "reason": "Document qualifies as comparable SI with 100.0% field coverage (7/7 fields)."
+  },
   "has_defect": false,
   "defect_fields": [],
   "summary_message": "No mismatch detected.",
@@ -62,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
     "port_of_discharge": "MOMBASA, KENYA (KEMBA)",
     "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA",
-    "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
-    "gross_weight_kg": 84284.0,
     "container_count": 4,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)"
+    "gross_weight_kg": 84284.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -125,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
     "port_of_discharge": "MOMBASA, KENYA (KEMBA)",
     "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA",
-    "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
-    "gross_weight_kg": 84284.0,
     "container_count": 4,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)"
+    "gross_weight_kg": 84284.0
   },
   "field_matrix": [
     {
@@ -140,7 +158,13 @@
       "si_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
       "bl_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -148,7 +172,13 @@
       "si_value": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA",
       "bl_value": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "notify_party",
@@ -156,7 +186,13 @@
       "si_value": "BALL & DOGGETT AUSTRALIA PTY LTD",
       "bl_value": "BALL & DOGGETT AUSTRALIA PTY LTD",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "port_of_loading",
@@ -164,7 +200,13 @@
       "si_value": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG) [MYPKG]",
       "bl_value": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG) [MYPKG]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: MYPKG",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -172,7 +214,13 @@
       "si_value": "MOMBASA, KENYA (KEMBA) [KEMBA]",
       "bl_value": "MOMBASA, KENYA (KEMBA) [KEMBA]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: KEMBA",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -180,7 +228,13 @@
       "si_value": "4",
       "bl_value": "4",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -188,7 +242,13 @@
       "si_value": "84,284.00 kg",
       "bl_value": "84,284.00 kg",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     }
   ]
 }

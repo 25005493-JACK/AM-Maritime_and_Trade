@@ -1,8 +1,10 @@
 {
   "email_id": "email_516",
-  "timestamp": "2026-09-20T09:51:51.272777+00:00",
+  "timestamp": "2026-09-21T02:15:13.627739+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "missing_value",
+  "can_compare": true,
+  "document_validity": null,
   "has_defect": false,
   "defect_fields": [],
   "summary_message": "Human Review Required: Missing required shipment values for: Gross Weight (kg).",
@@ -64,13 +66,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "KPP-ANTALIS (SINGAPORE) PTE. LTD.",
+    "port_of_loading": "NHAVA SHEVA, INDIA",
     "port_of_discharge": "CONAKRY, GUINEA",
     "consignee": "KPP-ANTALIS (SINGAPORE) PTE. LTD.",
-    "notify_party": "KPP-ANTALIS (SINGAPORE) PTE. LTD.",
-    "gross_weight_kg": null,
     "container_count": 10,
     "shipper": "APRIL FINE PAPER TRADING",
-    "port_of_loading": "NHAVA SHEVA, INDIA"
+    "gross_weight_kg": null
   },
   "bl_extracted": {
     "status": "OK",
@@ -127,13 +129,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "KPP-ANTALIS (SINGAPORE) PTE. LTD.",
+    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
     "port_of_discharge": "CONAKRY, GUINEA (GNCKY)",
     "consignee": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD; #42-01 SUNTEC TOWER 3; SINGAPORE 038988",
-    "notify_party": "KPP-ANTALIS (SINGAPORE) PTE. LTD.",
-    "gross_weight_kg": 235550.0,
     "container_count": 10,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)"
+    "gross_weight_kg": 235550.0
   },
   "field_matrix": [
     {
@@ -142,7 +144,12 @@
       "si_value": "APRIL FINE PAPER TRADING",
       "bl_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -150,7 +157,12 @@
       "si_value": "KPP-ANTALIS (SINGAPORE) PTE. LTD.",
       "bl_value": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD; #42-01 SUNTEC TOWER 3; SINGAPORE 038988",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "notify_party",
@@ -158,7 +170,12 @@
       "si_value": "KPP-ANTALIS (SINGAPORE) PTE. LTD.",
       "bl_value": "KPP-ANTALIS (SINGAPORE) PTE. LTD.",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "port_of_loading",
@@ -166,7 +183,12 @@
       "si_value": "NHAVA SHEVA, INDIA",
       "bl_value": "NHAVA SHEVA, INDIA (INNSA)",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -174,7 +196,12 @@
       "si_value": "CONAKRY, GUINEA",
       "bl_value": "CONAKRY, GUINEA (GNCKY)",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -182,7 +209,12 @@
       "si_value": "10",
       "bl_value": "10",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -190,7 +222,12 @@
       "si_value": "N/A",
       "bl_value": "235550.0",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "MISSING",
+      "normalization_notes": "Review required: extraction_missing",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (extraction_missing)",
+      "status": "NEEDS_REVIEW",
+      "reason": "extraction_missing"
     }
   ]
 }

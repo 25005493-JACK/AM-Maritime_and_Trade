@@ -1,8 +1,10 @@
 {
   "email_id": "email_107",
-  "timestamp": "2026-09-20T09:51:50.415289+00:00",
+  "timestamp": "2026-09-21T02:15:09.759607+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "term_unresolved",
+  "can_compare": true,
+  "document_validity": null,
   "has_defect": false,
   "defect_fields": [],
   "summary_message": "Human Review Required: Attachment contains unrecognized field labels requiring human verification.",
@@ -62,13 +64,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
     "port_of_discharge": "MOMBASA, KENYA",
     "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
-    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
-    "gross_weight_kg": 41124.0,
     "container_count": 2,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA"
+    "gross_weight_kg": 41124.0
   },
   "bl_extracted": {
     "status": "NEEDS_REVIEW",
@@ -116,6 +118,12 @@
         "canonical": "container_count",
         "method": "exact",
         "confidence": 1.0
+      },
+      {
+        "raw_label": "Gross Weight",
+        "canonical": "gross_weight_kg",
+        "method": "header_prefix",
+        "confidence": 1.0
       }
     ],
     "unresolved_terms": [
@@ -124,13 +132,13 @@
         "value": "41,124"
       }
     ],
+    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
     "port_of_discharge": "MOMBASA, KENYA",
     "consignee": "VITAL SOLUTIONS PTE. LTD. KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
-    "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
-    "gross_weight_kg": 41124.0,
     "container_count": 3,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA"
+    "gross_weight_kg": 41124.0
   },
   "field_matrix": [
     {
@@ -139,7 +147,12 @@
       "si_value": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
       "bl_value": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
       "is_match": false,
-      "diff_summary": "Review Required (term_unresolved)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: term_unresolved",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (term_unresolved)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -147,7 +160,12 @@
       "si_value": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
       "bl_value": "VITAL SOLUTIONS PTE. LTD. KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
       "is_match": false,
-      "diff_summary": "Review Required (term_unresolved)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: term_unresolved",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (term_unresolved)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "notify_party",
@@ -155,7 +173,12 @@
       "si_value": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
       "bl_value": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
       "is_match": false,
-      "diff_summary": "Review Required (term_unresolved)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: term_unresolved",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (term_unresolved)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "port_of_loading",
@@ -163,7 +186,12 @@
       "si_value": "PORT KLANG (WESTPORT), MALAYSIA",
       "bl_value": "PORT KLANG (WESTPORT), MALAYSIA",
       "is_match": false,
-      "diff_summary": "Review Required (term_unresolved)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: term_unresolved",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (term_unresolved)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -171,7 +199,12 @@
       "si_value": "MOMBASA, KENYA",
       "bl_value": "MOMBASA, KENYA",
       "is_match": false,
-      "diff_summary": "Review Required (term_unresolved)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: term_unresolved",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (term_unresolved)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -179,7 +212,12 @@
       "si_value": "2",
       "bl_value": "3",
       "is_match": false,
-      "diff_summary": "Review Required (term_unresolved)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: term_unresolved",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (term_unresolved)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -187,7 +225,12 @@
       "si_value": "41124.0",
       "bl_value": "41124.0",
       "is_match": false,
-      "diff_summary": "Review Required (term_unresolved)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: term_unresolved",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (term_unresolved)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     }
   ]
 }

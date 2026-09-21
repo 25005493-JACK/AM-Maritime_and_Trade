@@ -1,8 +1,10 @@
 {
   "email_id": "email_520",
-  "timestamp": "2026-09-20T09:51:51.282946+00:00",
+  "timestamp": "2026-09-21T02:15:13.659590+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "missing_value",
+  "can_compare": true,
+  "document_validity": null,
   "has_defect": false,
   "defect_fields": [],
   "summary_message": "Human Review Required: Missing required shipment values for: Consignee.",
@@ -64,13 +66,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "CLIFFORD PAPER INC",
+    "port_of_loading": "SINGAPORE",
     "port_of_discharge": "PYEONGTAEK, SOUTH KOREA",
     "consignee": null,
-    "notify_party": "CLIFFORD PAPER INC",
-    "gross_weight_kg": 122640.0,
     "container_count": 6,
     "shipper": "APRIL FINE PAPER TRADING",
-    "port_of_loading": "SINGAPORE"
+    "gross_weight_kg": 122640.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -127,13 +129,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "CLIFFORD PAPER INC",
+    "port_of_loading": "SINGAPORE (SGSIN)",
     "port_of_discharge": "PYEONGTAEK, SOUTH KOREA (KRPTK)",
     "consignee": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA",
-    "notify_party": "CLIFFORD PAPER INC",
-    "gross_weight_kg": 122640.0,
     "container_count": 6,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "port_of_loading": "SINGAPORE (SGSIN)"
+    "gross_weight_kg": 122640.0
   },
   "field_matrix": [
     {
@@ -142,7 +144,12 @@
       "si_value": "APRIL FINE PAPER TRADING",
       "bl_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -150,7 +157,12 @@
       "si_value": "N/A",
       "bl_value": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "MISSING",
+      "normalization_notes": "Review required: extraction_missing",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (extraction_missing)",
+      "status": "NEEDS_REVIEW",
+      "reason": "extraction_missing"
     },
     {
       "field_key": "notify_party",
@@ -158,7 +170,12 @@
       "si_value": "CLIFFORD PAPER INC",
       "bl_value": "CLIFFORD PAPER INC",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "port_of_loading",
@@ -166,7 +183,12 @@
       "si_value": "SINGAPORE",
       "bl_value": "SINGAPORE (SGSIN)",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -174,7 +196,12 @@
       "si_value": "PYEONGTAEK, SOUTH KOREA",
       "bl_value": "PYEONGTAEK, SOUTH KOREA (KRPTK)",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -182,7 +209,12 @@
       "si_value": "6",
       "bl_value": "6",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -190,7 +222,12 @@
       "si_value": "122640.0",
       "bl_value": "122640.0",
       "is_match": false,
-      "diff_summary": "Review Required (missing_value)"
+      "match_type": "REVIEW",
+      "normalization_notes": "Review required: missing_value",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (missing_value)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     }
   ]
 }

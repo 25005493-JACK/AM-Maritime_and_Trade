@@ -1,8 +1,26 @@
 {
   "email_id": "email_300",
-  "timestamp": "2026-09-20T09:51:50.691605+00:00",
+  "timestamp": "2026-09-21T02:15:10.294102+00:00",
   "status": "MISMATCH",
   "review_reason": null,
+  "can_compare": true,
+  "document_validity": {
+    "doc_type_guess": "si",
+    "coverage_ratio": 1.0,
+    "matched_fields": [
+      "shipper",
+      "consignee",
+      "notify_party",
+      "port_of_loading",
+      "port_of_discharge",
+      "container_count",
+      "gross_weight_kg"
+    ],
+    "missing_fields": [],
+    "is_comparable": true,
+    "min_coverage_threshold": 0.6,
+    "reason": "Document qualifies as comparable SI with 100.0% field coverage (7/7 fields)."
+  },
   "has_defect": true,
   "defect_fields": [
     "shipper",
@@ -65,13 +83,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
+    "port_of_loading": "NANTONG, CHINA",
     "port_of_discharge": "VALPARAISO, CHILE",
     "consignee": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
-    "notify_party": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
-    "gross_weight_kg": 243168.0,
     "container_count": 12,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "port_of_loading": "NANTONG, CHINA"
+    "gross_weight_kg": 243168.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -128,13 +146,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "NAGAPPA EXPORTS SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
+    "port_of_loading": "NANTONG, CHINA",
     "port_of_discharge": "VALPARAISO, CHILE",
     "consignee": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
-    "notify_party": "NAGAPPA EXPORTS SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
-    "gross_weight_kg": 243168.0,
     "container_count": 12,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "port_of_loading": "NANTONG, CHINA"
+    "gross_weight_kg": 243168.0
   },
   "field_matrix": [
     {
@@ -143,7 +161,13 @@
       "si_value": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
       "bl_value": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
       "is_match": false,
-      "diff_summary": "SI: APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA / BL: APRIL FINE PAPER TRADING (MIDDLE EAST) FZE TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA"
+      "match_type": "MISMATCH",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "SI: APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA / BL: APRIL FINE PAPER TRADING (MIDDLE EAST) FZE TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+      "status": "MISMATCH",
+      "note": null,
+      "reason": "value_mismatch"
     },
     {
       "field_key": "consignee",
@@ -151,7 +175,13 @@
       "si_value": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
       "bl_value": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "notify_party",
@@ -159,7 +189,13 @@
       "si_value": "UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
       "bl_value": "NAGAPPA EXPORTS SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
       "is_match": false,
-      "diff_summary": "SI: UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA / BL: NAGAPPA EXPORTS SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA"
+      "match_type": "MISMATCH",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "SI: UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA / BL: NAGAPPA EXPORTS SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA",
+      "status": "MISMATCH",
+      "note": null,
+      "reason": "value_mismatch"
     },
     {
       "field_key": "port_of_loading",
@@ -167,7 +203,13 @@
       "si_value": "NANTONG, CHINA [CNNTG]",
       "bl_value": "NANTONG, CHINA [CNNTG]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: CNNTG",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -175,7 +217,13 @@
       "si_value": "VALPARAISO, CHILE [CLVAP]",
       "bl_value": "VALPARAISO, CHILE [CLVAP]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: CLVAP",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -183,7 +231,13 @@
       "si_value": "12",
       "bl_value": "12",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -191,7 +245,13 @@
       "si_value": "243,168.00 kg",
       "bl_value": "243,168.00 kg",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     }
   ]
 }

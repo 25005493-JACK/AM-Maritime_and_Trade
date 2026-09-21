@@ -1,8 +1,26 @@
 {
   "email_id": "email_174",
-  "timestamp": "2026-09-20T09:51:50.521203+00:00",
+  "timestamp": "2026-09-21T02:15:09.964840+00:00",
   "status": "MISMATCH",
   "review_reason": null,
+  "can_compare": true,
+  "document_validity": {
+    "doc_type_guess": "si",
+    "coverage_ratio": 1.0,
+    "matched_fields": [
+      "shipper",
+      "consignee",
+      "notify_party",
+      "port_of_loading",
+      "port_of_discharge",
+      "container_count",
+      "gross_weight_kg"
+    ],
+    "missing_fields": [],
+    "is_comparable": true,
+    "min_coverage_threshold": 0.6,
+    "reason": "Document qualifies as comparable SI with 100.0% field coverage (7/7 fields)."
+  },
   "has_defect": true,
   "defect_fields": [
     "notify_party"
@@ -64,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "TOAN LUC PAPER JOINT STOCK COMPANY",
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
     "port_of_discharge": "CONAKRY, GUINEA (GNCKY)",
     "consignee": "TOAN LUC PAPER JOINT STOCK COMPANY LOT B, TAN DONG HIEP B IZ; DI AN, BINH DUONG, VIETNAM",
-    "notify_party": "TOAN LUC PAPER JOINT STOCK COMPANY",
-    "gross_weight_kg": 20532.0,
     "container_count": 1,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)"
+    "gross_weight_kg": 20532.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -127,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "MOORIM SP CO., LTD",
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
     "port_of_discharge": "HOCHIMINH CITY, VIETNAM (GNCKY)",
     "consignee": "TOAN LUC PAPER JOINT STOCK COMPANY LOT B, TAN DONG HIEP B IZ; DI AN, BINH DUONG, VIETNAM",
-    "notify_party": "MOORIM SP CO., LTD",
-    "gross_weight_kg": 20532.0,
     "container_count": 1,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)"
+    "gross_weight_kg": 20532.0
   },
   "field_matrix": [
     {
@@ -142,7 +160,13 @@
       "si_value": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
       "bl_value": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -150,7 +174,13 @@
       "si_value": "TOAN LUC PAPER JOINT STOCK COMPANY LOT B, TAN DONG HIEP B IZ; DI AN, BINH DUONG, VIETNAM",
       "bl_value": "TOAN LUC PAPER JOINT STOCK COMPANY LOT B, TAN DONG HIEP B IZ; DI AN, BINH DUONG, VIETNAM",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "notify_party",
@@ -158,7 +188,13 @@
       "si_value": "TOAN LUC PAPER JOINT STOCK COMPANY",
       "bl_value": "MOORIM SP CO., LTD",
       "is_match": false,
-      "diff_summary": "SI: TOAN LUC PAPER JOINT STOCK COMPANY / BL: MOORIM SP CO., LTD"
+      "match_type": "MISMATCH",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "SI: TOAN LUC PAPER JOINT STOCK COMPANY / BL: MOORIM SP CO., LTD",
+      "status": "MISMATCH",
+      "note": null,
+      "reason": "value_mismatch"
     },
     {
       "field_key": "port_of_loading",
@@ -166,7 +202,13 @@
       "si_value": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA) [CNSHA]",
       "bl_value": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA) [CNSHA]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: CNSHA",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -174,7 +216,13 @@
       "si_value": "CONAKRY, GUINEA (GNCKY) [GNCKY]",
       "bl_value": "HOCHIMINH CITY, VIETNAM (GNCKY) [GNCKY]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "NORMALIZED",
+      "normalization_notes": "UN/LOCODE match: GNCKY",
+      "is_formatting_difference": true,
+      "diff_summary": "Matched (Normalized: UN/LOCODE match: GNCKY)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -182,7 +230,13 @@
       "si_value": "1",
       "bl_value": "1",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -190,7 +244,13 @@
       "si_value": "20,532.00 kg",
       "bl_value": "20,532.00 kg",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     }
   ]
 }

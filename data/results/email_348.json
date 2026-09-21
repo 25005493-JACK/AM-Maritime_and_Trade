@@ -1,8 +1,26 @@
 {
   "email_id": "email_348",
-  "timestamp": "2026-09-20T09:51:50.803729+00:00",
+  "timestamp": "2026-09-21T02:15:10.471149+00:00",
   "status": "OK",
   "review_reason": null,
+  "can_compare": true,
+  "document_validity": {
+    "doc_type_guess": "si",
+    "coverage_ratio": 1.0,
+    "matched_fields": [
+      "shipper",
+      "consignee",
+      "notify_party",
+      "port_of_loading",
+      "port_of_discharge",
+      "container_count",
+      "gross_weight_kg"
+    ],
+    "missing_fields": [],
+    "is_comparable": true,
+    "min_coverage_threshold": 0.6,
+    "reason": "Document qualifies as comparable SI with 100.0% field coverage (7/7 fields)."
+  },
   "has_defect": false,
   "defect_fields": [],
   "summary_message": "No mismatch detected.",
@@ -62,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
     "port_of_discharge": "JEBEL ALI, UAE (AEJEA)",
     "consignee": "ORIENT LINKS CO (LLC)",
-    "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
-    "gross_weight_kg": 334845.0,
     "container_count": 15,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)"
+    "gross_weight_kg": 334845.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -125,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
     "port_of_discharge": "JEBEL ALI, UAE (AEJEA)",
     "consignee": "ORIENT LINKS CO (LLC)",
-    "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
-    "gross_weight_kg": 334845.0,
     "container_count": 15,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)"
+    "gross_weight_kg": 334845.0
   },
   "field_matrix": [
     {
@@ -140,7 +158,13 @@
       "si_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
       "bl_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -148,7 +172,13 @@
       "si_value": "ORIENT LINKS CO (LLC)",
       "bl_value": "ORIENT LINKS CO (LLC)",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "notify_party",
@@ -156,7 +186,13 @@
       "si_value": "INTERNATIONAL FOREST PRODUCTS LLC",
       "bl_value": "INTERNATIONAL FOREST PRODUCTS LLC",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "port_of_loading",
@@ -164,7 +200,13 @@
       "si_value": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA) [CNSHA]",
       "bl_value": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA) [CNSHA]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: CNSHA",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -172,7 +214,13 @@
       "si_value": "JEBEL ALI, UAE (AEJEA) [AEJEA]",
       "bl_value": "JEBEL ALI, UAE (AEJEA) [AEJEA]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: AEJEA",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -180,7 +228,13 @@
       "si_value": "15",
       "bl_value": "15",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -188,7 +242,13 @@
       "si_value": "334,845.00 kg",
       "bl_value": "334,845.00 kg",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     }
   ]
 }

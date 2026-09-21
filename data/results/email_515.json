@@ -1,8 +1,10 @@
 {
   "email_id": "email_515",
-  "timestamp": "2026-09-20T09:51:51.269433+00:00",
+  "timestamp": "2026-09-21T02:15:13.621779+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "corrupted_file",
+  "can_compare": false,
+  "document_validity": null,
   "has_defect": false,
   "defect_fields": [],
   "summary_message": "Human Review Required: Attachment is corrupted, damaged, or invalid file format.",
@@ -62,13 +64,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "3S PAPER PRODUCTS SDN BHD",
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
     "port_of_discharge": "AQABA, JORDAN (JOAQB)",
     "consignee": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
-    "notify_party": "3S PAPER PRODUCTS SDN BHD",
-    "gross_weight_kg": 21949.0,
     "container_count": 1,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
+    "gross_weight_kg": 21949.0
   },
   "bl_extracted": {
     "status": "NEEDS_REVIEW",
@@ -82,13 +84,13 @@
     "missing_fields": [],
     "audit_trail": [],
     "unresolved_terms": [],
+    "notify_party": null,
+    "port_of_loading": null,
     "port_of_discharge": null,
     "consignee": null,
-    "notify_party": null,
-    "gross_weight_kg": null,
     "container_count": null,
     "shipper": null,
-    "port_of_loading": null
+    "gross_weight_kg": null
   },
   "field_matrix": [
     {
@@ -97,7 +99,12 @@
       "si_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
       "bl_value": "N/A",
       "is_match": false,
-      "diff_summary": "Review Required (corrupted_file)"
+      "match_type": "MISSING",
+      "normalization_notes": "Review required: corrupted_file",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (corrupted_file)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -105,7 +112,12 @@
       "si_value": "3S PAPER PRODUCTS SDN BHD NO 12, JALAN INDUSTRI 3/6; RAWANG INTEGRATED INDUSTRIAL PARK; 48000 RAWANG, SELANGOR, MALAYSIA",
       "bl_value": "N/A",
       "is_match": false,
-      "diff_summary": "Review Required (corrupted_file)"
+      "match_type": "MISSING",
+      "normalization_notes": "Review required: corrupted_file",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (corrupted_file)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "notify_party",
@@ -113,7 +125,12 @@
       "si_value": "3S PAPER PRODUCTS SDN BHD",
       "bl_value": "N/A",
       "is_match": false,
-      "diff_summary": "Review Required (corrupted_file)"
+      "match_type": "MISSING",
+      "normalization_notes": "Review required: corrupted_file",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (corrupted_file)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "port_of_loading",
@@ -121,7 +138,12 @@
       "si_value": "BUATAN, INDONESIA (IDBUA)",
       "bl_value": "N/A",
       "is_match": false,
-      "diff_summary": "Review Required (corrupted_file)"
+      "match_type": "MISSING",
+      "normalization_notes": "Review required: corrupted_file",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (corrupted_file)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -129,7 +151,12 @@
       "si_value": "AQABA, JORDAN (JOAQB)",
       "bl_value": "N/A",
       "is_match": false,
-      "diff_summary": "Review Required (corrupted_file)"
+      "match_type": "MISSING",
+      "normalization_notes": "Review required: corrupted_file",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (corrupted_file)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -137,7 +164,12 @@
       "si_value": "1",
       "bl_value": "N/A",
       "is_match": false,
-      "diff_summary": "Review Required (corrupted_file)"
+      "match_type": "MISSING",
+      "normalization_notes": "Review required: corrupted_file",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (corrupted_file)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -145,7 +177,12 @@
       "si_value": "21949.0",
       "bl_value": "N/A",
       "is_match": false,
-      "diff_summary": "Review Required (corrupted_file)"
+      "match_type": "MISSING",
+      "normalization_notes": "Review required: corrupted_file",
+      "is_formatting_difference": false,
+      "diff_summary": "Review Required (corrupted_file)",
+      "status": "NEEDS_REVIEW",
+      "reason": null
     }
   ]
 }

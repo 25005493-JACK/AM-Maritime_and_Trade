@@ -75,6 +75,29 @@ def _get_connection():
             metadata         VARCHAR
         )
     """)
+
+    _conn.execute("""
+        CREATE TABLE IF NOT EXISTS field_decisions (
+            event_id          VARCHAR,
+            shipment_id       VARCHAR,
+            email_id          VARCHAR,
+            timestamp         TIMESTAMP,
+            field_name        VARCHAR,
+            dcsa_field        VARCHAR,
+            decision_path     VARCHAR,
+            rule_matched      VARCHAR,
+            ai_fields_read    VARCHAR,
+            ai_fields_skipped VARCHAR,
+            source_evidence   VARCHAR,
+            validators        VARCHAR,
+            final_decision_by VARCHAR,
+            value             VARCHAR,
+            agreement         VARCHAR,
+            token_cost        INTEGER,
+            latency_ms        INTEGER,
+            ai_provider       VARCHAR
+        )
+    """)
     return _conn
 
 
@@ -190,6 +213,102 @@ class EventLogger:
         except Exception as ex:
             print(f"[EventLogger] Failed to log timeline event for {shipment_id}: {ex}")
             return None
+
+    def log_field_decision(self, event: Dict[str, Any]) -> Optional[str]:
+        """Persist one field-level decision (reasoning receipt row).
+
+        Idempotent per email_id: regenerating a receipt replaces that email's rows
+        instead of duplicating them.
+        """
+        conn = _get_connection()
+        if conn is None:
+            return None
+
+        email_id = event.get("email_id") or ""
+        ts = event.get("timestamp")
+        if isinstance(ts, str):
+            try:
+                ts = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+            except ValueError:
+                ts = datetime.now(timezone.utc)
+        ts = ts or datetime.now(timezone.utc)
+        event_id = event.get("event_id") or str(uuid.uuid4())
+
+        try:
+            conn.execute("DELETE FROM field_decisions WHERE email_id = ?", [email_id])
+            conn.execute("""
+                INSERT INTO field_decisions (
+                    event_id, shipment_id, email_id, timestamp, field_name, dcsa_field,
+                    decision_path, rule_matched, ai_fields_read, ai_fields_skipped,
+                    source_evidence, validators, final_decision_by, value, agreement,
+                    token_cost, latency_ms, ai_provider
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, [
+                event_id,
+                event.get("shipment_id"),
+                email_id,
+                ts,
+                event.get("field_name"),
+                event.get("dcsa_field"),
+                event.get("decision_path"),
+                event.get("rule_matched"),
+                json.dumps(event.get("ai_fields_read") or []),
+                json.dumps(event.get("ai_fields_skipped") or []),
+                json.dumps(event.get("source_evidence")),
+                json.dumps(event.get("validators") or []),
+                event.get("final_decision_by"),
+                event.get("value"),
+                event.get("agreement"),
+                event.get("token_cost"),
+                event.get("latency_ms"),
+                event.get("ai_provider"),
+            ])
+            return event_id
+        except Exception as ex:
+            print(f"[EventLogger] Failed to log field decision for {email_id}: {ex}")
+            return None
+
+    def get_field_decisions(self, shipment_id: str) -> List[Dict[str, Any]]:
+        """Read persisted reasoning-receipt rows for a shipment."""
+        conn = _get_connection()
+        if conn is None:
+            return []
+        try:
+            rows = conn.execute("""
+                SELECT event_id, shipment_id, email_id, timestamp, field_name, dcsa_field,
+                       decision_path, rule_matched, ai_fields_read, ai_fields_skipped,
+                       source_evidence, validators, final_decision_by, value, agreement,
+                       token_cost, latency_ms, ai_provider
+                FROM field_decisions
+                WHERE shipment_id = ?
+                ORDER BY timestamp ASC, field_name ASC
+            """, [shipment_id]).fetchall()
+        except Exception as ex:
+            print(f"[EventLogger] Failed to fetch field decisions for {shipment_id}: {ex}")
+            return []
+
+        cols = [
+            "event_id", "shipment_id", "email_id", "timestamp", "field_name", "dcsa_field",
+            "decision_path", "rule_matched", "ai_fields_read", "ai_fields_skipped",
+            "source_evidence", "validators", "final_decision_by", "value", "agreement",
+            "token_cost", "latency_ms", "ai_provider",
+        ]
+        json_cols = {"ai_fields_read", "ai_fields_skipped", "source_evidence", "validators"}
+        events: List[Dict[str, Any]] = []
+        for row in rows:
+            event: Dict[str, Any] = {}
+            for i, col in enumerate(cols):
+                value = row[i]
+                if col == "timestamp" and value is not None:
+                    value = value.isoformat() if hasattr(value, "isoformat") else str(value)
+                elif col in json_cols and isinstance(value, str):
+                    try:
+                        value = json.loads(value)
+                    except (json.JSONDecodeError, TypeError):
+                        pass
+                event[col] = value
+            events.append(event)
+        return events
 
     def get_shipment_events(self, shipment_id: str) -> List[Dict[str, Any]]:
         """Fetch ordered timeline events for a specific shipment."""

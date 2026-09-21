@@ -1,8 +1,26 @@
 {
   "email_id": "email_426",
-  "timestamp": "2026-09-20T09:51:51.040660+00:00",
+  "timestamp": "2026-09-21T02:15:11.272521+00:00",
   "status": "MISMATCH",
   "review_reason": null,
+  "can_compare": true,
+  "document_validity": {
+    "doc_type_guess": "si",
+    "coverage_ratio": 1.0,
+    "matched_fields": [
+      "shipper",
+      "consignee",
+      "notify_party",
+      "port_of_loading",
+      "port_of_discharge",
+      "container_count",
+      "gross_weight_kg"
+    ],
+    "missing_fields": [],
+    "is_comparable": true,
+    "min_coverage_threshold": 0.6,
+    "reason": "Document qualifies as comparable SI with 100.0% field coverage (7/7 fields)."
+  },
   "has_defect": true,
   "defect_fields": [
     "container_count"
@@ -64,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
     "port_of_discharge": "NEW YORK, US (USNYC)",
     "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
-    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
-    "gross_weight_kg": 219740.0,
     "container_count": 10,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
+    "gross_weight_kg": 219740.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -127,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
+    "port_of_loading": "BUATAN, INDONESIA (IDBUA)",
     "port_of_discharge": "KLAIPEDA, LITHUANIA (USNYC)",
     "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
-    "notify_party": "PACIFIC OFFICE (M) SDN BHD",
-    "gross_weight_kg": 219740.0,
     "container_count": 11,
     "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
-    "port_of_loading": "BUATAN, INDONESIA (IDBUA)"
+    "gross_weight_kg": 219740.0
   },
   "field_matrix": [
     {
@@ -142,7 +160,13 @@
       "si_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
       "bl_value": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -150,7 +174,13 @@
       "si_value": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
       "bl_value": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "notify_party",
@@ -158,7 +188,13 @@
       "si_value": "PACIFIC OFFICE (M) SDN BHD",
       "bl_value": "PACIFIC OFFICE (M) SDN BHD",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "port_of_loading",
@@ -166,7 +202,13 @@
       "si_value": "BUATAN, INDONESIA (IDBUA) [IDBUA]",
       "bl_value": "BUATAN, INDONESIA (IDBUA) [IDBUA]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: IDBUA",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -174,7 +216,13 @@
       "si_value": "NEW YORK, US (USNYC) [USNYC]",
       "bl_value": "KLAIPEDA, LITHUANIA (USNYC) [USNYC]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "NORMALIZED",
+      "normalization_notes": "UN/LOCODE match: USNYC",
+      "is_formatting_difference": true,
+      "diff_summary": "Matched (Normalized: UN/LOCODE match: USNYC)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -182,7 +230,13 @@
       "si_value": "10",
       "bl_value": "11",
       "is_match": false,
-      "diff_summary": "SI: 10 / BL: 11"
+      "match_type": "MISMATCH",
+      "normalization_notes": "SI has 10, BL has 11",
+      "is_formatting_difference": false,
+      "diff_summary": "SI: 10 / BL: 11",
+      "status": "MISMATCH",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -190,7 +244,13 @@
       "si_value": "219,740.00 kg",
       "bl_value": "219,740.00 kg",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     }
   ]
 }

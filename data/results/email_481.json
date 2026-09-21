@@ -1,8 +1,26 @@
 {
   "email_id": "email_481",
-  "timestamp": "2026-09-20T09:51:51.189052+00:00",
+  "timestamp": "2026-09-21T02:15:11.670834+00:00",
   "status": "MISMATCH",
   "review_reason": null,
+  "can_compare": true,
+  "document_validity": {
+    "doc_type_guess": "si",
+    "coverage_ratio": 1.0,
+    "matched_fields": [
+      "shipper",
+      "consignee",
+      "notify_party",
+      "port_of_loading",
+      "port_of_discharge",
+      "container_count",
+      "gross_weight_kg"
+    ],
+    "missing_fields": [],
+    "is_comparable": true,
+    "min_coverage_threshold": 0.6,
+    "reason": "Document qualifies as comparable SI with 100.0% field coverage (7/7 fields)."
+  },
   "has_defect": true,
   "defect_fields": [
     "consignee"
@@ -64,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
     "port_of_discharge": "VALPARAISO, CHILE",
     "consignee": "AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES",
-    "notify_party": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
-    "gross_weight_kg": 91436.0,
     "container_count": 4,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA"
+    "gross_weight_kg": 91436.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -127,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
     "port_of_discharge": "VALPARAISO, CHILE",
     "consignee": "3S PAPER PRODUCTS SDN BHD P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES",
-    "notify_party": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
-    "gross_weight_kg": 91436.0,
     "container_count": 4,
     "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA"
+    "gross_weight_kg": 91436.0
   },
   "field_matrix": [
     {
@@ -142,7 +160,13 @@
       "si_value": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
       "bl_value": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -150,7 +174,13 @@
       "si_value": "AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES",
       "bl_value": "3S PAPER PRODUCTS SDN BHD P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES",
       "is_match": false,
-      "diff_summary": "SI: AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES / BL: 3S PAPER PRODUCTS SDN BHD P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES"
+      "match_type": "MISMATCH",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "SI: AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES / BL: 3S PAPER PRODUCTS SDN BHD P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES",
+      "status": "MISMATCH",
+      "note": null,
+      "reason": "value_mismatch"
     },
     {
       "field_key": "notify_party",
@@ -158,7 +188,13 @@
       "si_value": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
       "bl_value": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "port_of_loading",
@@ -166,7 +202,13 @@
       "si_value": "RUGAO/NANTONG/SHANGHAI, CHINA [CNNTG]",
       "bl_value": "RUGAO/NANTONG/SHANGHAI, CHINA [CNNTG]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: CNNTG",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -174,7 +216,13 @@
       "si_value": "VALPARAISO, CHILE [CLVAP]",
       "bl_value": "VALPARAISO, CHILE [CLVAP]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: CLVAP",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -182,7 +230,13 @@
       "si_value": "4",
       "bl_value": "4",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -190,7 +244,13 @@
       "si_value": "91,436.00 kg",
       "bl_value": "91,436.00 kg",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     }
   ]
 }

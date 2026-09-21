@@ -1,8 +1,26 @@
 {
   "email_id": "email_040",
-  "timestamp": "2026-09-20T09:51:50.035507+00:00",
+  "timestamp": "2026-09-21T02:15:09.081006+00:00",
   "status": "OK",
   "review_reason": null,
+  "can_compare": true,
+  "document_validity": {
+    "doc_type_guess": "si",
+    "coverage_ratio": 1.0,
+    "matched_fields": [
+      "shipper",
+      "consignee",
+      "notify_party",
+      "port_of_loading",
+      "port_of_discharge",
+      "container_count",
+      "gross_weight_kg"
+    ],
+    "missing_fields": [],
+    "is_comparable": true,
+    "min_coverage_threshold": 0.6,
+    "reason": "Document qualifies as comparable SI with 100.0% field coverage (7/7 fields)."
+  },
   "has_defect": false,
   "defect_fields": [],
   "summary_message": "No mismatch detected.",
@@ -62,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "SAFQA LIMITED",
+    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
     "port_of_discharge": "CONAKRY, GUINEA (GNCKY)",
     "consignee": "TOPKOPY MIDDLE EAST FZE",
-    "notify_party": "SAFQA LIMITED",
-    "gross_weight_kg": 222690.0,
     "container_count": 10,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
-    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)"
+    "gross_weight_kg": 222690.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -125,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "SAFQA LIMITED",
+    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)",
     "port_of_discharge": "CONAKRY, GUINEA (GNCKY)",
     "consignee": "TOPKOPY MIDDLE EAST FZE",
-    "notify_party": "SAFQA LIMITED",
-    "gross_weight_kg": 222690.0,
     "container_count": 10,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
-    "port_of_loading": "NHAVA SHEVA, INDIA (INNSA)"
+    "gross_weight_kg": 222690.0
   },
   "field_matrix": [
     {
@@ -140,7 +158,13 @@
       "si_value": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
       "bl_value": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -148,7 +172,13 @@
       "si_value": "TOPKOPY MIDDLE EAST FZE",
       "bl_value": "TOPKOPY MIDDLE EAST FZE",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "notify_party",
@@ -156,7 +186,13 @@
       "si_value": "SAFQA LIMITED",
       "bl_value": "SAFQA LIMITED",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "port_of_loading",
@@ -164,7 +200,13 @@
       "si_value": "NHAVA SHEVA, INDIA (INNSA) [INNSA]",
       "bl_value": "NHAVA SHEVA, INDIA (INNSA) [INNSA]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: INNSA",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -172,7 +214,13 @@
       "si_value": "CONAKRY, GUINEA (GNCKY) [GNCKY]",
       "bl_value": "CONAKRY, GUINEA (GNCKY) [GNCKY]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: GNCKY",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -180,7 +228,13 @@
       "si_value": "10",
       "bl_value": "10",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -188,7 +242,13 @@
       "si_value": "222,690.00 kg",
       "bl_value": "222,690.00 kg",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     }
   ]
 }

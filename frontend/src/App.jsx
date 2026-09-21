@@ -4,6 +4,9 @@ import InboxFeed from './components/InboxFeed.jsx';
 import ShipmentWorkspace from './components/ShipmentWorkspace.jsx';
 import SplitScreenInspector from './components/SplitScreenInspector.jsx';
 import HumanReviewModal from './components/HumanReviewModal.jsx';
+import ReasoningReceipt from './components/ReasoningReceipt.jsx';
+import RedTeamPanel from './components/RedTeamPanel.jsx';
+import AutomationSlider from './components/AutomationSlider.jsx';
 import AnalyticsDashboard from './components/AnalyticsDashboard.jsx';
 import SelfEvaluationView from './components/SelfEvaluationView.jsx';
 import VesselCalendar from './components/VesselCalendar.jsx';
@@ -29,6 +32,7 @@ export default function App() {
   const [evaluationData, setEvaluationData] = useState(null);
   const [loadingEval, setLoadingEval] = useState(false);
   const [showOverrideModal, setShowOverrideModal] = useState(false);
+  const [automationLevel, setAutomationLevel] = useState(1);
 
   // Toast Notification State
   const [toast, setToast] = useState(null);
@@ -351,6 +355,35 @@ export default function App() {
                   </div>
                 ))}
             </div>
+          </div>
+        )}
+
+        {activeTab === 'trust' && (
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-950">
+            <div>
+              <h2 className="text-sm font-bold text-slate-100">Trust & AI Controls</h2>
+              <p className="text-xs text-slate-400 mt-1">
+                Auditable reasoning, adversarial rehearsal and the automation licence. Every number here is
+                computed from the pipeline's own validator outcomes and the currently loaded inbox.
+              </p>
+            </div>
+
+            <AutomationSlider
+              level={automationLevel}
+              onLevelChange={async (level) => {
+                setAutomationLevel(level);
+                await fetchEmails();
+                if (selectedEmailId) fetchEmailDetail(selectedEmailId);
+                showToast(`Automation level set to L${level} - inbox states recalculated`, 'info');
+              }}
+            />
+
+            <RedTeamPanel emailId={selectedEmailId} />
+
+            <ReasoningReceipt
+              emailId={selectedEmailId}
+              shipmentId={emailDetail?.verification?.shipment_id}
+            />
           </div>
         )}
 

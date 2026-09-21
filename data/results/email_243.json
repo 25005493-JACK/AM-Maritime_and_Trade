@@ -1,8 +1,26 @@
 {
   "email_id": "email_243",
-  "timestamp": "2026-09-20T09:51:50.610484+00:00",
+  "timestamp": "2026-09-21T02:15:10.121541+00:00",
   "status": "MISMATCH",
   "review_reason": null,
+  "can_compare": true,
+  "document_validity": {
+    "doc_type_guess": "si",
+    "coverage_ratio": 1.0,
+    "matched_fields": [
+      "shipper",
+      "consignee",
+      "notify_party",
+      "port_of_loading",
+      "port_of_discharge",
+      "container_count",
+      "gross_weight_kg"
+    ],
+    "missing_fields": [],
+    "is_comparable": true,
+    "min_coverage_threshold": 0.6,
+    "reason": "Document qualifies as comparable SI with 100.0% field coverage (7/7 fields)."
+  },
   "has_defect": true,
   "defect_fields": [
     "port_of_loading",
@@ -65,13 +83,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
+    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
     "port_of_discharge": "HOUSTON, US",
     "consignee": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
-    "notify_party": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
-    "gross_weight_kg": 100445.0,
     "container_count": 5,
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
-    "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA"
+    "gross_weight_kg": 100445.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -128,13 +146,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA",
     "port_of_discharge": "MOMBASA, KENYA",
     "consignee": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
-    "notify_party": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
-    "gross_weight_kg": 100445.0,
     "container_count": 5,
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA"
+    "gross_weight_kg": 100445.0
   },
   "field_matrix": [
     {
@@ -143,7 +161,13 @@
       "si_value": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
       "bl_value": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -151,7 +175,13 @@
       "si_value": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
       "bl_value": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "notify_party",
@@ -159,7 +189,13 @@
       "si_value": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
       "bl_value": "SAFQA LIMITED P.O. BOX 99423-80100; TONONOKA ROAD; MOMBASA, KENYA; PIN NO.: P051376597X",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "port_of_loading",
@@ -167,7 +203,13 @@
       "si_value": "PORT KLANG (WESTPORT), MALAYSIA [MYPKG]",
       "bl_value": "RUGAO/NANTONG/SHANGHAI, CHINA [CNNTG]",
       "is_match": false,
-      "diff_summary": "SI: PORT KLANG (WESTPORT), MALAYSIA [MYPKG] / BL: RUGAO/NANTONG/SHANGHAI, CHINA [CNNTG]"
+      "match_type": "MISMATCH",
+      "normalization_notes": "Different ports (UN/LOCODE: MYPKG vs CNNTG)",
+      "is_formatting_difference": false,
+      "diff_summary": "SI: PORT KLANG (WESTPORT), MALAYSIA [MYPKG] / BL: RUGAO/NANTONG/SHANGHAI, CHINA [CNNTG]",
+      "status": "MISMATCH",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -175,7 +217,13 @@
       "si_value": "HOUSTON, US [USHOU]",
       "bl_value": "MOMBASA, KENYA [KEMBA]",
       "is_match": false,
-      "diff_summary": "SI: HOUSTON, US [USHOU] / BL: MOMBASA, KENYA [KEMBA]"
+      "match_type": "MISMATCH",
+      "normalization_notes": "Different ports (UN/LOCODE: USHOU vs KEMBA)",
+      "is_formatting_difference": false,
+      "diff_summary": "SI: HOUSTON, US [USHOU] / BL: MOMBASA, KENYA [KEMBA]",
+      "status": "MISMATCH",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -183,7 +231,13 @@
       "si_value": "5",
       "bl_value": "5",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -191,7 +245,13 @@
       "si_value": "100,445.00 kg",
       "bl_value": "100,445.00 kg",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     }
   ]
 }

@@ -1,8 +1,26 @@
 {
   "email_id": "email_468",
-  "timestamp": "2026-09-20T09:51:51.171518+00:00",
+  "timestamp": "2026-09-21T02:15:11.605386+00:00",
   "status": "MISMATCH",
   "review_reason": null,
+  "can_compare": true,
+  "document_validity": {
+    "doc_type_guess": "si",
+    "coverage_ratio": 1.0,
+    "matched_fields": [
+      "shipper",
+      "consignee",
+      "notify_party",
+      "port_of_loading",
+      "port_of_discharge",
+      "container_count",
+      "gross_weight_kg"
+    ],
+    "missing_fields": [],
+    "is_comparable": true,
+    "min_coverage_threshold": 0.6,
+    "reason": "Document qualifies as comparable SI with 100.0% field coverage (7/7 fields)."
+  },
   "has_defect": true,
   "defect_fields": [
     "container_count"
@@ -64,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "ROXCEL TRADING GMBH",
+    "port_of_loading": "SINGAPORE (SGSIN)",
     "port_of_discharge": "ASHDOD, ISRAEL (ILASH)",
     "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
-    "notify_party": "ROXCEL TRADING GMBH",
-    "gross_weight_kg": 20456.0,
     "container_count": 1,
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
-    "port_of_loading": "SINGAPORE (SGSIN)"
+    "gross_weight_kg": 20456.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -127,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "ROXCEL TRADING GMBH",
+    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (SGSIN)",
     "port_of_discharge": "ASHDOD, ISRAEL (ILASH)",
     "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
-    "notify_party": "ROXCEL TRADING GMBH",
-    "gross_weight_kg": 20456.0,
     "container_count": 3,
     "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
-    "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (SGSIN)"
+    "gross_weight_kg": 20456.0
   },
   "field_matrix": [
     {
@@ -142,7 +160,13 @@
       "si_value": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
       "bl_value": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "consignee",
@@ -150,7 +174,13 @@
       "si_value": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
       "bl_value": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "notify_party",
@@ -158,7 +188,13 @@
       "si_value": "ROXCEL TRADING GMBH",
       "bl_value": "ROXCEL TRADING GMBH",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": "exact_match",
+      "reason": null
     },
     {
       "field_key": "port_of_loading",
@@ -166,7 +202,13 @@
       "si_value": "SINGAPORE (SGSIN) [SGSIN]",
       "bl_value": "RUGAO/NANTONG/SHANGHAI, CHINA (SGSIN) [SGSIN]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "NORMALIZED",
+      "normalization_notes": "UN/LOCODE match: SGSIN",
+      "is_formatting_difference": true,
+      "diff_summary": "Matched (Normalized: UN/LOCODE match: SGSIN)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -174,7 +216,13 @@
       "si_value": "ASHDOD, ISRAEL (ILASH) [ILASH]",
       "bl_value": "ASHDOD, ISRAEL (ILASH) [ILASH]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: ILASH",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -182,7 +230,13 @@
       "si_value": "1",
       "bl_value": "3",
       "is_match": false,
-      "diff_summary": "SI: 1 / BL: 3"
+      "match_type": "MISMATCH",
+      "normalization_notes": "SI has 1, BL has 3",
+      "is_formatting_difference": false,
+      "diff_summary": "SI: 1 / BL: 3",
+      "status": "MISMATCH",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -190,7 +244,13 @@
       "si_value": "20,456.00 kg",
       "bl_value": "20,456.00 kg",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     }
   ]
 }

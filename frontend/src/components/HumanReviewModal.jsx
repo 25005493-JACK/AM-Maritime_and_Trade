@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ConflictEvidencePanel from './ConflictEvidencePanel.jsx';
 import { 
   X, 
   AlertTriangle, 
@@ -185,6 +186,9 @@ export default function HumanReviewModal({ emailDetail, onClose, onSaveOverride 
               )}
             </div>
           </div>
+
+          {/* Propose-and-confirm: both sources side by side, reviewer picks the value */}
+          <ConflictEvidencePanel emailId={email.id} />
 
           {/* Side-by-Side Override Inputs */}
           <div className="grid grid-cols-2 gap-6">

@@ -1,17 +1,33 @@
 {
   "email_id": "email_097",
-  "timestamp": "2026-09-20T09:51:50.397060+00:00",
+  "timestamp": "2026-09-21T02:15:09.714388+00:00",
   "status": "MISMATCH",
   "review_reason": null,
+  "can_compare": true,
+  "document_validity": {
+    "doc_type_guess": "si",
+    "coverage_ratio": 1.0,
+    "matched_fields": [
+      "shipper",
+      "consignee",
+      "notify_party",
+      "port_of_loading",
+      "port_of_discharge",
+      "container_count",
+      "gross_weight_kg"
+    ],
+    "missing_fields": [],
+    "is_comparable": true,
+    "min_coverage_threshold": 0.6,
+    "reason": "Document qualifies as comparable SI with 100.0% field coverage (7/7 fields)."
+  },
   "has_defect": true,
   "defect_fields": [
-    "shipper",
-    "notify_party",
     "container_count",
     "gross_weight_kg"
   ],
-  "summary_message": "Found 4 field mismatch(es): Shipper Name & Address, Notify Party, Container Count, Gross Weight (kg).",
-  "recommended_action": "Issue discrepancy notice to carrier for Shipper Name & Address, Notify Party, Container Count, Gross Weight (kg).",
+  "summary_message": "Found 2 field mismatch(es): Container Count, Gross Weight (kg).",
+  "recommended_action": "Issue discrepancy notice to carrier for Container Count, Gross Weight (kg).",
   "si_extracted": {
     "status": "OK",
     "reason_code": null,
@@ -67,13 +83,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "NAGAPPA EXPORTS NEW NO : 23, L-BLOCK, 17TH STREET; ANNA NAGAR EAST; CHENNAI, TAMIL NADU 600102; GST NO - 33AACFN6792L1ZU",
+    "port_of_loading": "SINGAPORE",
     "port_of_discharge": "BRISBANE, AUSTRALIA",
     "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
-    "notify_party": "NAGAPPA EXPORTS NEW NO : 23, L-BLOCK, 17TH STREET; ANNA NAGAR EAST; CHENNAI, TAMIL NADU 600102; GST NO - 33AACFN6792L1ZU",
-    "gross_weight_kg": 216950.0,
     "container_count": 10,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
-    "port_of_loading": "SINGAPORE"
+    "gross_weight_kg": 216950.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -130,13 +146,13 @@
       }
     ],
     "unresolved_terms": [],
+    "notify_party": "NAGAPPA EXPORTS",
+    "port_of_loading": "SINGAPORE",
     "port_of_discharge": "BRISBANE, AUSTRALIA",
     "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5 1010 VIENNA, AUSTRIA",
-    "notify_party": "NAGAPPA EXPORTS",
-    "gross_weight_kg": 215950.0,
     "container_count": 11,
     "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
-    "port_of_loading": "SINGAPORE"
+    "gross_weight_kg": 215950.0
   },
   "field_matrix": [
     {
@@ -144,8 +160,14 @@
       "field_name": "Shipper Name & Address",
       "si_value": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
       "bl_value": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE",
-      "is_match": false,
-      "diff_summary": "SI: APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES / BL: APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE"
+      "is_match": true,
+      "match_type": "NORMALIZED",
+      "normalization_notes": "Party name matches; trailing address detail ignored (trailing_address_stripped)",
+      "is_formatting_difference": true,
+      "diff_summary": "Matched (Normalized: Party name matches; trailing address detail ignored (trailing_address_stripped))",
+      "status": "OK",
+      "note": "formatting_only",
+      "reason": "trailing_address_stripped"
     },
     {
       "field_key": "consignee",
@@ -153,15 +175,27 @@
       "si_value": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
       "bl_value": "ROXCEL TRADING GMBH OPERNRING 3-5 1010 VIENNA, AUSTRIA",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "NORMALIZED",
+      "normalization_notes": "Formatting-only difference (case / punctuation / P.O. BOX normalized)",
+      "is_formatting_difference": true,
+      "diff_summary": "Matched (Normalized: Formatting-only difference (case / punctuation / P.O. BOX normalized))",
+      "status": "OK",
+      "note": "formatting_only",
+      "reason": null
     },
     {
       "field_key": "notify_party",
       "field_name": "Notify Party",
       "si_value": "NAGAPPA EXPORTS NEW NO : 23, L-BLOCK, 17TH STREET; ANNA NAGAR EAST; CHENNAI, TAMIL NADU 600102; GST NO - 33AACFN6792L1ZU",
       "bl_value": "NAGAPPA EXPORTS",
-      "is_match": false,
-      "diff_summary": "SI: NAGAPPA EXPORTS NEW NO : 23, L-BLOCK, 17TH STREET; ANNA NAGAR EAST; CHENNAI, TAMIL NADU 600102; GST NO - 33AACFN6792L1ZU / BL: NAGAPPA EXPORTS"
+      "is_match": true,
+      "match_type": "NORMALIZED",
+      "normalization_notes": "Party name matches; trailing address detail ignored (trailing_address_stripped)",
+      "is_formatting_difference": true,
+      "diff_summary": "Matched (Normalized: Party name matches; trailing address detail ignored (trailing_address_stripped))",
+      "status": "OK",
+      "note": "formatting_only",
+      "reason": "trailing_address_stripped"
     },
     {
       "field_key": "port_of_loading",
@@ -169,7 +203,13 @@
       "si_value": "SINGAPORE [SGSIN]",
       "bl_value": "SINGAPORE [SGSIN]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: SGSIN",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "port_of_discharge",
@@ -177,7 +217,13 @@
       "si_value": "BRISBANE, AUSTRALIA [AUBNE]",
       "bl_value": "BRISBANE, AUSTRALIA [AUBNE]",
       "is_match": true,
-      "diff_summary": "Matched"
+      "match_type": "EXACT",
+      "normalization_notes": "UN/LOCODE match: AUBNE",
+      "is_formatting_difference": false,
+      "diff_summary": "Matched (Exact)",
+      "status": "OK",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "container_count",
@@ -185,7 +231,13 @@
       "si_value": "10",
       "bl_value": "11",
       "is_match": false,
-      "diff_summary": "SI: 10 / BL: 11"
+      "match_type": "MISMATCH",
+      "normalization_notes": "SI has 10, BL has 11",
+      "is_formatting_difference": false,
+      "diff_summary": "SI: 10 / BL: 11",
+      "status": "MISMATCH",
+      "note": null,
+      "reason": null
     },
     {
       "field_key": "gross_weight_kg",
@@ -193,7 +245,13 @@
       "si_value": "216,950.00 kg",
       "bl_value": "215,950.00 kg",
       "is_match": false,
-      "diff_summary": "SI: 216,950.00 kg / BL: 215,950.00 kg"
+      "match_type": "MISMATCH",
+      "normalization_notes": null,
+      "is_formatting_difference": false,
+      "diff_summary": "SI: 216,950.00 kg / BL: 215,950.00 kg",
+      "status": "MISMATCH",
+      "note": null,
+      "reason": null
     }
   ]
 }
