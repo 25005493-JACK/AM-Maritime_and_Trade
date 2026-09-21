@@ -1,11 +1,11 @@
 version: '3.8'
 
 services:
-  sdoc-server:
+  documatch-server:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: sdoc-hackathon-server
+    container_name: documatch-hackathon-server
     ports:
       - "8080:8080"
     environment:

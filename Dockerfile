@@ -1,5 +1,5 @@
 # ==============================================================================
-# SDOC Hackathon — Local Server (Docker)
+# Averis x Monash Hackathon 2026 — Local Server (Docker)
 # Specification Reference: Page 3 & 4 of Shipping Document Verification Use Case
 # Run: docker compose up --build
 # Access HTTP at http://localhost:8080

@@ -27,7 +27,7 @@ export default function SelfEvaluationView({ onRunSelfEvaluate, evaluationData, 
             <span>Self-Evaluation Benchmark Scoreboard</span>
           </h2>
           <p className="text-xs text-slate-400">
-            Autonomous scoring engine verifying all 520 inbox emails & 250 attachments against official SDOC hackathon standards.
+            Autonomous scoring engine verifying all 520 inbox emails & 250 attachments against official Averis x Monash Hackathon 2026 standards.
           </p>
         </div>
 
