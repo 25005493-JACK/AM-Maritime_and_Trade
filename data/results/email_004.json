@@ -1,6 +1,6 @@
 {
   "email_id": "email_004",
-  "timestamp": "2026-09-21T09:15:11.802714+00:00",
+  "timestamp": "2026-09-21T11:15:52.120832+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -83,13 +83,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "notify_party": "EAST BRIGHT FZ-LLC",
-    "gross_weight_kg": 131058.0,
-    "container_count": 6,
     "port_of_loading": "NANTONG, CHINA (CNNTG)",
+    "container_count": 6,
+    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+    "port_of_discharge": "KARACHI, PAKISTAN (PKKHI)",
     "consignee": "EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
-    "port_of_discharge": "KARACHI, PAKISTAN (PKKHI)"
+    "gross_weight_kg": 131058.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -146,13 +146,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "notify_party": "UAB NOVAKOPA",
-    "gross_weight_kg": 131058.0,
-    "container_count": 6,
     "port_of_loading": "NANTONG, CHINA (CNNTG)",
+    "container_count": 6,
+    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+    "port_of_discharge": "KARACHI, PAKISTAN (PKKHI)",
     "consignee": "UAB NOVAKOPA RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE",
-    "port_of_discharge": "KARACHI, PAKISTAN (PKKHI)"
+    "gross_weight_kg": 131058.0
   },
   "field_matrix": [
     {

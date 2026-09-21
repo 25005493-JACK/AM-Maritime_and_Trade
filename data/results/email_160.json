@@ -1,6 +1,6 @@
 {
   "email_id": "email_160",
-  "timestamp": "2026-09-21T09:15:12.434998+00:00",
+  "timestamp": "2026-09-21T11:15:49.972872+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
     "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
-    "gross_weight_kg": 23702.0,
-    "container_count": 1,
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
+    "container_count": 1,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
+    "port_of_discharge": "APAPA, NIGERIA",
     "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
-    "port_of_discharge": "APAPA, NIGERIA"
+    "gross_weight_kg": 23702.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
     "notify_party": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
-    "gross_weight_kg": 23702.0,
-    "container_count": 1,
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA",
+    "container_count": 1,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD 77 ROBINSON ROAD, #21-01 SINGAPORE 068896",
+    "port_of_discharge": "APAPA, NIGERIA",
     "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA",
-    "port_of_discharge": "APAPA, NIGERIA"
+    "gross_weight_kg": 23702.0
   },
   "field_matrix": [
     {

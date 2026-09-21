@@ -1,6 +1,6 @@
 {
   "email_id": "email_058",
-  "timestamp": "2026-09-21T09:15:12.098207+00:00",
+  "timestamp": "2026-09-21T11:15:49.288428+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "notify_party": "CLIFFORD PAPER INC",
-    "gross_weight_kg": 81512.0,
-    "container_count": 4,
     "port_of_loading": "SINGAPORE (SGSIN)",
+    "container_count": 4,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "port_of_discharge": "MERSIN, TURKEY (TRMER)",
     "consignee": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA",
-    "port_of_discharge": "MERSIN, TURKEY (TRMER)"
+    "gross_weight_kg": 81512.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "notify_party": "CLIFFORD PAPER INC",
-    "gross_weight_kg": 81512.0,
-    "container_count": 4,
     "port_of_loading": "SINGAPORE (SGSIN)",
+    "container_count": 4,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "port_of_discharge": "MERSIN, TURKEY (TRMER)",
     "consignee": "CLIFFORD PAPER INC 70 EAST STREET; RIDGEFIELD, NJ 07657, USA",
-    "port_of_discharge": "MERSIN, TURKEY (TRMER)"
+    "gross_weight_kg": 81512.0
   },
   "field_matrix": [
     {

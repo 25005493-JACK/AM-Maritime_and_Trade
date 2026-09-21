@@ -1,6 +1,6 @@
 {
   "email_id": "email_391",
-  "timestamp": "2026-09-21T09:15:13.120249+00:00",
+  "timestamp": "2026-09-21T11:15:50.535785+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
-    "gross_weight_kg": 84284.0,
-    "container_count": 4,
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "container_count": 4,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "port_of_discharge": "MOMBASA, KENYA (KEMBA)",
     "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA",
-    "port_of_discharge": "MOMBASA, KENYA (KEMBA)"
+    "gross_weight_kg": 84284.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
     "notify_party": "BALL & DOGGETT AUSTRALIA PTY LTD",
-    "gross_weight_kg": 84284.0,
-    "container_count": 4,
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "container_count": 4,
+    "shipper": "APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896",
+    "port_of_discharge": "MOMBASA, KENYA (KEMBA)",
     "consignee": "BALL & DOGGETT AUSTRALIA PTY LTD 43-45 METROPOLITAN ROAD; ENFIELD NSW 2136, AUSTRALIA",
-    "port_of_discharge": "MOMBASA, KENYA (KEMBA)"
+    "gross_weight_kg": 84284.0
   },
   "field_matrix": [
     {

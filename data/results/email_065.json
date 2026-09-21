@@ -1,6 +1,6 @@
 {
   "email_id": "email_065",
-  "timestamp": "2026-09-21T09:15:12.184931+00:00",
+  "timestamp": "2026-09-21T11:15:49.790970+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "INTERNATIONAL FOREST PRODUCTS LLC",
-    "gross_weight_kg": 21479.0,
-    "container_count": 1,
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "container_count": 1,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (VNSGN)",
     "consignee": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA",
-    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (VNSGN)"
+    "gross_weight_kg": 21479.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "HABRAS INTERNATIONAL LIMITED",
-    "gross_weight_kg": 21479.0,
-    "container_count": 1,
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "container_count": 1,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "port_of_discharge": "BUSAN, SOUTH KOREA (VNSGN)",
     "consignee": "INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA",
-    "port_of_discharge": "BUSAN, SOUTH KOREA (VNSGN)"
+    "gross_weight_kg": 21479.0
   },
   "field_matrix": [
     {

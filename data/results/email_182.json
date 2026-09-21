@@ -1,6 +1,6 @@
 {
   "email_id": "email_182",
-  "timestamp": "2026-09-21T09:15:12.482375+00:00",
+  "timestamp": "2026-09-21T11:15:50.003886+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "notify_party": "KTP CO., LTD",
-    "gross_weight_kg": 100240.0,
-    "container_count": 5,
     "port_of_loading": "NANTONG, CHINA (CNNTG)",
+    "container_count": 5,
+    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+    "port_of_discharge": "APAPA, NIGERIA (NGAPP)",
     "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
-    "port_of_discharge": "APAPA, NIGERIA (NGAPP)"
+    "gross_weight_kg": 100240.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
     "notify_party": "KTP CO., LTD",
-    "gross_weight_kg": 100240.0,
-    "container_count": 6,
     "port_of_loading": "NANTONG, CHINA (CNNTG)",
+    "container_count": 6,
+    "shipper": "APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA",
+    "port_of_discharge": "BALTIMORE, US (NGAPP)",
     "consignee": "KTP CO., LTD KTP BLDG., 36 SANGWON-GIL; SEOUNGDONG-GU, SEOUL, SOUTH KOREA; TEL:02-2285-6025",
-    "port_of_discharge": "BALTIMORE, US (NGAPP)"
+    "gross_weight_kg": 100240.0
   },
   "field_matrix": [
     {

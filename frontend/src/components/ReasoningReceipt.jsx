@@ -222,8 +222,8 @@ export function ReceiptRows({ fields }) {
   );
 }
 
-export default function ReasoningReceipt({ shipmentId, emailId, receipt: providedReceipt = null }) {
-  const [open, setOpen] = useState(false);
+export default function ReasoningReceipt({ shipmentId, emailId, receipt: providedReceipt = null, defaultOpen = false }) {
+  const [open, setOpen] = useState(defaultOpen);
   const [receipt, setReceipt] = useState(providedReceipt);
   const [loading, setLoading] = useState(false);
 

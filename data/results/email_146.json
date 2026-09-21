@@ -1,6 +1,6 @@
 {
   "email_id": "email_146",
-  "timestamp": "2026-09-21T09:15:12.371932+00:00",
+  "timestamp": "2026-09-21T11:15:49.918454+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "notify_party": "SAFQA LIMITED",
-    "gross_weight_kg": 66654.0,
-    "container_count": 3,
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "container_count": 3,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (VNSGN)",
     "consignee": "SAFQA LIMITED",
-    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (VNSGN)"
+    "gross_weight_kg": 66654.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "notify_party": "SAFQA LIMITED",
-    "gross_weight_kg": 66654.0,
-    "container_count": 3,
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "container_count": 3,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (VNSGN)",
     "consignee": "SAFQA LIMITED",
-    "port_of_discharge": "HOCHIMINH CITY, VIETNAM (VNSGN)"
+    "gross_weight_kg": 66654.0
   },
   "field_matrix": [
     {

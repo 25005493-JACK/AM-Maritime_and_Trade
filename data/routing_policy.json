@@ -82,18 +82,18 @@
   "vitalsolutions.sg:consignee": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "consignee",
-    "alpha": 2.0,
-    "beta": 2.0,
+    "alpha": 4.0,
+    "beta": 4.0,
     "mean_trust": 0.5,
-    "last_updated": "2026-09-21T09:08:41.322898+00:00"
+    "last_updated": "2026-09-21T10:25:49.607006+00:00"
   },
   "vitalsolutions.sg:notify_party": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "notify_party",
     "alpha": 1.0,
-    "beta": 2.0,
-    "mean_trust": 0.333,
-    "last_updated": "2026-09-21T09:08:41.286598+00:00"
+    "beta": 4.0,
+    "mean_trust": 0.2,
+    "last_updated": "2026-09-21T10:25:49.567894+00:00"
   },
   "adaptive-sender-6847fd94.com:*": {
     "sender_domain": "adaptive-sender-6847fd94.com",
@@ -110,5 +110,21 @@
     "beta": 2.0,
     "mean_trust": 0.333,
     "last_updated": "2026-09-21T09:12:50.635462+00:00"
+  },
+  "adaptive-sender-34692a1e.com:*": {
+    "sender_domain": "adaptive-sender-34692a1e.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-21T09:30:05.006289+00:00"
+  },
+  "adaptive-sender-e360f6f6.com:*": {
+    "sender_domain": "adaptive-sender-e360f6f6.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-21T10:25:49.687437+00:00"
   }
 }

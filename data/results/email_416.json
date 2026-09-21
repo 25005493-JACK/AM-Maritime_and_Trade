@@ -1,6 +1,6 @@
 {
   "email_id": "email_416",
-  "timestamp": "2026-09-21T09:15:13.408568+00:00",
+  "timestamp": "2026-09-21T11:15:50.700096+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "notify_party": "VITAL SOLUTIONS PTE. LTD.",
-    "gross_weight_kg": 105625.0,
-    "container_count": 5,
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "container_count": 5,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "port_of_discharge": "LONG BEACH, US (USLGB)",
     "consignee": "VITAL SOLUTIONS PTE. LTD. 77 ROBINSON ROAD; #21-01 ROBINSON 77; SINGAPORE 068896",
-    "port_of_discharge": "LONG BEACH, US (USLGB)"
+    "gross_weight_kg": 105625.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "notify_party": "VITAL SOLUTIONS PTE. LTD.",
-    "gross_weight_kg": 106625.0,
-    "container_count": 5,
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "container_count": 5,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "port_of_discharge": "LONG BEACH, US (USLGB)",
     "consignee": "VITAL SOLUTIONS PTE. LTD. 77 ROBINSON ROAD; #21-01 ROBINSON 77; SINGAPORE 068896",
-    "port_of_discharge": "LONG BEACH, US (USLGB)"
+    "gross_weight_kg": 106625.0
   },
   "field_matrix": [
     {

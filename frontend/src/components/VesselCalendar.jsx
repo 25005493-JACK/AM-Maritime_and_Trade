@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
   Calendar as CalendarIcon, 
-  CalendarPlus,
   Ship, 
   Filter, 
   Plus, 
@@ -10,8 +9,11 @@ import {
   Package, 
   Anchor,
   Clock,
-  ArrowRight,
-  X
+  Layers,
+  AlertTriangle,
+  X,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 
 export default function VesselCalendar({ 
@@ -19,76 +21,139 @@ export default function VesselCalendar({
   selectedPort, 
   onPortChange, 
   onAssignContainer, 
-  onAutoConfirmBooking,
-  onCreateGoogleCalendarEvent,
-  onShowToast
+  onAutoConfirmBooking 
 }) {
   const [showAssignModal, setShowAssignModal] = useState(false);
-  const [showGoogleCalendarModal, setShowGoogleCalendarModal] = useState(false);
-  const [calendarTarget, setCalendarTarget] = useState(null);
-  const [syncingCalendar, setSyncingCalendar] = useState(false);
+  const [selectedDateFilter, setSelectedDateFilter] = useState(null);
   const [targetVesselId, setTargetVesselId] = useState('');
   const [assignForm, setAssignForm] = useState({
     booking_no: '',
     company: '',
-    containers: 1
+    containers: 1,
+    destination_port: 'Rotterdam (NLRTM)'
   });
+
+  // Mismatch Warning Popup State
+  const [mismatchWarning, setMismatchWarning] = useState(null);
 
   const schedule = calendarData?.schedule || [];
   const pendingBookings = calendarData?.pending_bookings || [];
   const availablePorts = calendarData?.available_ports || [];
 
-  const openGoogleCalendarPreview = (vessel) => {
-    setCalendarTarget(vessel);
-    setShowGoogleCalendarModal(true);
+  // Unassigned Cargo Pool for Quick Assign
+  const unassignedCargo = [
+    { booking_no: 'UNASSIGNED-BK-101', company: 'Global Traders Inc', containers: 6, destination_port: 'Rotterdam (NLRTM)' },
+    { booking_no: 'UNASSIGNED-BK-102', company: 'Pacific Logistics Ltd', containers: 4, destination_port: 'Hamburg (DEHAM)' },
+    { booking_no: 'UNASSIGNED-BK-103', company: 'Fast Freight GmbH', containers: 2, destination_port: 'Tokyo (JPTYO)' }
+  ];
+
+  // Calendar dates generator for Sept/Oct 2026 grid view
+  const calendarDays = Array.from({ length: 30 }, (_, i) => {
+    const dayNum = i + 1;
+    const dateStr = `2026-09-${dayNum < 10 ? '0' + dayNum : dayNum}`;
+    
+    // Check arriving & departing vessels for this date
+    const arriving = schedule.filter(v => v.eta_date === dateStr);
+    const departing = schedule.filter(v => v.etd_date === dateStr);
+
+    return {
+      dayNum,
+      dateStr,
+      arriving,
+      departing
+    };
+  });
+
+  // Filter vessels based on selected date or port filter
+  const filteredSchedule = schedule.filter(v => {
+    let matchPort = true;
+    let matchDate = true;
+
+    if (selectedPort && selectedPort !== 'ALL') {
+      const pLower = selectedPort.lower ? selectedPort.lower() : selectedPort.toLowerCase();
+      const vDest = v.destination_port.toLowerCase();
+      const vCode = v.port_code.toLowerCase();
+      matchPort = vDest.includes(pLower) || vCode.includes(pLower) || pLower.includes(vCode);
+    }
+
+    if (selectedDateFilter) {
+      matchDate = v.eta_date === selectedDateFilter || v.etd_date === selectedDateFilter;
+    }
+
+    return matchPort && matchDate;
+  });
+
+  // Handle Container Assignment with Destination Mismatch Check
+  const handleAssignAttempt = (cargoItem, vesselId) => {
+    const vessel = schedule.find(v => v.id === vesselId);
+    if (!vessel) return;
+
+    // Normalize port names for check
+    const cargoPort = cargoItem.destination_port || 'Rotterdam (NLRTM)';
+    const vesselPort = vessel.destination_port;
+
+    const isMismatch = !vesselPort.toLowerCase().includes(cargoPort.toLowerCase().slice(0, 5));
+
+    if (isMismatch) {
+      // Trigger warning popup modal
+      setMismatchWarning({
+        cargoItem,
+        vessel,
+        message: `Destination Mismatch Alert: Order destination "${cargoPort}" does NOT match target vessel destination "${vesselPort}".`
+      });
+    } else {
+      // Direct assignment
+      executeAssignment(cargoItem, vesselId);
+    }
   };
 
-  const confirmGoogleCalendarEvent = async () => {
-    if (!calendarTarget || !onCreateGoogleCalendarEvent) return;
-    const popup = window.open('', '_blank');
-    setSyncingCalendar(true);
-    try {
-      const result = await onCreateGoogleCalendarEvent(calendarTarget.id);
-      if (popup) popup.location.href = result.event_url;
-      else window.open(result.event_url, '_blank', 'noopener,noreferrer');
-      setShowGoogleCalendarModal(false);
-      if (onShowToast) onShowToast('Google Calendar event prepared successfully.', 'success');
-    } catch (error) {
-      if (popup) popup.close();
-      if (onShowToast) onShowToast('Could not prepare the Google Calendar event.', 'warning');
-    } finally {
-      setSyncingCalendar(false);
-    }
+  const executeAssignment = (cargoItem, vesselId) => {
+    onAssignContainer({
+      vessel_id: vesselId,
+      booking_no: cargoItem.booking_no,
+      company: cargoItem.company,
+      containers: cargoItem.containers
+    });
+    setMismatchWarning(null);
+    setShowAssignModal(false);
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    onAssignContainer({
-      vessel_id: targetVesselId,
+    const cargoItem = {
       booking_no: assignForm.booking_no || `BK-MANUAL-${Math.floor(Math.random() * 1000)}`,
       company: assignForm.company || 'Manual Container Allocation',
-      containers: parseInt(assignForm.containers) || 1
-    });
-    setShowAssignModal(false);
-    setAssignForm({ booking_no: '', company: '', containers: 1 });
+      containers: parseInt(assignForm.containers) || 1,
+      destination_port: assignForm.destination_port
+    };
+    handleAssignAttempt(cargoItem, targetVesselId);
   };
 
   return (
-    <div className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950">
+    <div className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950 relative">
       {/* Calendar Header Bar */}
-      <div className="p-4 border-b border-slate-800 glass-panel flex items-center justify-between">
+      <div className="p-4 border-b border-slate-800 glass-panel flex items-center justify-between shrink-0">
         <div>
           <h2 className="text-lg font-bold text-slate-100 flex items-center space-x-2">
             <CalendarIcon className="w-5 h-5 text-cyan-400" />
-            <span>Dynamic Vessel & Container Scheduling Calendar</span>
+            <span>Interactive Vessel Schedule Calendar Grid</span>
           </h2>
           <p className="text-xs text-slate-400">
-            Real-time port scheduling, automated booking sync, and container slot allocation.
+            Click dates to jump to vessel departures (<span className="text-cyan-400 font-bold">Neon Blue</span>) & arrivals (<span className="text-indigo-400 font-bold">Navy Blue</span>).
           </p>
         </div>
 
-        {/* Global Destination Port Filter Dropdown */}
+        {/* Global Destination Port Filter & Quick Actions */}
         <div className="flex items-center space-x-3">
+          {selectedDateFilter && (
+            <button
+              onClick={() => setSelectedDateFilter(null)}
+              className="px-3 py-1.5 rounded-xl bg-slate-800 text-xs font-mono text-cyan-300 border border-slate-700 hover:bg-slate-700 transition"
+            >
+              Selected Date: {selectedDateFilter} ✕ Clear Date
+            </button>
+          )}
+
           <div className="flex items-center space-x-2 bg-slate-900 border border-slate-700 px-3 py-1.5 rounded-xl shadow">
             <Filter className="w-4 h-4 text-cyan-400" />
             <span className="text-xs text-slate-400 font-medium">Destination Port Filter:</span>
@@ -99,7 +164,7 @@ export default function VesselCalendar({
             >
               {availablePorts.map((port) => (
                 <option key={port} value={port} className="bg-slate-900 text-slate-200">
-                  {port === 'ALL' ? '🌐 All Destination Ports (Global View)' : port}
+                  {port === 'ALL' ? '🌐 All Destination Ports' : port}
                 </option>
               ))}
             </select>
@@ -113,14 +178,93 @@ export default function VesselCalendar({
             className="px-3.5 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow transition"
           >
             <Plus className="w-4 h-4" />
-            <span>Manual Container Slot Assignment</span>
+            <span>Assign Container</span>
           </button>
         </div>
       </div>
 
-      {/* Main Calendar Body */}
+      {/* Main Scrollable Calendar Body */}
       <div className="flex-1 overflow-y-auto p-6 space-y-6">
-        {/* Automated Booking Integration Banner */}
+
+        {/* 1. INITIAL INTERACTIVE CALENDAR MONTH GRID VIEW */}
+        <div className="glass-card rounded-2xl border border-slate-800 p-5 space-y-4 shadow-xl">
+          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h3 className="text-sm font-bold text-slate-100 flex items-center space-x-2">
+              <CalendarIcon className="w-4.5 h-4.5 text-cyan-400" />
+              <span>September 2026 Vessel Schedule Grid</span>
+            </h3>
+
+            {/* Legend for Arriving vs Departing */}
+            <div className="flex items-center space-x-4 text-xs font-mono">
+              <span className="flex items-center space-x-1.5">
+                <span className="w-3 h-3 rounded-full bg-indigo-900 border border-indigo-500"></span>
+                <span className="text-indigo-300 font-semibold">Arriving (Navy Blue)</span>
+              </span>
+              <span className="flex items-center space-x-1.5">
+                <span className="w-3 h-3 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400"></span>
+                <span className="text-cyan-400 font-bold">Departing (Neon Blue)</span>
+              </span>
+            </div>
+          </div>
+
+          {/* 7-Day Header Row */}
+          <div className="grid grid-cols-7 gap-2 text-center text-xs font-bold text-slate-400 font-mono">
+            <span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>
+          </div>
+
+          {/* 30-Day Grid Cells */}
+          <div className="grid grid-cols-7 gap-2 text-xs">
+            {calendarDays.map((day) => {
+              const isSelected = selectedDateFilter === day.dateStr;
+              const hasArriving = day.arriving.length > 0;
+              const hasDeparting = day.departing.length > 0;
+
+              return (
+                <div
+                  key={day.dateStr}
+                  onClick={() => setSelectedDateFilter(isSelected ? null : day.dateStr)}
+                  className={`min-h-[72px] p-2 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
+                    isSelected
+                      ? 'bg-cyan-950/60 border-cyan-400 ring-2 ring-cyan-500/40'
+                      : (hasArriving || hasDeparting)
+                      ? 'bg-slate-900/90 border-slate-700/80 hover:border-slate-500'
+                      : 'bg-slate-950/40 border-slate-800/60 text-slate-600 hover:bg-slate-900/40'
+                  }`}
+                >
+                  <span className={`font-mono text-xs font-bold ${isSelected ? 'text-cyan-300' : 'text-slate-300'}`}>
+                    Sep {day.dayNum}
+                  </span>
+
+                  <div className="space-y-1 mt-1">
+                    {/* Navy Blue Arriving Vessels */}
+                    {day.arriving.map((v) => (
+                      <div
+                        key={v.id}
+                        className="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-indigo-950 text-indigo-300 border border-indigo-700/80 truncate shadow"
+                        title={`Arriving ETA: ${v.vessel_name} (${v.destination_port})`}
+                      >
+                        🛬 {v.vessel_name}
+                      </div>
+                    ))}
+
+                    {/* Neon Blue Departing Vessels */}
+                    {day.departing.map((v) => (
+                      <div
+                        key={v.id}
+                        className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-400 text-slate-950 border border-cyan-300 truncate shadow-md shadow-cyan-950/50"
+                        title={`Departing ETD: ${v.vessel_name} (${v.destination_port})`}
+                      >
+                        🛫 {v.vessel_name}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* 2. AUTOMATED BOOKING INTEGRATION BANNER */}
         {pendingBookings.length > 0 && (
           <div className="p-4 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950/50 to-slate-900 border border-indigo-500/40 shadow-xl flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -155,26 +299,37 @@ export default function VesselCalendar({
           </div>
         )}
 
-        {/* Global Port Strict Filtering Notice Banner */}
-        {selectedPort !== 'ALL' && (
-          <div className="p-3 rounded-xl bg-slate-900/80 border border-cyan-500/30 text-xs text-cyan-300 flex items-center justify-between font-mono">
-            <span>
-              Showing vessels strictly filtered for <strong>{selectedPort}</strong> ({schedule.length} ship(s) arriving).
-            </span>
-            <button 
-              onClick={() => onPortChange('ALL')}
-              className="text-slate-400 hover:text-slate-200 underline text-[11px]"
-            >
-              Clear Filter (Show All Ports)
-            </button>
+        {/* 3. UNASSIGNED CARGO DOCK BANNER */}
+        <div className="p-4 rounded-xl glass-card border border-slate-800 space-y-3">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center space-x-2">
+            <Layers className="w-4 h-4 text-cyan-400" />
+            <span>Unassigned Cargo Dock (Assign Order to Vessel)</span>
+          </h4>
+          <div className="grid grid-cols-3 gap-3">
+            {unassignedCargo.map((item, idx) => (
+              <div key={idx} className="p-3 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-between text-xs font-mono">
+                <div>
+                  <span className="text-cyan-400 font-bold block">{item.booking_no}</span>
+                  <span className="text-slate-300">{item.company} ({item.containers} TEU)</span>
+                  <span className="text-[10px] text-slate-500 block">Dest: {item.destination_port}</span>
+                </div>
+                {schedule.length > 0 && (
+                  <button
+                    onClick={() => handleAssignAttempt(item, schedule[0].id)}
+                    className="px-2.5 py-1 rounded bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-[11px]"
+                  >
+                    Assign
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
-        )}
+        </div>
 
-        {/* Vessel Schedules Grid */}
+        {/* 4. VESSEL SCHEDULES LIST/GRID */}
         <div className="grid grid-cols-2 gap-6">
-          {schedule.map((vessel) => (
+          {filteredSchedule.map((vessel) => (
             <div key={vessel.id} className="glass-card rounded-xl border border-slate-800 p-5 space-y-4 hover:border-slate-700 transition">
-              {/* Vessel Header */}
               <div className="flex items-start justify-between border-b border-slate-800 pb-3">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 rounded-xl bg-cyan-950/60 text-cyan-400 border border-cyan-800/60 flex items-center justify-center">
@@ -207,46 +362,58 @@ export default function VesselCalendar({
                   <Plus className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Assign</span>
                 </button>
-                <button
-                  onClick={() => openGoogleCalendarPreview(vessel)}
-                  className="p-1.5 rounded-lg bg-cyan-950/60 hover:bg-cyan-900/70 text-cyan-300 text-xs font-medium border border-cyan-800/60 flex items-center space-x-1 transition"
-                  title="Preview Google Calendar event"
-                >
-                  <CalendarPlus className="w-3.5 h-3.5" />
-                  <span>{vessel.google_calendar?.event_url ? 'Added' : 'Calendar'}</span>
-                </button>
               </div>
 
-              {/* Schedule Dates & Capacity Utilization */}
               <div className="grid grid-cols-2 gap-4 text-xs font-mono">
-                <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/80">
-                  <span className="text-slate-500 flex items-center space-x-1">
+                {/* Navy Blue Arrival Tag */}
+                <div className="p-2.5 rounded-lg bg-indigo-950/40 border border-indigo-800/80">
+                  <span className="text-indigo-400 flex items-center space-x-1 font-bold">
                     <Clock className="w-3.5 h-3.5" />
-                    <span>ETA / ETD Dates:</span>
+                    <span>🛬 Arriving (Navy Blue):</span>
                   </span>
-                  <div className="text-slate-200 font-bold mt-1">
-                    {vessel.eta_date} <span className="text-slate-500">→</span> {vessel.etd_date}
+                  <div className="text-indigo-200 font-bold mt-1 text-sm">
+                    {vessel.eta_date}
                   </div>
                 </div>
 
-                <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/80">
-                  <div className="flex items-center justify-between text-slate-400">
-                    <span>Capacity TEU:</span>
-                    <strong className="text-cyan-400">{vessel.total_booked_containers} / {vessel.total_capacity_teu} TEU</strong>
-                  </div>
-                  <div className="w-full h-2 bg-slate-950 rounded-full overflow-hidden mt-2 border border-slate-800">
-                    <div 
-                      className={`h-full transition-all duration-300 ${
-                        vessel.utilization_pct > 80 ? 'bg-amber-400' : 'bg-cyan-400'
-                      }`}
-                      style={{ width: `${Math.min(vessel.utilization_pct, 100)}%` }}
-                    />
+                {/* Neon Blue Departure Tag */}
+                <div className="p-2.5 rounded-lg bg-cyan-950/40 border border-cyan-800/80">
+                  <span className="text-cyan-400 flex items-center space-x-1 font-bold">
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>🛫 Departing (Neon Blue):</span>
+                  </span>
+                  <div className="text-cyan-300 font-bold mt-1 text-sm">
+                    {vessel.etd_date}
                   </div>
                 </div>
               </div>
 
-              {/* Allocated Container Bookings Pills */}
               <div>
+                {/* Vessel TEU Container & Payload Weight Quota Bar */}
+                {(() => {
+                  const totalBookedTEU = vessel.allocated_containers.reduce((sum, c) => sum + (c.containers || 0), 0);
+                  const capacityTEU = vessel.total_capacity_teu || 400;
+                  const pct = Math.min(100, Math.round((totalBookedTEU / capacityTEU) * 100));
+                  return (
+                    <div className="mb-3 p-2.5 rounded-lg bg-slate-900 border border-slate-800 space-y-1.5">
+                      <div className="flex items-center justify-between text-xs font-mono">
+                        <span className="text-slate-400 font-medium">Vessel Capacity & Weight Quota:</span>
+                        <span className="text-cyan-300 font-bold">
+                          {totalBookedTEU} / {capacityTEU} TEU ({pct}% Allocated)
+                        </span>
+                      </div>
+                      <div className="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+                        <div
+                          className={`h-full transition-all duration-500 ${
+                            pct > 90 ? 'bg-rose-500' : pct > 70 ? 'bg-amber-400' : 'bg-cyan-400 shadow-sm shadow-cyan-400'
+                          }`}
+                          style={{ width: `${Math.max(5, pct)}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })()}
+
                 <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center space-x-1">
                   <Package className="w-3.5 h-3.5 text-slate-500" />
                   <span>Allocated Container Bookings ({vessel.allocated_containers.length}):</span>
@@ -273,6 +440,47 @@ export default function VesselCalendar({
         </div>
       </div>
 
+      {/* 5. DESTINATION MISMATCH WARNING POPUP MODAL */}
+      {mismatchWarning && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
+          <div className="glass-panel w-full max-w-md rounded-2xl border border-rose-500/60 shadow-2xl p-6 space-y-4">
+            <div className="flex items-center space-x-3 text-rose-400">
+              <div className="w-10 h-10 rounded-xl bg-rose-950/80 border border-rose-800 flex items-center justify-center shrink-0">
+                <AlertTriangle className="w-6 h-6 text-rose-400" />
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-slate-100">Destination Mismatch Alert</h3>
+                <span className="text-xs font-mono text-rose-400">Routing Discrepancy Flagged</span>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-300 leading-relaxed bg-slate-900 p-3 rounded-xl border border-slate-800 font-mono">
+              {mismatchWarning.message}
+            </p>
+
+            <div className="text-xs space-y-1 font-mono bg-slate-900/60 p-3 rounded-xl border border-slate-800/80">
+              <div>• Order Destination: <strong className="text-amber-400">{mismatchWarning.cargoItem.destination_port}</strong></div>
+              <div>• Vessel Destination: <strong className="text-cyan-400">{mismatchWarning.vessel.destination_port}</strong></div>
+            </div>
+
+            <div className="flex items-center justify-end space-x-3 pt-2">
+              <button
+                onClick={() => setMismatchWarning(null)}
+                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs"
+              >
+                Cancel Assignment
+              </button>
+              <button
+                onClick={() => executeAssignment(mismatchWarning.cargoItem, mismatchWarning.vessel.id)}
+                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-lg shadow-rose-950/50"
+              >
+                Confirm Mismatched Assignment
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Manual Container Slot Assignment Modal */}
       {showAssignModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
@@ -295,6 +503,20 @@ export default function VesselCalendar({
                       {v.vessel_name} ({v.voyage}) - {v.destination_port}
                     </option>
                   ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-slate-400 mb-1">Order Destination Port:</label>
+                <select
+                  value={assignForm.destination_port}
+                  onChange={(e) => setAssignForm({ ...assignForm, destination_port: e.target.value })}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 font-mono focus:outline-none focus:border-cyan-500"
+                >
+                  <option value="Rotterdam (NLRTM)">Rotterdam (NLRTM)</option>
+                  <option value="Hamburg (DEHAM)">Hamburg (DEHAM)</option>
+                  <option value="Los Angeles (USLAX)">Los Angeles (USLAX)</option>
+                  <option value="Tokyo (JPTYO)">Tokyo (JPTYO)</option>
                 </select>
               </div>
 
@@ -348,74 +570,6 @@ export default function VesselCalendar({
                 </button>
               </div>
             </form>
-          </div>
-        </div>
-      )}
-
-      {showGoogleCalendarModal && calendarTarget && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
-          <div className="glass-panel w-full max-w-lg rounded-2xl border border-cyan-700/60 shadow-2xl p-6 space-y-5">
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0">
-                  <CalendarPlus className="w-5 h-5 text-cyan-300" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-slate-100">Add vessel port call to Google Calendar</h3>
-                  <p className="text-xs text-slate-400 mt-1">Review the event details before opening Google Calendar.</p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowGoogleCalendarModal(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition"
-                aria-label="Close calendar preview"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="rounded-xl border border-slate-700 bg-slate-950/70 divide-y divide-slate-800 text-xs">
-              <div className="p-3 flex items-center justify-between gap-4">
-                <span className="text-slate-500">Event</span>
-                <strong className="text-slate-100 text-right">{calendarTarget.vessel_name} {calendarTarget.voyage} - Port Call</strong>
-              </div>
-              <div className="p-3 flex items-center justify-between gap-4">
-                <span className="text-slate-500">Port</span>
-                <strong className="text-cyan-300 text-right">{calendarTarget.destination_port}</strong>
-              </div>
-              <div className="p-3 flex items-center justify-between gap-4">
-                <span className="text-slate-500">Schedule</span>
-                <strong className="text-slate-200 text-right">{calendarTarget.eta_date} to {calendarTarget.etd_date}</strong>
-              </div>
-              <div className="p-3 flex items-center justify-between gap-4">
-                <span className="text-slate-500">Carrier</span>
-                <strong className="text-slate-200 text-right">{calendarTarget.carrier}</strong>
-              </div>
-            </div>
-
-            <div className="p-3 rounded-xl bg-cyan-950/30 border border-cyan-800/50 text-xs text-cyan-200">
-              Google Calendar will open with this event prefilled. You can add reminders and choose the destination calendar before saving it.
-            </div>
-
-            <div className="flex items-center justify-end gap-2 pt-1">
-              <button
-                type="button"
-                onClick={() => setShowGoogleCalendarModal(false)}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={confirmGoogleCalendarEvent}
-                disabled={syncingCalendar}
-                className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold flex items-center gap-2 transition"
-              >
-                <CalendarPlus className="w-4 h-4" />
-                <span>{syncingCalendar ? 'Preparing event...' : 'Open Google Calendar'}</span>
-              </button>
-            </div>
           </div>
         </div>
       )}

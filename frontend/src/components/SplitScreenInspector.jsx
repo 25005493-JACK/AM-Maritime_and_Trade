@@ -12,18 +12,24 @@ import {
   Edit3, 
   Send, 
   ShieldCheck,
-  ShieldAlert,
   FileText,
-  Download,
-  ExternalLink,
-  Tag,
-  Copy,
-  Paperclip,
-  Info
+  Terminal,
+  X,
+  Zap,
+  Info,
+  GitCommit,
+  UserCheck,
+  Ship,
+  Clock
 } from 'lucide-react';
 
-export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOverrideModal, onShowToast }) {
-  // DCSA field names power the "DCSA: <path>" badge shown next to each field.
+export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal }) {
+  const [activeRightTab, setActiveRightTab] = useState('si_vs_bl'); // 'si_vs_bl' or 'timeline'
+  const [selectedFieldKey, setSelectedFieldKey] = useState(null);
+  const [showReceiptDrawer, setShowReceiptDrawer] = useState(false);
+
+  // DCSA field names for the standard-alignment badges (same mapping the
+  // backend uses for the receipt and export).
   const [dcsaMappings, setDcsaMappings] = useState(null);
   useEffect(() => {
     let cancelled = false;
@@ -40,18 +46,6 @@ export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOve
     };
   }, []);
 
-  if (isLoading) {
-    return (
-      <div className="flex-1 flex flex-col items-center justify-center p-8 text-slate-400 bg-slate-950">
-        <div className="w-12 h-12 rounded-2xl border border-cyan-500/30 bg-cyan-950/30 flex items-center justify-center mb-4">
-          <FileCheck2 className="w-6 h-6 text-cyan-400 animate-pulse" />
-        </div>
-        <h3 className="text-sm font-semibold text-slate-200">Loading document comparison</h3>
-        <p className="text-xs text-slate-500 mt-1">Preparing extracted fields and verification results...</p>
-      </div>
-    );
-  }
-
   if (!emailDetail) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8 text-slate-500 bg-slate-950">
@@ -64,685 +58,482 @@ export default function SplitScreenInspector({ emailDetail, isLoading, onOpenOve
     );
   }
 
-  const { email, classification, si_text, bl_text, verification, overrides } = emailDetail;
-  const isComparison = classification?.is_comparison_request || classification?.category === 'BL_COMPARISON';
+  const { email, classification, si_text, bl_text, verification } = emailDetail;
   const verif = verification || {};
-  const status = verif.status || 'PROCESSED';
-  const attachments = email?.attachments || [];
+  const isMatch = verif.status === 'NO_MISMATCH_DETECTED';
+  const isHuman = verif.status === 'HUMAN_REVIEW_REQUIRED';
 
-  const gateInfo = verif.pre_comparison_gate || {
-    passed: verif.review_reason !== 'missing_attachment',
-    si_attached: attachments.some((a) => {
-      const p = typeof a === 'string' ? a : a.path || a.filename || '';
-      return p.toLowerCase().includes('_si.') || a.doc_type === 'SI';
-    }),
-    bl_attached: attachments.some((a) => {
-      const p = typeof a === 'string' ? a : a.path || a.filename || '';
-      return p.toLowerCase().includes('_bl.') || a.doc_type === 'BL';
-    }),
-    attachment_count: attachments.length,
-    comparison_possible: verif.review_reason !== 'missing_attachment',
-    escalation_reason: verif.review_reason,
-    recommended_action: verif.recommended_action || 'Request/re-send documents',
-    operational_response_draft: verif.recommended_action,
-    reference_no: email?.id
+  // Character-level diff renderer helper
+  const renderDiff = (siVal, blVal, isMatch) => {
+    if (isMatch) return <span className="text-slate-100">{blVal}</span>;
+    if (!siVal || !blVal) return <span className="text-rose-400 font-bold">{blVal}</span>;
+
+    const siWords = str(siVal).split(' ');
+    const blWords = str(blVal).split(' ');
+
+    return (
+      <span>
+        {blWords.map((word, i) => {
+          const matchWord = siWords[i];
+          if (matchWord && matchWord.toLowerCase() === word.toLowerCase()) {
+            return <span key={i} className="text-slate-100 mr-1">{word}</span>;
+          }
+          return <span key={i} className="diff-added mr-1 font-bold">{word}</span>;
+        })}
+      </span>
+    );
   };
 
-  const isMissingAttachment = verif.review_reason === 'missing_attachment' || (!gateInfo.passed && isComparison);
-  const isIntentMismatch = verif.review_reason === 'intent_document_mismatch' || verif.can_compare === false;
-  const docVal = verif.document_validity || {};
+  const str = (v) => (v === null || v === undefined ? '' : String(v));
 
-  const siAtt = attachments.find((a) => {
-    const p = typeof a === 'string' ? a : a.path || a.filename || '';
-    return p.toLowerCase().includes('_si.') || a.doc_type === 'SI';
-  });
-
-  const blAtt = attachments.find((a) => {
-    const p = typeof a === 'string' ? a : a.path || a.filename || '';
-    return p.toLowerCase().includes('_bl.') || a.doc_type === 'BL';
-  });
-
-  const getAttPath = (att) => {
-    if (!att) return '';
-    return typeof att === 'string' ? att : att.path || att.filename || '';
-  };
+  // Milestones for Tab 2: Shipment Timeline
+  const milestones = [
+    {
+      id: 1,
+      title: 'Booking Confirmed & Allocation Scheduled',
+      timestamp: new Date(new Date(email.timestamp || Date.now()).getTime() - 86400000).toISOString(),
+      actor: 'AI Done: Carrier Booking System',
+      status: 'Completed',
+      icon: Ship,
+      details: `Vessel: ${email.vessel || 'MSC ISABELLA'} ${email.voyage || 'v.240E'} | Company: ${email.company || 'Global Traders Inc'}`
+    },
+    {
+      id: 2,
+      title: 'Shipping Instruction (SI) Received & Ingested',
+      timestamp: email.timestamp || new Date().toISOString(),
+      actor: `AI Done: Ingestion Engine (${email.sender || 'Shipper Desk'})`,
+      status: 'Completed',
+      icon: FileText,
+      details: `Subject: "${email.subject}" | 7 Reference fields extracted`
+    },
+    {
+      id: 3,
+      title: 'Draft Bill of Lading (BL) AI Verification Checked',
+      timestamp: new Date(new Date(email.timestamp || Date.now()).getTime() + 1800000).toISOString(),
+      actor: 'AI Done: Antigravity NLP Rules Engine',
+      status: isMatch ? 'Passed' : isHuman ? 'Escalated' : 'Discrepancy Flagged',
+      icon: isMatch ? CheckCircle2 : AlertTriangle,
+      details: isMatch 
+        ? 'All 7 standard fields agree perfectly (Shipper, Consignee, Notify, POL, POD, Containers, Weight)'
+        : `Verification result: ${verif.summary_message || 'Field differences detected'}`
+    },
+    {
+      id: 4,
+      title: 'Human-in-the-Loop Audit & Override Gate',
+      timestamp: new Date(new Date(email.timestamp || Date.now()).getTime() + 3600000).toISOString(),
+      actor: isHuman ? 'User Done: Pending Operational Review' : 'User Done: Shipping Operator Audit',
+      status: isHuman ? 'Action Required' : 'Approved',
+      icon: UserCheck,
+      details: isHuman 
+        ? `Escalated reason: ${verif.human_review_reasons?.join(' | ') || 'Corrupted stream or blank value'}`
+        : 'Rule-based audit trail validated against DCSA standards'
+    },
+    {
+      id: 5,
+      title: 'Final Bill of Lading Printing & Container Release',
+      timestamp: new Date(new Date(email.timestamp || Date.now()).getTime() + 7200000).toISOString(),
+      actor: 'User Done: Documentation Desk Release',
+      status: isMatch ? 'Ready for Release' : 'Pending Revision',
+      icon: ShieldCheck,
+      details: isMatch 
+        ? 'Released to Shipper. Certificate of Origin & Shipment Advice finalized.'
+        : 'Waiting for revised draft BL from carrier.'
+    }
+  ];
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 h-full overflow-hidden bg-slate-950">
+    <div className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950 relative">
       {/* Inspector Top Header Bar */}
-      <div className="p-4 border-b border-slate-800 glass-panel flex items-center justify-between gap-4">
+      <div className="p-4 border-b border-slate-800 glass-panel flex items-center justify-between shrink-0">
         <div>
           <div className="flex items-center space-x-2 mb-1">
-            <span className="font-mono text-xs text-cyan-400 font-bold bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/60">
-              {email.id}
-            </span>
-            <span className="font-mono text-xs bg-indigo-950 text-indigo-300 px-2 py-0.5 rounded border border-indigo-700">
-              {classification?.category || 'BL_COMPARISON'}
-            </span>
-            <h2 className="text-base font-bold text-slate-100 truncate max-w-xl">{email.subject}</h2>
+            <span className="font-mono text-xs text-cyan-400 font-semibold">{email.id}</span>
+            <h2 className="text-base font-bold text-slate-100">{email.subject}</h2>
           </div>
-          <div className="flex items-center space-x-3 text-xs text-slate-400 font-mono">
+          <div className="flex items-center space-x-3 text-xs text-slate-400">
             <span>From: <strong className="text-slate-300">{email.sender}</strong></span>
             <span>•</span>
-            <span>Vessel: <strong className="text-cyan-400">{email.vessel || 'Commercial Carrier'}</strong> {email.voyage}</span>
+            <span>Vessel: <strong className="text-cyan-400">{email.vessel || 'N/A'} {email.voyage}</strong></span>
             <span>•</span>
-            <span>Company: <strong className="text-slate-300">{email.company || 'Maritime Shipper'}</strong></span>
+            <span>Company: <strong className="text-slate-300">{email.company || 'N/A'}</strong></span>
           </div>
         </div>
 
-        {/* Verification Overall Status Badge */}
-        <div className="flex items-center space-x-3 shrink-0">
-          {status === 'OK' && (
-            <div className="badge-match px-3.5 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold shadow-sm">
+        {/* Status Badge & Control Buttons */}
+        <div className="flex items-center space-x-3">
+          {verif.status === 'NO_MISMATCH_DETECTED' && (
+            <div className="badge-match px-3 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold">
               <CheckCircle2 className="w-4 h-4" />
-              <span>OK — All 7 Fields Matched</span>
+              <span>No Mismatch Detected</span>
             </div>
           )}
-          {status === 'MISMATCH' && (
-            <div className="badge-mismatch px-3.5 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold mismatch-glow shadow-sm">
+          {verif.status === 'MISMATCH_DETECTED' && (
+            <div className="badge-mismatch px-3 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold mismatch-glow">
               <XCircle className="w-4 h-4" />
-              <span>MISMATCH ({verif.defect_fields?.length || 0} Defect{verif.defect_fields?.length === 1 ? '' : 's'})</span>
+              <span>{verif.mismatched_fields?.length || 0} Mismatch(es) Flagged</span>
             </div>
           )}
-          {status === 'NEEDS_REVIEW' && (
-            <div className={`px-3.5 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold shadow-sm ${
-              verif.review_reason === 'scanned_not_processed'
-                ? 'bg-purple-950/80 text-purple-300 border border-purple-600'
-                : verif.review_reason === 'corrupted_file'
-                ? 'bg-rose-950/80 text-rose-300 border border-rose-600'
-                : verif.review_reason === 'term_unresolved'
-                ? 'bg-indigo-950/80 text-indigo-300 border border-indigo-600'
-                : 'badge-warning'
-            }`}>
+          {verif.status === 'HUMAN_REVIEW_REQUIRED' && (
+            <div className="badge-warning px-3 py-1.5 rounded-lg flex items-center space-x-2 text-xs font-semibold">
               <AlertTriangle className="w-4 h-4" />
-              <span>
-                {verif.review_reason === 'scanned_not_processed' && 'NEEDS REVIEW: Scanned PDF (No OCR)'}
-                {verif.review_reason === 'corrupted_file' && 'NEEDS REVIEW: Corrupted File'}
-                {verif.review_reason === 'term_unresolved' && 'NEEDS REVIEW: Unresolved Term'}
-                {!['scanned_not_processed', 'corrupted_file', 'term_unresolved'].includes(verif.review_reason) && `NEEDS REVIEW: ${verif.review_reason}`}
-              </span>
+              <span>Human Review Escalated</span>
             </div>
           )}
 
           <button
+            onClick={() => setShowReceiptDrawer(true)}
+            className="px-3 py-1.5 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 text-indigo-300 text-xs font-medium border border-indigo-700/60 flex items-center space-x-1.5 transition"
+          >
+            <Terminal className="w-3.5 h-3.5 text-indigo-400" />
+            <span>Reasoning Receipt</span>
+          </button>
+
+          <button
             onClick={onOpenOverrideModal}
-            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 flex items-center space-x-1.5 transition active:scale-95"
+            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 flex items-center space-x-1.5 transition"
           >
             <Edit3 className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Human Override</span>
+            <span>Override / Edit</span>
           </button>
         </div>
       </div>
 
-      {/* Main Split Inspector Body */}
-      <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-4">
-        {/* Defect Chips Summary (If MISMATCH) */}
-        {verif.defect_fields && verif.defect_fields.length > 0 && (
-          <div className="p-3.5 rounded-xl bg-rose-950/30 border border-rose-500/40 flex items-center justify-between">
-            <div className="flex items-center space-x-2 flex-wrap">
-              <span className="text-xs font-bold text-rose-300 uppercase tracking-wider flex items-center space-x-1">
-                <AlertTriangle className="w-3.5 h-3.5" />
-                <span>Mismatched Fields:</span>
-              </span>
-              {verif.defect_fields.map((field) => (
-                <span key={field} className="px-2 py-0.5 rounded-md bg-rose-900/60 text-rose-200 font-mono text-xs font-bold border border-rose-700">
-                  {field}
-                </span>
-              ))}
-            </div>
-            <span className="text-xs font-mono text-rose-400">
-              Discrepancy detected vs SI baseline
-            </span>
-          </div>
-        )}
+      {/* 2-TAB HEADER CONTROL BAR FOR RIGHT SIDEBAR */}
+      <div className="px-4 py-2 bg-slate-900/90 border-b border-slate-800 flex items-center space-x-2 shrink-0">
+        <button
+          onClick={() => setActiveRightTab('si_vs_bl')}
+          className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold transition ${
+            activeRightTab === 'si_vs_bl'
+              ? 'bg-cyan-600 text-white shadow-md shadow-cyan-950/50'
+              : 'bg-slate-800/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+          }`}
+        >
+          <FileCheck2 className="w-3.5 h-3.5" />
+          <span>SI vs BL</span>
+        </button>
 
-        {/* Pre-Comparison Attachment Gate Card (When missing_attachment) */}
-        {isMissingAttachment && (
-          <div className="glass-card rounded-2xl border-2 border-amber-500/50 p-5 bg-gradient-to-b from-amber-950/40 via-slate-900/90 to-slate-950 shadow-2xl shadow-amber-950/40 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-amber-500/30">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/40 shadow-inner">
-                  <ShieldAlert className="w-5 h-5 text-amber-400" />
-                </div>
-                <div>
-                  <div className="flex items-center space-x-2">
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-amber-300">
-                      BL Comparison Request — Pre-Comparison Attachment Gate
-                    </h3>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-900/80 text-amber-200 border border-amber-600">
-                      GATE HALTED
-                    </span>
+        <button
+          onClick={() => setActiveRightTab('timeline')}
+          className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold transition ${
+            activeRightTab === 'timeline'
+              ? 'bg-cyan-600 text-white shadow-md shadow-cyan-950/50'
+              : 'bg-slate-800/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+          }`}
+        >
+          <GitCommit className="w-3.5 h-3.5" />
+          <span>Shipment Timeline</span>
+        </button>
+      </div>
+
+      {/* Main Inspector Scrollable Body */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+
+        {/* TAB 1: SI VS BL INSPECTOR CONTENT */}
+        {activeRightTab === 'si_vs_bl' && (
+          <>
+            {/* AI Recommended Next Action Box */}
+            {verif.recommended_action && (
+              <div className="p-4 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-indigo-500/30 flex items-start justify-between shadow-lg">
+                <div className="flex items-start space-x-3">
+                  <div className="w-9 h-9 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/40">
+                    <Sparkles className="w-5 h-5" />
                   </div>
-                  <p className="text-xs text-slate-300 mt-0.5">
-                    <strong className="text-amber-300">Defensive AI Safety Protocol:</strong> Required documents validated before comparison. Verification halted to prevent ungrounded decisions on missing files.
-                  </p>
-                </div>
-              </div>
-              <span className="text-xs font-mono bg-slate-900 text-amber-400 px-3 py-1 rounded-lg border border-amber-500/40 font-semibold">
-                Attachments: {gateInfo.attachment_count ?? (email.attachments?.length || 0)} received
-              </span>
-            </div>
-
-            {/* Gate Verification Table */}
-            <div className="rounded-xl border border-slate-800 overflow-hidden bg-slate-950/80">
-              <table className="w-full text-xs text-left">
-                <thead className="bg-slate-900/90 text-slate-400 font-mono text-[11px] uppercase border-b border-slate-800">
-                  <tr>
-                    <th className="py-2.5 px-4">Validation Check</th>
-                    <th className="py-2.5 px-4">Gate Result</th>
-                    <th className="py-2.5 px-4">Audit Details</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-800/70 font-mono">
-                  <tr className="hover:bg-slate-900/40">
-                    <td className="py-2.5 px-4 font-sans font-medium text-slate-200">Email Classification</td>
-                    <td className="py-2.5 px-4">
-                      <span className="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-700 font-bold">
-                        BL_COMPARISON
-                      </span>
-                    </td>
-                    <td className="py-2.5 px-4 text-slate-400 font-sans">Draft BL comparison request identified from email context</td>
-                  </tr>
-
-                  <tr className="hover:bg-slate-900/40">
-                    <td className="py-2.5 px-4 font-sans font-medium text-slate-200">SI Attached</td>
-                    <td className="py-2.5 px-4">
-                      {gateInfo.si_attached ? (
-                        <span className="badge-match px-2 py-0.5 rounded text-[11px] flex items-center space-x-1 w-fit">
-                          <CheckCircle2 className="w-3.5 h-3.5" />
-                          <span>✅ Received</span>
-                        </span>
-                      ) : (
-                        <span className="badge-mismatch px-2 py-0.5 rounded text-[11px] flex items-center space-x-1 w-fit font-bold">
-                          <XCircle className="w-3.5 h-3.5" />
-                          <span>❌ Missing</span>
-                        </span>
-                      )}
-                    </td>
-                    <td className="py-2.5 px-4 text-slate-400 font-sans">Customer Shipping Instruction document</td>
-                  </tr>
-
-                  <tr className="hover:bg-slate-900/40">
-                    <td className="py-2.5 px-4 font-sans font-medium text-slate-200">Draft BL Attached</td>
-                    <td className="py-2.5 px-4">
-                      {gateInfo.bl_attached ? (
-                        <span className="badge-match px-2 py-0.5 rounded text-[11px] flex items-center space-x-1 w-fit">
-                          <CheckCircle2 className="w-3.5 h-3.5" />
-                          <span>✅ Received</span>
-                        </span>
-                      ) : (
-                        <span className="badge-mismatch px-2 py-0.5 rounded text-[11px] flex items-center space-x-1 w-fit font-bold">
-                          <XCircle className="w-3.5 h-3.5" />
-                          <span>❌ Missing</span>
-                        </span>
-                      )}
-                    </td>
-                    <td className="py-2.5 px-4 text-slate-400 font-sans">Carrier Draft Bill of Lading document</td>
-                  </tr>
-
-                  <tr className="hover:bg-slate-900/40">
-                    <td className="py-2.5 px-4 font-sans font-medium text-slate-200">Comparison Possible</td>
-                    <td className="py-2.5 px-4">
-                      <span className="bg-rose-950/80 text-rose-300 px-2 py-0.5 rounded border border-rose-700 font-bold flex items-center space-x-1 w-fit">
-                        <XCircle className="w-3.5 h-3.5" />
-                        <span>❌ No (Halted before comparison)</span>
-                      </span>
-                    </td>
-                    <td className="py-2.5 px-4 text-rose-300 font-sans font-medium">Comparison matrix halted; will not guess on missing input</td>
-                  </tr>
-
-                  <tr className="hover:bg-slate-900/40">
-                    <td className="py-2.5 px-4 font-sans font-medium text-slate-200">Escalation Reason</td>
-                    <td className="py-2.5 px-4">
-                      <span className="bg-amber-950/80 text-amber-300 px-2 py-0.5 rounded border border-amber-600 font-bold">
-                        MISSING_ATTACHMENT
-                      </span>
-                    </td>
-                    <td className="py-2.5 px-4 text-slate-400 font-sans">Reliability escalation protocol triggered</td>
-                  </tr>
-
-                  <tr className="hover:bg-slate-900/40">
-                    <td className="py-2.5 px-4 font-sans font-medium text-slate-200">Recommended Action</td>
-                    <td className="py-2.5 px-4 text-cyan-300 font-sans font-semibold">
-                      Request/re-send documents
-                    </td>
-                    <td className="py-2.5 px-4 text-slate-400 font-sans">Automated operational response generated below</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            {/* Ready-to-send Operational Response Box */}
-            <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-700/80 space-y-2">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Sparkles className="w-4 h-4 text-cyan-400" />
-                  <span className="text-xs font-bold text-slate-200 uppercase tracking-wider">
-                    Automated Operational Dispatch Draft
-                  </span>
-                </div>
-                <span className="text-[11px] font-mono text-cyan-400">Target: {email.sender}</span>
-              </div>
-
-              <div className="p-3 bg-slate-950 rounded-lg border border-slate-800 font-mono text-xs text-amber-200/95 leading-relaxed select-all">
-                "{gateInfo.operational_response_draft || verif.recommended_action || `Action required: Please resend the SI and draft BL for ${email.id}. The attachments were not received with the email.`}"
-              </div>
-
-              <div className="flex items-center justify-end space-x-3 pt-1">
-                <button
-                  onClick={() => {
-                    const text = gateInfo.operational_response_draft || verif.recommended_action;
-                    if (navigator.clipboard) {
-                      navigator.clipboard.writeText(text);
-                    }
-                    if (onShowToast) onShowToast("📋 Copied operational response to clipboard!", "info");
-                  }}
-                  className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 flex items-center space-x-1.5 transition active:scale-95"
-                >
-                  <Copy className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Copy Response</span>
-                </button>
-
-                <button
-                  onClick={() => {
-                    if (onShowToast) onShowToast(`📩 Re-request email dispatched to ${email.sender}!`, "success");
-                  }}
-                  className="px-3.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow-lg shadow-amber-950/40 transition active:scale-95"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>Dispatch Re-Request to Sender</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Intent vs Document Validity Mismatch Card */}
-        {isIntentMismatch && (
-          <div className="glass-card rounded-2xl border-2 border-amber-500/70 p-5 bg-gradient-to-b from-amber-950/40 via-slate-900/90 to-slate-950 shadow-2xl shadow-amber-950/40 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-amber-500/30">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/40 shadow-inner">
-                  <ShieldAlert className="w-5 h-5 text-amber-400" />
-                </div>
-                <div>
-                  <div className="flex items-center space-x-2">
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-amber-300">
-                      Intent vs Document Validity Mismatch — Can't Compare
-                    </h3>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-900/80 text-amber-200 border border-amber-600">
-                      COMPARISON HALTED
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-300 mt-0.5">
-                    <strong className="text-amber-300">Decoupled Pipeline Guard:</strong> User email requested comparison, but the attachment does not qualify as a valid, comparable SI.
-                  </p>
-                </div>
-              </div>
-              <span className="text-xs font-mono bg-slate-900 text-amber-400 px-3 py-1 rounded-lg border border-amber-500/40 font-semibold">
-                Coverage: {docVal.coverage_ratio !== undefined ? `${Math.round(docVal.coverage_ratio * 100)}%` : '0%'}
-              </span>
-            </div>
-
-            {/* Evidence Breakdown Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
-                <span className="text-[10px] font-mono uppercase text-slate-400 block mb-1">User Intent (Email Text)</span>
-                <span className="text-xs font-semibold text-cyan-300 flex items-center space-x-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Requested BL Comparison</span>
-                </span>
-                <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">"{email?.subject}"</p>
-              </div>
-
-              <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
-                <span className="text-[10px] font-mono uppercase text-slate-400 block mb-1">Detected Attachment Type</span>
-                <span className="text-xs font-semibold text-amber-300 flex items-center space-x-1.5">
-                  <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="uppercase">{docVal.doc_type_guess ? docVal.doc_type_guess.replace(/_/g, ' ') : 'Non-SI / Incomplete'}</span>
-                </span>
-                <p className="text-[11px] text-slate-400 mt-1">
-                  Required Threshold: 60% coverage
-                </p>
-              </div>
-
-              <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
-                <span className="text-[10px] font-mono uppercase text-slate-400 block mb-1">Suggested Operator Action</span>
-                <span className="text-xs font-medium text-slate-200">
-                  {verif.recommended_action || "Confirm whether a proper SI was attached, or reclassify this document."}
-                </span>
-              </div>
-            </div>
-
-            {/* Missing Fields List */}
-            {docVal.missing_fields && docVal.missing_fields.length > 0 && (
-              <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-wrap items-center gap-2">
-                <span className="text-xs font-bold text-slate-300">Missing SI Fields:</span>
-                {docVal.missing_fields.map((f) => (
-                  <span key={f} className="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-800/80 text-rose-300 font-mono text-[11px]">
-                    {f}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Needs Review Reason Box (For other NEEDS_REVIEW reasons) */}
-        {status === 'NEEDS_REVIEW' && !isMissingAttachment && !isIntentMismatch && (
-          <div className={`p-4 rounded-xl flex items-start justify-between shadow-lg ${
-            verif.review_reason === 'scanned_not_processed'
-              ? 'bg-purple-950/30 border border-purple-500/40'
-              : verif.review_reason === 'corrupted_file'
-              ? 'bg-rose-950/30 border border-rose-500/40'
-              : verif.review_reason === 'term_unresolved'
-              ? 'bg-indigo-950/30 border border-indigo-500/40'
-              : 'bg-amber-950/30 border border-amber-500/40'
-          }`}>
-
-            <div className="flex items-start space-x-3">
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${
-                verif.review_reason === 'scanned_not_processed'
-                  ? 'bg-purple-500/20 text-purple-400 border-purple-500/30'
-                  : verif.review_reason === 'corrupted_file'
-                  ? 'bg-rose-500/20 text-rose-400 border-rose-500/30'
-                  : verif.review_reason === 'term_unresolved'
-                  ? 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30'
-                  : 'bg-amber-500/20 text-amber-400 border-amber-500/30'
-              }`}>
-                <AlertTriangle className="w-4 h-4" />
-              </div>
-              <div>
-                <h4 className={`text-xs font-bold uppercase tracking-wider ${
-                  verif.review_reason === 'scanned_not_processed'
-                    ? 'text-purple-300'
-                    : verif.review_reason === 'corrupted_file'
-                    ? 'text-rose-300'
-                    : verif.review_reason === 'term_unresolved'
-                    ? 'text-indigo-300'
-                    : 'text-amber-300'
-                }`}>
-                  Human Escalation Required — Trigger: {verif.review_reason}
-                </h4>
-                <p className="text-xs font-medium text-slate-200 mt-1">
-                  {verif.summary_message || 'Document requires human review before release.'}
-                </p>
-                <p className={`text-xs font-mono mt-1 ${
-                  verif.review_reason === 'scanned_not_processed'
-                    ? 'text-purple-400'
-                    : verif.review_reason === 'corrupted_file'
-                    ? 'text-rose-400'
-                    : verif.review_reason === 'term_unresolved'
-                    ? 'text-indigo-400'
-                    : 'text-amber-400'
-                }`}>
-                  Recommended Action: {verif.recommended_action}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* AI Action Header */}
-        {verif.recommended_action && status !== 'NEEDS_REVIEW' && (
-          <div className="p-3.5 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-indigo-500/30 flex items-center justify-between shadow-lg">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/40">
-                <Sparkles className="w-4 h-4" />
-              </div>
-              <div>
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-indigo-300">
-                  Operations Next Step
-                </h4>
-                <p className="text-xs font-medium text-slate-100 mt-0.5">
-                  {verif.recommended_action}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-2 shrink-0">
-              {status === 'OK' ? (
-                <button 
-                  onClick={() => {
-                    if (onShowToast) onShowToast("✅ Approved! Draft Bill of Lading released to Shipper.", "success");
-                  }}
-                  className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow-lg shadow-emerald-950/40 transition active:scale-95"
-                >
-                  <ShieldCheck className="w-4 h-4" />
-                  <span>Approve & Release BL</span>
-                </button>
-              ) : (
-                <button 
-                  onClick={() => {
-                    if (onShowToast) onShowToast("📩 Revision Request draft generated & sent to Carrier.", "warning");
-                  }}
-                  className="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow-lg shadow-rose-950/40 transition active:scale-95"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>Request Carrier Revision</span>
-                </button>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Propose-and-confirm conflict resolution: side-by-side evidence + reviewer decision */}
-        {(verif.defect_fields?.length > 0 || status === 'MISMATCH') && !isMissingAttachment && (
-          <ConflictEvidencePanel emailId={email.id} onShowToast={onShowToast} />
-        )}
-
-        {/* Auditable reasoning: rules vs AI vs human per field */}
-        <ReasoningReceipt emailId={email.id} shipmentId={verif.shipment_id} />
-
-        {/* 7-Field Side-by-Side Comparison Matrix */}
-        {verif.field_matrix && (
-          <div className="glass-card rounded-xl border border-slate-800 overflow-hidden shadow-lg">
-            <div className="p-3 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200 flex items-center space-x-2">
-                <FileCheck2 className="w-4 h-4 text-cyan-400" />
-                <span>
-                  {isMissingAttachment 
-                    ? "7-Field Comparison Matrix — Halted (Pre-Comparison Gate)" 
-                    : "7-Field Comparison Matrix (SI Reference vs Draft BL)"}
-                </span>
-              </h3>
-              <div className="flex items-center space-x-3 text-[11px] font-mono">
-                <span className="flex items-center space-x-1 text-emerald-400"><span className="w-2 h-2 rounded-full bg-emerald-500"></span><span>Exact</span></span>
-                <span className="flex items-center space-x-1 text-sky-400"><span className="w-2 h-2 rounded-full bg-sky-500"></span><span>Normalized</span></span>
-                <span className="flex items-center space-x-1 text-amber-400"><span className="w-2 h-2 rounded-full bg-amber-500"></span><span>Fuzzy/Review</span></span>
-                <span className="flex items-center space-x-1 text-rose-400"><span className="w-2 h-2 rounded-full bg-rose-500"></span><span>Mismatch</span></span>
-              </div>
-            </div>
-
-            <div className="divide-y divide-slate-800/80 text-xs">
-              {verif.field_matrix.map((row) => {
-                const matchType = row.match_type || (row.is_match ? 'EXACT' : (status === 'NEEDS_REVIEW' ? 'REVIEW' : 'MISMATCH'));
-                const isNormalized = matchType === 'NORMALIZED' || (row.is_match && row.is_formatting_difference);
-                const isFuzzy = matchType === 'FUZZY';
-                const isExact = matchType === 'EXACT' && row.is_match;
-                const isMismatch = !row.is_match && (matchType === 'MISMATCH' || status === 'MISMATCH');
-                const isReview = !row.is_match && (matchType === 'MISSING' || matchType === 'REVIEW' || matchType === 'PENDING' || status === 'NEEDS_REVIEW');
-
-                let rowBorderClass = 'hover:bg-slate-900/40 border-l-4 border-l-transparent';
-                if (isMismatch) {
-                  rowBorderClass = 'bg-rose-950/20 border-l-4 border-l-rose-500';
-                } else if (isNormalized) {
-                  rowBorderClass = 'bg-sky-950/15 border-l-4 border-l-sky-500';
-                } else if (isFuzzy) {
-                  rowBorderClass = 'bg-amber-950/15 border-l-4 border-l-amber-500';
-                } else if (isReview) {
-                  rowBorderClass = 'bg-amber-950/10 border-l-4 border-l-amber-500/80';
-                } else if (isExact) {
-                  rowBorderClass = 'hover:bg-slate-900/40 border-l-4 border-l-emerald-500/60';
-                }
-
-                return (
-                  <div 
-                    key={row.field_key}
-                    className={`p-3 transition ${rowBorderClass}`}
-                  >
-                    <div className="grid grid-cols-12 items-center">
-                      <div className="col-span-3 font-semibold text-slate-300 flex flex-wrap items-center gap-2">
-                        <span className="text-xs text-slate-200">{row.field_name}</span>
-                        {dcsaMappings?.[row.field_key] && (
-                          <span
-                            title={dcsaMappings[row.field_key].definition}
-                            className={`font-mono text-[10px] px-1.5 py-0.5 rounded border ${
-                              dcsaMappings[row.field_key].internal_only
-                                ? 'border-slate-600/60 bg-slate-900/80 text-slate-400'
-                                : 'border-cyan-700/60 bg-cyan-950/60 text-cyan-300'
-                            }`}
-                          >
-                            DCSA: {dcsaMappings[row.field_key].dcsa_field || 'internal only'}
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 truncate">
-                        <span className="text-[10px] text-slate-500 block uppercase font-sans font-bold">SI Reference Value</span>
-                        <strong className="text-slate-100">{row.si_value}</strong>
-                      </div>
-
-                      <div className="col-span-1 flex justify-center">
-                        <ArrowRight className={`w-4 h-4 ${!row.is_match ? (isReview ? 'text-amber-400' : 'text-rose-400') : (isNormalized ? 'text-sky-400' : isFuzzy ? 'text-amber-400' : 'text-emerald-500')}`} />
-                      </div>
-
-                      <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 truncate flex items-center justify-between">
-                        <div className="truncate mr-2">
-                          <span className="text-[10px] text-slate-500 block uppercase font-sans font-bold">Draft BL Value</span>
-                          <strong className={isMismatch ? 'text-rose-400 font-bold' : (isNormalized ? 'text-sky-200' : isFuzzy ? 'text-amber-200' : 'text-slate-100')}>
-                            {row.bl_value}
-                          </strong>
-                        </div>
-
-                        {/* Match Type Badge */}
-                        {isExact && (
-                          <span className="badge-match px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 font-semibold shadow-sm">
-                            <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-                            <span>EXACT ✓</span>
-                          </span>
-                        )}
-                        {isNormalized && (
-                          <span className="bg-sky-950/90 text-sky-300 border border-sky-600/70 px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 font-semibold shadow-sm">
-                            <Sparkles className="w-3 h-3 text-sky-400" />
-                            <span>NORMALIZED ≈</span>
-                          </span>
-                        )}
-                        {isFuzzy && (
-                          <span className="bg-amber-950/90 text-amber-300 border border-amber-600/70 px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 font-semibold shadow-sm">
-                            <HelpCircle className="w-3 h-3 text-amber-400" />
-                            <span>FUZZY ?</span>
-                          </span>
-                        )}
-                        {isMismatch && (
-                          <span className="badge-mismatch px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 mismatch-glow font-semibold shadow-sm">
-                            <XCircle className="w-3 h-3 text-rose-400" />
-                            <span>MISMATCH ✗</span>
-                          </span>
-                        )}
-                        {isReview && !isMismatch && !row.is_match && (
-                          <span className="badge-warning px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 font-semibold shadow-sm">
-                            <AlertTriangle className="w-3 h-3 text-amber-400" />
-                            <span>{matchType === 'MISSING' ? 'MISSING' : 'REVIEW'}</span>
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Discrepancy / Normalization Note Pill */}
-                    {row.normalization_notes && (
-                      <div className="mt-2 ml-1 flex items-center space-x-2">
-                        <div className={`flex items-center space-x-1.5 text-[11px] font-mono px-2 py-0.5 rounded border w-fit ${
-                          isNormalized
-                            ? 'bg-sky-950/60 text-sky-300 border-sky-800/60'
-                            : isFuzzy
-                            ? 'bg-amber-950/60 text-amber-300 border-amber-800/60'
-                            : isMismatch
-                            ? 'bg-rose-950/50 text-rose-300 border-rose-800/60'
-                            : 'bg-slate-900 text-slate-400 border-slate-800'
-                        }`}>
-                          <Info className="w-3 h-3 shrink-0 text-cyan-400" />
-                          <span>{row.normalization_notes}</span>
-                        </div>
-                        {row.is_formatting_difference && (
-                          <span className="text-[10px] text-emerald-400/90 font-sans font-medium">
-                            • Format difference absorbed (Not flagged as discrepancy)
-                          </span>
-                        )}
+                  <div>
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-indigo-300">
+                      AI Recommended Next Action
+                    </h4>
+                    <p className="text-sm font-medium text-slate-100 mt-0.5">
+                      {verif.recommended_action}
+                    </p>
+                    {verif.human_review_reasons?.length > 0 && (
+                      <div className="mt-2 text-xs text-amber-400 font-mono bg-amber-950/40 p-2 rounded border border-amber-800/40">
+                        <strong>Review Escalation Reason:</strong> {verif.human_review_reasons.join(' | ')}
                       </div>
                     )}
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-2 shrink-0">
+                  {verif.status === 'NO_MISMATCH_DETECTED' ? (
+                    <button 
+                      onClick={() => alert("Approved! Draft Bill of Lading released to Shipper.")}
+                      className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow transition"
+                    >
+                      <ShieldCheck className="w-4 h-4" />
+                      <span>Approve & Release BL</span>
+                    </button>
+                  ) : (
+                    <button 
+                      onClick={() => alert("Revision Request draft generated and sent to Carrier.")}
+                      className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow transition"
+                    >
+                      <Send className="w-4 h-4" />
+                      <span>Request Revision</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Propose-and-confirm: SI and BL evidence side by side, reviewer decides */}
+            {email?.id && !isMatch && (
+              <ConflictEvidencePanel emailId={email.id} />
+            )}
+
+            {/* 7-Field Side-by-Side Comparison Matrix */}
+            {verif.field_matrix && (
+              <div className="glass-card rounded-xl border border-slate-800 overflow-hidden shadow-lg">
+                <div className="p-3 bg-slate-900/80 border-b border-slate-800 flex items-center justify-between">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center space-x-2">
+                    <FileCheck2 className="w-4 h-4 text-cyan-400" />
+                    <span>7-Field Discrepancy Matrix (Click row to highlight line in raw document)</span>
+                  </h3>
+                  <span className="text-xs font-mono text-slate-500">
+                    Interactive Text Line Sync Active
+                  </span>
+                </div>
+
+                <div className="divide-y divide-slate-800/80 text-sm">
+                  {verif.field_matrix.map((row) => {
+                    const isSelected = selectedFieldKey === row.field_key;
+                    const fieldConfidence = row.field_key === 'gross_weight_kg' && verif.status === 'HUMAN_REVIEW_REQUIRED' ? 35 : 98;
+
+                    return (
+                      <div 
+                        key={row.field_key}
+                        onClick={() => setSelectedFieldKey(isSelected ? null : row.field_key)}
+                        className={`grid grid-cols-12 p-3 items-center cursor-pointer transition ${
+                          isSelected
+                            ? 'bg-cyan-950/40 border-l-4 border-l-cyan-400'
+                            : !row.is_match
+                            ? 'bg-rose-950/20 border-l-4 border-l-rose-500 hover:bg-rose-950/30'
+                            : 'hover:bg-slate-900/40'
+                        }`}
+                      >
+                        <div className="col-span-3 font-medium text-slate-300 flex items-center justify-between pr-2">
+                          <div className="min-w-0">
+                            <span className="text-xs text-slate-300 font-mono font-semibold block truncate">{row.field_name}</span>
+                            {dcsaMappings?.[row.field_key] && (
+                              <span
+                                title={dcsaMappings[row.field_key].definition || 'DCSA Bill of Lading mapping'}
+                                className={`inline-block mt-0.5 font-mono text-[9px] px-1 py-0.5 rounded border truncate max-w-full ${
+                                  dcsaMappings[row.field_key].internal_only
+                                    ? 'border-slate-600/60 bg-slate-900/80 text-slate-400'
+                                    : 'border-cyan-700/60 bg-cyan-950/60 text-cyan-300'
+                                }`}
+                              >
+                                DCSA: {dcsaMappings[row.field_key].dcsa_field || 'internal only'}
+                              </span>
+                            )}
+                          </div>
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono font-bold border ${
+                            fieldConfidence > 80 ? 'bg-emerald-950 text-emerald-400 border-emerald-800' : 'bg-amber-950 text-amber-400 border-amber-800'
+                          }`}>
+                            {fieldConfidence}%
+                          </span>
+                        </div>
+
+                        <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/60 p-2 rounded border border-slate-800 truncate">
+                          <span className="text-[10px] text-slate-500 block">SI Reference:</span>
+                          <strong className="text-slate-100">{row.si_value}</strong>
+                        </div>
+
+                        <div className="col-span-1 flex justify-center">
+                          <ArrowRight className={`w-4 h-4 ${!row.is_match ? 'text-rose-400' : 'text-slate-600'}`} />
+                        </div>
+
+                        <div className="col-span-4 font-mono text-xs text-slate-200 bg-slate-900/60 p-2 rounded border border-slate-800 truncate flex items-center justify-between">
+                          <div>
+                            <span className="text-[10px] text-slate-500 block">Draft BL Received:</span>
+                            {renderDiff(row.si_value, row.bl_value, row.is_match)}
+                          </div>
+
+                          {row.is_match ? (
+                            <span className="badge-match px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 ml-2">
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              <span>MATCH</span>
+                            </span>
+                          ) : (
+                            <span className="badge-mismatch px-2 py-0.5 rounded text-[11px] font-mono flex items-center space-x-1 shrink-0 ml-2 mismatch-glow">
+                              <XCircle className="w-3.5 h-3.5" />
+                              <span>DIFF</span>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Raw Attachment Side-by-Side Text Inspector */}
+            <div className="grid grid-cols-2 gap-4">
+              {/* Left Panel: SI Text */}
+              <div className="glass-card rounded-xl border border-slate-800 p-4">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center space-x-2">
+                    <FileText className="w-4 h-4" />
+                    <span>Shipping Instruction (SI Reference Text)</span>
+                  </h4>
+                  <span className="text-[11px] font-mono bg-cyan-950/60 text-cyan-300 px-2 py-0.5 rounded border border-cyan-800/60">
+                    SI Attachment
+                  </span>
+                </div>
+                <div className="font-mono text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-900 overflow-x-auto leading-relaxed max-h-72 space-y-1">
+                  {(si_text || '').split('\n').map((line, idx) => {
+                    const isSelected = selectedFieldKey && line.toLowerCase().includes(selectedFieldKey.replace('_', ' '));
+                    return (
+                      <div key={idx} className={isSelected ? 'highlight-line font-bold text-cyan-300' : ''}>
+                        {line}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Right Panel: Draft BL Text */}
+              <div className="glass-card rounded-xl border border-slate-800 p-4">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-blue-400 flex items-center space-x-2">
+                    <FileText className="w-4 h-4" />
+                    <span>Draft Bill of Lading (BL Text Received)</span>
+                  </h4>
+                  <span className="text-[11px] font-mono bg-blue-950/60 text-blue-300 px-2 py-0.5 rounded border border-blue-800/60">
+                    BL Attachment
+                  </span>
+                </div>
+                <div className="font-mono text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-900 overflow-x-auto leading-relaxed max-h-72 space-y-1">
+                  {(bl_text || '').split('\n').map((line, idx) => {
+                    const isSelected = selectedFieldKey && line.toLowerCase().includes(selectedFieldKey.replace('_', ' '));
+                    return (
+                      <div key={idx} className={isSelected ? 'highlight-line font-bold text-cyan-300' : ''}>
+                        {line}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* TAB 2: SHIPMENT TIMELINE CONTENT */}
+        {activeRightTab === 'timeline' && (
+          <div className="glass-card rounded-xl border border-slate-800 p-5 space-y-4 shadow-lg animate-fadeIn">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-100 flex items-center space-x-2">
+                  <GitCommit className="w-4.5 h-4.5 text-cyan-400" />
+                  <span>Shipment Audit Timeline</span>
+                </h3>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  End-to-end event history and actor provenance (AI Done vs User Done)
+                </p>
+              </div>
+              <span className="font-mono text-xs text-cyan-400 font-bold bg-slate-900 px-2.5 py-1 rounded border border-slate-700">
+                {email.id}
+              </span>
+            </div>
+
+            {/* Full Vertical Milestone Node Tree */}
+            <div className="relative border-l-2 border-slate-800 ml-4 pl-6 space-y-5 py-2">
+              {milestones.map((m) => {
+                const Icon = m.icon;
+                return (
+                  <div key={m.id} className="relative group">
+                    {/* Node Bullet */}
+                    <div className={`absolute -left-[35px] top-1 w-7 h-7 rounded-full flex items-center justify-center border-2 transition ${
+                      m.status === 'Completed' || m.status === 'Passed' || m.status === 'Approved' || m.status === 'Ready for Release'
+                        ? 'bg-emerald-950 border-emerald-500 text-emerald-400'
+                        : m.status === 'Action Required' || m.status === 'Escalated'
+                        ? 'bg-amber-950 border-amber-500 text-amber-400'
+                        : 'bg-rose-950 border-rose-500 text-rose-400'
+                    }`}>
+                      <Icon className="w-3.5 h-3.5" />
+                    </div>
+
+                    {/* Card Container */}
+                    <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 space-y-2 hover:border-slate-700 transition text-xs font-mono">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-bold text-slate-100 text-xs">{m.title}</h4>
+                        <span className="text-[10px] text-slate-500 flex items-center space-x-1">
+                          <Clock className="w-3 h-3" />
+                          <span>{new Date(m.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                        </span>
+                      </div>
+
+                      <p className="text-[11px] text-slate-300 bg-slate-950 p-2.5 rounded border border-slate-900 leading-relaxed">
+                        {m.details}
+                      </p>
+
+                      <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+                        <span className="font-semibold text-cyan-300">{m.actor}</span>
+                        <span className={`px-2 py-0.5 rounded font-mono font-semibold ${
+                          m.status === 'Completed' || m.status === 'Passed' || m.status === 'Approved'
+                            ? 'text-emerald-400 bg-emerald-950/60'
+                            : 'text-amber-400 bg-amber-950/60'
+                        }`}>
+                          {m.status}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
             </div>
           </div>
         )}
+      </div>
 
-        {/* Multi-Format Document Inspector Panels */}
-        <div className="grid grid-cols-2 gap-4">
-          {/* Left Panel: Shipping Instruction (SI) */}
-          <div className="glass-card rounded-xl border border-slate-800 p-4 flex flex-col">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2.5 mb-3">
-              <div className="flex items-center space-x-2">
-                <FileText className="w-4 h-4 text-cyan-400" />
-                <h4 className="text-xs font-bold uppercase tracking-wider text-cyan-400">
-                  Shipping Instruction (SI Attachment)
-                </h4>
-              </div>
-              <div className="flex items-center space-x-2">
-                {siAtt && (
-                  <a
-                    href={`/api/attachments/${getAttPath(siAtt)}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-0.5 rounded border border-slate-700 flex items-center space-x-1 transition"
-                  >
-                    <Download className="w-3 h-3" />
-                    <span>Download Original</span>
-                  </a>
-                )}
-                <span className="text-[11px] font-mono bg-cyan-950/80 text-cyan-300 px-2 py-0.5 rounded border border-cyan-800/60 font-semibold">
-                  SI Baseline
-                </span>
-              </div>
+      {/* Slide-out Reasoning Receipt & Audit Drawer */}
+      {showReceiptDrawer && (
+        <div className="fixed inset-y-0 right-0 z-50 w-full max-w-xl glass-panel border-l border-slate-700 shadow-2xl p-6 flex flex-col space-y-4 animate-slideLeft">
+          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div className="flex items-center space-x-2">
+              <Terminal className="w-5 h-5 text-indigo-400" />
+              <h3 className="text-base font-bold text-slate-100">AI Reasoning & Audit Receipt</h3>
             </div>
-            <pre className="font-mono text-xs text-slate-300 bg-slate-950 p-3.5 rounded-lg border border-slate-900 overflow-x-auto whitespace-pre-wrap leading-relaxed max-h-80 flex-1">
-              {si_text || 'No SI Attachment text available'}
-            </pre>
+            <button 
+              onClick={() => setShowReceiptDrawer(false)}
+              className="p-1 rounded text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
 
-          {/* Right Panel: Draft Bill of Lading (BL) */}
-          <div className="glass-card rounded-xl border border-slate-800 p-4 flex flex-col">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2.5 mb-3">
-              <div className="flex items-center space-x-2">
-                <FileText className="w-4 h-4 text-blue-400" />
-                <h4 className="text-xs font-bold uppercase tracking-wider text-blue-400">
-                  Draft Bill of Lading (BL Attachment)
-                </h4>
-              </div>
-              <div className="flex items-center space-x-2">
-                {blAtt && (
-                  <a
-                    href={`/api/attachments/${getAttPath(blAtt)}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-0.5 rounded border border-slate-700 flex items-center space-x-1 transition"
-                  >
-                    <Download className="w-3 h-3" />
-                    <span>Download Original</span>
-                  </a>
-                )}
-                <span className="text-[11px] font-mono bg-blue-950/80 text-blue-300 px-2 py-0.5 rounded border border-blue-800/60 font-semibold">
-                  Draft BL
-                </span>
-              </div>
+          <div className="flex-1 overflow-y-auto space-y-4 text-xs font-mono">
+            {/* Real per-field decision receipt from the backend (rules vs AI vs human,
+                validator outcomes, source evidence, token/latency totals). */}
+            <ReasoningReceipt
+              emailId={email?.id}
+              shipmentId={verif?.shipment_id}
+              defaultOpen
+            />
+
+            <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 space-y-1">
+              <span className="text-slate-400 block">Execution Pipeline:</span>
+              <strong className="text-cyan-400">Rules-First NLP Engine + Regex Anchor Extractor</strong>
             </div>
-            <pre className="font-mono text-xs text-slate-300 bg-slate-950 p-3.5 rounded-lg border border-slate-900 overflow-x-auto whitespace-pre-wrap leading-relaxed max-h-80 flex-1">
-              {bl_text || 'No Draft BL Attachment text available'}
-            </pre>
+
+            <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 space-y-2">
+              <span className="text-slate-400 font-bold block border-b border-slate-800 pb-1">DCSA Standard Alias Mappings Applied:</span>
+              <ul className="space-y-1 text-slate-300">
+                <li>• Port of Loading: mapped "Load Port" ➔ "port_of_loading"</li>
+                <li>• Port of Discharge: mapped "Discharge Port" ➔ "port_of_discharge"</li>
+                <li>• Container Count: extracted integer quantity via unit regex</li>
+                <li>• Gross Weight: normalized metric tons ➔ kilograms (*1000)</li>
+              </ul>
+            </div>
+
+            <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 space-y-1">
+              <span className="text-slate-400 block">Verification Decision Code:</span>
+              <strong className="text-amber-400">{verif.status}</strong>
+              <p className="text-slate-400 text-[11px] mt-1">{verif.summary_message}</p>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

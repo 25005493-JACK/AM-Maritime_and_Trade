@@ -1,6 +1,6 @@
 {
   "email_id": "email_225",
-  "timestamp": "2026-09-21T09:15:12.574894+00:00",
+  "timestamp": "2026-09-21T11:15:50.074605+00:00",
   "status": "MISMATCH",
   "review_reason": null,
   "can_compare": true,
@@ -82,13 +82,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "notify_party": "TOAN LUC PAPER JOINT STOCK COMPANY",
-    "gross_weight_kg": 22596.0,
-    "container_count": 1,
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "container_count": 1,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "port_of_discharge": "GDANSK, POLAND (PLGDN)",
     "consignee": "ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
-    "port_of_discharge": "GDANSK, POLAND (PLGDN)"
+    "gross_weight_kg": 22596.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -145,13 +145,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
     "notify_party": "TOAN LUC PAPER JOINT STOCK COMPANY",
-    "gross_weight_kg": 22596.0,
-    "container_count": 1,
     "port_of_loading": "PORT KLANG (WESTPORT), MALAYSIA (MYPKG)",
+    "container_count": 1,
+    "shipper": "ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624",
+    "port_of_discharge": "GDANSK, POLAND (PLGDN)",
     "consignee": "AL GURG STATIONERY LLC OPERNRING 3-5; 1010 VIENNA, AUSTRIA",
-    "port_of_discharge": "GDANSK, POLAND (PLGDN)"
+    "gross_weight_kg": 22596.0
   },
   "field_matrix": [
     {

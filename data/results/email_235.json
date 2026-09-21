@@ -1,6 +1,6 @@
 {
   "email_id": "email_235",
-  "timestamp": "2026-09-21T09:15:12.584012+00:00",
+  "timestamp": "2026-09-21T11:15:50.083100+00:00",
   "status": "OK",
   "review_reason": null,
   "can_compare": true,
@@ -80,13 +80,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "CERIEX",
-    "gross_weight_kg": 94380.0,
-    "container_count": 4,
     "port_of_loading": "NANTONG, CHINA (CNNTG)",
+    "container_count": 4,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "port_of_discharge": "APAPA, NIGERIA (NGAPP)",
     "consignee": "CERIEX ZONE INDUSTRIELLE; CONAKRY, GUINEA",
-    "port_of_discharge": "APAPA, NIGERIA (NGAPP)"
+    "gross_weight_kg": 94380.0
   },
   "bl_extracted": {
     "status": "OK",
@@ -143,13 +143,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "CERIEX",
-    "gross_weight_kg": 94380.0,
-    "container_count": 4,
     "port_of_loading": "NANTONG, CHINA (CNNTG)",
+    "container_count": 4,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "port_of_discharge": "APAPA, NIGERIA (NGAPP)",
     "consignee": "CERIEX ZONE INDUSTRIELLE; CONAKRY, GUINEA",
-    "port_of_discharge": "APAPA, NIGERIA (NGAPP)"
+    "gross_weight_kg": 94380.0
   },
   "field_matrix": [
     {

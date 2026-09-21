@@ -1,6 +1,6 @@
 {
   "email_id": "email_501",
-  "timestamp": "2026-09-21T09:15:13.745908+00:00",
+  "timestamp": "2026-09-21T11:15:50.976543+00:00",
   "status": "NEEDS_REVIEW",
   "review_reason": "wrong_doc_type",
   "can_compare": false,
@@ -64,13 +64,13 @@
       }
     ],
     "unresolved_terms": [],
-    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
     "notify_party": "KPP-ANTALIS (SINGAPORE) PTE. LTD.",
-    "gross_weight_kg": 100225.0,
-    "container_count": 5,
     "port_of_loading": "RUGAO/NANTONG/SHANGHAI, CHINA (CNSHA)",
+    "container_count": 5,
+    "shipper": "APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES",
+    "port_of_discharge": "HOUSTON, US (USHOU)",
     "consignee": "KPP-ANTALIS (SINGAPORE) PTE. LTD. 8 TEMASEK BOULEVARD; #42-01 SUNTEC TOWER 3; SINGAPORE 038988",
-    "port_of_discharge": "HOUSTON, US (USHOU)"
+    "gross_weight_kg": 100225.0
   },
   "bl_extracted": {
     "status": "NEEDS_REVIEW",
@@ -84,13 +84,13 @@
     "missing_fields": [],
     "audit_trail": [],
     "unresolved_terms": [],
-    "shipper": null,
     "notify_party": null,
-    "gross_weight_kg": null,
-    "container_count": null,
     "port_of_loading": null,
+    "container_count": null,
+    "shipper": null,
+    "port_of_discharge": null,
     "consignee": null,
-    "port_of_discharge": null
+    "gross_weight_kg": null
   },
   "field_matrix": [
     {
