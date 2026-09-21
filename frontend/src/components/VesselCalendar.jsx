@@ -389,6 +389,31 @@ export default function VesselCalendar({
               </div>
 
               <div>
+                {/* Vessel TEU Container & Payload Weight Quota Bar */}
+                {(() => {
+                  const totalBookedTEU = vessel.allocated_containers.reduce((sum, c) => sum + (c.containers || 0), 0);
+                  const capacityTEU = vessel.total_capacity_teu || 400;
+                  const pct = Math.min(100, Math.round((totalBookedTEU / capacityTEU) * 100));
+                  return (
+                    <div className="mb-3 p-2.5 rounded-lg bg-slate-900 border border-slate-800 space-y-1.5">
+                      <div className="flex items-center justify-between text-xs font-mono">
+                        <span className="text-slate-400 font-medium">Vessel Capacity & Weight Quota:</span>
+                        <span className="text-cyan-300 font-bold">
+                          {totalBookedTEU} / {capacityTEU} TEU ({pct}% Allocated)
+                        </span>
+                      </div>
+                      <div className="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+                        <div
+                          className={`h-full transition-all duration-500 ${
+                            pct > 90 ? 'bg-rose-500' : pct > 70 ? 'bg-amber-400' : 'bg-cyan-400 shadow-sm shadow-cyan-400'
+                          }`}
+                          style={{ width: `${Math.max(5, pct)}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })()}
+
                 <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center space-x-1">
                   <Package className="w-3.5 h-3.5 text-slate-500" />
                   <span>Allocated Container Bookings ({vessel.allocated_containers.length}):</span>
