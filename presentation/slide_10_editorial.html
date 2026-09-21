@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slide 10 — Operational Impact (Warm Editorial Redesign)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Warm Editorial Palette */
+      --bg-editorial: #F9F6F0;
+      --card-bg: #FFFFFF;
+      --card-border: #E8E2D9;
+      --card-border-subtle: #F0ECE4;
+      --text-primary: #2C2A29;
+      --text-secondary: #6B665E;
+      --text-tertiary: #9E988F;
+      --timeline-arrow: #A39B92;
+      --footer-bg: #EFEBE4;
+
+      /* Earthy Accents */
+      --accent-terracotta: #C8795B;
+      --accent-sage: #7A8B6E;
+      --accent-navy: #4A5D70;
+      --accent-mustard: #D4A373;
+
+      /* Refined Shadows */
+      --shadow-diffused: 0 10px 25px -5px rgba(44, 42, 41, 0.05), 0 4px 10px -2px rgba(44, 42, 41, 0.02);
+      --shadow-hover: 0 16px 32px -8px rgba(44, 42, 41, 0.09), 0 4px 12px -2px rgba(44, 42, 41, 0.03);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-editorial);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    /* 16:9 Presentation Canvas Container */
+    .slide-canvas {
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16 / 9;
+      background: var(--bg-editorial);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.06);
+      padding: 3rem 3.5rem 2.5rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle Paper Texture / Decorative Corner Accent */
+    .slide-canvas::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle at top right, rgba(200, 121, 91, 0.05), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .brand-logo-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      box-shadow: var(--shadow-diffused);
+    }
+
+    .brand-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    .brand-pill {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent-terracotta);
+      background: rgba(200, 121, 91, 0.08);
+      border: 1px solid rgba(200, 121, 91, 0.2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .category-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+    }
+
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+    }
+
+    /* Main Body */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1.5rem 0;
+      gap: 1.6rem;
+    }
+
+    .title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .pre-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-terracotta);
+    }
+
+    .editorial-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.35rem;
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    /* 4 Grid Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+    }
+
+    .editorial-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 1.4rem 1.25rem;
+      box-shadow: var(--shadow-diffused);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .editorial-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(200, 121, 91, 0.3);
+    }
+
+    /* Subtle Colored Top Border */
+    .editorial-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3.5px;
+    }
+
+    .card-01::before { background: var(--accent-terracotta); }
+    .card-02::before { background: var(--accent-sage); }
+    .card-03::before { background: var(--accent-navy); }
+    .card-04::before { background: var(--accent-mustard); }
+
+    .card-num-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .card-01 .status-dot { background: var(--accent-terracotta); }
+    .card-02 .status-dot { background: var(--accent-sage); }
+    .card-03 .status-dot { background: var(--accent-navy); }
+    .card-04 .status-dot { background: var(--accent-mustard); }
+
+    .num-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-tertiary);
+    }
+
+    .card-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      line-height: 1.35;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc {
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    /* Flow Timeline Card (Bottom) */
+    .timeline-strip {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 0.9rem 1.6rem;
+      box-shadow: var(--shadow-diffused);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .timeline-step {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .step-badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+    }
+
+    .step-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .timeline-arrow {
+      color: var(--timeline-arrow);
+      font-size: 1.1rem;
+      font-weight: 400;
+      opacity: 0.75;
+      display: flex;
+      align-items: center;
+      padding: 0 0.5rem;
+    }
+
+    /* Footer Takeaway Statement */
+    .takeaway-footer {
+      background: var(--footer-bg);
+      border-left: 4px solid var(--accent-terracotta);
+      border-radius: 0 12px 12px 0;
+      padding: 0.8rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .takeaway-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .takeaway-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent-terracotta);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Slide Footer Base */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--card-border);
+      padding-top: 1rem;
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+    }
+
+    .footer-ethos {
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    /* Responsive scaling for smaller viewports */
+    @media (max-width: 900px) {
+      body {
+        padding: 1rem;
+      }
+      .slide-canvas {
+        aspect-ratio: auto;
+        padding: 1.5rem;
+      }
+      .editorial-title {
+        font-size: 1.75rem;
+      }
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .timeline-strip {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+      }
+      .timeline-arrow {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-canvas">
+    
+    <!-- Header -->
+    <header class="slide-header">
+      <div class="brand-cluster">
+        <div class="brand-logo-mark">🚢</div>
+        <span class="brand-name">Averish Shipping AI</span>
+        <span class="brand-pill">Value Proposition</span>
+      </div>
+      <div class="header-meta">
+        <span class="category-tag">Measurable Impact</span>
+        <span class="slide-counter">10 / 12</span>
+      </div>
+    </header>
+
+    <!-- Main Body -->
+    <main class="slide-body">
+      
+      <div class="title-group">
+        <span class="pre-title">Quantified Operational Value</span>
+        <h1 class="editorial-title">From document automation to operational impact.</h1>
+      </div>
+
+      <!-- 4 Impact Cards -->
+      <div class="cards-grid">
+        
+        <!-- Card 01: Terracotta -->
+        <article class="editorial-card card-01">
+          <div class="card-num-row">
+            <span class="status-dot"></span>
+            <span class="num-label">01</span>
+          </div>
+          <h2 class="card-heading">Less Repetitive Work</h2>
+          <p class="card-desc">
+            Reduces repeated manual correction of recurring carrier exception patterns through episodic learning.
+          </p>
+        </article>
+
+        <!-- Card 02: Sage Green -->
+        <article class="editorial-card card-02">
+          <div class="card-num-row">
+            <span class="status-dot"></span>
+            <span class="num-label">02</span>
+          </div>
+          <h2 class="card-heading">Lower Hallucination Risk</h2>
+          <p class="card-desc">
+            Unsupported outputs are challenged before becoming operational facts or customs declarations.
+          </p>
+        </article>
+
+        <!-- Card 03: Muted Navy -->
+        <article class="editorial-card card-03">
+          <div class="card-num-row">
+            <span class="status-dot"></span>
+            <span class="num-label">03</span>
+          </div>
+          <h2 class="card-heading">Faster Exception Handling</h2>
+          <p class="card-desc">
+            Failures become structured escalation (Refusal Certificates) rather than endless unguided retries.
+          </p>
+        </article>
+
+        <!-- Card 04: Mustard -->
+        <article class="editorial-card card-04">
+          <div class="card-num-row">
+            <span class="status-dot"></span>
+            <span class="num-label">04</span>
+          </div>
+          <h2 class="card-heading">Expertise As Experience</h2>
+          <p class="card-desc">
+            Human domain corrections are converted into structured Reflexion lessons for the learning layer.
+          </p>
+        </article>
+
+      </div>
+
+      <!-- Flow Timeline Strip -->
+      <section class="timeline-strip">
+        <div class="timeline-step">
+          <span class="step-badge">From Challenge</span>
+          <span class="step-name" style="color: var(--accent-terracotta);">Human Fatigue</span>
+        </div>
+        
+        <div class="timeline-arrow">➔</div>
+
+        <div class="timeline-step">
+          <span class="step-badge">Through Governance</span>
+          <span class="step-name" style="color: var(--accent-navy);">Controlled AI</span>
+        </div>
+        
+        <div class="timeline-arrow">➔</div>
+
+        <div class="timeline-step">
+          <span class="step-badge">Through Feedback</span>
+          <span class="step-name" style="color: var(--accent-sage);">Learning Signals</span>
+        </div>
+        
+        <div class="timeline-arrow">➔</div>
+
+        <div class="timeline-step">
+          <span class="step-badge">To Scalable Impact</span>
+          <span class="step-name" style="color: var(--text-primary);">More Scalable Operations</span>
+        </div>
+      </section>
+
+      <!-- Footer Takeaway Banner -->
+      <aside class="takeaway-footer">
+        <span class="takeaway-text">
+          DocuMatch shifts the operational paradigm from brute-force extraction to sustainable trade reliability.
+        </span>
+        <span class="takeaway-tag">Core Value</span>
+      </aside>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="slide-footer">
+      <span>Averish Shipping AI — Sustainable Enterprise Scalability</span>
+      <span class="footer-ethos">Design Ethos: Build software that respects human attention.</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Builds the 12-slide 16:9 competition-ready HTML presentation deck for Averish Shipping AI.
+Builds the 16-slide 16:9 competition-ready HTML presentation deck (with Technical Architecture, Implementation Details, Challenges Faced, and Future Roadmap) for Averish Shipping AI.
 """
 import os
 import json
@@ -21,7 +21,7 @@ def build_deck():
   <title>Averish Shipping AI — Competition Presentation Deck</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {{
       --bg-midnight: #070B14;
@@ -477,7 +477,9 @@ def build_deck():
 
   <div id="deck-viewport">
 
-    <!-- =================================================================== -->
+    
+
+<!-- =================================================================== -->
     <!-- SLIDE 1: HUMAN FATIGUE -->
     <!-- =================================================================== -->
     <div class="slide active" id="slide-1">
@@ -489,7 +491,7 @@ def build_deck():
         </div>
         <div class="header-right">
           <span class="category-label">Human Fatigue</span>
-          <span class="slide-number-badge">01 / 12</span>
+          <span class="slide-number-badge">01 / 16</span>
         </div>
       </div>
 
@@ -562,7 +564,8 @@ def build_deck():
     </div>
 
 
-    <!-- =================================================================== -->
+
+<!-- =================================================================== -->
     <!-- SLIDE 2: MARKET GAP -->
     <!-- =================================================================== -->
     <div class="slide" id="slide-2">
@@ -574,7 +577,7 @@ def build_deck():
         </div>
         <div class="header-right">
           <span class="category-label">Architectural Gap</span>
-          <span class="slide-number-badge">02 / 12</span>
+          <span class="slide-number-badge">02 / 16</span>
         </div>
       </div>
 
@@ -676,7 +679,8 @@ def build_deck():
     </div>
 
 
-    <!-- =================================================================== -->
+
+<!-- =================================================================== -->
     <!-- SLIDE 3: OUR INNOVATION -->
     <!-- =================================================================== -->
     <div class="slide" id="slide-3">
@@ -688,7 +692,7 @@ def build_deck():
         </div>
         <div class="header-right">
           <span class="category-label">Learning Agent</span>
-          <span class="slide-number-badge">03 / 12</span>
+          <span class="slide-number-badge">03 / 16</span>
         </div>
       </div>
 
@@ -771,7 +775,8 @@ def build_deck():
     </div>
 
 
-    <!-- =================================================================== -->
+
+<!-- =================================================================== -->
     <!-- SLIDE 4: HOW AVERISH PREVENTS UNSUPPORTED AI OUTPUT -->
     <!-- =================================================================== -->
     <div class="slide" id="slide-4">
@@ -783,7 +788,7 @@ def build_deck():
         </div>
         <div class="header-right">
           <span class="category-label">Hallucination Control</span>
-          <span class="slide-number-badge">04 / 12</span>
+          <span class="slide-number-badge">04 / 16</span>
         </div>
       </div>
 
@@ -866,7 +871,8 @@ def build_deck():
     </div>
 
 
-    <!-- =================================================================== -->
+
+<!-- =================================================================== -->
     <!-- SLIDE 5: REAL SCENARIO 01 (email_505) -->
     <!-- =================================================================== -->
     <div class="slide" id="slide-5">
@@ -878,7 +884,7 @@ def build_deck():
         </div>
         <div class="header-right">
           <span class="category-label">Document Validity Gate</span>
-          <span class="slide-number-badge">05 / 12</span>
+          <span class="slide-number-badge">05 / 16</span>
         </div>
       </div>
 
@@ -986,7 +992,8 @@ def build_deck():
     </div>
 
 
-    <!-- =================================================================== -->
+
+<!-- =================================================================== -->
     <!-- SLIDE 6: REAL SCENARIO 02 (email_512) -->
     <!-- =================================================================== -->
     <div class="slide" id="slide-6">
@@ -998,7 +1005,7 @@ def build_deck():
         </div>
         <div class="header-right">
           <span class="category-label">Data Sufficiency Check</span>
-          <span class="slide-number-badge">06 / 12</span>
+          <span class="slide-number-badge">06 / 16</span>
         </div>
       </div>
 
@@ -1087,7 +1094,8 @@ def build_deck():
     </div>
 
 
-    <!-- =================================================================== -->
+
+<!-- =================================================================== -->
     <!-- SLIDE 7: REAL SCENARIO 03 (PROVENANCE VALIDATION) -->
     <!-- =================================================================== -->
     <div class="slide" id="slide-7">
@@ -1099,7 +1107,7 @@ def build_deck():
         </div>
         <div class="header-right">
           <span class="category-label">Provenance Validation</span>
-          <span class="slide-number-badge">07 / 12</span>
+          <span class="slide-number-badge">07 / 16</span>
         </div>
       </div>
 
@@ -1188,7 +1196,8 @@ def build_deck():
     </div>
 
 
-    <!-- =================================================================== -->
+
+<!-- =================================================================== -->
     <!-- SLIDE 8: REAL SCENARIO 04 (RED TEAM / CIRCUIT BREAKER) -->
     <!-- =================================================================== -->
     <div class="slide" id="slide-8">
@@ -1200,7 +1209,7 @@ def build_deck():
         </div>
         <div class="header-right">
           <span class="category-label">Circuit Breaker</span>
-          <span class="slide-number-badge">08 / 12</span>
+          <span class="slide-number-badge">08 / 16</span>
         </div>
       </div>
 
@@ -1280,7 +1289,8 @@ def build_deck():
     </div>
 
 
-    <!-- =================================================================== -->
+
+<!-- =================================================================== -->
     <!-- SLIDE 9: LEARNING AGENT + HUMAN FATIGUE (REFLEXION) -->
     <!-- =================================================================== -->
     <div class="slide" id="slide-9">
@@ -1292,7 +1302,7 @@ def build_deck():
         </div>
         <div class="header-right">
           <span class="category-label">Reflexion Memory</span>
-          <span class="slide-number-badge">09 / 12</span>
+          <span class="slide-number-badge">09 / 16</span>
         </div>
       </div>
 
@@ -1362,90 +1372,462 @@ def build_deck():
     </div>
 
 
+
     <!-- =================================================================== -->
-    <!-- SLIDE 10: OPERATIONAL IMPACT -->
+    <!-- SLIDE 10: TECHNICAL ARCHITECTURE & WORKFLOW DIAGRAM -->
     <!-- =================================================================== -->
     <div class="slide" id="slide-10">
       <div class="slide-header">
         <div class="brand-cluster">
           <div class="brand-logo-icon">🚢</div>
           <span class="brand-title">Averish Shipping AI</span>
-          <span class="brand-badge">Value Proposition</span>
+          <span class="brand-badge">System Architecture</span>
         </div>
         <div class="header-right">
-          <span class="category-label">Measurable Impact</span>
-          <span class="slide-number-badge">10 / 12</span>
+          <span class="category-label">End-to-End Governance Pipeline</span>
+          <span class="slide-number-badge">10 / 16</span>
         </div>
       </div>
 
       <div class="slide-body">
         <div class="headline-wrap">
-          <div class="headline-pre">Quantified Operational Value</div>
-          <h1 class="slide-title">From document automation to operational impact.</h1>
+          <div class="headline-pre">Complete System Architecture & Operational Workflow</div>
+          <h1 class="slide-title">Multi-tier verification pipeline with defensive decision boundaries.</h1>
         </div>
 
-        <!-- 4 Impact Cards -->
-        <div class="card-grid-4" style="margin: 1.2vw 0;">
+        <!-- 5-Stage Visual Workflow Pipeline Diagram -->
+        <div style="display: grid; grid-template-columns: 1fr 22px 1.4fr 22px 1.2fr 22px 1fr; gap: 0; align-items: stretch; margin: 1vw 0 0.8vw 0;">
           
-          <div class="glass-card" style="border-top: 3px solid var(--accent-cyan);">
-            <div style="font-size: 1.2vw; font-weight: 800; color: var(--accent-cyan); margin-bottom: 0.4vw;">01</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">LESS REPETITIVE WORK</div>
-            <p style="font-size: 0.7vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
+          <!-- Stage 1: Ingestion -->
+          <div class="glass-card" style="border-top: 3px solid #38BDF8; padding: 0.9vw; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4vw;">
+                <span class="pill-tag cyan" style="font-size: 0.6vw;">STAGE 01</span>
+                <span style="font-size: 0.9vw;">📥</span>
+              </div>
+              <div style="font-size: 0.82vw; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Multi-Source Ingestion</div>
+              <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.3vw;">Unstructured Trade Feeds</div>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.45;">
+              • Scanned Ocean B/L & SIs<br>
+              • Commercial Invoices & Emails<br>
+              • Docling Layout OCR Parsing<br>
+              • Spatial Bounding Boxes
+            </div>
+          </div>
+
+          <!-- Arrow 1 -->
+          <div style="display: flex; align-items: center; justify-content: center; color: var(--accent-cyan); font-size: 1vw;">➔</div>
+
+          <!-- Stage 2: Tri-Stage Defensive Gates -->
+          <div class="glass-card" style="border-top: 3px solid #F59E0B; padding: 0.9vw; display: flex; flex-direction: column; justify-content: space-between; background: rgba(18, 28, 48, 0.85);">
+            <div>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4vw;">
+                <span class="pill-tag amber" style="font-size: 0.6vw;">STAGE 02: GATES</span>
+                <span style="font-size: 0.9vw;">🛡️</span>
+              </div>
+              <div style="font-size: 0.82vw; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Tri-Gate Verification</div>
+              <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.3vw;">Zero-Tolerance Trust Filters</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.3vw; margin-top: 0.5vw;">
+              <div style="background: rgba(239, 68, 68, 0.12); border-left: 2.5px solid #EF4444; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
+                <strong style="color: #FCA5A5;">Gate 1: Document Validity</strong><br>
+                <span style="color: var(--text-muted);">Rejects wrong attachments (email_004)</span>
+              </div>
+              <div style="background: rgba(245, 158, 11, 0.12); border-left: 2.5px solid #F59E0B; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
+                <strong style="color: #FCD34D;">Gate 2: Data Sufficiency</strong><br>
+                <span style="color: var(--text-muted);">Halts on degraded/missing text (email_512)</span>
+              </div>
+              <div style="background: rgba(56, 189, 248, 0.12); border-left: 2.5px solid #38BDF8; padding: 0.3vw 0.4vw; font-size: 0.58vw; border-radius: 0 0.3vw 0.3vw 0;">
+                <strong style="color: #BAE6FD;">Gate 3: Provenance Anchoring</strong><br>
+                <span style="color: var(--text-muted);">Validates pixel coordinates (email_505)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow 2 -->
+          <div style="display: flex; align-items: center; justify-content: center; color: var(--accent-cyan); font-size: 1vw;">➔</div>
+
+          <!-- Stage 3: Decision Boundary & Circuit Breaker -->
+          <div class="glass-card" style="border-top: 3px solid #6366F1; padding: 0.9vw; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4vw;">
+                <span class="pill-tag cyan" style="font-size: 0.6vw;">STAGE 03</span>
+                <span style="font-size: 0.9vw;">⚖️</span>
+              </div>
+              <div style="font-size: 0.82vw; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Decision Boundary</div>
+              <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.3vw;">Confidence & Circuit Breaker</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.35vw; margin-top: 0.6vw;">
+              <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 0.3vw; padding: 0.35vw; font-size: 0.58vw;">
+                <span style="color: #34D399; font-weight: 700;">Score ≥ 0.85:</span> Automated release to EDI / ERP booking.
+              </div>
+              <div style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 0.3vw; padding: 0.35vw; font-size: 0.58vw;">
+                <span style="color: #F87171; font-weight: 700;">Score &lt; 0.85:</span> Circuit Breaker emits <em>Refusal Certificate</em>.
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow 3 -->
+          <div style="display: flex; align-items: center; justify-content: center; color: var(--accent-cyan); font-size: 1vw;">➔</div>
+
+          <!-- Stage 4: Execution & Feedback -->
+          <div class="glass-card" style="border-top: 3px solid #10B981; padding: 0.9vw; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4vw;">
+                <span class="pill-tag green" style="font-size: 0.6vw;">STAGE 04 & 05</span>
+                <span style="font-size: 0.9vw;">🚀</span>
+              </div>
+              <div style="font-size: 0.82vw; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Action & Reflexion</div>
+              <div style="font-size: 0.65vw; color: var(--text-dim); margin-top: 0.3vw;">Execution & Self-Learning</div>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.45;">
+              • Direct CargoWise / SAP Push<br>
+              • One-Click Human Correction<br>
+              • Reflexion Lesson Generation<br>
+              • Thompson Bandit Prior Update
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Continuous Learning Feedback Loop Banner -->
+        <div style="background: rgba(14, 30, 56, 0.7); border: 1px dashed rgba(56, 189, 248, 0.35); border-radius: 0.5vw; padding: 0.6vw 1.2vw; display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 0.8vw;">
+            <span style="background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-cyan); border-radius: 50%; width: 1.6vw; height: 1.6vw; display: flex; align-items: center; justify-content: center; font-size: 0.8vw; color: var(--accent-cyan);">⟳</span>
+            <div>
+              <div style="font-size: 0.78vw; font-weight: 700; color: #F8FAFC;">The Reflexion Closed Loop</div>
+              <div style="font-size: 0.62vw; color: var(--text-muted);">
+                Human exception resolution feeds structured JSON reflection lessons back into the agent prompt context, permanently eliminating repeated failures.
+              </div>
+            </div>
+          </div>
+          <span class="pill-tag green" style="font-size: 0.65vw;">EPISODIC MEMORY ACTIVE</span>
+        </div>
+
+        <div class="takeaway-banner" style="margin-top: 0.6vw; padding: 0.6vw 1vw; font-size: 0.78vw;">
+          “Averish replaces unguided generative retries with bounded verification, structured refusal, and closed-loop feedback.”
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Averish Shipping AI — Technical Architecture: Ingestion ➔ Verification ➔ Boundary ➔ Learning</span>
+        <span class="footer-quote">Design Principle: Never act on speculative inference.</span>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- SLIDE 11: IMPLEMENTATION DETAILS & TECH STACK -->
+    <!-- =================================================================== -->
+    <div class="slide" id="slide-11">
+      <div class="slide-header">
+        <div class="brand-cluster">
+          <div class="brand-logo-icon">🚢</div>
+          <span class="brand-title">Averish Shipping AI</span>
+          <span class="brand-badge">Engineering Stack</span>
+        </div>
+        <div class="header-right">
+          <span class="category-label">Concrete Implementation</span>
+          <span class="slide-number-badge">11 / 16</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="headline-wrap">
+          <div class="headline-pre">Production-Grade Core Architecture</div>
+          <h1 class="slide-title">Engineered for sub-second verification, determinism, and memory.</h1>
+        </div>
+
+        <!-- 4 Architecture Detail Cards -->
+        <div class="card-grid-4" style="margin: 1vw 0 0.8vw 0;">
+          
+          <!-- Card 1: Core Async Runtime -->
+          <div class="glass-card" style="border-top: 3px solid var(--accent-cyan); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
+                <span class="pill-tag cyan" style="font-size: 0.58vw;">BACKEND</span>
+                <span style="font-size: 0.8vw;">⚡</span>
+              </div>
+              <div style="font-size: 0.88vw; font-weight: 700; color: #FFFFFF;">FastAPI Async Engine</div>
+              <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
+                Asynchronous event loop with non-blocking multi-gate evaluations and strict Pydantic v2 schemas.
+              </p>
+            </div>
+            <div style="background: #090D16; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #38BDF8; line-height: 1.4;">
+              • Python 3.11 + Uvicorn<br>
+              • Pydantic v2 Type Safety<br>
+              • &lt; 850ms Verification SLA<br>
+              • Strict JSON Schema Output
+            </div>
+          </div>
+
+          <!-- Card 2: Multimodal & Spatial Vision -->
+          <div class="glass-card" style="border-top: 3px solid var(--accent-indigo); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
+                <span class="pill-tag cyan" style="font-size: 0.58vw;">AI ENGINE</span>
+                <span style="font-size: 0.8vw;">👁️</span>
+              </div>
+              <div style="font-size: 0.88vw; font-weight: 700; color: #FFFFFF;">Gemini 2.5 Flash Vision</div>
+              <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
+                Multimodal extraction with Docling spatial coordinate bounding-boxes at zero temperature.
+              </p>
+            </div>
+            <div style="background: #090D16; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #818CF8; line-height: 1.4;">
+              • Temperature: 0.0 (Deterministic)<br>
+              • Bounding Box [x0,y0,x1,y1]<br>
+              • Docling PDF Layout Parser<br>
+              • Multi-Page OCR Alignment
+            </div>
+          </div>
+
+          <!-- Card 3: Reflexion & Thompson Sampling -->
+          <div class="glass-card" style="border-top: 3px solid var(--accent-green); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
+                <span class="pill-tag green" style="font-size: 0.58vw;">LEARNING</span>
+                <span style="font-size: 0.8vw;">🧠</span>
+              </div>
+              <div style="font-size: 0.88vw; font-weight: 700; color: #FFFFFF;">Episodic Memory Engine</div>
+              <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
+                Reflexion-based episodic memory with Thompson Sampling Bayesian bandits for route reliability.
+              </p>
+            </div>
+            <div style="background: #090D16; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #34D399; line-height: 1.4;">
+              • Thompson Bandit Prior Beta(α,β)<br>
+              • Structured JSON Lessons<br>
+              • Dynamic Context Prompt Injection<br>
+              • Per-Carrier Exception Profiles
+            </div>
+          </div>
+
+          <!-- Card 4: Database & Telemetry -->
+          <div class="glass-card" style="border-top: 3px solid var(--accent-amber); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
+                <span class="pill-tag amber" style="font-size: 0.58vw;">DATA & SSE</span>
+                <span style="font-size: 0.8vw;">📡</span>
+              </div>
+              <div style="font-size: 0.88vw; font-weight: 700; color: #FFFFFF;">Supabase Real-time Telemetry</div>
+              <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
+                Real-time pipeline event audit trail with SSE streaming and cryptographically hashed certificates.
+              </p>
+            </div>
+            <div style="background: #090D16; border-radius: 0.4vw; padding: 0.45vw; margin-top: 0.6vw; font-family: 'JetBrains Mono', monospace; font-size: 0.58vw; color: #FBBF24; line-height: 1.4;">
+              • Supabase PostgreSQL Tables<br>
+              • Real-time SSE Event Stream<br>
+              • SHA-256 Provenance Hashes<br>
+              • Instant Frontend Live Sync
+            </div>
+          </div>
+
+        </div>
+
+        <div class="takeaway-banner" style="padding: 0.65vw 1.2vw; font-size: 0.78vw;">
+          “Built on proven, low-latency open standards — pairing deterministic schemas with adaptive Bayesian memory.”
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Averish Shipping AI — Tech Stack: FastAPI / Gemini 2.5 Flash / Reflexion / Supabase</span>
+        <span class="footer-quote">Production-ready, battle-hardened architecture.</span>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- SLIDE 12: CHALLENGES FACED & TECHNICAL SOLUTIONS -->
+    <!-- =================================================================== -->
+    <div class="slide" id="slide-12">
+      <div class="slide-header">
+        <div class="brand-cluster">
+          <div class="brand-logo-icon">🚢</div>
+          <span class="brand-title">Averish Shipping AI</span>
+          <span class="brand-badge">Feasibility & Validation</span>
+        </div>
+        <div class="header-right">
+          <span class="category-label">Battle-Tested Engineering</span>
+          <span class="slide-number-badge">12 / 16</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="headline-wrap">
+          <div class="headline-pre">Overcoming Maritime Document Chaos</div>
+          <h1 class="slide-title">Real-world engineering challenges & how we solved them.</h1>
+        </div>
+
+        <!-- 4 Comparative Challenge / Solution Cards -->
+        <div class="card-grid-2" style="margin: 0.8vw 0 0.6vw 0; gap: 1vw;">
+          
+          <!-- Item 1: Blurry / Degraded Scans -->
+          <div class="glass-card" style="padding: 0.8vw 1vw;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3vw;">
+              <span style="font-size: 0.75vw; font-weight: 700; color: #EF4444;">CHALLENGE 01: Low-Res & Skewed Scans (email_512)</span>
+              <span class="pill-tag red" style="font-size: 0.55vw;">OCR FAILURE</span>
+            </div>
+            <p style="font-size: 0.65vw; color: var(--text-muted); line-height: 1.4;">
+              <strong style="color: #E2E8F0;">The Hurdle:</strong> Faxed bills of lading with smudged container numbers cause standard LLMs to invent plausible digits, leading to costly customs fines.
+            </p>
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #D1FAE5; line-height: 1.4;">
+              <strong style="color: #34D399;">Engineered Solution:</strong> Data Sufficiency Gate with pixel-contrast thresholding. If evidence is degraded below readability threshold, Averish explicitly refuses rather than guessing.
+            </div>
+          </div>
+
+          <!-- Item 2: Plausible Fictions -->
+          <div class="glass-card" style="padding: 0.8vw 1vw;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3vw;">
+              <span style="font-size: 0.75vw; font-weight: 700; color: #F59E0B;">CHALLENGE 02: Silent Hallucinations (email_505)</span>
+              <span class="pill-tag amber" style="font-size: 0.55vw;">PHANTOM DATA</span>
+            </div>
+            <p style="font-size: 0.65vw; color: var(--text-muted); line-height: 1.4;">
+              <strong style="color: #E2E8F0;">The Hurdle:</strong> Generative models frequently inject typical carrier terms (e.g. vessel names, discharge ports) absent from the underlying document.
+            </p>
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #D1FAE5; line-height: 1.4;">
+              <strong style="color: #34D399;">Engineered Solution:</strong> Zero-Tolerance Provenance Anchoring. Every single extracted field must map directly to verifiable bounding-box coordinates in the original PDF canvas.
+            </div>
+          </div>
+
+          <!-- Item 3: Operator Fatigue -->
+          <div class="glass-card" style="padding: 0.8vw 1vw;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3vw;">
+              <span style="font-size: 0.75vw; font-weight: 700; color: #38BDF8;">CHALLENGE 03: Repetitive Human Exception Fatigue</span>
+              <span class="pill-tag cyan" style="font-size: 0.55vw;">OPERATOR BURNOUT</span>
+            </div>
+            <p style="font-size: 0.65vw; color: var(--text-muted); line-height: 1.4;">
+              <strong style="color: #E2E8F0;">The Hurdle:</strong> Human clerks manually fix the exact same carrier formatting quirks dozens of times per week because conventional AI has zero episodic memory.
+            </p>
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #D1FAE5; line-height: 1.4;">
+              <strong style="color: #34D399;">Engineered Solution:</strong> Reflexion Self-Learning Loop. Human corrections generate structured reflection lessons injected dynamically into future runs for that specific carrier.
+            </div>
+          </div>
+
+          <!-- Item 4: Infinite Agent Retries -->
+          <div class="glass-card" style="padding: 0.8vw 1vw;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3vw;">
+              <span style="font-size: 0.75vw; font-weight: 700; color: #A855F7;">CHALLENGE 04: Cascading Multi-Agent Failures</span>
+              <span class="pill-tag red" style="font-size: 0.55vw;">RETRY LOOP</span>
+            </div>
+            <p style="font-size: 0.65vw; color: var(--text-muted); line-height: 1.4;">
+              <strong style="color: #E2E8F0;">The Hurdle:</strong> Unbounded autonomous agents burn costly tokens in endless retry loops when presented with fundamentally invalid trade documents.
+            </p>
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 2px solid #10B981; padding: 0.35vw 0.6vw; margin-top: 0.4vw; font-size: 0.62vw; color: #D1FAE5; line-height: 1.4;">
+              <strong style="color: #34D399;">Engineered Solution:</strong> Hard Circuit Breaker (MAX_RETRIES = 2). Cuts execution cleanly and generates an actionable Refusal Certificate for immediate human resolution.
+            </div>
+          </div>
+
+        </div>
+
+        <div class="takeaway-banner" style="padding: 0.6vw 1.2vw; font-size: 0.78vw;">
+          “Averish was forged by testing real edge cases — turning operational failure modes into deterministic defensive features.”
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Averish Shipping AI — Real Edge Case Solutions: email_512, email_505, email_004</span>
+        <span class="footer-quote">Tested against real messy maritime shipping documents.</span>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- SLIDE 13: OPERATIONAL IMPACT (WARM EDITORIAL) -->
+    <!-- =================================================================== -->
+    <div class="slide" id="slide-13">
+      <div class="slide-header">
+        <div class="brand-cluster">
+          <div class="brand-logo-icon">🚢</div>
+          <span class="brand-title">Averish Shipping AI</span>
+          <span class="brand-badge" style="background: rgba(200, 121, 91, 0.15); border-color: rgba(200, 121, 91, 0.35); color: #C8795B;">Value Proposition</span>
+        </div>
+        <div class="header-right">
+          <span class="category-label">Measurable Impact</span>
+          <span class="slide-number-badge" style="color: #C8795B; border-color: rgba(200, 121, 91, 0.3);">13 / 16</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="headline-wrap">
+          <div class="headline-pre" style="color: #C8795B;">Quantified Operational Value</div>
+          <h1 class="slide-title" style="font-family: 'Playfair Display', Georgia, serif; font-size: 2.2vw;">From document automation to operational impact.</h1>
+        </div>
+
+        <!-- 4 Impact Cards with Earthy Accents & Refined Elevation -->
+        <div class="card-grid-4" style="margin: 1.1vw 0;">
+          
+          <!-- Card 01: Terracotta -->
+          <div class="glass-card" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #C8795B; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
+            <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.4vw;">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: #C8795B;"></span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; font-weight: 600; color: #9E988F;">01</span>
+            </div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC; letter-spacing: 0.02em;">LESS REPETITIVE WORK</div>
+            <p style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
               Reduces repeated manual correction of recurring carrier exception patterns through episodic learning.
             </p>
           </div>
 
-          <div class="glass-card" style="border-top: 3px solid var(--accent-green);">
-            <div style="font-size: 1.2vw; font-weight: 800; color: var(--accent-green); margin-bottom: 0.4vw;">02</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">LOWER HALLUCINATION RISK</div>
-            <p style="font-size: 0.7vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
+          <!-- Card 02: Sage Green -->
+          <div class="glass-card" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #7A8B6E; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
+            <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.4vw;">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: #7A8B6E;"></span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; font-weight: 600; color: #9E988F;">02</span>
+            </div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC; letter-spacing: 0.02em;">LOWER HALLUCINATION RISK</div>
+            <p style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
               Unsupported outputs are challenged before becoming operational facts or customs declarations.
             </p>
           </div>
 
-          <div class="glass-card" style="border-top: 3px solid var(--accent-blue);">
-            <div style="font-size: 1.2vw; font-weight: 800; color: var(--accent-blue); margin-bottom: 0.4vw;">03</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">FASTER EXCEPTION HANDLING</div>
-            <p style="font-size: 0.7vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
+          <!-- Card 03: Muted Navy -->
+          <div class="glass-card" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #4A5D70; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
+            <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.4vw;">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: #4A5D70;"></span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; font-weight: 600; color: #9E988F;">03</span>
+            </div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC; letter-spacing: 0.02em;">FASTER EXCEPTION HANDLING</div>
+            <p style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
               Failures become structured escalation (Refusal Certificates) rather than endless unguided retries.
             </p>
           </div>
 
-          <div class="glass-card" style="border-top: 3px solid var(--accent-indigo);">
-            <div style="font-size: 1.2vw; font-weight: 800; color: var(--accent-indigo); margin-bottom: 0.4vw;">04</div>
-            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC;">EXPERTISE AS EXPERIENCE</div>
-            <p style="font-size: 0.7vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
+          <!-- Card 04: Warm Mustard -->
+          <div class="glass-card" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(232, 226, 217, 0.15); border-top: 3.5px solid #D4A373; border-radius: 0.75vw; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
+            <div style="display: flex; align-items: center; gap: 0.4vw; margin-bottom: 0.4vw;">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: #D4A373;"></span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7vw; font-weight: 600; color: #9E988F;">04</span>
+            </div>
+            <div style="font-size: 0.85vw; font-weight: 700; color: #F8FAFC; letter-spacing: 0.02em;">EXPERTISE AS EXPERIENCE</div>
+            <p style="font-size: 0.68vw; color: var(--text-muted); margin-top: 0.4vw; line-height: 1.45;">
               Human domain corrections are converted into structured Reflexion lessons for the learning layer.
             </p>
           </div>
 
         </div>
 
-        <!-- Transformation Ribbon -->
-        <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(14, 30, 56, 0.8); border: 1px solid rgba(56, 189, 248, 0.25); padding: 0.8vw 1.5vw; border-radius: 0.5vw;">
+        <!-- Flow Diagram Ribbon (Timeline Style) -->
+        <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(232, 226, 217, 0.15); padding: 0.75vw 1.5vw; border-radius: 0.6vw;">
           <div style="text-align: center;">
-            <div style="font-size: 0.7vw; color: var(--text-dim); text-transform: uppercase;">From Problem</div>
-            <div style="font-size: 0.9vw; font-weight: 700; color: #EF4444;">Human Fatigue</div>
+            <div style="font-size: 0.65vw; color: #9E988F; text-transform: uppercase;">From Challenge</div>
+            <div style="font-size: 0.88vw; font-weight: 700; color: #C8795B;">Human Fatigue</div>
           </div>
-          <div style="color: var(--accent-cyan); font-size: 1.2vw;">➔</div>
+          <div style="color: #A39B92; font-size: 1.1vw;">➔</div>
           <div style="text-align: center;">
-            <div style="font-size: 0.7vw; color: var(--text-dim); text-transform: uppercase;">Through Control</div>
-            <div style="font-size: 0.9vw; font-weight: 700; color: var(--accent-cyan);">Controlled AI</div>
+            <div style="font-size: 0.65vw; color: #9E988F; text-transform: uppercase;">Through Governance</div>
+            <div style="font-size: 0.88vw; font-weight: 700; color: #4A5D70;">Controlled AI</div>
           </div>
-          <div style="color: var(--accent-cyan); font-size: 1.2vw;">➔</div>
+          <div style="color: #A39B92; font-size: 1.1vw;">➔</div>
           <div style="text-align: center;">
-            <div style="font-size: 0.7vw; color: var(--text-dim); text-transform: uppercase;">Through Feedback</div>
-            <div style="font-size: 0.9vw; font-weight: 700; color: var(--accent-green);">Learning Signals</div>
+            <div style="font-size: 0.65vw; color: #9E988F; text-transform: uppercase;">Through Feedback</div>
+            <div style="font-size: 0.88vw; font-weight: 700; color: #7A8B6E;">Learning Signals</div>
           </div>
-          <div style="color: var(--accent-cyan); font-size: 1.2vw;">➔</div>
+          <div style="color: #A39B92; font-size: 1.1vw;">➔</div>
           <div style="text-align: center;">
-            <div style="font-size: 0.7vw; color: var(--text-dim); text-transform: uppercase;">To Scalable Impact</div>
-            <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">More Scalable Operations</div>
+            <div style="font-size: 0.65vw; color: #9E988F; text-transform: uppercase;">To Scalable Impact</div>
+            <div style="font-size: 0.88vw; font-weight: 700; color: #F8FAFC;">More Scalable Operations</div>
           </div>
         </div>
 
-        <div class="takeaway-banner">
-          DocuMatch shifts the operational paradigm from brute-force extraction to sustainable trade reliability.
+        <div class="takeaway-banner" style="background: rgba(239, 235, 228, 0.08); border-left-color: #C8795B; margin-top: 0.7vw; padding: 0.7vw 1.2vw;">
+          <span style="color: #F8FAFC;">DocuMatch shifts the operational paradigm from brute-force extraction to sustainable trade reliability.</span>
         </div>
       </div>
 
@@ -1455,11 +1837,10 @@ def build_deck():
       </div>
     </div>
 
-
+<!-- =================================================================== -->
+    <!-- SLIDE 14: COMPETITIVE STRENGTH -->
     <!-- =================================================================== -->
-    <!-- SLIDE 11: COMPETITIVE STRENGTH -->
-    <!-- =================================================================== -->
-    <div class="slide" id="slide-11">
+    <div class="slide" id="slide-14">
       <div class="slide-header">
         <div class="brand-cluster">
           <div class="brand-logo-icon">🚢</div>
@@ -1468,7 +1849,7 @@ def build_deck():
         </div>
         <div class="header-right">
           <span class="category-label">Capability Matrix</span>
-          <span class="slide-number-badge">11 / 12</span>
+          <span class="slide-number-badge">14 / 16</span>
         </div>
       </div>
 
@@ -1562,10 +1943,109 @@ def build_deck():
     </div>
 
 
+
     <!-- =================================================================== -->
-    <!-- SLIDE 12: VISION & FINAL -->
+    <!-- SLIDE 15: STRATEGIC HORIZON & FUTURE ROADMAP -->
     <!-- =================================================================== -->
-    <div class="slide" id="slide-12">
+    <div class="slide" id="slide-15">
+      <div class="slide-header">
+        <div class="brand-cluster">
+          <div class="brand-logo-icon">🚢</div>
+          <span class="brand-title">Averish Shipping AI</span>
+          <span class="brand-badge">Product Roadmap</span>
+        </div>
+        <div class="header-right">
+          <span class="category-label">Scalability & Horizon</span>
+          <span class="slide-number-badge">15 / 16</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="headline-wrap">
+          <div class="headline-pre">From Prototype to Global Trade Mesh</div>
+          <h1 class="slide-title">Phased strategic roadmap for enterprise scalability.</h1>
+        </div>
+
+        <!-- 3 Horizontal Milestone Phases -->
+        <div class="card-grid-3" style="margin: 1.1vw 0 0.8vw 0;">
+          
+          <!-- Phase 1: Near Term -->
+          <div class="glass-card" style="border-top: 3.5px solid #38BDF8; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
+                <span class="pill-tag cyan" style="font-size: 0.58vw;">PHASE 01: Q1–Q2 2026</span>
+                <span style="font-size: 0.75vw; color: #34D399; font-weight: 600;">IN PROGRESS</span>
+              </div>
+              <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">Multi-Document Triangulation</div>
+              <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
+                Cross-document discrepancy detection across the entire maritime shipment bundle.
+              </p>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
+              • Cross-validation: SI ➔ Ocean B/L ➔ Invoice<br>
+              • Automated HS code & weight variance detection<br>
+              • Coverage expansion to 20+ ocean container liners<br>
+              • Self-correcting date & port format normalizers
+            </div>
+          </div>
+
+          <!-- Phase 2: Mid Term -->
+          <div class="glass-card" style="border-top: 3.5px solid #6366F1; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
+                <span class="pill-tag cyan" style="font-size: 0.58vw;">PHASE 02: Q3–Q4 2026</span>
+                <span style="font-size: 0.75vw; color: #F59E0B; font-weight: 600;">PLANNED</span>
+              </div>
+              <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">Enterprise ERP & Port Sync</div>
+              <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
+                Bi-directional connectors for global forwarding software and port terminal operating systems.
+              </p>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
+              • Native CargoWise & SAP Logistics API connectors<br>
+              • Federated Reflexion memory across forwarder desks<br>
+              • Automated Slack / Teams exception webhooks<br>
+              • Real-time EDI 304 / 310 direct transmission
+            </div>
+          </div>
+
+          <!-- Phase 3: Long Term -->
+          <div class="glass-card" style="border-top: 3.5px solid #10B981; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4vw;">
+                <span class="pill-tag green" style="font-size: 0.58vw;">PHASE 03: 2027+</span>
+                <span style="font-size: 0.75vw; color: #38BDF8; font-weight: 600;">VISION</span>
+              </div>
+              <div style="font-size: 0.9vw; font-weight: 700; color: #FFFFFF;">Autonomous Trade Mesh</div>
+              <p style="font-size: 0.65vw; color: var(--text-muted); margin-top: 0.3vw; line-height: 1.45;">
+                Verifiable cryptographic provenance certificates for legal customs & demurrage dispute protection.
+              </p>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 0.4vw; padding: 0.5vw; margin-top: 0.6vw; font-size: 0.62vw; color: var(--text-muted); line-height: 1.5;">
+              • Tamper-proof cryptographic Refusal Certificates<br>
+              • AI-mediated detention & demurrage arbitration<br>
+              • Global carrier reliability compliance index<br>
+              • Zero-knowledge trade audit compliance trails
+            </div>
+          </div>
+
+        </div>
+
+        <div class="takeaway-banner" style="padding: 0.65vw 1.2vw; font-size: 0.78vw;">
+          “A disciplined path from single-document validation to global maritime trade automation and dispute protection.”
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Averish Shipping AI — Strategic Horizons: Triangulation ➔ ERP Integration ➔ Autonomous Trade Mesh</span>
+        <span class="footer-quote">Building the future of sustainable maritime intelligence.</span>
+      </div>
+    </div>
+
+<!-- =================================================================== -->
+    <!-- SLIDE 16: VISION & FINAL -->
+    <!-- =================================================================== -->
+    <div class="slide" id="slide-16">
       <div class="slide-header">
         <div class="brand-cluster">
           <div class="brand-logo-icon">🚢</div>
@@ -1574,7 +2054,7 @@ def build_deck():
         </div>
         <div class="header-right">
           <span class="category-label">The Future of Trade AI</span>
-          <span class="slide-number-badge">12 / 12</span>
+          <span class="slide-number-badge">16 / 16</span>
         </div>
       </div>
 
@@ -1658,6 +2138,7 @@ def build_deck():
       </div>
     </div>
 
+
   </div> <!-- /#deck-viewport -->
 
 
@@ -1669,7 +2150,7 @@ def build_deck():
       <!-- Generated via JS -->
     </div>
 
-    <span id="slide-indicator" style="font-family: 'JetBrains Mono', monospace; font-size: 0.75vw; color: var(--accent-cyan); font-weight: 600; min-width: 3.5vw; text-align: center;">01 / 12</span>
+    <span id="slide-indicator" style="font-family: 'JetBrains Mono', monospace; font-size: 0.75vw; color: var(--accent-cyan); font-weight: 600; min-width: 3.5vw; text-align: center;">01 / 16</span>
 
     <button class="hud-btn" id="next-btn" title="Next Slide (Right Arrow / Space)">Next ▶</button>
     <button class="hud-btn" id="fullscreen-btn" title="Toggle Fullscreen (F)">⛶</button>
@@ -1678,7 +2159,7 @@ def build_deck():
 
   <!-- Script for Navigation & Scaled 16:9 Viewport -->
   <script>
-    const TOTAL_SLIDES = 12;
+    const TOTAL_SLIDES = 16;
     let currentSlide = 1;
 
     const slides = document.querySelectorAll('.slide');
