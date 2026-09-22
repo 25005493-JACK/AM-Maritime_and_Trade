@@ -288,10 +288,21 @@ $$\text{Time Saved (minutes)} = (\text{Auto-Processed Shipments} \times 12\text{
 - **Zero Silent Errors**: Circuit breakers and mechanical whitelists prevent ungrounded AI hallucination.
 - **Elimination of Port Fines**: Eliminates clerical discrepancies before documentation is finalized with ocean carriers.
 
+**How we will validate these claims:** Reviewers will time the same representative SI/BL cases manually and with DocuMatch, including correction and review time. We will report the case count, total times, and reduction calculated as `1 - DocuMatch time / manual time`. Separately, we will check system decisions against independently labeled emails and documents. A silent error means a missed comparison request or an incorrect `OK` result that reaches the end without review. We will report the count as `silent errors / N cases`, alongside correct matches, detected mismatches, and review cases. **78% reduction and zero silent errors remain targets until these results are measured.**
+
 ### Commercial Roadmap
 - **Phase 1 (Completed)**: Core prototype with FastAPI, React 19, Supabase Cloud PostgreSQL, multi-format OCR, and DCSA alignment.
 - **Phase 2 (Enterprise Pilot)**: Automated ingestion via IMAP/Microsoft Graph API webhooks connecting directly to operational Outlook/Gmail inboxes.
 - **Phase 3 (Carrier Integration)**: Direct API integration with global carriers (Maersk, MSC, CMA CGM) via DCSA eBL REST endpoints for one-click amendment submissions.
+
+---
+
+## Challenges Faced and How We Addressed Them
+
+- **Four-day build window:** We prioritized one working end-to-end path: classify an email, read its SI and draft BL, compare the seven required fields, and show the result for review. We built the wider operations views around that core flow.
+- **Different document formats and poor scans:** The attachment reader handles TXT, DOCX, XLSX, and PDF. PyMuPDF reads searchable PDF text and runs OCR on image-only pages; unreadable results are sent to human review.
+- **Inconsistent field labels and formatting:** A field dictionary and normalization rules align terms such as `Load Port` and `Port of Loading`. Guarded comparisons distinguish common formatting differences from shipment discrepancies.
+- **Uncertain or incomplete evidence:** Missing values, wrong document types, and failed validation produce `NEEDS_REVIEW`. The inspector shows source values, and a reviewer can correct them before the comparison is recalculated.
 
 ---
 
