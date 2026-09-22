@@ -241,6 +241,19 @@ Empirically tests the pipeline against 4 simulated failure states:
 - `remove_field`: Deletes critical fields (e.g. gross weight) to ensure the circuit breaker trips.
 - `conflict`: Injects deliberate discrepancies to verify that the propose-and-confirm dialog engages.
 
+### Testing 
+
+Four existing automated tests were run locally and passed:
+
+| Test case | What it checks | Result |
+| --- | --- | --- |
+| `test_email_classification` | Routes emails into the expected categories | **Pass** |
+| `test_document_comparator_mismatch` | Flags a differing SI/BL field | **Pass** |
+| `test_document_comparator_human_review` | Escalates a comparison that needs a reviewer | **Pass** |
+| `test_scanned_pdf_uses_pymupdf_ocr` | Extracts text from an image-only PDF | **Pass** |
+
+These are automated checks in `tests/test_verification_pipeline.py` and `tests/test_pdf_ocr_dashboard.py`; they do not measure overall accuracy or user experience. We have not yet collected feedback from shipping-operations users. A pilot will record task completion, correction frequency, time per case, and reviewer comments.
+
 ---
 
 ## Innovation & Solution Approach
@@ -281,11 +294,11 @@ DocuMatch re-architects document intelligence as a **stateful learning-agent sys
 ## Practical Value & Operational Impact
 
 ### Quantifiable Operational ROI
-DocuMatch calculates operational savings using verified time-motion baselines:
+DocuMatch estimates operational savings using planning assumptions of 12 minutes per auto-processed shipment and 7 minutes per assisted review. These assumptions still need a timed study:
 $$\text{Time Saved (minutes)} = (\text{Auto-Processed Shipments} \times 12\text{ min}) + (\text{Assisted Reviews} \times 7\text{ min})$$
 
-- **78% Reduction** in overall document verification turnaround time.
-- **Zero Silent Errors**: Circuit breakers and mechanical whitelists prevent ungrounded AI hallucination.
+- **78% Reduction (target)** in overall document verification turnaround time.
+- **Zero Silent Errors (target)**: Circuit breakers and mechanical whitelists aim to prevent ungrounded AI hallucination.
 - **Elimination of Port Fines**: Eliminates clerical discrepancies before documentation is finalized with ocean carriers.
 
 **How we will validate these claims:** Reviewers will time the same representative SI/BL cases manually and with DocuMatch, including correction and review time. We will report the case count, total times, and reduction calculated as `1 - DocuMatch time / manual time`. Separately, we will check system decisions against independently labeled emails and documents. A silent error means a missed comparison request or an incorrect `OK` result that reaches the end without review. We will report the count as `silent errors / N cases`, alongside correct matches, detected mismatches, and review cases. **78% reduction and zero silent errors remain targets until these results are measured.**
@@ -294,6 +307,15 @@ $$\text{Time Saved (minutes)} = (\text{Auto-Processed Shipments} \times 12\text{
 - **Phase 1 (Completed)**: Core prototype with FastAPI, React 19, Supabase Cloud PostgreSQL, multi-format OCR, and DCSA alignment.
 - **Phase 2 (Enterprise Pilot)**: Automated ingestion via IMAP/Microsoft Graph API webhooks connecting directly to operational Outlook/Gmail inboxes.
 - **Phase 3 (Carrier Integration)**: Direct API integration with global carriers (Maersk, MSC, CMA CGM) via DCSA eBL REST endpoints for one-click amendment submissions.
+
+### Technical Scalability Plan
+
+The current prototype processes document requests synchronously. To handle a larger inbox, we plan to:
+
+1. Put extraction and OCR in a job queue so slow scans do not block inbox requests, then add workers as document volume grows.
+2. Store job state, extracted evidence, and reviewer decisions durably so work survives restarts and can run across multiple servers.
+3. Retry temporary failures with limits, and send jobs that still fail to a visible human-review queue.
+4. Load-test mixed document types and monitor queue wait time, processing time, throughput, and error rate before increasing traffic.
 
 ---
 
