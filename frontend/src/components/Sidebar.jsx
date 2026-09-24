@@ -151,10 +151,11 @@ export default function Sidebar({ activeTab, setActiveTab, stats, healthInfo, on
         </nav>
       </div>
 
-      {/* LLM Agent Layer Mode Status */}
-      <div className="px-3 py-2 border-t border-blue-900/40 bg-slate-900/40">
+      {/* System Footer Controls & LLM Mode Status */}
+      <div className="p-3 border-t border-blue-900/60 bg-blue-950/20 space-y-2.5">
+        {/* LLM Agent Layer Mode Status */}
         {!collapsed ? (
-          <div className="flex items-center justify-between text-[11px] font-mono">
+          <div className="flex items-center justify-between text-[11px] font-mono pb-2 border-b border-blue-900/40">
             <span className="text-slate-400 font-medium">LLM Mode:</span>
             {healthInfo?.llm_mode === 'assist' ? (
               <span className="px-2 py-0.5 rounded-full bg-purple-950/90 border border-purple-500/60 text-purple-300 font-bold flex items-center space-x-1.5 shadow-sm shadow-purple-950">
@@ -168,14 +169,11 @@ export default function Sidebar({ activeTab, setActiveTab, stats, healthInfo, on
             )}
           </div>
         ) : (
-          <div className="flex justify-center" title={`LLM Mode: ${(healthInfo?.llm_mode || 'off').toUpperCase()}`}>
+          <div className="flex justify-center pb-2 border-b border-blue-900/40" title={`LLM Mode: ${(healthInfo?.llm_mode || 'off').toUpperCase()}`}>
             <span className={`w-2.5 h-2.5 rounded-full ${healthInfo?.llm_mode === 'assist' ? 'bg-purple-400 animate-pulse' : 'bg-slate-600'}`} />
           </div>
         )}
-      </div>
 
-      {/* System Footer Controls */}
-      <div className="p-3 border-t border-blue-900/60 bg-blue-950/20">
         <div className={`flex items-center ${collapsed ? 'justify-center flex-col space-y-2' : 'justify-between'} text-xs text-slate-400`}>
           {!collapsed && (
             <div className="flex items-center space-x-2">

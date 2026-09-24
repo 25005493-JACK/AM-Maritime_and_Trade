@@ -118,22 +118,44 @@
     "id": "MSG-006",
     "sender": "chartering@oceanic-trade.com",
     "recipient": "booking@maritime-line.com",
-    "subject": "Enquiry of sailing schedule and space - Shanghai to Rotterdam Q4",
+    "subject": "Enquiry & SI/BL Verification - Shanghai to Rotterdam Q4 - EVER GIVEN v.045E",
     "timestamp": "2026-09-18T14:10:00Z",
-    "body": "Good day,\n\nWe would like to enquire about vessel sailing schedules and available container capacity from Shanghai (CNSHA) to Rotterdam (NLRTM) for October 2026.\n\nRegards,\nOceanic Trade Corp",
-    "attachments": [],
-    "vessel": "N/A",
-    "voyage": "N/A",
+    "body": "Good day,\n\nPlease find attached the Shipping Instruction (SI) and draft Bill of Lading (BL) for Oceanic Trade Corp booking BK-OTC-2026-601 on vessel EVER GIVEN v.045E from Shanghai (CNSHA) to Rotterdam (NLRTM).\n\nRegards,\nOceanic Trade Corp",
+    "attachments": [
+      {
+        "filename": "MSG006_OceanicTrade_SI.txt",
+        "doc_type": "SI",
+        "path": "backend/data/attachments/MSG006_OceanicTrade_SI.txt"
+      },
+      {
+        "filename": "MSG006_OceanicTrade_BL.txt",
+        "doc_type": "BL",
+        "path": "backend/data/attachments/MSG006_OceanicTrade_BL.txt"
+      }
+    ],
+    "vessel": "EVER GIVEN",
+    "voyage": "v.045E",
     "company": "Oceanic Trade Corp"
   },
   {
     "id": "MSG-007",
     "sender": "trucking@portlogistics.com",
     "recipient": "depot@maritime-line.com",
-    "subject": "Request for early container pick up - Booking BK-99214 Depot B",
+    "subject": "SI and Draft BL Verification - Booking BK-99214 - MSC ISABELLA v.240E",
     "timestamp": "2026-09-18T14:45:00Z",
-    "body": "Hi Team,\n\nDriver requested early gate-in and container pickup for 3x 40ft High Cube containers at Depot B tomorrow 08:00 AM.\n\nBest,\nDriver Ops",
-    "attachments": [],
+    "body": "Hi Team,\n\nPlease find attached the Shipping Instruction and draft Bill of Lading for booking BK-99214 on vessel MSC ISABELLA v.240E.\n\nBest,\nDriver Ops & Logistics Desk",
+    "attachments": [
+      {
+        "filename": "MSG007_GlobalTraders_SI.txt",
+        "doc_type": "SI",
+        "path": "backend/data/attachments/MSG007_GlobalTraders_SI.txt"
+      },
+      {
+        "filename": "MSG007_GlobalTraders_BL.txt",
+        "doc_type": "BL",
+        "path": "backend/data/attachments/MSG007_GlobalTraders_BL.txt"
+      }
+    ],
     "vessel": "MSC ISABELLA",
     "voyage": "v.240E",
     "company": "Global Traders Inc"

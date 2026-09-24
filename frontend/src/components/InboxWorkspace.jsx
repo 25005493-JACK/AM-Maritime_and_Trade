@@ -14,6 +14,7 @@ import {
   CheckSquare,
   Square,
   ShieldCheck,
+  ShieldAlert,
   Send,
   AlertOctagon,
   X,
@@ -263,37 +264,6 @@ export default function InboxWorkspace({
         </div>
 
         <div className="flex items-center space-x-3">
-          {healthInfo && (
-            <div className="hidden sm:flex items-center space-x-1.5 px-2.5 py-1 rounded-lg border border-blue-900/60 bg-blue-950/40 font-mono text-[11px]">
-              <span className="text-slate-400">LLM Mode:</span>
-              {healthInfo.llm_mode === 'assist' ? (
-                <span className="text-purple-300 font-bold flex items-center space-x-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
-                  <span>ASSIST</span>
-                </span>
-              ) : (
-                <span className="text-slate-400 font-medium">OFF (Rules-Only)</span>
-              )}
-            </div>
-          )}
-
-          <button
-            onClick={() => setShowUploadModal(true)}
-            className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 hover:from-blue-500 hover:to-cyan-400 text-slate-950 font-extrabold text-xs flex items-center space-x-1.5 shadow-lg shadow-cyan-950/60 transition active:scale-95 cursor-pointer"
-          >
-            <Upload className="w-3.5 h-3.5" />
-            <span>Upload SI + BL Pair</span>
-          </button>
-
-          {selectedEmailId && (
-            <button
-              onClick={() => onSelectEmail(null)}
-              className="px-3 py-1.5 rounded-lg bg-blue-950 hover:bg-blue-900 text-cyan-300 font-semibold text-xs border border-blue-800/80 flex items-center space-x-1.5 transition cursor-pointer"
-            >
-              <X className="w-3.5 h-3.5" />
-              <span>Close Inspector</span>
-            </button>
-          )}
         </div>
       </div>
 
@@ -393,6 +363,12 @@ export default function InboxWorkspace({
                 const classInfo = email.classification || {};
                 const emailVerif = email.verification;
 
+                const isSpam = classInfo.category === 'SPAM' || classInfo.super_category === 'Spam / General' || email.is_spam || email.status === 'SPAM' || emailVerif?.status === 'SPAM';
+                const isCircuitBreaker = email.circuit_breaker_tripped || email.id === 'email_004' || emailVerif?.circuit_breaker_tripped;
+                const isNoMismatch = emailVerif?.status === 'NO_MISMATCH_DETECTED' || emailVerif?.status === 'OK';
+                const isMismatch = emailVerif?.status === 'MISMATCH_DETECTED' || emailVerif?.status === 'MISMATCH';
+                const isHumanReview = emailVerif?.status === 'HUMAN_REVIEW_REQUIRED' || emailVerif?.status === 'NEEDS_REVIEW';
+
                 return (
                   <div
                     key={email.id}
@@ -443,28 +419,34 @@ export default function InboxWorkspace({
                       </div>
 
                       <div className="flex items-center space-x-2">
-                        {(email.circuit_breaker_tripped || email.id === 'email_004' || emailVerif?.circuit_breaker_tripped) && (
+                        {isCircuitBreaker && (
                           <span className="bg-rose-950 border border-rose-600 text-rose-300 px-2 py-0.5 rounded flex items-center space-x-1 font-mono text-[10px] font-bold">
                             <AlertOctagon className="w-3 h-3 text-rose-400 animate-pulse" />
                             <span>Circuit Breaker</span>
                           </span>
                         )}
-                        {(emailVerif?.status === 'NO_MISMATCH_DETECTED' || emailVerif?.status === 'OK') && (
+                        {isNoMismatch && (
                           <span className="bg-emerald-950/80 text-emerald-300 border border-emerald-700 px-2 py-0.5 rounded flex items-center space-x-1 font-mono text-[10px]">
                             <CheckCircle2 className="w-3 h-3 text-emerald-400" />
                             <span>No Mismatch</span>
                           </span>
                         )}
-                        {(emailVerif?.status === 'MISMATCH_DETECTED' || emailVerif?.status === 'MISMATCH') && (
+                        {isMismatch && (
                           <span className="bg-rose-950/80 text-rose-300 border border-rose-700 px-2 py-0.5 rounded flex items-center space-x-1 font-mono text-[10px] mismatch-glow">
                             <AlertCircle className="w-3 h-3 text-rose-400" />
                             <span>Mismatch</span>
                           </span>
                         )}
-                        {(emailVerif?.status === 'HUMAN_REVIEW_REQUIRED' || emailVerif?.status === 'NEEDS_REVIEW') && (
+                        {isHumanReview && (
                           <span className="bg-amber-950/80 text-amber-300 border border-amber-700 px-2 py-0.5 rounded flex items-center space-x-1 font-mono text-[10px]">
                             <HelpCircle className="w-3 h-3 text-amber-400" />
                             <span>Human Review</span>
+                          </span>
+                        )}
+                        {isSpam && (
+                          <span className="bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded flex items-center space-x-1 font-mono text-[10px]">
+                            <ShieldAlert className="w-3 h-3 text-slate-400" />
+                            <span>Spam</span>
                           </span>
                         )}
                       </div>
@@ -533,7 +515,7 @@ export default function InboxWorkspace({
             </div>
 
             {/* DROPDOWN EXPANDABLE CARD FOR ACTUAL EMAIL CONTENT (DEFAULT CLOSED / MINIMIZED) */}
-            <div className="p-3 border-b border-blue-900/40 bg-slate-900/60 shrink-0">
+            <div className="p-3 border-b border-blue-900/40 bg-slate-900/60 shrink-0 space-y-2.5">
               <button
                 onClick={() => setIsEmailContentOpen(!isEmailContentOpen)}
                 className="w-full flex items-center justify-between p-2.5 rounded-xl bg-blue-950/40 hover:bg-blue-950/80 border border-blue-900/60 text-xs font-bold text-slate-200 transition"
@@ -549,10 +531,18 @@ export default function InboxWorkspace({
               </button>
 
               {isEmailContentOpen && (
-                <div className="mt-2.5 p-3 rounded-xl bg-slate-950 border border-blue-900/60 font-mono text-xs text-slate-300 leading-relaxed max-h-48 overflow-y-auto whitespace-pre-wrap animate-fadeIn">
+                <div className="p-3 rounded-xl bg-slate-950 border border-blue-900/60 font-mono text-xs text-slate-300 leading-relaxed max-h-48 overflow-y-auto whitespace-pre-wrap animate-fadeIn">
                   {currentEmail?.body || 'No text body available.'}
                 </div>
               )}
+
+              <button
+                onClick={() => setShowUploadModal(true)}
+                className="w-full py-2 px-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 hover:from-blue-500 hover:to-cyan-400 text-slate-950 font-extrabold text-xs flex items-center justify-center space-x-2 shadow-lg shadow-cyan-950/60 transition active:scale-95 cursor-pointer"
+              >
+                <Upload className="w-4 h-4" />
+                <span>Upload SI + BL Pair</span>
+              </button>
             </div>
 
             {/* 2 TABS CONTROL BAR: SI vs BL AND SHIPMENT TIMELINE */}
@@ -803,6 +793,7 @@ export default function InboxWorkspace({
         isOpen={showUploadModal}
         onClose={() => setShowUploadModal(false)}
         onUploadSuccess={onUploadSuccess}
+        targetEmail={currentEmail}
       />
     </div>
   );

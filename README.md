@@ -222,9 +222,6 @@ Long-running document verifications are tracked durably across server restarts:
 
 ---
 
-<<<<<<< Updated upstream
-## Quickstart & Verification Guide
-=======
 ## Working Core Prototype
 
 DocuMatch is a fully functional, live-tested enterprise prototype ready for operational evaluation.
@@ -233,9 +230,10 @@ DocuMatch is a fully functional, live-tested enterprise prototype ready for oper
 1. **Intelligent Inbox Triage View**: Categorizes operational messages in real time with visual category tags (`BL_COMPARISON`, `SI_REQUEST`, `INVOICE_QUERY`, `GENERAL`, `SPAM`).
 2. **Split-Screen Discrepancy Inspector**: Side-by-side inspection showing the reference Shipping Instruction on the left, draft Bill of Lading on the right, and highlighted character differences.
 3. **Interactive Propose-and-Confirm Panel**: Reviewers can review both candidate values, select the correct source, or provide an amended value. Resolutions are saved directly to Supabase Cloud.
-4. **Shipment Lifecycle Timeline Wheel**: Visualizes the 7 sequential stages of ocean freight documentation (`Booking` &rarr; `SI Ingest` &rarr; `AI Draft` &rarr; `Comparison` &rarr; `Review` &rarr; `Approval` &rarr; `Dispatched`).
-5. **Vessel Assignment & Container Calendar**: Schedules vessel allocations across major ports (Rotterdam, Singapore, Hamburg, LA) and synchronizes with Google Calendar.
-6. **Automation License Slider**: Grants operations managers fine-grained control over system autonomy:
+4. **Company-Scoped Live Document Verification Upload**: Upload custom SI and draft BL document pairs bound to any specific company (e.g., *Pacific Merchandise Exports*, *April Fine Paper Trading FZE*), automatically classified, extracted, and compared through the live pipeline.
+5. **Shipment Lifecycle Timeline Wheel**: Visualizes the 7 sequential stages of ocean freight documentation (`Booking` &rarr; `SI Ingest` &rarr; `AI Draft` &rarr; `Comparison` &rarr; `Review` &rarr; `Approval` &rarr; `Dispatched`).
+6. **Vessel Assignment & Container Calendar**: Schedules vessel allocations across major ports (Rotterdam, Singapore, Hamburg, LA) and synchronizes with Google Calendar.
+7. **Automation License Slider**: Grants operations managers fine-grained control over system autonomy:
    - **Level 0**: Read-only extraction; human must manually approve every single field.
    - **Level 1 (Default)**: Automated comparison; all discrepancies and uncertain fields require human sign-off.
    - **Level 2**: Auto-approves high-confidence matching fields; queues verified records for sampling audit.
@@ -291,20 +289,24 @@ DocuMatch was benchmarked by replaying the complete **520 operational email data
 
 ### 5. Automated Unit & Integration Testing Suite
 
-**106 automated tests** across 10 test suites pass cleanly with 100% success rate (`python -m unittest discover -s tests`):
+**131 automated tests** across 14 test suites pass cleanly with 100% success rate (`python -m pytest`):
 
 | Test Suite | Coverage & Target Architecture | Result |
 |:---|:---|:---|
-| `test_verification_pipeline.py` | Email triage, document comparison, and human review escalation | **Pass** (106/106) |
+| `test_verification_pipeline.py` | Email triage, document comparison, and human review escalation | **Pass** |
 | `test_dcsa_alignment.py` | DCSA eBL v3.0.3 schema mapping, OpenAPI compliance, and evidence anchors | **Pass** |
 | `test_intent_document_decoupling.py` | Checkpoint 1: Task pre-validation and document-intent decoupling | **Pass** |
 | `test_learning_features.py` | Bayesian Thompson Sampling trust posteriors $(\alpha, \beta)$ and Reflexion episodic memory | **Pass** |
+| `test_live_e2e_pipeline.py` | Live E2E pipeline execution and upload indexing | **Pass** |
+| `test_llm_agent.py` | LLM agent tools, fallback mechanisms, and structured schemas | **Pass** |
 | `test_mismatch_regression_fixes.py` | Field discrepancy matrix, address normalization, and character offsets | **Pass** |
 | `test_pdf_ocr_dashboard.py` | PyMuPDF font extraction, Tesseract OCR fallback, and dashboard metrics | **Pass** |
 | `test_rebuilt_workflow.py` | End-to-end operational workflow, state transitions, and audit trails | **Pass** |
 | `test_rules_first_pipeline.py` | Bounded agency, evidence verification, and refusal of ungrounded extractions | **Pass** |
+| `test_security_and_jobs.py` | Role-based authentication, RLS, and durable job store | **Pass** |
 | `test_shipment_timeline.py` | 7-stage shipment lifecycle timeline wheel tracking | **Pass** |
 | `test_trust_features.py` | AI Circuit Breaker, Refusal Certificates, Reasoning Receipts, and Red Team suite | **Pass** |
+| `test_correction_memory.py` | Continuous human correction learning and memory persistence | **Pass** |
 
 ---
 
