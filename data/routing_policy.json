@@ -82,18 +82,18 @@
   "vitalsolutions.sg:consignee": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "consignee",
-    "alpha": 14.0,
-    "beta": 14.0,
+    "alpha": 12.0,
+    "beta": 12.0,
     "mean_trust": 0.5,
-    "last_updated": "2026-09-24T14:41:01.182524+00:00"
+    "last_updated": "2026-09-24T15:44:27.979479+00:00"
   },
   "vitalsolutions.sg:notify_party": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "notify_party",
     "alpha": 1.0,
-    "beta": 14.0,
-    "mean_trust": 0.067,
-    "last_updated": "2026-09-24T14:41:01.141251+00:00"
+    "beta": 12.0,
+    "mean_trust": 0.077,
+    "last_updated": "2026-09-24T15:44:27.958660+00:00"
   },
   "adaptive-sender-6847fd94.com:*": {
     "sender_domain": "adaptive-sender-6847fd94.com",
@@ -163,9 +163,9 @@
     "sender_domain": "eastasiatrading.com",
     "field_name": "container_count",
     "alpha": 1.0,
-    "beta": 11.0,
-    "mean_trust": 0.083,
-    "last_updated": "2026-09-24T14:41:07.257268+00:00"
+    "beta": 14.0,
+    "mean_trust": 0.067,
+    "last_updated": "2026-09-24T15:44:30.683714+00:00"
   },
   "adaptive-sender-77888502.com:*": {
     "sender_domain": "adaptive-sender-77888502.com",
@@ -178,10 +178,10 @@
   "carrier-test-line.com:*": {
     "sender_domain": "carrier-test-line.com",
     "field_name": null,
-    "alpha": 7.0,
-    "beta": 19.0,
-    "mean_trust": 0.269,
-    "last_updated": "2026-09-24T14:41:00.790162+00:00"
+    "alpha": 10.0,
+    "beta": 28.0,
+    "mean_trust": 0.263,
+    "last_updated": "2026-09-24T15:44:27.841658+00:00"
   },
   "fujitogrp.com:container_count": {
     "sender_domain": "fujitogrp.com",
@@ -438,5 +438,29 @@
     "beta": 3.0,
     "mean_trust": 0.4,
     "last_updated": "2026-09-24T14:41:01.259643+00:00"
+  },
+  "adaptive-sender-cfb119a4.com:*": {
+    "sender_domain": "adaptive-sender-cfb119a4.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-24T15:10:41.077033+00:00"
+  },
+  "adaptive-sender-c931705c.com:*": {
+    "sender_domain": "adaptive-sender-c931705c.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-24T15:41:17.531205+00:00"
+  },
+  "adaptive-sender-2f9448e1.com:*": {
+    "sender_domain": "adaptive-sender-2f9448e1.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-24T15:44:28.093517+00:00"
   }
 }

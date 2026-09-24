@@ -16,7 +16,9 @@ import {
   Check,
   X,
   Weight,
-  Compass
+  Compass,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 
 export default function VesselCalendar({ 
@@ -29,6 +31,7 @@ export default function VesselCalendar({
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [selectedDateFilter, setSelectedDateFilter] = useState(null);
   const [targetVesselId, setTargetVesselId] = useState('');
+  const [expandedAllocated, setExpandedAllocated] = useState({});
   const [assignForm, setAssignForm] = useState({
     booking_no: '',
     company: '',
@@ -431,154 +434,184 @@ export default function VesselCalendar({
         </div>
 
         {/* 4. VESSEL SCHEDULES CARDS GRID WITH DUAL TEU & WEIGHT QUOTAS */}
-        <div className="grid grid-cols-2 gap-6">
-          {filteredSchedule.map((vessel) => {
-            const totalBookedTEU = vessel.allocated_containers ? vessel.allocated_containers.reduce((sum, c) => sum + (c.containers || 0), 0) : (vessel.total_booked_containers || 0);
-            const capacityTEU = vessel.total_capacity_teu || 400;
-            const teuPct = Math.min(100, Math.round((totalBookedTEU / capacityTEU) * 100));
+        <div className="space-y-3">
+          <div className="flex items-center justify-between pt-1">
+            <h3 className="text-sm font-extrabold text-slate-100 flex items-center space-x-2 tracking-wide uppercase">
+              <Ship className="w-4 h-4 text-cyan-400" />
+              <span>Cargo Ship Available ({filteredSchedule.length})</span>
+            </h3>
+          </div>
 
-            const maxWeightMT = vessel.max_weight_quota_mt || 10000;
-            const currentWeightMT = vessel.allocated_containers ? vessel.allocated_containers.reduce((sum, c) => sum + (c.weight_mt || (c.containers * 25)), 0) : (vessel.total_booked_weight_mt || 0);
-            const weightPct = Math.min(100, Math.round((currentWeightMT / maxWeightMT) * 100));
+          <div className="grid grid-cols-2 gap-6">
+            {filteredSchedule.map((vessel) => {
+              const totalBookedTEU = vessel.allocated_containers ? vessel.allocated_containers.reduce((sum, c) => sum + (c.containers || 0), 0) : (vessel.total_booked_containers || 0);
+              const capacityTEU = vessel.total_capacity_teu || 400;
+              const teuPct = Math.min(100, Math.round((totalBookedTEU / capacityTEU) * 100));
 
-            return (
-              <div key={vessel.id} className="rounded-2xl border border-blue-900/60 bg-slate-900/90 p-5 space-y-4 hover:border-cyan-500 transition shadow-xl">
-                <div className="flex items-start justify-between border-b border-blue-900/60 pb-3">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-950 text-cyan-400 border border-blue-800 flex items-center justify-center">
-                      <Ship className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="text-base font-bold text-slate-100 flex items-center space-x-2">
-                        <span>{vessel.vessel_name}</span>
-                        <span className="text-xs font-mono text-cyan-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-700">
-                          {vessel.voyage}
-                        </span>
-                      </h3>
-                      <div className="flex items-center space-x-2 text-xs text-slate-400 mt-0.5">
-                        <Anchor className="w-3.5 h-3.5 text-slate-500" />
-                        <span>Carrier: <strong className="text-slate-200">{vessel.carrier}</strong></span>
+              const maxWeightMT = vessel.max_weight_quota_mt || 10000;
+              const currentWeightMT = vessel.allocated_containers ? vessel.allocated_containers.reduce((sum, c) => sum + (c.weight_mt || (c.containers * 25)), 0) : (vessel.total_booked_weight_mt || 0);
+              const weightPct = Math.min(100, Math.round((currentWeightMT / maxWeightMT) * 100));
+              const isExpanded = !!expandedAllocated[vessel.id];
+
+              return (
+                <div key={vessel.id} className="rounded-2xl border border-blue-900/60 bg-slate-900/90 p-5 space-y-4 hover:border-cyan-500 transition shadow-xl">
+                  <div className="flex items-start justify-between border-b border-blue-900/60 pb-3">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 rounded-xl bg-blue-950 text-cyan-400 border border-blue-800 flex items-center justify-center">
+                        <Ship className="w-5 h-5" />
                       </div>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => {
-                      setTargetVesselId(vessel.id);
-                      setShowAssignModal(true);
-                    }}
-                    className="px-3 py-1.5 rounded-xl bg-blue-950 hover:bg-blue-900 text-cyan-300 text-xs font-bold border border-blue-800 flex items-center space-x-1 transition cursor-pointer"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                    <span>Assign</span>
-                  </button>
-                </div>
-
-                {/* ROUTE DISPLAY: DEPARTURE ➔ DESTINATION */}
-                <div className="p-2.5 rounded-xl bg-slate-950 border border-blue-900/60 text-xs font-mono flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] text-slate-500 block uppercase">Departure Place (POL):</span>
-                    <strong className="text-cyan-300">{vessel.departure_port || 'Singapore (SGSIN)'}</strong>
-                  </div>
-                  <span className="text-slate-500 font-bold">➔</span>
-                  <div className="text-right">
-                    <span className="text-[10px] text-slate-500 block uppercase">Destination Port (POD):</span>
-                    <strong className="text-amber-300">{vessel.destination_port}</strong>
-                  </div>
-                </div>
-
-                {/* SCHEDULED DATES */}
-                <div className="grid grid-cols-2 gap-4 text-xs font-mono">
-                  <div className="p-2.5 rounded-xl bg-indigo-950/40 border border-indigo-800">
-                    <span className="text-indigo-400 flex items-center space-x-1 font-bold">
-                      <Clock className="w-3.5 h-3.5" />
-                      <span>🛬 Arriving (ETA):</span>
-                    </span>
-                    <div className="text-indigo-200 font-bold mt-1 text-xs">
-                      {vessel.eta_date}
-                    </div>
-                  </div>
-
-                  <div className="p-2.5 rounded-xl bg-cyan-950/40 border border-cyan-800">
-                    <span className="text-cyan-400 flex items-center space-x-1 font-bold">
-                      <Clock className="w-3.5 h-3.5" />
-                      <span>🛫 Departing (ETD):</span>
-                    </span>
-                    <div className="text-cyan-300 font-bold mt-1 text-xs">
-                      {vessel.etd_date}
-                    </div>
-                  </div>
-                </div>
-
-                {/* DUAL QUOTA BARS: TEU CONTAINER CAPABILITY & PAYLOAD WEIGHT QUOTA */}
-                <div className="space-y-2 p-3 rounded-xl bg-slate-950 border border-blue-900/60">
-                  {/* TEU Container Quota */}
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between text-xs font-mono">
-                      <span className="text-slate-400 font-medium flex items-center space-x-1">
-                        <Package className="w-3.5 h-3.5 text-cyan-400" />
-                        <span>Container Capacity Quota:</span>
-                      </span>
-                      <span className="text-cyan-300 font-bold">
-                        {totalBookedTEU} / {capacityTEU} TEU ({teuPct}%)
-                      </span>
-                    </div>
-                    <div className="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
-                      <div
-                        className={`h-full transition-all duration-500 ${
-                          teuPct > 90 ? 'bg-rose-500' : teuPct > 70 ? 'bg-amber-400' : 'bg-cyan-400'
-                        }`}
-                        style={{ width: `${Math.max(4, teuPct)}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Payload Weight Quota */}
-                  <div className="space-y-1 pt-1 border-t border-slate-900">
-                    <div className="flex items-center justify-between text-xs font-mono">
-                      <span className="text-slate-400 font-medium flex items-center space-x-1">
-                        <Weight className="w-3.5 h-3.5 text-amber-400" />
-                        <span>Payload Weight Quota:</span>
-                      </span>
-                      <span className="text-amber-300 font-bold">
-                        {currentWeightMT.toLocaleString()} / {maxWeightMT.toLocaleString()} MT ({weightPct}%)
-                      </span>
-                    </div>
-                    <div className="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
-                      <div
-                        className={`h-full transition-all duration-500 ${
-                          weightPct > 90 ? 'bg-rose-500' : weightPct > 70 ? 'bg-amber-400' : 'bg-indigo-400'
-                        }`}
-                        style={{ width: `${Math.max(4, weightPct)}%` }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center space-x-1">
-                    <Package className="w-3.5 h-3.5 text-slate-500" />
-                    <span>Allocated Container Bookings ({vessel.allocated_containers?.length || 0}):</span>
-                  </h4>
-                  <div className="space-y-1.5">
-                    {vessel.allocated_containers?.map((c, i) => (
-                      <div key={i} className="p-2 rounded-lg bg-slate-950 border border-blue-900/40 flex items-center justify-between text-xs font-mono">
-                        <div className="flex items-center space-x-2">
-                          <span className="text-cyan-400 font-bold">{c.booking_no}</span>
-                          <span className="text-slate-300">{c.company}</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <span className="bg-blue-950 text-cyan-300 px-2 py-0.5 rounded border border-blue-800 text-[11px]">
-                            {c.containers} TEU ({c.weight_mt || c.containers * 25} MT)
+                      <div>
+                        <h3 className="text-base font-bold text-slate-100 flex items-center space-x-2">
+                          <span>{vessel.vessel_name}</span>
+                          <span className="text-xs font-mono text-cyan-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-700">
+                            {vessel.voyage}
                           </span>
+                        </h3>
+                        <div className="flex items-center space-x-2 text-xs text-slate-400 mt-0.5">
+                          <Anchor className="w-3.5 h-3.5 text-slate-500" />
+                          <span>Carrier: <strong className="text-slate-200">{vessel.carrier}</strong></span>
                         </div>
                       </div>
-                    ))}
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        setTargetVesselId(vessel.id);
+                        setShowAssignModal(true);
+                      }}
+                      className="px-3 py-1.5 rounded-xl bg-blue-950 hover:bg-blue-900 text-cyan-300 text-xs font-bold border border-blue-800 flex items-center space-x-1 transition cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>Assign</span>
+                    </button>
+                  </div>
+
+                  {/* ROUTE DISPLAY: DEPARTURE ➔ DESTINATION */}
+                  <div className="p-2.5 rounded-xl bg-slate-950 border border-blue-900/60 text-xs font-mono flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] text-slate-500 block uppercase">Departure Place (POL):</span>
+                      <strong className="text-cyan-300">{vessel.departure_port || 'Singapore (SGSIN)'}</strong>
+                    </div>
+                    <span className="text-slate-500 font-bold">➔</span>
+                    <div className="text-right">
+                      <span className="text-[10px] text-slate-500 block uppercase">Destination Port (POD):</span>
+                      <strong className="text-amber-300">{vessel.destination_port}</strong>
+                    </div>
+                  </div>
+
+                  {/* SCHEDULED DATES */}
+                  <div className="grid grid-cols-2 gap-4 text-xs font-mono">
+                    <div className="p-2.5 rounded-xl bg-indigo-950/40 border border-indigo-800">
+                      <span className="text-indigo-400 flex items-center space-x-1 font-bold">
+                        <Clock className="w-3.5 h-3.5" />
+                        <span>🛬 Arriving (ETA):</span>
+                      </span>
+                      <div className="text-indigo-200 font-bold mt-1 text-xs">
+                        {vessel.eta_date}
+                      </div>
+                    </div>
+
+                    <div className="p-2.5 rounded-xl bg-cyan-950/40 border border-cyan-800">
+                      <span className="text-cyan-400 flex items-center space-x-1 font-bold">
+                        <Clock className="w-3.5 h-3.5" />
+                        <span>🛫 Departing (ETD):</span>
+                      </span>
+                      <div className="text-cyan-300 font-bold mt-1 text-xs">
+                        {vessel.etd_date}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* DUAL QUOTA BARS: TEU CONTAINER CAPABILITY & PAYLOAD WEIGHT QUOTA */}
+                  <div className="space-y-2 p-3 rounded-xl bg-slate-950 border border-blue-900/60">
+                    {/* TEU Container Quota */}
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between text-xs font-mono">
+                        <span className="text-slate-400 font-medium flex items-center space-x-1">
+                          <Package className="w-3.5 h-3.5 text-cyan-400" />
+                          <span>Container Capacity Quota:</span>
+                        </span>
+                        <span className="text-cyan-300 font-bold">
+                          {totalBookedTEU} / {capacityTEU} TEU ({teuPct}%)
+                        </span>
+                      </div>
+                      <div className="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
+                        <div
+                          className={`h-full transition-all duration-500 ${
+                            teuPct > 90 ? 'bg-rose-500' : teuPct > 70 ? 'bg-amber-400' : 'bg-cyan-400'
+                          }`}
+                          style={{ width: `${Math.max(4, teuPct)}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Payload Weight Quota */}
+                    <div className="space-y-1 pt-1 border-t border-slate-900">
+                      <div className="flex items-center justify-between text-xs font-mono">
+                        <span className="text-slate-400 font-medium flex items-center space-x-1">
+                          <Weight className="w-3.5 h-3.5 text-amber-400" />
+                          <span>Payload Weight Quota:</span>
+                        </span>
+                        <span className="text-amber-300 font-bold">
+                          {currentWeightMT.toLocaleString()} / {maxWeightMT.toLocaleString()} MT ({weightPct}%)
+                        </span>
+                      </div>
+                      <div className="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
+                        <div
+                          className={`h-full transition-all duration-500 ${
+                            weightPct > 90 ? 'bg-rose-500' : weightPct > 70 ? 'bg-amber-400' : 'bg-indigo-400'
+                          }`}
+                          style={{ width: `${Math.max(4, weightPct)}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* COLLAPSIBLE ALLOCATED CONTAINER BOOKINGS SECTION */}
+                  <div className="pt-1">
+                    <button
+                      type="button"
+                      onClick={() => setExpandedAllocated(prev => ({ ...prev, [vessel.id]: !prev[vessel.id] }))}
+                      className="w-full flex items-center justify-between p-2 rounded-xl bg-slate-950 hover:bg-slate-900/80 border border-blue-900/60 text-xs font-semibold text-slate-300 transition cursor-pointer"
+                    >
+                      <div className="flex items-center space-x-1.5 font-bold uppercase tracking-wider text-[11px] text-slate-400">
+                        <Package className="w-3.5 h-3.5 text-cyan-400" />
+                        <span>Allocated Container Bookings ({vessel.allocated_containers?.length || 0})</span>
+                      </div>
+                      <div className="flex items-center space-x-1 text-slate-400 text-[10px] font-mono">
+                        <span>{isExpanded ? 'Minimize' : 'Click to expand'}</span>
+                        {isExpanded ? <ChevronUp className="w-3.5 h-3.5 text-cyan-400" /> : <ChevronDown className="w-3.5 h-3.5 text-cyan-400" />}
+                      </div>
+                    </button>
+
+                    {isExpanded && (
+                      <div className="mt-2 space-y-1.5 animate-fadeIn">
+                        {(!vessel.allocated_containers || vessel.allocated_containers.length === 0) ? (
+                          <div className="p-2 text-center font-mono text-[11px] text-slate-500 bg-slate-950 rounded-lg border border-slate-900">
+                            No containers allocated yet.
+                          </div>
+                        ) : (
+                          vessel.allocated_containers.map((c, i) => (
+                            <div key={i} className="p-2 rounded-lg bg-slate-950 border border-blue-900/40 flex items-center justify-between text-xs font-mono">
+                              <div className="flex items-center space-x-2">
+                                <span className="text-cyan-400 font-bold">{c.booking_no}</span>
+                                <span className="text-slate-300">{c.company}</span>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <span className="bg-blue-950 text-cyan-300 px-2 py-0.5 rounded border border-blue-800 text-[11px]">
+                                  {c.containers} TEU ({c.weight_mt || c.containers * 25} MT)
+                                </span>
+                              </div>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
 

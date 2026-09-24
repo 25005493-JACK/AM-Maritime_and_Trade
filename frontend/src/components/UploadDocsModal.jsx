@@ -3,7 +3,6 @@ import {
   X, 
   Upload, 
   FileText, 
-  Sparkles, 
   AlertTriangle, 
   CheckCircle2, 
   Ship, 
@@ -77,13 +76,13 @@ Vessel & Voyage: MSC ISABELLA V.2601E
 B/L Reference: BL-MATCH-8812
 `;
 
-export default function UploadDocsModal({ isOpen, onClose, onUploadSuccess }) {
+export default function UploadDocsModal({ isOpen, onClose, onUploadSuccess, targetEmail }) {
   const [uploadMode, setUploadMode] = useState('text'); // 'text' or 'file'
-  const [subject, setSubject] = useState('RE: TO CONFIRM DOCS _ LIVE DEMO _ USHOU _ PACIFIC EXPORTS');
-  const [sender, setSender] = useState('docs@pacificmerchandise.com');
-  const [vessel, setVessel] = useState('EVER GIVEN');
-  const [voyage, setVoyage] = useState('V.042W');
-  const [company, setCompany] = useState('Pacific Merchandise');
+  const [subject, setSubject] = useState(targetEmail?.subject || 'RE: TO CONFIRM DOCS _ LIVE DEMO _ USHOU _ PACIFIC EXPORTS');
+  const [sender, setSender] = useState(targetEmail?.sender || 'docs@pacificmerchandise.com');
+  const [vessel, setVessel] = useState(targetEmail?.vessel || 'EVER GIVEN');
+  const [voyage, setVoyage] = useState(targetEmail?.voyage || 'V.042W');
+  const [company, setCompany] = useState(targetEmail?.company || 'Pacific Merchandise');
 
   const [siText, setSiText] = useState(SAMPLE_MISMATCH_SI);
   const [blText, setBlText] = useState(SAMPLE_MISMATCH_BL);
@@ -94,35 +93,22 @@ export default function UploadDocsModal({ isOpen, onClose, onUploadSuccess }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
 
+  React.useEffect(() => {
+    if (targetEmail && isOpen) {
+      if (targetEmail.subject) setSubject(targetEmail.subject);
+      if (targetEmail.sender) setSender(targetEmail.sender);
+      if (targetEmail.company) setCompany(targetEmail.company);
+      if (targetEmail.vessel) setVessel(targetEmail.vessel);
+      if (targetEmail.voyage) setVoyage(targetEmail.voyage);
+    }
+  }, [targetEmail, isOpen]);
+
   if (!isOpen) return null;
-
-  const handleLoadMismatchPreset = () => {
-    setUploadMode('text');
-    setSubject('RE: TO CONFIRM DOCS _ DISCREPANCY DEMO _ USHOU _ PACIFIC EXPORTS');
-    setSender('docs@pacificmerchandise.com');
-    setCompany('Pacific Merchandise');
-    setVessel('EVER GIVEN');
-    setVoyage('V.042W');
-    setSiText(SAMPLE_MISMATCH_SI);
-    setBlText(SAMPLE_MISMATCH_BL);
-    setErrorMsg(null);
-  };
-
-  const handleLoadMatchPreset = () => {
-    setUploadMode('text');
-    setSubject('RE: TO CONFIRM DOCS _ CLEAN MATCH DEMO _ NLRTM _ APRIL FINE PAPER');
-    setSender('logistics@aprilasia.com');
-    setCompany('April Asia');
-    setVessel('MSC ISABELLA');
-    setVoyage('V.2601E');
-    setSiText(SAMPLE_MATCH_SI);
-    setBlText(SAMPLE_MATCH_BL);
-    setErrorMsg(null);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMsg(null);
     setErrorMsg(null);
 
     try {
@@ -136,6 +122,7 @@ export default function UploadDocsModal({ isOpen, onClose, onUploadSuccess }) {
         formData.append('vessel', vessel);
         formData.append('voyage', voyage);
         formData.append('company', company);
+        if (targetEmail?.id) formData.append('target_email_id', targetEmail.id);
         if (siText && !siFile) formData.append('si_text', siText);
         if (blText && !blFile) formData.append('bl_text', blText);
 
@@ -156,6 +143,7 @@ export default function UploadDocsModal({ isOpen, onClose, onUploadSuccess }) {
             vessel,
             voyage,
             company,
+            target_email_id: targetEmail?.id,
             si_text: siText,
             bl_text: blText
           })
@@ -196,7 +184,7 @@ export default function UploadDocsModal({ isOpen, onClose, onUploadSuccess }) {
                 </span>
               </h3>
               <p className="text-xs text-slate-400">
-                Upload real shipping documents or test 1-click live mismatch scenarios to run entity extraction and cross-document comparison.
+                Upload real shipping documents to run entity extraction and cross-document comparison.
               </p>
             </div>
           </div>
@@ -208,31 +196,19 @@ export default function UploadDocsModal({ isOpen, onClose, onUploadSuccess }) {
           </button>
         </div>
 
-        {/* 1-Click Demo Scenarios Toolbar */}
-        <div className="px-6 py-2.5 bg-blue-950/40 border-b border-blue-900/40 flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center space-x-2 text-xs text-slate-300">
-            <Sparkles className="w-4 h-4 text-amber-400" />
-            <span className="font-semibold text-slate-200">1-Click Live Demo Scenarios:</span>
+        {/* Scoped Order Context Bar */}
+        {targetEmail && (
+          <div className="px-6 py-2 bg-gradient-to-r from-blue-950 via-cyan-950/40 to-blue-950 border-b border-cyan-800/40 flex items-center justify-between font-mono text-xs text-cyan-300 shrink-0">
+            <div className="flex items-center space-x-2">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+              <span className="font-bold text-slate-200">Scoped Order Context:</span>
+              <span className="bg-slate-900 px-2 py-0.5 rounded border border-slate-700 text-cyan-400 font-bold">{targetEmail.id}</span>
+              <span>•</span>
+              <span>Company: <strong className="text-white">{targetEmail.company || targetEmail.sender}</strong></span>
+            </div>
+            <span className="text-[11px] text-slate-400 font-semibold">Locked to Email & Company Order</span>
           </div>
-          <div className="flex items-center space-x-2">
-            <button
-              type="button"
-              onClick={handleLoadMismatchPreset}
-              className="px-3 py-1 rounded-lg bg-amber-950/80 hover:bg-amber-900 text-amber-300 border border-amber-600/60 text-xs font-semibold flex items-center space-x-1.5 shadow transition cursor-pointer"
-            >
-              <AlertTriangle className="w-3.5 h-3.5" />
-              <span>Load Mismatch Demo (Container & Weight Dispute)</span>
-            </button>
-            <button
-              type="button"
-              onClick={handleLoadMatchPreset}
-              className="px-3 py-1 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 border border-emerald-600/60 text-xs font-semibold flex items-center space-x-1.5 shadow transition cursor-pointer"
-            >
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>Load Clean Match Demo</span>
-            </button>
-          </div>
-        </div>
+        )}
 
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-4">
@@ -243,8 +219,61 @@ export default function UploadDocsModal({ isOpen, onClose, onUploadSuccess }) {
             </div>
           )}
 
+          {/* Preset Samples & Quick Load */}
+          <div className="flex items-center justify-between bg-slate-950/80 p-2.5 rounded-xl border border-blue-900/40 text-xs">
+            <span className="font-bold text-slate-300 flex items-center space-x-1.5">
+              <Layers className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Quick Test Presets for Specific Companies:</span>
+            </span>
+            <div className="flex space-x-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setCompany('Pacific Merchandise Exports');
+                  setSubject('RE: TO CONFIRM DOCS _ LIVE DEMO _ USHOU _ PACIFIC EXPORTS');
+                  setSender('docs@pacificmerchandise.com');
+                  setVessel('EVER GIVEN');
+                  setVoyage('V.042W');
+                  setSiText(SAMPLE_MISMATCH_SI);
+                  setBlText(SAMPLE_MISMATCH_BL);
+                }}
+                className="px-2.5 py-1 rounded-lg bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 border border-rose-700/60 font-semibold text-[11px] transition"
+              >
+                Pacific Merchandise (Mismatch)
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setCompany('April Fine Paper Trading FZE');
+                  setSubject('RE: TO CONFIRM DOCS _ MATCH DEMO _ NLRTM _ APRIL FINE PAPER');
+                  setSender('docs@aprilfinepaper.com');
+                  setVessel('MSC ISABELLA');
+                  setVoyage('V.2601E');
+                  setSiText(SAMPLE_MATCH_SI);
+                  setBlText(SAMPLE_MATCH_BL);
+                }}
+                className="px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/80 text-emerald-300 border border-emerald-700/60 font-semibold text-[11px] transition"
+              >
+                April Fine Paper (Clean Match)
+              </button>
+            </div>
+          </div>
+
           {/* Metadata Controls */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+            <div>
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                Company / Shipper
+              </label>
+              <input
+                type="text"
+                placeholder="Company Name"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+                className="w-full bg-slate-950 border border-blue-900/60 rounded-lg px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-400 font-mono"
+                required
+              />
+            </div>
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">
                 Subject
