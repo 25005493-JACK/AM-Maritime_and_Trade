@@ -318,5 +318,105 @@
     },
     "error_message": null,
     "metadata": {}
+  },
+  "job_20260924_155951_2d058866": {
+    "job_id": "job_20260924_155951_2d058866",
+    "task_type": "document_verification",
+    "status": "completed",
+    "progress": 100,
+    "email_id": null,
+    "shipment_id": null,
+    "reviewer_id": "Operational Reviewer",
+    "created_at": "2026-09-24T15:59:51.631338+00:00",
+    "updated_at": "2026-09-24T15:59:51.696908+00:00",
+    "completed_at": "2026-09-24T15:59:51.696908+00:00",
+    "result_summary": {
+      "email_id": "email_upload_20260924_155951_9b105d",
+      "shipment_id": "VV-MMSS_2507_V_257087E",
+      "verification_status": "NEEDS_REVIEW",
+      "defect_fields": []
+    },
+    "error_message": null,
+    "metadata": {}
+  },
+  "job_20260924_160229_78607beb": {
+    "job_id": "job_20260924_160229_78607beb",
+    "task_type": "document_verification",
+    "status": "completed",
+    "progress": 100,
+    "email_id": null,
+    "shipment_id": null,
+    "reviewer_id": "Operational Reviewer",
+    "created_at": "2026-09-24T16:02:29.889425+00:00",
+    "updated_at": "2026-09-24T16:02:29.929543+00:00",
+    "completed_at": "2026-09-24T16:02:29.929543+00:00",
+    "result_summary": {
+      "email_id": "email_upload_20260924_160229_445c40",
+      "shipment_id": "VV-MSC_ISABELLA_V_2026W",
+      "verification_status": "MISMATCH",
+      "defect_fields": [
+        "container_count"
+      ]
+    },
+    "error_message": null,
+    "metadata": {}
+  },
+  "job_20260924_160250_cef09680": {
+    "job_id": "job_20260924_160250_cef09680",
+    "task_type": "document_verification",
+    "status": "completed",
+    "progress": 100,
+    "email_id": "email_test_sec_01",
+    "shipment_id": "SHP_SEC_01",
+    "reviewer_id": "Test Reviewer",
+    "created_at": "2026-09-24T16:02:50.762649+00:00",
+    "updated_at": "2026-09-24T16:02:50.764139+00:00",
+    "completed_at": "2026-09-24T16:02:50.764139+00:00",
+    "result_summary": {
+      "verification_status": "OK",
+      "defect_fields": []
+    },
+    "error_message": null,
+    "metadata": {}
+  },
+  "job_20260924_160338_f64ec133": {
+    "job_id": "job_20260924_160338_f64ec133",
+    "task_type": "document_verification",
+    "status": "completed",
+    "progress": 100,
+    "email_id": null,
+    "shipment_id": null,
+    "reviewer_id": "Operational Reviewer",
+    "created_at": "2026-09-24T16:03:38.348115+00:00",
+    "updated_at": "2026-09-24T16:03:38.395230+00:00",
+    "completed_at": "2026-09-24T16:03:38.395230+00:00",
+    "result_summary": {
+      "email_id": "email_upload_20260924_160338_b2e35a",
+      "shipment_id": "VV-MSC_ISABELLA_V_2026W",
+      "verification_status": "MISMATCH",
+      "defect_fields": [
+        "container_count"
+      ]
+    },
+    "error_message": null,
+    "metadata": {}
+  },
+  "job_20260924_160357_2720907c": {
+    "job_id": "job_20260924_160357_2720907c",
+    "task_type": "document_verification",
+    "status": "completed",
+    "progress": 100,
+    "email_id": "email_test_sec_01",
+    "shipment_id": "SHP_SEC_01",
+    "reviewer_id": "Test Reviewer",
+    "created_at": "2026-09-24T16:03:57.347873+00:00",
+    "updated_at": "2026-09-24T16:03:57.349385+00:00",
+    "completed_at": "2026-09-24T16:03:57.349385+00:00",
+    "result_summary": {
+      "verification_status": "OK",
+      "defect_fields": []
+    },
+    "error_message": null,
+    "metadata": {}
   }
 }

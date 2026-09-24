@@ -123,14 +123,14 @@
     "body": "Good day,\n\nPlease find attached the Shipping Instruction (SI) and draft Bill of Lading (BL) for Oceanic Trade Corp booking BK-OTC-2026-601 on vessel EVER GIVEN v.045E from Shanghai (CNSHA) to Rotterdam (NLRTM).\n\nRegards,\nOceanic Trade Corp",
     "attachments": [
       {
-        "filename": "MSG006_OceanicTrade_SI.txt",
+        "filename": "MSG006_OceanicTrade_SI.pdf",
         "doc_type": "SI",
-        "path": "backend/data/attachments/MSG006_OceanicTrade_SI.txt"
+        "path": "backend/data/attachments/MSG006_OceanicTrade_SI.pdf"
       },
       {
-        "filename": "MSG006_OceanicTrade_BL.txt",
+        "filename": "MSG006_OceanicTrade_BL.pdf",
         "doc_type": "BL",
-        "path": "backend/data/attachments/MSG006_OceanicTrade_BL.txt"
+        "path": "backend/data/attachments/MSG006_OceanicTrade_BL.pdf"
       }
     ],
     "vessel": "EVER GIVEN",
@@ -146,14 +146,14 @@
     "body": "Hi Team,\n\nPlease find attached the Shipping Instruction and draft Bill of Lading for booking BK-99214 on vessel MSC ISABELLA v.240E.\n\nBest,\nDriver Ops & Logistics Desk",
     "attachments": [
       {
-        "filename": "MSG007_GlobalTraders_SI.txt",
+        "filename": "MSG007_GlobalTraders_SI.pdf",
         "doc_type": "SI",
-        "path": "backend/data/attachments/MSG007_GlobalTraders_SI.txt"
+        "path": "backend/data/attachments/MSG007_GlobalTraders_SI.pdf"
       },
       {
-        "filename": "MSG007_GlobalTraders_BL.txt",
+        "filename": "MSG007_GlobalTraders_BL.pdf",
         "doc_type": "BL",
-        "path": "backend/data/attachments/MSG007_GlobalTraders_BL.txt"
+        "path": "backend/data/attachments/MSG007_GlobalTraders_BL.pdf"
       }
     ],
     "vessel": "MSC ISABELLA",
