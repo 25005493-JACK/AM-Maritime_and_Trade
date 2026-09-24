@@ -1,0 +1,17 @@
+{
+  "document_type": "Shipping Instruction",
+  "shipper": "PACIFIC GLOBAL LOGISTICS PTE LTD\n10 MARINA BOULEVARD, #18-01 MARINA BAY FINANCIAL CENTRE, SINGAPORE 018983",
+  "consignee": "OCEANIC TRADING CORP S.A.\nAV. SAN MARTIN 1230, PISO 4, BUENOS AIRES, ARGENTINA; TEL: +54 11 4321 8800",
+  "notify_party": "LATAM IMPORTS & LOGISTICS S.A.\nRUA DA ASSEMBLEIA 10, CENTRO, RIO DE JANEIRO, BRAZIL",
+  "port_of_loading": "PORT OF SINGAPORE, SINGAPORE (SGSIN)",
+  "port_of_discharge": "PORT OF SANTOS, BRAZIL (BRSSZ)",
+  "container_count": "2 x 40'HC",
+  "gross_weight_kg": "42,500 KG",
+  "vessel_name": "MV OCEAN STAR V.2409E",
+  "voyage_number": "09E",
+  "description_of_goods": "INDUSTRIAL ELECTRONIC COMPONENTS AND SENSORS",
+  "hs_code": "85423100",
+  "booking_ref": "BKG-SGSIN-2026-9901",
+  "oc_number": "OC-2026-7782",
+  "freight": "PREPAID"
+}
