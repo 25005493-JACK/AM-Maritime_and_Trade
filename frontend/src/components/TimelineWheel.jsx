@@ -6,6 +6,7 @@ import {
   ShieldCheck, Layers, ChevronLeft, ChevronRight, Search,
   ExternalLink, Copy, Check, Filter, Sparkles
 } from 'lucide-react';
+import { apiFetch } from '../api.js';
 
 /* ─────────────────────────────────────────────
    STAGE DEFINITIONS & COLOR TOKENS
@@ -152,16 +153,11 @@ export default function TimelineWheel({ theme }) {
     setLoadingShipments(true);
     setShipmentError(null);
     try {
-      const res = await fetch('/shipments');
+      let res = await apiFetch('/api/shipments');
       if (!res.ok) {
-        // Fallback to /api/shipments
-        const alt = await fetch('/api/shipments');
-        if (!alt.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await alt.json();
-        const list = Array.isArray(data) ? data : (data.shipments || []);
-        setShipments(list);
-        return list;
+        res = await apiFetch('/shipments');
       }
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       const list = Array.isArray(data) ? data : (data.shipments || []);
       setShipments(list);
@@ -181,9 +177,9 @@ export default function TimelineWheel({ theme }) {
     setTimelineError(null);
     setExpandedDoc(null);
     try {
-      let res = await fetch(`/shipments/${encodeURIComponent(sid)}/timeline`);
+      let res = await apiFetch(`/api/shipments/${encodeURIComponent(sid)}/timeline`);
       if (!res.ok) {
-        res = await fetch(`/api/shipments/${encodeURIComponent(sid)}/timeline`);
+        res = await apiFetch(`/shipments/${encodeURIComponent(sid)}/timeline`);
       }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();

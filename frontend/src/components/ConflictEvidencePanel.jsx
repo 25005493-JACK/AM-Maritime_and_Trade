@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   UserCheck,
 } from 'lucide-react';
+import { apiFetch } from '../api.js';
 
 /**
  * Propose-and-confirm conflict resolution.
@@ -78,7 +79,7 @@ export default function ConflictEvidencePanel({ emailId, emailDetail, onShowToas
       return null;
     };
 
-    fetch(`/api/shipments/${emailId}/corrections`)
+    apiFetch(`/api/shipments/${emailId}/corrections`)
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error('failed'))))
       .then((data) => {
         if (!cancelled) setProposals(data);
@@ -115,7 +116,7 @@ export default function ConflictEvidencePanel({ emailId, emailDetail, onShowToas
 
       let data;
       try {
-        const res = await fetch('/api/corrections/resolve', {
+        const res = await apiFetch('/api/corrections/resolve', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email_id: emailId, reviewer_name: reviewer, decisions }),

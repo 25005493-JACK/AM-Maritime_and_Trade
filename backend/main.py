@@ -3,6 +3,9 @@ import os
 import re
 import csv
 import io
+import json
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any, Optional, List
 
@@ -10,7 +13,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from fastapi import FastAPI, HTTPException, Body, Query
+from fastapi import FastAPI, HTTPException, Body, Query, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response, FileResponse
 
@@ -30,6 +33,14 @@ from backend.services.corrections_log import (
     read_corrections,
 )
 from backend.services import supabase_service
+from backend.services.auth import (
+    get_current_reviewer,
+    get_optional_reviewer,
+    create_reviewer_token,
+    ReviewerUser
+)
+from backend.services import job_store
+
 
 app = FastAPI(
     title="DocuMatch - Intelligent Shipping Document Verification API",
@@ -45,34 +56,62 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# In-memory store for manual overrides (pre-seeded with acceptance criteria correction)
-HUMAN_OVERRIDES: Dict[str, Dict[str, Any]] = {
-    "email_111": {
-        "reviewer_name": "Pohyi Chong",
-        "timestamp": "2026-01-20T08:35:00Z",
-        "si_overrides": {},
-        "bl_overrides": {"container_count": 3},
-        "corrections": [
-            {
-                "field": "container_count",
-                "original_ai_value": "4",
-                "corrected_value": "3",
-                "flagged_by": "AI comparison",
-                "linked_event_id": "email_111:ai-mismatch"
-            }
-        ]
+# Persistent file storage for manual overrides across server restarts / reloads
+OVERRIDES_FILE = os.path.join(PROJECT_ROOT, "backend", "data", "human_overrides.json")
+
+def load_persisted_overrides() -> Dict[str, Dict[str, Any]]:
+    default_overrides = {
+        "email_111": {
+            "reviewer_name": "Pohyi Chong",
+            "timestamp": "2026-01-20T08:35:00Z",
+            "si_overrides": {},
+            "bl_overrides": {"container_count": 3},
+            "corrections": [
+                {
+                    "field": "container_count",
+                    "original_ai_value": "4",
+                    "corrected_value": "3",
+                    "flagged_by": "AI comparison",
+                    "linked_event_id": "email_111:ai-mismatch"
+                }
+            ]
+        }
     }
-}
+    if os.path.exists(OVERRIDES_FILE):
+        try:
+            with open(OVERRIDES_FILE, "r", encoding="utf-8") as f:
+                saved = json.load(f)
+                if isinstance(saved, dict):
+                    default_overrides.update(saved)
+        except Exception as e:
+            print(f"[Overrides] Error loading overrides from {OVERRIDES_FILE}: {e}")
+    return default_overrides
+
+def save_persisted_overrides():
+    try:
+        os.makedirs(os.path.dirname(OVERRIDES_FILE), exist_ok=True)
+        tmp = OVERRIDES_FILE + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(HUMAN_OVERRIDES, f, indent=2, ensure_ascii=False)
+        os.replace(tmp, OVERRIDES_FILE)
+    except Exception as e:
+        print(f"[Overrides] Error saving overrides to {OVERRIDES_FILE}: {e}")
+
+# Hydrate in-memory overrides from persistent JSON storage
+HUMAN_OVERRIDES: Dict[str, Dict[str, Any]] = load_persisted_overrides()
 PROCESSED_SUMMARY_CACHE: Optional[List[Dict[str, Any]]] = None
 
 @app.on_event("startup")
 def startup_sync_from_cloud():
-    """Hydrate in-memory overrides from Supabase cloud if connected."""
+    """Hydrate in-memory overrides from persistent local file and Supabase cloud if connected."""
+    global HUMAN_OVERRIDES
+    HUMAN_OVERRIDES.update(load_persisted_overrides())
     try:
         if supabase_service.is_supabase_enabled():
             cloud_overrides = supabase_service.fetch_all_human_overrides()
             if cloud_overrides:
                 HUMAN_OVERRIDES.update(cloud_overrides)
+                save_persisted_overrides()
     except Exception as e:
         print(f"[Supabase] Startup sync notice: {e}")
 
@@ -97,6 +136,127 @@ def supabase_status():
 @app.get("/presentation", response_class=FileResponse)
 def get_presentation():
     return FileResponse(os.path.join(PROJECT_ROOT, "presentation.html"))
+
+@app.get("/api/health")
+@app.get("/health")
+def health_check():
+    """Exposes system health, active LLM mode (DOCUMATCH_LLM_MODE), and cloud/storage status."""
+    llm_mode = os.environ.get("DOCUMATCH_LLM_MODE", "off").strip().lower()
+    if llm_mode not in ("off", "assist"):
+        llm_mode = "off"
+    
+    llm_avail = False
+    try:
+        from llm_agent import is_llm_available
+        llm_avail = is_llm_available()
+    except Exception:
+        pass
+
+    return {
+        "status": "healthy",
+        "service": "DocuMatch Shipping Verification Engine",
+        "version": "2.0.0",
+        "llm_mode": llm_mode,
+        "llm_available": llm_avail,
+        "cloud_database": "supabase" if supabase_service.is_supabase_enabled() else "local",
+        "dataset_size": len(loader.load_inbox()),
+        "overrides_count": len(HUMAN_OVERRIDES)
+    }
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Reviewer Authentication & Session Management
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.post("/api/auth/reviewer-login")
+@app.post("/api/auth/login")
+def reviewer_login(payload: Dict[str, Any] = Body(...)):
+    """
+    Authenticate a human reviewer and issue a signed JWT token.
+    Accepts reviewer_name and optional email and role.
+    """
+    reviewer_name = payload.get("reviewer_name") or payload.get("username") or "Pohyi Chong"
+    email = payload.get("email") or f"{reviewer_name.lower().replace(' ', '.')}@documatch.maritime.internal"
+    role = payload.get("role") or "reviewer"
+    token = create_reviewer_token(
+        reviewer_name=reviewer_name,
+        email=email,
+        role=role
+    )
+    return {
+        "access_token": token,
+        "token_type": "bearer",
+        "reviewer_name": reviewer_name,
+        "email": email,
+        "role": role,
+        "expires_in_hours": 48
+    }
+
+@app.get("/api/auth/me")
+def get_reviewer_profile(current_reviewer: ReviewerUser = Depends(get_current_reviewer)):
+    """Returns profile of currently authenticated reviewer."""
+    return current_reviewer
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Durable Processing Job Management
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.get("/api/jobs")
+def list_processing_jobs(
+    limit: int = Query(50, description="Max jobs to return"),
+    status: Optional[str] = Query(None, description="Filter by status (queued, processing, completed, failed)"),
+    current_reviewer: ReviewerUser = Depends(get_current_reviewer)
+):
+    """Lists durable processing jobs (requires reviewer auth)."""
+    jobs = job_store.list_jobs(limit=limit, status=status)
+    return {
+        "count": len(jobs),
+        "jobs": jobs
+    }
+
+@app.get("/api/jobs/{job_id}")
+def get_processing_job(job_id: str, current_reviewer: ReviewerUser = Depends(get_current_reviewer)):
+    """Retrieves durable state of a processing job (requires reviewer auth)."""
+    job = job_store.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail=f"Processing job {job_id} not found")
+    return job
+
+@app.post("/api/jobs")
+def create_processing_job_endpoint(
+    payload: Dict[str, Any] = Body(...),
+    current_reviewer: ReviewerUser = Depends(get_current_reviewer)
+):
+    """Register or trigger a durable processing job (requires reviewer auth)."""
+    task_type = payload.get("task_type", "document_verification")
+    email_id = payload.get("email_id")
+    shipment_id = payload.get("shipment_id")
+    job = job_store.create_job(
+        task_type=task_type,
+        email_id=email_id,
+        shipment_id=shipment_id,
+        reviewer_id=current_reviewer.reviewer_name
+    )
+    return job
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Human Overrides (Protected Reviewer Access)
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.get("/api/overrides")
+def get_all_overrides(current_reviewer: ReviewerUser = Depends(get_current_reviewer)):
+    """Returns all persisted human reviewer overrides (requires reviewer auth)."""
+    return HUMAN_OVERRIDES
+
+@app.get("/api/overrides/{email_id}")
+def get_override_for_email(email_id: str, current_reviewer: ReviewerUser = Depends(get_current_reviewer)):
+    """Returns human override for a specific email or 404 (requires reviewer auth)."""
+    if email_id not in HUMAN_OVERRIDES:
+        raise HTTPException(status_code=404, detail=f"No overrides found for {email_id}")
+    return HUMAN_OVERRIDES[email_id]
+
+
 
 def _get_refusal_certificate_for_email(email_id: str) -> Optional[Dict[str, Any]]:
     if email_id == "email_004":
@@ -282,13 +442,16 @@ def verify_document(email_id: str):
     return res
 
 @app.post("/api/override")
-def apply_human_override(payload: Dict[str, Any] = Body(...)):
+def apply_human_override(
+    payload: Dict[str, Any] = Body(...),
+    current_reviewer: ReviewerUser = Depends(get_current_reviewer)
+):
     global PROCESSED_SUMMARY_CACHE
     email_id = payload.get("email_id")
     if not email_id:
         raise HTTPException(status_code=400, detail="Missing email_id")
 
-    reviewer = payload.get("reviewer_name") or "Pohyi Chong"
+    reviewer = payload.get("reviewer_name") or current_reviewer.reviewer_name or "Pohyi Chong"
     ts = payload.get("timestamp") or "2026-01-20T08:35:00Z"
     si_overrides = payload.get("si_overrides", {})
     bl_overrides = payload.get("bl_overrides", {})
@@ -318,6 +481,14 @@ def apply_human_override(payload: Dict[str, Any] = Body(...)):
         "bl_overrides": bl_overrides,
         "corrections": corrections
     }
+
+    # Persist to disk and Supabase
+    save_persisted_overrides()
+    if supabase_service.is_supabase_enabled():
+        try:
+            supabase_service.save_human_override(email_id, HUMAN_OVERRIDES[email_id])
+        except Exception as ex:
+            print(f"[Supabase] Error saving human override: {ex}")
 
     # Invalidate cached processed summaries to reflect update
     PROCESSED_SUMMARY_CACHE = None
@@ -363,6 +534,205 @@ def apply_human_override(payload: Dict[str, Any] = Body(...)):
         print(f"Failed to append to corrections.csv: {ex}")
 
     return {"status": "success", "updated_verification": res}
+
+
+@app.post("/api/upload")
+@app.post("/api/shipments/upload")
+async def upload_documents(
+    request: Request,
+    current_reviewer: ReviewerUser = Depends(get_current_reviewer)
+):
+    """
+    Accepts newly uploaded SI + BL document pairs (via JSON or multipart form-data),
+    saves them to disk, indexes them in the live inbox dataset, and runs them
+    through the real verification pipeline.
+    Durably records the job state in backend/data/processing_jobs.json and Supabase.
+    """
+    global PROCESSED_SUMMARY_CACHE
+    content_type = request.headers.get("content-type", "").lower()
+    
+    # Initialize durable processing job
+    job = job_store.create_job(
+        task_type="document_verification",
+        reviewer_id=current_reviewer.reviewer_name
+    )
+    job_id = job["job_id"]
+
+    try:
+        si_text = ""
+        bl_text = ""
+        si_bytes = None
+        bl_bytes = None
+        si_filename = "SI.txt"
+        bl_filename = "BL.txt"
+        subject = ""
+        sender = "operations@maritime-client.com"
+        recipient = "ops@maritime-line.com"
+        vessel = None
+        voyage = None
+        company = None
+
+        if "application/json" in content_type:
+            try:
+                data = await request.json()
+            except Exception as e:
+                raise HTTPException(status_code=400, detail=f"Malformed JSON: {e}")
+            si_text = data.get("si_text", "")
+            bl_text = data.get("bl_text", "")
+            si_filename = data.get("si_filename") or "SI.txt"
+            bl_filename = data.get("bl_filename") or "BL.txt"
+            subject = data.get("subject", "")
+            sender = data.get("sender") or sender
+            recipient = data.get("recipient") or recipient
+            vessel = data.get("vessel")
+            voyage = data.get("voyage")
+            company = data.get("company")
+        else:
+            try:
+                form = await request.form()
+            except Exception as e:
+                raise HTTPException(status_code=400, detail=f"Error parsing form data: {e}")
+            subject = str(form.get("subject") or "")
+            sender = str(form.get("sender") or sender)
+            recipient = str(form.get("recipient") or recipient)
+            vessel = str(form.get("vessel")) if form.get("vessel") else None
+            voyage = str(form.get("voyage")) if form.get("voyage") else None
+            company = str(form.get("company")) if form.get("company") else None
+
+            si_file = form.get("si_file")
+            bl_file = form.get("bl_file")
+
+            if hasattr(si_file, "read"):
+                si_bytes = await si_file.read()
+                si_filename = getattr(si_file, "filename", "SI.txt") or "SI.txt"
+                try:
+                    si_text = si_bytes.decode("utf-8")
+                except Exception:
+                    si_text = ""
+            elif isinstance(si_file, str):
+                si_text = si_file
+
+            if hasattr(bl_file, "read"):
+                bl_bytes = await bl_file.read()
+                bl_filename = getattr(bl_file, "filename", "BL.txt") or "BL.txt"
+                try:
+                    bl_text = bl_bytes.decode("utf-8")
+                except Exception:
+                    bl_text = ""
+            elif isinstance(bl_file, str):
+                bl_text = bl_file
+
+            if not si_text and form.get("si_text"):
+                si_text = str(form.get("si_text"))
+            if not bl_text and form.get("bl_text"):
+                bl_text = str(form.get("bl_text"))
+
+        if not si_text and not si_bytes:
+            raise HTTPException(status_code=400, detail="Shipping Instruction (SI) text or file is required.")
+        if not bl_text and not bl_bytes:
+            raise HTTPException(status_code=400, detail="Bill of Lading (BL) text or file is required.")
+
+        timestamp_slug = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        short_uuid = uuid.uuid4().hex[:6]
+        email_id = f"email_upload_{timestamp_slug}_{short_uuid}"
+
+        si_ext = os.path.splitext(si_filename)[1] or ".txt"
+        bl_ext = os.path.splitext(bl_filename)[1] or ".txt"
+        target_si_name = f"{email_id}_SI{si_ext}"
+        target_bl_name = f"{email_id}_BL{bl_ext}"
+
+        attachments_content = {
+            target_si_name: si_bytes if si_bytes is not None else si_text.encode("utf-8"),
+            target_bl_name: bl_bytes if bl_bytes is not None else bl_text.encode("utf-8")
+        }
+
+        if not subject:
+            subject = f"RE: TO CONFIRM DOCS _ LIVE UPLOAD _ {email_id} _ {company or 'Maritime Client'}"
+
+        email_dict = {
+            "id": email_id,
+            "email_id": email_id,
+            "from": sender,
+            "sender": sender,
+            "to": recipient,
+            "recipient": recipient,
+            "subject": subject,
+            "body": f"Please find attached the Shipping Instruction ({target_si_name}) and draft Bill of Lading ({target_bl_name}) for verification.",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "vessel": vessel or loader._extract_vessel_hint(subject),
+            "voyage": voyage or loader._extract_voyage_hint(subject),
+            "company": company or loader._extract_company_hint(subject),
+            "attachments": [
+                {
+                    "filename": target_si_name,
+                    "path": f"attachments/{target_si_name}",
+                    "doc_type": "SI"
+                },
+                {
+                    "filename": target_bl_name,
+                    "path": f"attachments/{target_bl_name}",
+                    "doc_type": "BL"
+                }
+            ]
+        }
+
+        saved_email = loader.add_uploaded_email(email_dict, attachments_content)
+        PROCESSED_SUMMARY_CACHE = None
+
+        # Execute the real pipeline
+        class_res = classifier.classify(saved_email)
+        si_proc_text, bl_proc_text = _get_email_doc_texts(saved_email)
+        if not si_proc_text and si_text:
+            si_proc_text = si_text
+        if not bl_proc_text and bl_text:
+            bl_proc_text = bl_text
+
+        verif_res = comparator.compare_documents(
+            si_proc_text,
+            bl_proc_text,
+            overrides=HUMAN_OVERRIDES.get(email_id),
+            email_metadata=saved_email
+        )
+
+        shipment_id = _derive_shipment_id_from_email(saved_email)
+        event_logger.log_timeline_event(
+            shipment_id=shipment_id,
+            actor="system",
+            actor_name="Document Verification Pipeline",
+            action_text=f"Uploaded new document pair ({target_si_name}, {target_bl_name}) - status: {verif_res.get('status')}",
+            stage="ingestion",
+            email_id=email_id,
+            metadata={"defect_fields": verif_res.get("defect_fields", [])}
+        )
+
+        # Durably record completion
+        job_store.update_job(
+            job_id=job_id,
+            status="completed",
+            progress=100,
+            result_summary={
+                "email_id": email_id,
+                "shipment_id": shipment_id,
+                "verification_status": verif_res.get("status"),
+                "defect_fields": verif_res.get("defect_fields", [])
+            }
+        )
+
+        return {
+            "status": "success",
+            "job_id": job_id,
+            "email_id": email_id,
+            "email": saved_email,
+            "classification": class_res,
+            "verification": verif_res
+        }
+    except Exception as e:
+        job_store.update_job(job_id=job_id, status="failed", progress=0, error_message=str(e))
+        if isinstance(e, HTTPException):
+            raise e
+        raise HTTPException(status_code=500, detail=f"Processing failed: {e}")
+
+
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -449,14 +819,17 @@ def get_conflict_proposals(email_id: str):
     return correction_flow.build_conflict_proposals(email_id, verification, si_text, bl_text, email)
 
 @app.post("/api/corrections/resolve")
-def resolve_conflicts(payload: Dict[str, Any] = Body(...)):
+def resolve_conflicts(
+    payload: Dict[str, Any] = Body(...),
+    current_reviewer: ReviewerUser = Depends(get_current_reviewer)
+):
     """Apply explicit human decisions and emit a DCSA-structured resolved record."""
     global PROCESSED_SUMMARY_CACHE
     email_id = (payload.get("email_id") or "").strip()
     if not email_id:
         raise HTTPException(status_code=400, detail="email_id is required")
     decisions = payload.get("decisions") or []
-    reviewer = payload.get("reviewer_name") or payload.get("reviewer")
+    reviewer = payload.get("reviewer_name") or payload.get("reviewer") or current_reviewer.reviewer_name
 
     email = loader.get_email(email_id)
     if not email:
@@ -503,12 +876,23 @@ def resolve_conflicts(payload: Dict[str, Any] = Body(...)):
             },
         )
 
+    # Update and persist in-memory & file overrides so subsequent comparator & email calls reflect resolution
+    bl_resolved = {d.get("field_key"): d.get("value") for d in decisions if d.get("field_key")}
+    existing = HUMAN_OVERRIDES.get(email_id, {})
+    existing_bl = dict(existing.get("bl_overrides", {}))
+    existing_bl.update(bl_resolved)
+    HUMAN_OVERRIDES[email_id] = {
+        "reviewer_name": reviewer or "Reviewer",
+        "timestamp": payload.get("timestamp") or datetime.now(timezone.utc).isoformat(),
+        "si_overrides": existing.get("si_overrides", {}),
+        "bl_overrides": existing_bl,
+        "corrections": decisions
+    }
+    save_persisted_overrides()
+
     if supabase_service.is_supabase_enabled():
         try:
-            supabase_service.save_human_override(email_id, {
-                "reviewer_name": reviewer,
-                "corrections": decisions,
-            })
+            supabase_service.save_human_override(email_id, HUMAN_OVERRIDES[email_id])
         except Exception as ex:
             print(f"[Supabase] Could not save override: {ex}")
 
@@ -614,7 +998,11 @@ def red_team_transforms():
 
 @app.post("/api/shipments/{email_id}/red-team")
 @app.post("/shipments/{email_id}/red-team")
-def run_red_team(email_id: str, payload: Dict[str, Any] = Body(...)):
+def run_red_team(
+    email_id: str,
+    payload: Dict[str, Any] = Body(...),
+    current_reviewer: Optional[ReviewerUser] = Depends(get_optional_reviewer)
+):
     """Apply an adversarial transform and run it through the unchanged pipeline."""
     transform = (payload.get("transform") or "").strip()
     if not transform:
@@ -691,7 +1079,10 @@ def get_automation_level():
 
 @app.post("/settings/automation-level")
 @app.post("/api/settings/automation-level")
-def set_automation_level(payload: Dict[str, Any] = Body(...)):
+def set_automation_level(
+    payload: Dict[str, Any] = Body(...),
+    current_reviewer: Optional[ReviewerUser] = Depends(get_optional_reviewer)
+):
     """Set the session automation level (in-memory; no persistence by design)."""
     raw_level = payload.get("level")
     try:
@@ -715,7 +1106,7 @@ def preview_automation_level(level: Optional[int] = Query(None, description="0-3
     )
 
 @app.get("/api/review-decisions/export")
-def export_review_decisions():
+def export_review_decisions(current_reviewer: ReviewerUser = Depends(get_current_reviewer)):
     """Export human correction events as a reviewer audit CSV."""
     decisions = event_logger.get_review_decisions()
     columns = [

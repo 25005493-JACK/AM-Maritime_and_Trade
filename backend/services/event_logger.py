@@ -35,9 +35,16 @@ def _get_connection():
     workspace_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     _DB_PATH = os.path.join(workspace_root, "verification_events.duckdb")
 
-    _conn = _duckdb.connect(_DB_PATH)
-    _conn.execute("""
-        CREATE TABLE IF NOT EXISTS pipeline_events (
+    try:
+        _conn = _duckdb.connect(_DB_PATH)
+    except Exception:
+        try:
+            _conn = _duckdb.connect(_DB_PATH, read_only=True)
+        except Exception:
+            _conn = _duckdb.connect(":memory:")
+    try:
+        _conn.execute("""
+            CREATE TABLE IF NOT EXISTS pipeline_events (
             event_id         VARCHAR PRIMARY KEY,
             shipment_id      VARCHAR,
             email_id         VARCHAR,
@@ -55,6 +62,8 @@ def _get_connection():
             processing_time_ms INTEGER
         )
     """)
+    except Exception:
+        pass
     try:
         _conn.execute("ALTER TABLE pipeline_events ADD COLUMN IF NOT EXISTS shipment_id VARCHAR")
     except Exception:

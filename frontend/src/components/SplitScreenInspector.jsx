@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ConflictEvidencePanel from './ConflictEvidencePanel.jsx';
 import ReasoningReceipt from './ReasoningReceipt.jsx';
+import { apiFetch } from '../api.js';
 import { 
   FileCheck2, 
   AlertTriangle, 
@@ -76,7 +77,7 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
   const [dcsaMappings, setDcsaMappings] = useState(null);
   useEffect(() => {
     let cancelled = false;
-    fetch('/api/dcsa/mapping')
+    apiFetch('/api/dcsa/mapping')
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error('failed'))))
       .then((data) => {
         if (!cancelled) setDcsaMappings(data.mappings || {});

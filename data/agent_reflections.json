@@ -668,5 +668,1635 @@
     "created_at": "2026-09-24T05:09:02.462484+00:00",
     "source_correction_id": "email_004",
     "times_retrieved": 0
+  },
+  {
+    "id": "26b5b5ea-ee52-4c21-9ced-b236afbec4b7",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC, DUBAI' in the document context instead of accepting 'UAB NOVAKOPA'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T10:27:47.971279+00:00",
+    "source_correction_id": "email_004:notify_party",
+    "times_retrieved": 0
+  },
+  {
+    "id": "cd77d44a-9810-45d8-b453-89bdbd209332",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE' in the document context instead of accepting 'UAB NOVAKOPA RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T10:27:48.012218+00:00",
+    "source_correction_id": "email_004:consignee",
+    "times_retrieved": 0
+  },
+  {
+    "id": "762f8123-809e-4b9e-8a7d-ae3723cfe445",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from vitalsolutions.sg SI documents, look for 'SINGAPORE' in the document context instead of accepting 'WRONG_PORT'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T10:27:48.126981+00:00",
+    "source_correction_id": "email_004",
+    "times_retrieved": 0
+  },
+  {
+    "id": "e913d412-08e6-4d6f-8627-4dee460c4d98",
+    "sender_domain": "evergreen-marine.com",
+    "doc_type": "SI",
+    "field_name": "port_of_discharge",
+    "reflection_text": "When extracting port_of_discharge from evergreen-marine.com SI documents, look for 'PORT_KLANG' in the document context instead of accepting 'OLD_PORT'. Verify keyword delimiters and line boundaries specific to evergreen-marine.com's format.",
+    "created_at": "2026-09-24T10:27:48.147611+00:00",
+    "source_correction_id": "corr_test_01",
+    "times_retrieved": 0
+  },
+  {
+    "id": "2db1254f-22dd-413e-9389-5f20a0cb38ea",
+    "sender_domain": "cap-test-9ffa7900.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-9ffa7900.com SI documents, look for 'CORRECT_0' in the document context instead of accepting 'ERR_0'. Verify keyword delimiters and line boundaries specific to cap-test-9ffa7900.com's format.",
+    "created_at": "2026-09-24T10:27:48.178837+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "e3eb3010-fe7a-48ef-8b9f-22f215f4e1ec",
+    "sender_domain": "cap-test-9ffa7900.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-9ffa7900.com SI documents, look for 'CORRECT_1' in the document context instead of accepting 'ERR_1'. Verify keyword delimiters and line boundaries specific to cap-test-9ffa7900.com's format.",
+    "created_at": "2026-09-24T10:27:48.194106+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "4f7ec0cd-8fef-4bc0-b3dc-0362ca342721",
+    "sender_domain": "cap-test-9ffa7900.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-9ffa7900.com SI documents, look for 'CORRECT_2' in the document context instead of accepting 'ERR_2'. Verify keyword delimiters and line boundaries specific to cap-test-9ffa7900.com's format.",
+    "created_at": "2026-09-24T10:27:48.209125+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "796e28fc-06be-48f4-8c82-3cee9a8816b6",
+    "sender_domain": "cap-test-9ffa7900.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-9ffa7900.com SI documents, look for 'CORRECT_3' in the document context instead of accepting 'ERR_3'. Verify keyword delimiters and line boundaries specific to cap-test-9ffa7900.com's format.",
+    "created_at": "2026-09-24T10:27:48.221868+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "74d9bc76-abb5-48a9-8365-e7f6c946c501",
+    "sender_domain": "cap-test-9ffa7900.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-9ffa7900.com SI documents, look for 'CORRECT_4' in the document context instead of accepting 'ERR_4'. Verify keyword delimiters and line boundaries specific to cap-test-9ffa7900.com's format.",
+    "created_at": "2026-09-24T10:27:48.239978+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "78d306a1-b9a6-4d16-8ec6-c69d7c0ce58d",
+    "sender_domain": "eastasiatrading.com",
+    "doc_type": "SI",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from eastasiatrading.com SI documents, look for '3' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to eastasiatrading.com's format.",
+    "created_at": "2026-09-24T13:41:49.069499+00:00",
+    "source_correction_id": "email_upload_20260924_134144_6a6ddd:container_count",
+    "times_retrieved": 0
+  },
+  {
+    "id": "40949dae-98db-4515-8386-64ff2343f351",
+    "sender_domain": "eastasiatrading.com",
+    "doc_type": "SI",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from eastasiatrading.com SI documents, look for '3' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to eastasiatrading.com's format.",
+    "created_at": "2026-09-24T13:45:12.816011+00:00",
+    "source_correction_id": "email_upload_20260924_134508_35fa8a:container_count",
+    "times_retrieved": 0
+  },
+  {
+    "id": "dc52fc6d-9564-4c07-a475-174626bfc535",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC, DUBAI' in the document context instead of accepting 'UAB NOVAKOPA'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T13:52:01.578520+00:00",
+    "source_correction_id": "email_004:notify_party",
+    "times_retrieved": 0
+  },
+  {
+    "id": "e086e437-511a-43aa-a8b0-dc41824e07cd",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE' in the document context instead of accepting 'UAB NOVAKOPA RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T13:52:01.626000+00:00",
+    "source_correction_id": "email_004:consignee",
+    "times_retrieved": 0
+  },
+  {
+    "id": "20c14557-d75f-4de4-9ff3-c6093914b6eb",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from vitalsolutions.sg SI documents, look for 'SINGAPORE' in the document context instead of accepting 'WRONG_PORT'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T13:52:01.761518+00:00",
+    "source_correction_id": "email_004",
+    "times_retrieved": 0
+  },
+  {
+    "id": "92c7e8a5-4b1b-45a8-b87e-17f85270a338",
+    "sender_domain": "evergreen-marine.com",
+    "doc_type": "SI",
+    "field_name": "port_of_discharge",
+    "reflection_text": "When extracting port_of_discharge from evergreen-marine.com SI documents, look for 'PORT_KLANG' in the document context instead of accepting 'OLD_PORT'. Verify keyword delimiters and line boundaries specific to evergreen-marine.com's format.",
+    "created_at": "2026-09-24T13:52:01.783405+00:00",
+    "source_correction_id": "corr_test_01",
+    "times_retrieved": 0
+  },
+  {
+    "id": "592dab36-69fa-47f1-bdcf-e9e362a7a684",
+    "sender_domain": "cap-test-51c10789.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-51c10789.com SI documents, look for 'CORRECT_0' in the document context instead of accepting 'ERR_0'. Verify keyword delimiters and line boundaries specific to cap-test-51c10789.com's format.",
+    "created_at": "2026-09-24T13:52:01.813900+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "105edb7f-5c16-47d8-aab2-d32476e7b6c2",
+    "sender_domain": "cap-test-51c10789.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-51c10789.com SI documents, look for 'CORRECT_1' in the document context instead of accepting 'ERR_1'. Verify keyword delimiters and line boundaries specific to cap-test-51c10789.com's format.",
+    "created_at": "2026-09-24T13:52:01.829285+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "21ad13a2-1e7c-4b84-9abe-f86b1d13a26f",
+    "sender_domain": "cap-test-51c10789.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-51c10789.com SI documents, look for 'CORRECT_2' in the document context instead of accepting 'ERR_2'. Verify keyword delimiters and line boundaries specific to cap-test-51c10789.com's format.",
+    "created_at": "2026-09-24T13:52:01.845623+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "299da282-cd2b-49f7-840e-7285cb2d5e64",
+    "sender_domain": "cap-test-51c10789.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-51c10789.com SI documents, look for 'CORRECT_3' in the document context instead of accepting 'ERR_3'. Verify keyword delimiters and line boundaries specific to cap-test-51c10789.com's format.",
+    "created_at": "2026-09-24T13:52:01.862524+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "3fdfcf27-fb6e-4c95-9207-3275e009f019",
+    "sender_domain": "cap-test-51c10789.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-51c10789.com SI documents, look for 'CORRECT_4' in the document context instead of accepting 'ERR_4'. Verify keyword delimiters and line boundaries specific to cap-test-51c10789.com's format.",
+    "created_at": "2026-09-24T13:52:01.879633+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "9e3ea4f5-ce45-470e-b2c2-194ebfbb86b0",
+    "sender_domain": "eastasiatrading.com",
+    "doc_type": "SI",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from eastasiatrading.com SI documents, look for '3' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to eastasiatrading.com's format.",
+    "created_at": "2026-09-24T13:52:05.765119+00:00",
+    "source_correction_id": "email_upload_20260924_135201_b554f4:container_count",
+    "times_retrieved": 0
+  },
+  {
+    "id": "0b03a2c3-e400-4174-920e-614178152b6c",
+    "sender_domain": "prompt-test-carrier.com",
+    "doc_type": "BL",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from prompt-test-carrier.com BL documents, look for 'SINGAPORE (SGSIN)' in the document context instead of accepting 'PORT_A'. Verify keyword delimiters and line boundaries specific to prompt-test-carrier.com's format.",
+    "created_at": "2026-09-24T14:16:07.236789+00:00",
+    "source_correction_id": "dev_test_002",
+    "times_retrieved": 0
+  },
+  {
+    "id": "0d4ef452-3b9e-4dda-8303-c902c097807f",
+    "sender_domain": "carrier-test-line.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from carrier-test-line.com BL documents, look for '3 x 40'HC' in the document context instead of accepting '1'. Verify keyword delimiters and line boundaries specific to carrier-test-line.com's format.",
+    "created_at": "2026-09-24T14:16:07.256448+00:00",
+    "source_correction_id": "dev_test_001",
+    "times_retrieved": 0
+  },
+  {
+    "id": "d40ed3f8-2697-43af-b7fb-dc56abe51377",
+    "sender_domain": "eastasiatrading.com",
+    "doc_type": "SI",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from eastasiatrading.com SI documents, look for '3' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to eastasiatrading.com's format.",
+    "created_at": "2026-09-24T14:16:29.701710+00:00",
+    "source_correction_id": "email_upload_20260924_141624_00c0eb:container_count",
+    "times_retrieved": 0
+  },
+  {
+    "id": "b18e3559-58ac-49d6-a63c-ce0b8b0ea976",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from fujitogrp.com BL documents, look for '3' in the document context instead of accepting '5'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:17:36.770418+00:00",
+    "source_correction_id": "email_043",
+    "times_retrieved": 0
+  },
+  {
+    "id": "fad04871-bac7-4a58-bb5b-b75df70e97ba",
+    "sender_domain": "roxcel.at",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from roxcel.at BL documents, look for 'TOPKOPY MIDDLE EAST FZE' in the document context instead of accepting 'MOORIM SP CO., LTD'. Verify keyword delimiters and line boundaries specific to roxcel.at's format.",
+    "created_at": "2026-09-24T14:17:36.834036+00:00",
+    "source_correction_id": "email_046",
+    "times_retrieved": 0
+  },
+  {
+    "id": "d3ee8487-5762-47a5-8028-f5c1db6b802b",
+    "sender_domain": "safqa.co.ke",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from safqa.co.ke BL documents, look for '4' in the document context instead of accepting '3'. Verify keyword delimiters and line boundaries specific to safqa.co.ke's format.",
+    "created_at": "2026-09-24T14:17:37.005080+00:00",
+    "source_correction_id": "email_111",
+    "times_retrieved": 0
+  },
+  {
+    "id": "243554e3-bccd-4356-8d59-16b0649605d5",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from aprilasia.com BL documents, look for '20842.0' in the document context instead of accepting '21342.0'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:17:37.095160+00:00",
+    "source_correction_id": "email_121",
+    "times_retrieved": 0
+  },
+  {
+    "id": "cb583aa1-9b6c-4e23-bfc3-cd1cd52f381a",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from fujitogrp.com BL documents, look for '323250.0' in the document context instead of accepting '322250.0'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:17:37.141258+00:00",
+    "source_correction_id": "email_128",
+    "times_retrieved": 0
+  },
+  {
+    "id": "5c94e056-f69f-4acd-953a-43b2dc6f621e",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from aprilasia.com BL documents, look for '142848.0' in the document context instead of accepting '144848.0'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:17:37.188971+00:00",
+    "source_correction_id": "email_133",
+    "times_retrieved": 0
+  },
+  {
+    "id": "4f32689c-608a-4cf7-854c-0b078e99d612",
+    "sender_domain": "ifpla.com",
+    "doc_type": "BL",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from ifpla.com BL documents, look for 'NAGAPPA EXPORTS' in the document context instead of accepting 'PACIFIC OFFICE (M) SDN BHD'. Verify keyword delimiters and line boundaries specific to ifpla.com's format.",
+    "created_at": "2026-09-24T14:17:37.254380+00:00",
+    "source_correction_id": "email_144",
+    "times_retrieved": 0
+  },
+  {
+    "id": "80c37f6a-fce9-4286-9e24-3620c8a4b2ed",
+    "sender_domain": "ifpla.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from ifpla.com BL documents, look for '12' in the document context instead of accepting '11'. Verify keyword delimiters and line boundaries specific to ifpla.com's format.",
+    "created_at": "2026-09-24T14:17:37.285074+00:00",
+    "source_correction_id": "email_144",
+    "times_retrieved": 0
+  },
+  {
+    "id": "77e07983-8ba3-4ae5-b939-4c20357f7a94",
+    "sender_domain": "algurg.ae",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from algurg.ae BL documents, look for '5' in the document context instead of accepting '6'. Verify keyword delimiters and line boundaries specific to algurg.ae's format.",
+    "created_at": "2026-09-24T14:17:37.413439+00:00",
+    "source_correction_id": "email_182",
+    "times_retrieved": 0
+  },
+  {
+    "id": "36a8741c-b8c8-4034-9ec9-8109b74c8821",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from fujitogrp.com BL documents, look for 'ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA' in the document context instead of accepting 'AL GURG STATIONERY LLC OPERNRING 3-5; 1010 VIENNA, AUSTRIA'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:17:37.498175+00:00",
+    "source_correction_id": "email_225",
+    "times_retrieved": 0
+  },
+  {
+    "id": "1b6103d4-7b25-415d-8b11-f5b5312f4c0f",
+    "sender_domain": "safqa.co.ke",
+    "doc_type": "BL",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from safqa.co.ke BL documents, look for 'PORT KLANG (WESTPORT), MALAYSIA' in the document context instead of accepting 'RUGAO/NANTONG/SHANGHAI, CHINA'. Verify keyword delimiters and line boundaries specific to safqa.co.ke's format.",
+    "created_at": "2026-09-24T14:17:37.574814+00:00",
+    "source_correction_id": "email_243",
+    "times_retrieved": 0
+  },
+  {
+    "id": "ea8d3de8-1004-49a2-a1ea-b11418f88592",
+    "sender_domain": "safqa.co.ke",
+    "doc_type": "BL",
+    "field_name": "port_of_discharge",
+    "reflection_text": "When extracting port_of_discharge from safqa.co.ke BL documents, look for 'HOUSTON, US' in the document context instead of accepting 'MOMBASA, KENYA'. Verify keyword delimiters and line boundaries specific to safqa.co.ke's format.",
+    "created_at": "2026-09-24T14:17:37.604250+00:00",
+    "source_correction_id": "email_243",
+    "times_retrieved": 0
+  },
+  {
+    "id": "feda17f0-141e-49ed-9493-c082bfcc742e",
+    "sender_domain": "algurg.ae",
+    "doc_type": "BL",
+    "field_name": "shipper",
+    "reflection_text": "When extracting shipper from algurg.ae BL documents, look for 'APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896' in the document context instead of accepting 'APRIL FAR EAST (M) SDN BHD ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896'. Verify keyword delimiters and line boundaries specific to algurg.ae's format.",
+    "created_at": "2026-09-24T14:17:37.664188+00:00",
+    "source_correction_id": "email_256",
+    "times_retrieved": 0
+  },
+  {
+    "id": "9183e4be-ef3a-40bc-8dae-44d851d04e28",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from aprilasia.com BL documents, look for 'INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA' in the document context instead of accepting 'TOPKOPY MIDDLE EAST FZE 6 HOLLIS STREET SUITE 100 FRAMINGHAM, MA 01702, USA'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:17:37.746679+00:00",
+    "source_correction_id": "email_291",
+    "times_retrieved": 0
+  },
+  {
+    "id": "948c52f5-ac6f-449a-b661-4708808048ce",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from aprilasia.com BL documents, look for '1' in the document context instead of accepting '3'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:17:37.776952+00:00",
+    "source_correction_id": "email_291",
+    "times_retrieved": 0
+  },
+  {
+    "id": "9ced6ff9-cda2-423a-87b7-12cb9848755d",
+    "sender_domain": "safqa.co.ke",
+    "doc_type": "BL",
+    "field_name": "shipper",
+    "reflection_text": "When extracting shipper from safqa.co.ke BL documents, look for 'APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA' in the document context instead of accepting 'APRIL FINE PAPER TRADING (MIDDLE EAST) FZE TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA'. Verify keyword delimiters and line boundaries specific to safqa.co.ke's format.",
+    "created_at": "2026-09-24T14:17:37.825041+00:00",
+    "source_correction_id": "email_300",
+    "times_retrieved": 0
+  },
+  {
+    "id": "d36e77cb-8663-44b0-8f70-1956210d673e",
+    "sender_domain": "safqa.co.ke",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from safqa.co.ke BL documents, look for 'UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA' in the document context instead of accepting 'NAGAPPA EXPORTS SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA'. Verify keyword delimiters and line boundaries specific to safqa.co.ke's format.",
+    "created_at": "2026-09-24T14:17:37.852668+00:00",
+    "source_correction_id": "email_300",
+    "times_retrieved": 0
+  },
+  {
+    "id": "a4f08209-71b0-4e40-8dab-daf69a7fbfbe",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from fujitogrp.com BL documents, look for '2' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:17:37.899295+00:00",
+    "source_correction_id": "email_302",
+    "times_retrieved": 0
+  },
+  {
+    "id": "09f00966-bbc5-48d4-9117-e4314e960af3",
+    "sender_domain": "psabdp.com",
+    "doc_type": "BL",
+    "field_name": "shipper",
+    "reflection_text": "When extracting shipper from psabdp.com BL documents, look for 'APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES' in the document context instead of accepting 'APRIL FAR EAST (M) SDN BHD #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES'. Verify keyword delimiters and line boundaries specific to psabdp.com's format.",
+    "created_at": "2026-09-24T14:17:37.942915+00:00",
+    "source_correction_id": "email_312",
+    "times_retrieved": 0
+  },
+  {
+    "id": "b2a143fc-dd71-42ce-a132-3dbabddea9cd",
+    "sender_domain": "psabdp.com",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from psabdp.com BL documents, look for '3S PAPER PRODUCTS SDN BHD' in the document context instead of accepting 'KPP-ANTALIS (SINGAPORE) PTE. LTD.'. Verify keyword delimiters and line boundaries specific to psabdp.com's format.",
+    "created_at": "2026-09-24T14:17:37.973897+00:00",
+    "source_correction_id": "email_312",
+    "times_retrieved": 0
+  },
+  {
+    "id": "e46ddab2-0971-467b-8923-ce34f9a6d5e4",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from fujitogrp.com BL documents, look for '5' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:17:38.023867+00:00",
+    "source_correction_id": "email_313",
+    "times_retrieved": 0
+  },
+  {
+    "id": "cc24a6ac-6163-4027-b216-7c29d6e5e107",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from fujitogrp.com BL documents, look for '118270.0' in the document context instead of accepting '117770.0'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:17:38.056257+00:00",
+    "source_correction_id": "email_313",
+    "times_retrieved": 0
+  },
+  {
+    "id": "d4a61d29-688f-4251-9b0e-4ce6cf761a12",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "shipper",
+    "reflection_text": "When extracting shipper from fujitogrp.com BL documents, look for 'ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624' in the document context instead of accepting 'APRIL FAR EAST (M) SDN BHD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:17:38.103030+00:00",
+    "source_correction_id": "email_324",
+    "times_retrieved": 0
+  },
+  {
+    "id": "9c2b54c7-a37a-48ad-b253-2ec5ac0567f5",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from fujitogrp.com BL documents, look for '3' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:17:38.136688+00:00",
+    "source_correction_id": "email_324",
+    "times_retrieved": 0
+  },
+  {
+    "id": "66827b7e-ba7c-4876-ae7a-0729c2f9a461",
+    "sender_domain": "april.com.my",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from april.com.my BL documents, look for 'HABRAS INTERNATIONAL LIMITED' in the document context instead of accepting 'SAFQA LIMITED'. Verify keyword delimiters and line boundaries specific to april.com.my's format.",
+    "created_at": "2026-09-24T14:17:38.185236+00:00",
+    "source_correction_id": "email_342",
+    "times_retrieved": 0
+  },
+  {
+    "id": "0cb24c9c-8545-47e8-a785-7bae6ecf6a72",
+    "sender_domain": "april.com.my",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from april.com.my BL documents, look for '1' in the document context instead of accepting '2'. Verify keyword delimiters and line boundaries specific to april.com.my's format.",
+    "created_at": "2026-09-24T14:17:38.219355+00:00",
+    "source_correction_id": "email_342",
+    "times_retrieved": 0
+  },
+  {
+    "id": "3c5e7d22-9921-489a-81b7-fec1c4d1da28",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from aprilasia.com BL documents, look for 'KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA' in the document context instead of accepting '/Intermediate ConsKiTgPne CeO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:17:38.270986+00:00",
+    "source_correction_id": "email_351",
+    "times_retrieved": 0
+  },
+  {
+    "id": "765a693f-9f13-4343-8826-e3ead01ad7b8",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from aprilasia.com BL documents, look for '15' in the document context instead of accepting '16'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:17:38.301955+00:00",
+    "source_correction_id": "email_351",
+    "times_retrieved": 0
+  },
+  {
+    "id": "53b8cdd4-492e-4f69-a93b-ac26a19f7d87",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from aprilasia.com BL documents, look for '359415.0' in the document context instead of accepting '360415.0'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:17:38.334710+00:00",
+    "source_correction_id": "email_351",
+    "times_retrieved": 0
+  },
+  {
+    "id": "c7aac2a3-47cb-4953-b9a3-6cc48647a885",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from aprilasia.com BL documents, look for 'HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE' in the document context instead of accepting 'NAGAPPA EXPORTS OFFICE 1204, THE BURLINGTON TOWER BUSINESS BAY, DUBAI, UAE'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:17:38.380056+00:00",
+    "source_correction_id": "email_354",
+    "times_retrieved": 0
+  },
+  {
+    "id": "c7bbff56-c20c-4503-a5b6-4c8c2b4c2b82",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from aprilasia.com BL documents, look for '20603.0' in the document context instead of accepting '22603.0'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:17:38.408244+00:00",
+    "source_correction_id": "email_354",
+    "times_retrieved": 0
+  },
+  {
+    "id": "3cab0900-c2a1-415e-9e06-4d7a96ee83d4",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from aprilasia.com BL documents, look for '239590.0' in the document context instead of accepting '238590.0'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:17:38.454873+00:00",
+    "source_correction_id": "email_361",
+    "times_retrieved": 0
+  },
+  {
+    "id": "1f9dafe3-ccff-4bc3-ad1e-b587c293d1c8",
+    "sender_domain": "roxcel.at",
+    "doc_type": "BL",
+    "field_name": "shipper",
+    "reflection_text": "When extracting shipper from roxcel.at BL documents, look for 'APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA' in the document context instead of accepting 'APRIL FINE PAPER TRADING TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA'. Verify keyword delimiters and line boundaries specific to roxcel.at's format.",
+    "created_at": "2026-09-24T14:17:38.540157+00:00",
+    "source_correction_id": "email_379",
+    "times_retrieved": 0
+  },
+  {
+    "id": "2e62859b-a8b5-46ed-b906-088e2447e3ed",
+    "sender_domain": "algurg.ae",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from algurg.ae BL documents, look for '/Intermediate ConsNigAnGeAePPA EXPORTS' in the document context instead of accepting 'NAGAPPA EXPORTS'. Verify keyword delimiters and line boundaries specific to algurg.ae's format.",
+    "created_at": "2026-09-24T14:17:38.655239+00:00",
+    "source_correction_id": "email_407",
+    "times_retrieved": 0
+  },
+  {
+    "id": "ec70de76-1c08-4efb-a73d-55ee5ce5cd1c",
+    "sender_domain": "april.com.my",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from april.com.my BL documents, look for '105625.0' in the document context instead of accepting '106625.0'. Verify keyword delimiters and line boundaries specific to april.com.my's format.",
+    "created_at": "2026-09-24T14:17:38.743590+00:00",
+    "source_correction_id": "email_416",
+    "times_retrieved": 0
+  },
+  {
+    "id": "987ef287-cd3f-4d50-9fc4-181c93d80dfb",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from aprilasia.com BL documents, look for '10' in the document context instead of accepting '11'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:17:38.790090+00:00",
+    "source_correction_id": "email_426",
+    "times_retrieved": 0
+  },
+  {
+    "id": "6c3e5575-c582-4a18-9a7c-e46c3427830a",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "port_of_discharge",
+    "reflection_text": "When extracting port_of_discharge from aprilasia.com BL documents, look for 'BUSAN, SOUTH KOREA' in the document context instead of accepting 'CEBU, PHILIPPINES'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:17:38.851659+00:00",
+    "source_correction_id": "email_434",
+    "times_retrieved": 0
+  },
+  {
+    "id": "01a6a736-f303-4bef-9dc3-aa689f31f682",
+    "sender_domain": "april.com.my",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from april.com.my BL documents, look for '214270.0' in the document context instead of accepting '214770.0'. Verify keyword delimiters and line boundaries specific to april.com.my's format.",
+    "created_at": "2026-09-24T14:17:38.900283+00:00",
+    "source_correction_id": "email_435",
+    "times_retrieved": 0
+  },
+  {
+    "id": "bac6e7cc-e9de-4f64-8dff-0e95412602df",
+    "sender_domain": "april.com.my",
+    "doc_type": "BL",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from april.com.my BL documents, look for 'AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES' in the document context instead of accepting '3S PAPER PRODUCTS SDN BHD P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES'. Verify keyword delimiters and line boundaries specific to april.com.my's format.",
+    "created_at": "2026-09-24T14:17:38.970840+00:00",
+    "source_correction_id": "email_481",
+    "times_retrieved": 0
+  },
+  {
+    "id": "c9034b29-f76b-44bd-93fd-3e386a654ddd",
+    "sender_domain": "prompt-test-carrier.com",
+    "doc_type": "BL",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from prompt-test-carrier.com BL documents, look for 'SINGAPORE (SGSIN)' in the document context instead of accepting 'PORT_A'. Verify keyword delimiters and line boundaries specific to prompt-test-carrier.com's format.",
+    "created_at": "2026-09-24T14:18:48.470063+00:00",
+    "source_correction_id": "dev_test_002",
+    "times_retrieved": 0
+  },
+  {
+    "id": "6c7b64e2-5a0f-4b31-934e-f99978650fb9",
+    "sender_domain": "carrier-test-line.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from carrier-test-line.com BL documents, look for '3 x 40'HC' in the document context instead of accepting '1'. Verify keyword delimiters and line boundaries specific to carrier-test-line.com's format.",
+    "created_at": "2026-09-24T14:18:48.498678+00:00",
+    "source_correction_id": "dev_test_001",
+    "times_retrieved": 0
+  },
+  {
+    "id": "553fa24e-9f69-420f-93c2-2d5bf86f167c",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC, DUBAI' in the document context instead of accepting 'UAB NOVAKOPA'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:18:48.682235+00:00",
+    "source_correction_id": "email_004:notify_party",
+    "times_retrieved": 0
+  },
+  {
+    "id": "97023508-f694-4e85-9f78-dd184575b787",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE' in the document context instead of accepting 'UAB NOVAKOPA RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:18:48.727471+00:00",
+    "source_correction_id": "email_004:consignee",
+    "times_retrieved": 0
+  },
+  {
+    "id": "a778e900-f25d-4daa-9ee4-824aa4097e35",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from vitalsolutions.sg SI documents, look for 'SINGAPORE' in the document context instead of accepting 'WRONG_PORT'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:18:48.855704+00:00",
+    "source_correction_id": "email_004",
+    "times_retrieved": 0
+  },
+  {
+    "id": "598b61a5-8284-4512-b8ea-ce7308f3269b",
+    "sender_domain": "evergreen-marine.com",
+    "doc_type": "SI",
+    "field_name": "port_of_discharge",
+    "reflection_text": "When extracting port_of_discharge from evergreen-marine.com SI documents, look for 'PORT_KLANG' in the document context instead of accepting 'OLD_PORT'. Verify keyword delimiters and line boundaries specific to evergreen-marine.com's format.",
+    "created_at": "2026-09-24T14:18:48.888483+00:00",
+    "source_correction_id": "corr_test_01",
+    "times_retrieved": 0
+  },
+  {
+    "id": "296d21f5-0af0-43cd-9e0d-9d622f3fcef8",
+    "sender_domain": "cap-test-696b5adc.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-696b5adc.com SI documents, look for 'CORRECT_0' in the document context instead of accepting 'ERR_0'. Verify keyword delimiters and line boundaries specific to cap-test-696b5adc.com's format.",
+    "created_at": "2026-09-24T14:18:48.908849+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "6d0cf4d0-73d9-46d0-9b1b-ec25f982a339",
+    "sender_domain": "cap-test-696b5adc.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-696b5adc.com SI documents, look for 'CORRECT_1' in the document context instead of accepting 'ERR_1'. Verify keyword delimiters and line boundaries specific to cap-test-696b5adc.com's format.",
+    "created_at": "2026-09-24T14:18:48.926756+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "27811e6f-82ae-4e88-94c4-7b428d10ac2f",
+    "sender_domain": "cap-test-696b5adc.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-696b5adc.com SI documents, look for 'CORRECT_2' in the document context instead of accepting 'ERR_2'. Verify keyword delimiters and line boundaries specific to cap-test-696b5adc.com's format.",
+    "created_at": "2026-09-24T14:18:48.946426+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "36290e2f-2a87-487a-96e6-5c70afdbc2bd",
+    "sender_domain": "cap-test-696b5adc.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-696b5adc.com SI documents, look for 'CORRECT_3' in the document context instead of accepting 'ERR_3'. Verify keyword delimiters and line boundaries specific to cap-test-696b5adc.com's format.",
+    "created_at": "2026-09-24T14:18:48.963268+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "0a3aa759-e768-467a-a8b1-f009f3d8ca90",
+    "sender_domain": "cap-test-696b5adc.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-696b5adc.com SI documents, look for 'CORRECT_4' in the document context instead of accepting 'ERR_4'. Verify keyword delimiters and line boundaries specific to cap-test-696b5adc.com's format.",
+    "created_at": "2026-09-24T14:18:48.979781+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "fdb4487e-24ad-49a5-a519-ba39b197b82c",
+    "sender_domain": "eastasiatrading.com",
+    "doc_type": "SI",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from eastasiatrading.com SI documents, look for '3' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to eastasiatrading.com's format.",
+    "created_at": "2026-09-24T14:18:53.130698+00:00",
+    "source_correction_id": "email_upload_20260924_141849_fba186:container_count",
+    "times_retrieved": 0
+  },
+  {
+    "id": "812dd8cf-3bbf-4168-98e6-f863f2854eda",
+    "sender_domain": "prompt-test-carrier.com",
+    "doc_type": "BL",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from prompt-test-carrier.com BL documents, look for 'SINGAPORE (SGSIN)' in the document context instead of accepting 'PORT_A'. Verify keyword delimiters and line boundaries specific to prompt-test-carrier.com's format.",
+    "created_at": "2026-09-24T14:20:11.141700+00:00",
+    "source_correction_id": "dev_test_002",
+    "times_retrieved": 0
+  },
+  {
+    "id": "80c84745-6607-451d-a98d-549cdf14427e",
+    "sender_domain": "carrier-test-line.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from carrier-test-line.com BL documents, look for '3 x 40'HC' in the document context instead of accepting '1'. Verify keyword delimiters and line boundaries specific to carrier-test-line.com's format.",
+    "created_at": "2026-09-24T14:20:11.172086+00:00",
+    "source_correction_id": "dev_test_001",
+    "times_retrieved": 0
+  },
+  {
+    "id": "dc9a04af-069c-4a26-849d-da948c7464f0",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC, DUBAI' in the document context instead of accepting 'UAB NOVAKOPA'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:20:11.400534+00:00",
+    "source_correction_id": "email_004:notify_party",
+    "times_retrieved": 0
+  },
+  {
+    "id": "b4d224cb-16ce-4c67-ba89-00cc6f8703b5",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE' in the document context instead of accepting 'UAB NOVAKOPA RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:20:11.450597+00:00",
+    "source_correction_id": "email_004:consignee",
+    "times_retrieved": 0
+  },
+  {
+    "id": "24afb654-e0ed-4962-8441-d9fdce22a8e6",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from vitalsolutions.sg SI documents, look for 'SINGAPORE' in the document context instead of accepting 'WRONG_PORT'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:20:11.565914+00:00",
+    "source_correction_id": "email_004",
+    "times_retrieved": 0
+  },
+  {
+    "id": "5d465c9a-669e-45c5-97eb-07d833511f99",
+    "sender_domain": "evergreen-marine.com",
+    "doc_type": "SI",
+    "field_name": "port_of_discharge",
+    "reflection_text": "When extracting port_of_discharge from evergreen-marine.com SI documents, look for 'PORT_KLANG' in the document context instead of accepting 'OLD_PORT'. Verify keyword delimiters and line boundaries specific to evergreen-marine.com's format.",
+    "created_at": "2026-09-24T14:20:11.591350+00:00",
+    "source_correction_id": "corr_test_01",
+    "times_retrieved": 0
+  },
+  {
+    "id": "6462e72c-0ff1-4dce-8479-831e920b6e87",
+    "sender_domain": "cap-test-24226119.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-24226119.com SI documents, look for 'CORRECT_0' in the document context instead of accepting 'ERR_0'. Verify keyword delimiters and line boundaries specific to cap-test-24226119.com's format.",
+    "created_at": "2026-09-24T14:20:11.614195+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "7c97d564-8ead-4902-a210-fa0db27c7de4",
+    "sender_domain": "cap-test-24226119.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-24226119.com SI documents, look for 'CORRECT_1' in the document context instead of accepting 'ERR_1'. Verify keyword delimiters and line boundaries specific to cap-test-24226119.com's format.",
+    "created_at": "2026-09-24T14:20:11.633235+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "67729e57-42d0-4a46-a3e2-0d16a64f019b",
+    "sender_domain": "cap-test-24226119.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-24226119.com SI documents, look for 'CORRECT_2' in the document context instead of accepting 'ERR_2'. Verify keyword delimiters and line boundaries specific to cap-test-24226119.com's format.",
+    "created_at": "2026-09-24T14:20:11.648949+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "c95f4abc-0193-4afd-a576-658f78986378",
+    "sender_domain": "cap-test-24226119.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-24226119.com SI documents, look for 'CORRECT_3' in the document context instead of accepting 'ERR_3'. Verify keyword delimiters and line boundaries specific to cap-test-24226119.com's format.",
+    "created_at": "2026-09-24T14:20:11.667905+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "65163e07-cf11-42c2-b5e6-9b8a02e7389f",
+    "sender_domain": "cap-test-24226119.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-24226119.com SI documents, look for 'CORRECT_4' in the document context instead of accepting 'ERR_4'. Verify keyword delimiters and line boundaries specific to cap-test-24226119.com's format.",
+    "created_at": "2026-09-24T14:20:11.685917+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "3d150957-4532-4067-9d1a-9319496131fc",
+    "sender_domain": "eastasiatrading.com",
+    "doc_type": "SI",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from eastasiatrading.com SI documents, look for '3' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to eastasiatrading.com's format.",
+    "created_at": "2026-09-24T14:20:15.799478+00:00",
+    "source_correction_id": "email_upload_20260924_142011_906cf6:container_count",
+    "times_retrieved": 0
+  },
+  {
+    "id": "00ef2c42-c1da-4176-9760-3821ad0a3476",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from fujitogrp.com BL documents, look for '3' in the document context instead of accepting '5'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:20:54.317963+00:00",
+    "source_correction_id": "email_043",
+    "times_retrieved": 0
+  },
+  {
+    "id": "25d9f3fa-8e36-483c-bc7f-bdb635b7d75a",
+    "sender_domain": "roxcel.at",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from roxcel.at BL documents, look for 'TOPKOPY MIDDLE EAST FZE' in the document context instead of accepting 'MOORIM SP CO., LTD'. Verify keyword delimiters and line boundaries specific to roxcel.at's format.",
+    "created_at": "2026-09-24T14:20:54.379083+00:00",
+    "source_correction_id": "email_046",
+    "times_retrieved": 0
+  },
+  {
+    "id": "1a6436f9-344b-4503-af04-374dfd2fb015",
+    "sender_domain": "safqa.co.ke",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from safqa.co.ke BL documents, look for '4' in the document context instead of accepting '3'. Verify keyword delimiters and line boundaries specific to safqa.co.ke's format.",
+    "created_at": "2026-09-24T14:20:54.539540+00:00",
+    "source_correction_id": "email_111",
+    "times_retrieved": 0
+  },
+  {
+    "id": "21898598-0a27-4df2-8da0-559756bd8a0d",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from aprilasia.com BL documents, look for '20842.0' in the document context instead of accepting '21342.0'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:20:54.640721+00:00",
+    "source_correction_id": "email_121",
+    "times_retrieved": 0
+  },
+  {
+    "id": "e1c6eaea-c17a-4f13-8f32-ad20567a29c7",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from fujitogrp.com BL documents, look for '323250.0' in the document context instead of accepting '322250.0'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:20:54.688731+00:00",
+    "source_correction_id": "email_128",
+    "times_retrieved": 0
+  },
+  {
+    "id": "347d79d5-e430-4e79-b0d5-b4101427acd5",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from aprilasia.com BL documents, look for '142848.0' in the document context instead of accepting '144848.0'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:20:54.737051+00:00",
+    "source_correction_id": "email_133",
+    "times_retrieved": 0
+  },
+  {
+    "id": "bc268f12-b769-46ca-af5b-02388f45e6d8",
+    "sender_domain": "ifpla.com",
+    "doc_type": "BL",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from ifpla.com BL documents, look for 'NAGAPPA EXPORTS' in the document context instead of accepting 'PACIFIC OFFICE (M) SDN BHD'. Verify keyword delimiters and line boundaries specific to ifpla.com's format.",
+    "created_at": "2026-09-24T14:20:54.806695+00:00",
+    "source_correction_id": "email_144",
+    "times_retrieved": 0
+  },
+  {
+    "id": "423a0c2d-e1b3-4052-828f-5026d488c9f5",
+    "sender_domain": "ifpla.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from ifpla.com BL documents, look for '12' in the document context instead of accepting '11'. Verify keyword delimiters and line boundaries specific to ifpla.com's format.",
+    "created_at": "2026-09-24T14:20:54.839625+00:00",
+    "source_correction_id": "email_144",
+    "times_retrieved": 0
+  },
+  {
+    "id": "87d38328-9c2b-45ef-b330-7f66cc46b9fc",
+    "sender_domain": "algurg.ae",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from algurg.ae BL documents, look for '5' in the document context instead of accepting '6'. Verify keyword delimiters and line boundaries specific to algurg.ae's format.",
+    "created_at": "2026-09-24T14:20:54.964951+00:00",
+    "source_correction_id": "email_182",
+    "times_retrieved": 0
+  },
+  {
+    "id": "e8e3a162-8c36-4541-9eea-1acd6d5997cb",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from fujitogrp.com BL documents, look for 'ROXCEL TRADING GMBH OPERNRING 3-5; 1010 VIENNA, AUSTRIA' in the document context instead of accepting 'AL GURG STATIONERY LLC OPERNRING 3-5; 1010 VIENNA, AUSTRIA'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:20:55.051577+00:00",
+    "source_correction_id": "email_225",
+    "times_retrieved": 0
+  },
+  {
+    "id": "0e3ec30b-8b48-4520-89ff-39c2282c78b7",
+    "sender_domain": "safqa.co.ke",
+    "doc_type": "BL",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from safqa.co.ke BL documents, look for 'PORT KLANG (WESTPORT), MALAYSIA' in the document context instead of accepting 'RUGAO/NANTONG/SHANGHAI, CHINA'. Verify keyword delimiters and line boundaries specific to safqa.co.ke's format.",
+    "created_at": "2026-09-24T14:20:55.136564+00:00",
+    "source_correction_id": "email_243",
+    "times_retrieved": 0
+  },
+  {
+    "id": "1aa60f85-2bef-4a9a-a84f-9e9182ad921a",
+    "sender_domain": "safqa.co.ke",
+    "doc_type": "BL",
+    "field_name": "port_of_discharge",
+    "reflection_text": "When extracting port_of_discharge from safqa.co.ke BL documents, look for 'HOUSTON, US' in the document context instead of accepting 'MOMBASA, KENYA'. Verify keyword delimiters and line boundaries specific to safqa.co.ke's format.",
+    "created_at": "2026-09-24T14:20:55.171176+00:00",
+    "source_correction_id": "email_243",
+    "times_retrieved": 0
+  },
+  {
+    "id": "af49251c-1f85-497d-9f66-c50770347d60",
+    "sender_domain": "algurg.ae",
+    "doc_type": "BL",
+    "field_name": "shipper",
+    "reflection_text": "When extracting shipper from algurg.ae BL documents, look for 'APRIL FINE PAPER TRADING ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896' in the document context instead of accepting 'APRIL FAR EAST (M) SDN BHD ON BEHALF OF VITAL SOLUTIONS PTE LTD; 77 ROBINSON ROAD, #21-01; SINGAPORE 068896'. Verify keyword delimiters and line boundaries specific to algurg.ae's format.",
+    "created_at": "2026-09-24T14:20:55.239246+00:00",
+    "source_correction_id": "email_256",
+    "times_retrieved": 0
+  },
+  {
+    "id": "f11d1fda-5857-4bb1-8adc-e669b6fd62e7",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from aprilasia.com BL documents, look for 'INTERNATIONAL FOREST PRODUCTS LLC 6 HOLLIS STREET; SUITE 100; FRAMINGHAM, MA 01702, USA' in the document context instead of accepting 'TOPKOPY MIDDLE EAST FZE 6 HOLLIS STREET SUITE 100 FRAMINGHAM, MA 01702, USA'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:20:55.323521+00:00",
+    "source_correction_id": "email_291",
+    "times_retrieved": 0
+  },
+  {
+    "id": "e63b8dc0-0e1d-49e7-9c9a-3f519c5313d2",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from aprilasia.com BL documents, look for '1' in the document context instead of accepting '3'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:20:55.356559+00:00",
+    "source_correction_id": "email_291",
+    "times_retrieved": 0
+  },
+  {
+    "id": "418e8a87-eac5-4deb-9e8e-0ea9cc3ac0ec",
+    "sender_domain": "safqa.co.ke",
+    "doc_type": "BL",
+    "field_name": "shipper",
+    "reflection_text": "When extracting shipper from safqa.co.ke BL documents, look for 'APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA' in the document context instead of accepting 'APRIL FINE PAPER TRADING (MIDDLE EAST) FZE TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA'. Verify keyword delimiters and line boundaries specific to safqa.co.ke's format.",
+    "created_at": "2026-09-24T14:20:55.404772+00:00",
+    "source_correction_id": "email_300",
+    "times_retrieved": 0
+  },
+  {
+    "id": "71c20407-cbcb-49f9-beab-41d166c406ff",
+    "sender_domain": "safqa.co.ke",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from safqa.co.ke BL documents, look for 'UAB NOVAKOPA SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA' in the document context instead of accepting 'NAGAPPA EXPORTS SAVANORIU PR. 187; LT-02300 VILNIUS, LITHUANIA'. Verify keyword delimiters and line boundaries specific to safqa.co.ke's format.",
+    "created_at": "2026-09-24T14:20:55.439796+00:00",
+    "source_correction_id": "email_300",
+    "times_retrieved": 0
+  },
+  {
+    "id": "c991b9b2-d679-4278-b93f-722433201b47",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from fujitogrp.com BL documents, look for '2' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:20:55.488974+00:00",
+    "source_correction_id": "email_302",
+    "times_retrieved": 0
+  },
+  {
+    "id": "7d069424-bb41-4cb6-96f8-62ee63135905",
+    "sender_domain": "psabdp.com",
+    "doc_type": "BL",
+    "field_name": "shipper",
+    "reflection_text": "When extracting shipper from psabdp.com BL documents, look for 'APRIL FINE PAPER TRADING (MIDDLE EAST) FZE #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES' in the document context instead of accepting 'APRIL FAR EAST (M) SDN BHD #813, 4 EA, DUBAI AIRPORT FREE ZONE; P.O. BOX: 293775, DUBAI, UNITED ARAB EMIRATES'. Verify keyword delimiters and line boundaries specific to psabdp.com's format.",
+    "created_at": "2026-09-24T14:20:55.537153+00:00",
+    "source_correction_id": "email_312",
+    "times_retrieved": 0
+  },
+  {
+    "id": "b0e77346-1e42-434e-8f51-0c4ce888c6fd",
+    "sender_domain": "psabdp.com",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from psabdp.com BL documents, look for '3S PAPER PRODUCTS SDN BHD' in the document context instead of accepting 'KPP-ANTALIS (SINGAPORE) PTE. LTD.'. Verify keyword delimiters and line boundaries specific to psabdp.com's format.",
+    "created_at": "2026-09-24T14:20:55.572760+00:00",
+    "source_correction_id": "email_312",
+    "times_retrieved": 0
+  },
+  {
+    "id": "9ba375db-27b9-4d56-8570-4ebaa0241840",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from fujitogrp.com BL documents, look for '5' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:20:55.621450+00:00",
+    "source_correction_id": "email_313",
+    "times_retrieved": 0
+  },
+  {
+    "id": "6ecdaa2d-d055-40cd-b332-78c86196882d",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from fujitogrp.com BL documents, look for '118270.0' in the document context instead of accepting '117770.0'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:20:55.652022+00:00",
+    "source_correction_id": "email_313",
+    "times_retrieved": 0
+  },
+  {
+    "id": "ed099c1d-6aed-4f4e-97e1-996cd5ef95bd",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "shipper",
+    "reflection_text": "When extracting shipper from fujitogrp.com BL documents, look for 'ASIA PACIFIC PAPERBOARD TRADING PTE LTD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624' in the document context instead of accepting 'APRIL FAR EAST (M) SDN BHD 80 RAFFLES PLACE, #50-01 UOB PLAZA 1; SINGAPORE 048624'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:20:55.705118+00:00",
+    "source_correction_id": "email_324",
+    "times_retrieved": 0
+  },
+  {
+    "id": "6eae2cc9-edf0-48d1-92f0-f62eaed76223",
+    "sender_domain": "fujitogrp.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from fujitogrp.com BL documents, look for '3' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to fujitogrp.com's format.",
+    "created_at": "2026-09-24T14:20:55.736341+00:00",
+    "source_correction_id": "email_324",
+    "times_retrieved": 0
+  },
+  {
+    "id": "6fe430b5-903f-4e3e-84ec-59177ded4503",
+    "sender_domain": "april.com.my",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from april.com.my BL documents, look for 'HABRAS INTERNATIONAL LIMITED' in the document context instead of accepting 'SAFQA LIMITED'. Verify keyword delimiters and line boundaries specific to april.com.my's format.",
+    "created_at": "2026-09-24T14:20:55.784074+00:00",
+    "source_correction_id": "email_342",
+    "times_retrieved": 0
+  },
+  {
+    "id": "0726cc38-1273-441c-baed-f56adad19485",
+    "sender_domain": "april.com.my",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from april.com.my BL documents, look for '1' in the document context instead of accepting '2'. Verify keyword delimiters and line boundaries specific to april.com.my's format.",
+    "created_at": "2026-09-24T14:20:55.818955+00:00",
+    "source_correction_id": "email_342",
+    "times_retrieved": 0
+  },
+  {
+    "id": "101bec34-0b12-46dc-a28e-86fb46685981",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from aprilasia.com BL documents, look for 'KTP CO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA' in the document context instead of accepting '/Intermediate ConsKiTgPne CeO., LTD KTP BLDG., 36 SANGWON-GIL SEOUNGDONG-GU, SEOUL, SOUTH KOREA'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:20:55.868991+00:00",
+    "source_correction_id": "email_351",
+    "times_retrieved": 0
+  },
+  {
+    "id": "9cd51c63-af37-4ade-953a-41ad94496aad",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from aprilasia.com BL documents, look for '15' in the document context instead of accepting '16'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:20:55.906920+00:00",
+    "source_correction_id": "email_351",
+    "times_retrieved": 0
+  },
+  {
+    "id": "2c28c449-3968-4108-9d14-034fa20c3b47",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from aprilasia.com BL documents, look for '359415.0' in the document context instead of accepting '360415.0'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:20:55.951451+00:00",
+    "source_correction_id": "email_351",
+    "times_retrieved": 0
+  },
+  {
+    "id": "931ea993-0428-4a87-8d0f-58cf99d72948",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from aprilasia.com BL documents, look for 'HABRAS INTERNATIONAL LIMITED OFFICE 1204, THE BURLINGTON TOWER; BUSINESS BAY, DUBAI, UAE' in the document context instead of accepting 'NAGAPPA EXPORTS OFFICE 1204, THE BURLINGTON TOWER BUSINESS BAY, DUBAI, UAE'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:20:56.005246+00:00",
+    "source_correction_id": "email_354",
+    "times_retrieved": 0
+  },
+  {
+    "id": "6d9331d6-0fd6-45ee-8225-5c32be65ea76",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from aprilasia.com BL documents, look for '20603.0' in the document context instead of accepting '22603.0'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:20:56.040776+00:00",
+    "source_correction_id": "email_354",
+    "times_retrieved": 0
+  },
+  {
+    "id": "34ffe6ce-99a2-4c75-9bbb-e50d78218947",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from aprilasia.com BL documents, look for '239590.0' in the document context instead of accepting '238590.0'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:20:56.090374+00:00",
+    "source_correction_id": "email_361",
+    "times_retrieved": 0
+  },
+  {
+    "id": "c2780c14-12c3-4c52-b150-335e7e9b4043",
+    "sender_domain": "roxcel.at",
+    "doc_type": "BL",
+    "field_name": "shipper",
+    "reflection_text": "When extracting shipper from roxcel.at BL documents, look for 'APRIL FAR EAST (M) SDN BHD TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA' in the document context instead of accepting 'APRIL FINE PAPER TRADING TOWER 2, AVENUE 5, LEVEL 6; BANGSAR SOUTH CITY, NO. 8 JALAN KERINCHI; 59200 KUALA LUMPUR, MALAYSIA'. Verify keyword delimiters and line boundaries specific to roxcel.at's format.",
+    "created_at": "2026-09-24T14:20:56.183699+00:00",
+    "source_correction_id": "email_379",
+    "times_retrieved": 0
+  },
+  {
+    "id": "75b1fc89-e133-45df-845f-a32aa12f3aeb",
+    "sender_domain": "algurg.ae",
+    "doc_type": "BL",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from algurg.ae BL documents, look for '/Intermediate ConsNigAnGeAePPA EXPORTS' in the document context instead of accepting 'NAGAPPA EXPORTS'. Verify keyword delimiters and line boundaries specific to algurg.ae's format.",
+    "created_at": "2026-09-24T14:20:56.294100+00:00",
+    "source_correction_id": "email_407",
+    "times_retrieved": 0
+  },
+  {
+    "id": "32573194-4f6b-457e-a944-5b775b32506a",
+    "sender_domain": "april.com.my",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from april.com.my BL documents, look for '105625.0' in the document context instead of accepting '106625.0'. Verify keyword delimiters and line boundaries specific to april.com.my's format.",
+    "created_at": "2026-09-24T14:20:56.385767+00:00",
+    "source_correction_id": "email_416",
+    "times_retrieved": 0
+  },
+  {
+    "id": "6394639b-13a6-4a7b-a6db-f151f1418f85",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from aprilasia.com BL documents, look for '10' in the document context instead of accepting '11'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:20:56.437307+00:00",
+    "source_correction_id": "email_426",
+    "times_retrieved": 0
+  },
+  {
+    "id": "757adb53-95a1-4f90-869e-d2870eef6255",
+    "sender_domain": "aprilasia.com",
+    "doc_type": "BL",
+    "field_name": "port_of_discharge",
+    "reflection_text": "When extracting port_of_discharge from aprilasia.com BL documents, look for 'BUSAN, SOUTH KOREA' in the document context instead of accepting 'CEBU, PHILIPPINES'. Verify keyword delimiters and line boundaries specific to aprilasia.com's format.",
+    "created_at": "2026-09-24T14:20:56.502200+00:00",
+    "source_correction_id": "email_434",
+    "times_retrieved": 0
+  },
+  {
+    "id": "5dee95f7-a097-4cca-b158-c87ab5a34073",
+    "sender_domain": "april.com.my",
+    "doc_type": "BL",
+    "field_name": "gross_weight_kg",
+    "reflection_text": "When extracting gross_weight_kg from april.com.my BL documents, look for '214270.0' in the document context instead of accepting '214770.0'. Verify keyword delimiters and line boundaries specific to april.com.my's format.",
+    "created_at": "2026-09-24T14:20:56.550584+00:00",
+    "source_correction_id": "email_435",
+    "times_retrieved": 0
+  },
+  {
+    "id": "36af839c-01a5-4823-80df-6caa01f6e60d",
+    "sender_domain": "april.com.my",
+    "doc_type": "BL",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from april.com.my BL documents, look for 'AL GURG STATIONERY LLC P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES' in the document context instead of accepting '3S PAPER PRODUCTS SDN BHD P.O. BOX 5069; DUBAI, UNITED ARAB EMIRATES'. Verify keyword delimiters and line boundaries specific to april.com.my's format.",
+    "created_at": "2026-09-24T14:20:56.619334+00:00",
+    "source_correction_id": "email_481",
+    "times_retrieved": 0
+  },
+  {
+    "id": "a47683bf-1c50-4f4f-9fdc-8b5e07bd0a64",
+    "sender_domain": "eastasiatrading.com",
+    "doc_type": "SI",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from eastasiatrading.com SI documents, look for '3' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to eastasiatrading.com's format.",
+    "created_at": "2026-09-24T14:31:54.859338+00:00",
+    "source_correction_id": "email_upload_20260924_143148_37ce17:container_count",
+    "times_retrieved": 0
+  },
+  {
+    "id": "ff9fecd3-7e6d-4f6c-bbac-858147940f8f",
+    "sender_domain": "prompt-test-carrier.com",
+    "doc_type": "BL",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from prompt-test-carrier.com BL documents, look for 'SINGAPORE (SGSIN)' in the document context instead of accepting 'PORT_A'. Verify keyword delimiters and line boundaries specific to prompt-test-carrier.com's format.",
+    "created_at": "2026-09-24T14:33:15.848361+00:00",
+    "source_correction_id": "dev_test_002",
+    "times_retrieved": 0
+  },
+  {
+    "id": "f158c751-a211-4b51-ad18-102a283682c9",
+    "sender_domain": "carrier-test-line.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from carrier-test-line.com BL documents, look for '3 x 40'HC' in the document context instead of accepting '1'. Verify keyword delimiters and line boundaries specific to carrier-test-line.com's format.",
+    "created_at": "2026-09-24T14:33:15.882706+00:00",
+    "source_correction_id": "dev_test_001",
+    "times_retrieved": 0
+  },
+  {
+    "id": "ce31cb66-1767-42ad-aefd-f41c9f4f9ec7",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC, DUBAI' in the document context instead of accepting 'UAB NOVAKOPA'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:33:16.067572+00:00",
+    "source_correction_id": "email_004:notify_party",
+    "times_retrieved": 0
+  },
+  {
+    "id": "a66608c8-91f0-49b3-9ee0-3fc14ff80a5f",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE' in the document context instead of accepting 'UAB NOVAKOPA RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:33:16.112164+00:00",
+    "source_correction_id": "email_004:consignee",
+    "times_retrieved": 0
+  },
+  {
+    "id": "22132c4c-1b71-4899-99c8-cfb680882d53",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from vitalsolutions.sg SI documents, look for 'SINGAPORE' in the document context instead of accepting 'WRONG_PORT'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:33:16.230295+00:00",
+    "source_correction_id": "email_004",
+    "times_retrieved": 0
+  },
+  {
+    "id": "61d8d76d-8c13-40af-9bb5-6cc8108a6739",
+    "sender_domain": "evergreen-marine.com",
+    "doc_type": "SI",
+    "field_name": "port_of_discharge",
+    "reflection_text": "When extracting port_of_discharge from evergreen-marine.com SI documents, look for 'PORT_KLANG' in the document context instead of accepting 'OLD_PORT'. Verify keyword delimiters and line boundaries specific to evergreen-marine.com's format.",
+    "created_at": "2026-09-24T14:33:16.261017+00:00",
+    "source_correction_id": "corr_test_01",
+    "times_retrieved": 0
+  },
+  {
+    "id": "53b87f5a-3ad4-4562-a8e1-7696aa79ef5a",
+    "sender_domain": "cap-test-21bba816.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-21bba816.com SI documents, look for 'CORRECT_0' in the document context instead of accepting 'ERR_0'. Verify keyword delimiters and line boundaries specific to cap-test-21bba816.com's format.",
+    "created_at": "2026-09-24T14:33:16.280307+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "7bf16de6-3132-4fa4-b8d9-551c6e2d9394",
+    "sender_domain": "cap-test-21bba816.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-21bba816.com SI documents, look for 'CORRECT_1' in the document context instead of accepting 'ERR_1'. Verify keyword delimiters and line boundaries specific to cap-test-21bba816.com's format.",
+    "created_at": "2026-09-24T14:33:16.297142+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "90167354-82b3-41ca-befd-a83b909348af",
+    "sender_domain": "cap-test-21bba816.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-21bba816.com SI documents, look for 'CORRECT_2' in the document context instead of accepting 'ERR_2'. Verify keyword delimiters and line boundaries specific to cap-test-21bba816.com's format.",
+    "created_at": "2026-09-24T14:33:16.316914+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "315d9e75-420b-40b2-90b1-a14f98174b33",
+    "sender_domain": "cap-test-21bba816.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-21bba816.com SI documents, look for 'CORRECT_3' in the document context instead of accepting 'ERR_3'. Verify keyword delimiters and line boundaries specific to cap-test-21bba816.com's format.",
+    "created_at": "2026-09-24T14:33:16.339766+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "f62939fd-8fe0-4e35-a12c-c7405aaa8369",
+    "sender_domain": "cap-test-21bba816.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-21bba816.com SI documents, look for 'CORRECT_4' in the document context instead of accepting 'ERR_4'. Verify keyword delimiters and line boundaries specific to cap-test-21bba816.com's format.",
+    "created_at": "2026-09-24T14:33:16.364091+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "139adcf7-4687-4601-b1c2-fd8d4c9b8662",
+    "sender_domain": "eastasiatrading.com",
+    "doc_type": "SI",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from eastasiatrading.com SI documents, look for '3' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to eastasiatrading.com's format.",
+    "created_at": "2026-09-24T14:33:20.530568+00:00",
+    "source_correction_id": "email_upload_20260924_143316_26643c:container_count",
+    "times_retrieved": 0
+  },
+  {
+    "id": "45de977d-610e-4679-88d5-41edf55ce840",
+    "sender_domain": "prompt-test-carrier.com",
+    "doc_type": "BL",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from prompt-test-carrier.com BL documents, look for 'SINGAPORE (SGSIN)' in the document context instead of accepting 'PORT_A'. Verify keyword delimiters and line boundaries specific to prompt-test-carrier.com's format.",
+    "created_at": "2026-09-24T14:36:00.839735+00:00",
+    "source_correction_id": "dev_test_002",
+    "times_retrieved": 0
+  },
+  {
+    "id": "8fd653d0-46b9-49c3-b32c-06b6ed2ef49c",
+    "sender_domain": "carrier-test-line.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from carrier-test-line.com BL documents, look for '3 x 40'HC' in the document context instead of accepting '1'. Verify keyword delimiters and line boundaries specific to carrier-test-line.com's format.",
+    "created_at": "2026-09-24T14:36:00.867260+00:00",
+    "source_correction_id": "dev_test_001",
+    "times_retrieved": 0
+  },
+  {
+    "id": "0b136bff-0bc2-4142-9a77-0bc6cceedcf2",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC, DUBAI' in the document context instead of accepting 'UAB NOVAKOPA'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:36:01.041277+00:00",
+    "source_correction_id": "email_004:notify_party",
+    "times_retrieved": 0
+  },
+  {
+    "id": "fafddbb8-3fd6-452f-b87e-3798e1be84a3",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE' in the document context instead of accepting 'UAB NOVAKOPA RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:36:01.086699+00:00",
+    "source_correction_id": "email_004:consignee",
+    "times_retrieved": 0
+  },
+  {
+    "id": "e3e613ce-0803-4e1a-b0d9-6c7271c81b90",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from vitalsolutions.sg SI documents, look for 'SINGAPORE' in the document context instead of accepting 'WRONG_PORT'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:36:01.206549+00:00",
+    "source_correction_id": "email_004",
+    "times_retrieved": 0
+  },
+  {
+    "id": "81bd1dd3-febb-41b7-8414-91c97b3bd205",
+    "sender_domain": "evergreen-marine.com",
+    "doc_type": "SI",
+    "field_name": "port_of_discharge",
+    "reflection_text": "When extracting port_of_discharge from evergreen-marine.com SI documents, look for 'PORT_KLANG' in the document context instead of accepting 'OLD_PORT'. Verify keyword delimiters and line boundaries specific to evergreen-marine.com's format.",
+    "created_at": "2026-09-24T14:36:01.231511+00:00",
+    "source_correction_id": "corr_test_01",
+    "times_retrieved": 0
+  },
+  {
+    "id": "54cb1cee-2f03-4651-b6ed-443681dedfb7",
+    "sender_domain": "cap-test-99ac4efb.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-99ac4efb.com SI documents, look for 'CORRECT_0' in the document context instead of accepting 'ERR_0'. Verify keyword delimiters and line boundaries specific to cap-test-99ac4efb.com's format.",
+    "created_at": "2026-09-24T14:36:01.255486+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "680e08ef-08cf-48d3-b425-a68c5322be4d",
+    "sender_domain": "cap-test-99ac4efb.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-99ac4efb.com SI documents, look for 'CORRECT_1' in the document context instead of accepting 'ERR_1'. Verify keyword delimiters and line boundaries specific to cap-test-99ac4efb.com's format.",
+    "created_at": "2026-09-24T14:36:01.271361+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "a63d39bc-90f9-4c7a-8d4b-443ade20cb40",
+    "sender_domain": "cap-test-99ac4efb.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-99ac4efb.com SI documents, look for 'CORRECT_2' in the document context instead of accepting 'ERR_2'. Verify keyword delimiters and line boundaries specific to cap-test-99ac4efb.com's format.",
+    "created_at": "2026-09-24T14:36:01.290106+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "fd89c019-6f6e-44d6-90dd-73bb96dbe083",
+    "sender_domain": "cap-test-99ac4efb.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-99ac4efb.com SI documents, look for 'CORRECT_3' in the document context instead of accepting 'ERR_3'. Verify keyword delimiters and line boundaries specific to cap-test-99ac4efb.com's format.",
+    "created_at": "2026-09-24T14:36:01.309602+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "21c9b4c9-28ac-45c0-bbeb-18654fc2515f",
+    "sender_domain": "cap-test-99ac4efb.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-99ac4efb.com SI documents, look for 'CORRECT_4' in the document context instead of accepting 'ERR_4'. Verify keyword delimiters and line boundaries specific to cap-test-99ac4efb.com's format.",
+    "created_at": "2026-09-24T14:36:01.328239+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "b987fada-f152-40fa-b192-2580b7dac706",
+    "sender_domain": "eastasiatrading.com",
+    "doc_type": "SI",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from eastasiatrading.com SI documents, look for '3' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to eastasiatrading.com's format.",
+    "created_at": "2026-09-24T14:36:05.315466+00:00",
+    "source_correction_id": "email_upload_20260924_143601_97fbb5:container_count",
+    "times_retrieved": 0
+  },
+  {
+    "id": "354abc93-f99c-44d5-b948-0e4128da252a",
+    "sender_domain": "prompt-test-carrier.com",
+    "doc_type": "BL",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from prompt-test-carrier.com BL documents, look for 'SINGAPORE (SGSIN)' in the document context instead of accepting 'PORT_A'. Verify keyword delimiters and line boundaries specific to prompt-test-carrier.com's format.",
+    "created_at": "2026-09-24T14:41:00.807492+00:00",
+    "source_correction_id": "dev_test_002",
+    "times_retrieved": 0
+  },
+  {
+    "id": "8d82fd43-2274-4894-8183-97f062947774",
+    "sender_domain": "carrier-test-line.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from carrier-test-line.com BL documents, look for '3 x 40'HC' in the document context instead of accepting '1'. Verify keyword delimiters and line boundaries specific to carrier-test-line.com's format.",
+    "created_at": "2026-09-24T14:41:00.825740+00:00",
+    "source_correction_id": "dev_test_001",
+    "times_retrieved": 0
+  },
+  {
+    "id": "3d26ebb1-c9d1-4c18-9b98-d6313e6c4b1e",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC, DUBAI' in the document context instead of accepting 'UAB NOVAKOPA'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:41:01.107803+00:00",
+    "source_correction_id": "email_004:notify_party",
+    "times_retrieved": 0
+  },
+  {
+    "id": "d62cec71-9f51-4923-b883-56a614788ec1",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE' in the document context instead of accepting 'UAB NOVAKOPA RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:41:01.159514+00:00",
+    "source_correction_id": "email_004:consignee",
+    "times_retrieved": 0
+  },
+  {
+    "id": "1b18a553-4a58-477f-8f5d-bd1bc1ec0d73",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from vitalsolutions.sg SI documents, look for 'SINGAPORE' in the document context instead of accepting 'WRONG_PORT'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T14:41:01.302548+00:00",
+    "source_correction_id": "email_004",
+    "times_retrieved": 0
+  },
+  {
+    "id": "78f7e9c3-ee37-4a49-bfa4-111a041a9ef4",
+    "sender_domain": "evergreen-marine.com",
+    "doc_type": "SI",
+    "field_name": "port_of_discharge",
+    "reflection_text": "When extracting port_of_discharge from evergreen-marine.com SI documents, look for 'PORT_KLANG' in the document context instead of accepting 'OLD_PORT'. Verify keyword delimiters and line boundaries specific to evergreen-marine.com's format.",
+    "created_at": "2026-09-24T14:41:01.334714+00:00",
+    "source_correction_id": "corr_test_01",
+    "times_retrieved": 0
+  },
+  {
+    "id": "1553e4e5-06d8-4853-bf81-a817619e75d1",
+    "sender_domain": "cap-test-4857b17d.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-4857b17d.com SI documents, look for 'CORRECT_0' in the document context instead of accepting 'ERR_0'. Verify keyword delimiters and line boundaries specific to cap-test-4857b17d.com's format.",
+    "created_at": "2026-09-24T14:41:01.361983+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "bdfd13b0-8743-4f8c-bc20-e55e6b30123e",
+    "sender_domain": "cap-test-4857b17d.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-4857b17d.com SI documents, look for 'CORRECT_1' in the document context instead of accepting 'ERR_1'. Verify keyword delimiters and line boundaries specific to cap-test-4857b17d.com's format.",
+    "created_at": "2026-09-24T14:41:01.382952+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "702cdbe2-a908-4a95-9c9f-98a56a6bb0d4",
+    "sender_domain": "cap-test-4857b17d.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-4857b17d.com SI documents, look for 'CORRECT_2' in the document context instead of accepting 'ERR_2'. Verify keyword delimiters and line boundaries specific to cap-test-4857b17d.com's format.",
+    "created_at": "2026-09-24T14:41:01.405593+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "c3a665a4-43f7-4a54-a0a7-3beba8d1a6f8",
+    "sender_domain": "cap-test-4857b17d.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-4857b17d.com SI documents, look for 'CORRECT_3' in the document context instead of accepting 'ERR_3'. Verify keyword delimiters and line boundaries specific to cap-test-4857b17d.com's format.",
+    "created_at": "2026-09-24T14:41:01.428416+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "e0a7a246-121f-47af-a886-07c7c7626127",
+    "sender_domain": "cap-test-4857b17d.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-4857b17d.com SI documents, look for 'CORRECT_4' in the document context instead of accepting 'ERR_4'. Verify keyword delimiters and line boundaries specific to cap-test-4857b17d.com's format.",
+    "created_at": "2026-09-24T14:41:01.453856+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "d2430744-776b-4f01-b350-82387838e52d",
+    "sender_domain": "eastasiatrading.com",
+    "doc_type": "SI",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from eastasiatrading.com SI documents, look for '3' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to eastasiatrading.com's format.",
+    "created_at": "2026-09-24T14:41:07.232933+00:00",
+    "source_correction_id": "email_upload_20260924_144101_95d104:container_count",
+    "times_retrieved": 0
   }
 ]

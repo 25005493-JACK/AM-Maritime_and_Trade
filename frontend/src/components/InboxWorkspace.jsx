@@ -27,11 +27,13 @@ import {
   UserCheck,
   Ship,
   Clock,
+  Upload,
   Inbox as InboxIcon
 } from 'lucide-react';
 
 import ConflictEvidencePanel from './ConflictEvidencePanel.jsx';
 import ReasoningReceipt, { RefusalCertificatePanel } from './ReasoningReceipt.jsx';
+import UploadDocsModal from './UploadDocsModal.jsx';
 
 const DEFAULT_CIRCUIT_BREAKER_CERTIFICATE = {
   certificate_type: 'ai_refusal',
@@ -66,8 +68,13 @@ export default function InboxWorkspace({
   selectedEmailId, 
   onSelectEmail, 
   emailDetail,
-  onOpenOverrideModal 
+  onOpenOverrideModal,
+  onUploadSuccess,
+  healthInfo
 }) {
+  // Upload modal state
+  const [showUploadModal, setShowUploadModal] = useState(false);
+
   // Filters state
   const [selectedStatus, setSelectedStatus] = useState('ALL');
   const [searchTerm, setSearchTerm] = useState('');
@@ -255,15 +262,39 @@ export default function InboxWorkspace({
           </div>
         </div>
 
-        {selectedEmailId && (
+        <div className="flex items-center space-x-3">
+          {healthInfo && (
+            <div className="hidden sm:flex items-center space-x-1.5 px-2.5 py-1 rounded-lg border border-blue-900/60 bg-blue-950/40 font-mono text-[11px]">
+              <span className="text-slate-400">LLM Mode:</span>
+              {healthInfo.llm_mode === 'assist' ? (
+                <span className="text-purple-300 font-bold flex items-center space-x-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+                  <span>ASSIST</span>
+                </span>
+              ) : (
+                <span className="text-slate-400 font-medium">OFF (Rules-Only)</span>
+              )}
+            </div>
+          )}
+
           <button
-            onClick={() => onSelectEmail(null)}
-            className="px-3 py-1.5 rounded-lg bg-blue-950 hover:bg-blue-900 text-cyan-300 font-semibold text-xs border border-blue-800/80 flex items-center space-x-1.5 transition"
+            onClick={() => setShowUploadModal(true)}
+            className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 hover:from-blue-500 hover:to-cyan-400 text-slate-950 font-extrabold text-xs flex items-center space-x-1.5 shadow-lg shadow-cyan-950/60 transition active:scale-95 cursor-pointer"
           >
-            <X className="w-3.5 h-3.5" />
-            <span>Close Inspector (Full Screen Inbox)</span>
+            <Upload className="w-3.5 h-3.5" />
+            <span>Upload SI + BL Pair</span>
           </button>
-        )}
+
+          {selectedEmailId && (
+            <button
+              onClick={() => onSelectEmail(null)}
+              className="px-3 py-1.5 rounded-lg bg-blue-950 hover:bg-blue-900 text-cyan-300 font-semibold text-xs border border-blue-800/80 flex items-center space-x-1.5 transition cursor-pointer"
+            >
+              <X className="w-3.5 h-3.5" />
+              <span>Close Inspector</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* BELOW TITLE BAR: LEFT AND RIGHT SPLIT CONTAINER */}
@@ -766,6 +797,13 @@ export default function InboxWorkspace({
           </div>
         </div>
       )}
+
+      {/* Upload SI + BL Pair Modal */}
+      <UploadDocsModal
+        isOpen={showUploadModal}
+        onClose={() => setShowUploadModal(false)}
+        onUploadSuccess={onUploadSuccess}
+      />
     </div>
   );
 }

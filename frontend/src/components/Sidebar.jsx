@@ -12,7 +12,7 @@ import {
   RefreshCw
 } from 'lucide-react';
 
-export default function Sidebar({ activeTab, setActiveTab, stats, onRefresh, theme, onToggleTheme }) {
+export default function Sidebar({ activeTab, setActiveTab, stats, healthInfo, onRefresh, theme, onToggleTheme }) {
   const [collapsed, setCollapsed] = useState(false);
 
   const navItems = [
@@ -134,6 +134,29 @@ export default function Sidebar({ activeTab, setActiveTab, stats, onRefresh, the
             );
           })}
         </nav>
+      </div>
+
+      {/* LLM Agent Layer Mode Status */}
+      <div className="px-3 py-2 border-t border-blue-900/40 bg-slate-900/40">
+        {!collapsed ? (
+          <div className="flex items-center justify-between text-[11px] font-mono">
+            <span className="text-slate-400 font-medium">LLM Mode:</span>
+            {healthInfo?.llm_mode === 'assist' ? (
+              <span className="px-2 py-0.5 rounded-full bg-purple-950/90 border border-purple-500/60 text-purple-300 font-bold flex items-center space-x-1.5 shadow-sm shadow-purple-950">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+                <span>ASSIST</span>
+              </span>
+            ) : (
+              <span className="px-2 py-0.5 rounded-full bg-slate-800/80 border border-slate-700/60 text-slate-400 font-semibold">
+                OFF (Rules-Only)
+              </span>
+            )}
+          </div>
+        ) : (
+          <div className="flex justify-center" title={`LLM Mode: ${(healthInfo?.llm_mode || 'off').toUpperCase()}`}>
+            <span className={`w-2.5 h-2.5 rounded-full ${healthInfo?.llm_mode === 'assist' ? 'bg-purple-400 animate-pulse' : 'bg-slate-600'}`} />
+          </div>
+        )}
       </div>
 
       {/* System Footer Controls */}

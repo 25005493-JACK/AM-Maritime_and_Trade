@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AlertTriangle, Bug, Loader2, PlayCircle } from 'lucide-react';
 import { ReceiptRows, RefusalCertificatePanel } from './ReasoningReceipt.jsx';
+import { apiFetch } from '../api.js';
 
 /**
  * Red Team rehearsal: mutate the documents, then let the SAME pipeline react.
@@ -14,7 +15,7 @@ export default function RedTeamPanel({ emailId }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/api/red-team/transforms')
+    apiFetch('/api/red-team/transforms')
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error('failed'))))
       .then((data) => setTransforms(data.transforms || []))
       .catch(() => setTransforms([]));
@@ -25,7 +26,7 @@ export default function RedTeamPanel({ emailId }) {
     setRunning(transform);
     setError(null);
     try {
-      const res = await fetch(`/api/shipments/${emailId}/red-team`, {
+      const res = await apiFetch(`/api/shipments/${emailId}/red-team`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ transform }),

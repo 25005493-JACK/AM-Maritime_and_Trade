@@ -1,9 +1,24 @@
 #!/usr/bin/env python3
 """
-run_self_eval.py — Replays the full 520 shipping document dataset end-to-end.
-Performs classification -> extraction -> comparison via the rules-first pipeline.
-Submits output per sample_submission.json schema, prints category accuracy and
-reason code breakdown, and diffs the scoreboard against data/last_eval.json.
+run_self_eval.py — CONSISTENCY CHECK (not independent evaluation)
+
+⚠️  DEPRECATION NOTICE:
+    This script does NOT compare against independent ground truth.
+    Its metrics are self-referencing (the system evaluates its own outputs)
+    and include fixed score components, so reported F1 values do not
+    constitute a valid evaluation.
+
+    For rigorous, ground-truth-based evaluation, use instead:
+        python eval/evaluate.py --mode rules_only --split dev
+
+    See eval/README.md for the full evaluation workflow.
+
+Original purpose (retained for backward compatibility):
+    Replays the full 520 shipping document dataset end-to-end.
+    Performs classification -> extraction -> comparison via the rules-first
+    pipeline. Submits output per sample_submission.json schema, prints
+    category distribution and reason code breakdown, and diffs the
+    scoreboard against data/last_eval.json.
 """
 import sys
 import os

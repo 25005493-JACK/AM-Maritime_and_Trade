@@ -14,6 +14,7 @@ import {
   Info,
   Clock
 } from 'lucide-react';
+import { apiFetch } from '../api.js';
 
 export function ReflectionsPanel({ reflectionsBySender, onRefresh }) {
   const [filter, setFilter] = useState('');
@@ -149,8 +150,8 @@ export default function AgentLearningDashboard() {
     setLoading(true);
     try {
       const [polRes, refRes] = await Promise.all([
-        fetch('/api/routing-policy'),
-        fetch('/api/reflections')
+        apiFetch('/api/routing-policy'),
+        apiFetch('/api/reflections')
       ]);
 
       if (polRes.ok) {

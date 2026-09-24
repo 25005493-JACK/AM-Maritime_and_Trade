@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Activity, Clock, Gauge, ShieldAlert, Users } from 'lucide-react';
+import { apiFetch } from '../api.js';
 
 /** Automation level slider (L0-L3) with live, real-data metrics. */
 export default function AutomationSlider({ onLevelChange, level: controlledLevel }) {
@@ -9,7 +10,7 @@ export default function AutomationSlider({ onLevelChange, level: controlledLevel
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch('/api/settings/automation-level')
+    apiFetch('/api/settings/automation-level')
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error('failed'))))
       .then((data) => {
         setInfo(data);
@@ -22,7 +23,7 @@ export default function AutomationSlider({ onLevelChange, level: controlledLevel
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
-    fetch(`/api/settings/automation-level/preview?level=${level}`)
+    apiFetch(`/api/settings/automation-level/preview?level=${level}`)
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error('failed'))))
       .then((data) => { if (!cancelled) setPreview(data); })
       .catch(() => { if (!cancelled) setPreview(null); })
@@ -33,7 +34,7 @@ export default function AutomationSlider({ onLevelChange, level: controlledLevel
   const applyLevel = async (next) => {
     setLevel(next);
     try {
-      await fetch('/api/settings/automation-level', {
+      await apiFetch('/api/settings/automation-level', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ level: next }),

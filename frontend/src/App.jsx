@@ -5,6 +5,7 @@ import HumanReviewQueue from './components/HumanReviewQueue.jsx';
 import VesselCalendar from './components/VesselCalendar.jsx';
 import AdminDashboard from './components/AdminDashboard.jsx';
 import HumanReviewModal from './components/HumanReviewModal.jsx';
+import { apiFetch } from './api.js';
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
@@ -41,7 +42,7 @@ export default function App() {
   // Fetch emails list
   const fetchEmails = async () => {
     try {
-      const res = await fetch('/api/emails');
+      const res = await apiFetch('/api/emails');
       if (res.ok) {
         const data = await res.json();
         setEmails(data);
@@ -58,7 +59,7 @@ export default function App() {
       return;
     }
     try {
-      const res = await fetch(`/api/emails/${id}`);
+      const res = await apiFetch(`/api/emails/${id}`);
       if (res.ok) {
         const data = await res.json();
         setEmailDetail(data);
@@ -71,7 +72,7 @@ export default function App() {
   // Fetch analytics
   const fetchAnalytics = async () => {
     try {
-      const res = await fetch('/api/analytics');
+      const res = await apiFetch('/api/analytics');
       if (res.ok) {
         const data = await res.json();
         setAnalytics(data);
@@ -84,7 +85,7 @@ export default function App() {
   // Fetch Agent Reflexion Memories
   const fetchReflections = async () => {
     try {
-      const res = await fetch('/api/reflections');
+      const res = await apiFetch('/api/reflections');
       if (res.ok) {
         const data = await res.json();
         setReflectionsData(data);
@@ -98,7 +99,7 @@ export default function App() {
   const fetchCalendar = async (port = selectedPort) => {
     try {
       const url = port && port !== 'ALL' ? `/api/calendar?port=${encodeURIComponent(port)}` : '/api/calendar';
-      const res = await fetch(url);
+      const res = await apiFetch(url);
       if (res.ok) {
         const data = await res.json();
         setCalendarData(data);
@@ -115,7 +116,7 @@ export default function App() {
 
   const handleAssignContainer = async (payload) => {
     try {
-      const res = await fetch('/api/calendar/assign', {
+      const res = await apiFetch('/api/calendar/assign', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -131,7 +132,7 @@ export default function App() {
 
   const handleAutoConfirmBooking = async (emailId) => {
     try {
-      const res = await fetch('/api/calendar/auto-book', {
+      const res = await apiFetch('/api/calendar/auto-book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email_id: emailId })
@@ -149,7 +150,7 @@ export default function App() {
   const handleRunSelfEvaluate = async () => {
     setLoadingEval(true);
     try {
-      const res = await fetch('/api/self-evaluate');
+      const res = await apiFetch('/api/self-evaluate');
       if (res.ok) {
         const data = await res.json();
         setEvaluationData(data);
@@ -165,7 +166,7 @@ export default function App() {
   // Save Human-in-the-Loop Override
   const handleSaveOverride = async (emailId, siOverrides, blOverrides) => {
     try {
-      const res = await fetch('/api/override', {
+      const res = await apiFetch('/api/override', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -188,11 +189,39 @@ export default function App() {
     }
   };
 
+  const [healthInfo, setHealthInfo] = useState({ llm_mode: 'off', llm_available: false });
+
+  // Fetch System Health & LLM Mode
+  const fetchHealth = async () => {
+    try {
+      const res = await apiFetch('/api/health');
+      if (res.ok) {
+        const data = await res.json();
+        setHealthInfo(data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch health info:', err);
+    }
+  };
+
+  // Handle Live Upload Success
+  const handleUploadSuccess = async (uploadData) => {
+    await fetchEmails();
+    if (uploadData?.email_id) {
+      setSelectedEmailId(uploadData.email_id);
+      await fetchEmailDetail(uploadData.email_id);
+    }
+    await fetchAnalytics();
+    await fetchHealth();
+    showToast(`Processed ${uploadData?.email_id || 'document pair'} live through real pipeline!`, 'success');
+  };
+
   useEffect(() => {
     fetchEmails();
     fetchAnalytics();
     fetchCalendar('ALL');
     fetchReflections();
+    fetchHealth();
   }, []);
 
   useEffect(() => {
@@ -217,10 +246,12 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         stats={analytics?.summary_stats}
+        healthInfo={healthInfo}
         onRefresh={() => {
           fetchEmails();
           fetchAnalytics();
           fetchCalendar(selectedPort);
+          fetchHealth();
         }}
         theme={theme}
         onToggleTheme={handleToggleTheme}
@@ -235,6 +266,8 @@ export default function App() {
             onSelectEmail={(id) => setSelectedEmailId(id)}
             emailDetail={emailDetail}
             onOpenOverrideModal={() => setShowOverrideModal(true)}
+            onUploadSuccess={handleUploadSuccess}
+            healthInfo={healthInfo}
           />
         )}
 

@@ -1,0 +1,19 @@
+{
+  "email_111": {
+    "reviewer_name": "Pohyi Chong",
+    "timestamp": "2026-01-20T08:35:00Z",
+    "si_overrides": {},
+    "bl_overrides": {
+      "container_count": 3
+    },
+    "corrections": [
+      {
+        "field": "container_count",
+        "original_ai_value": "4",
+        "corrected_value": "3",
+        "flagged_by": "AI comparison",
+        "linked_event_id": "email_111:ai-mismatch"
+      }
+    ]
+  }
+}

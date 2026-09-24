@@ -127,3 +127,46 @@ def append_shipment_correction(correction_data: Dict[str, Any]) -> bool:
     except Exception as e:
         logger.error(f"Failed to save correction to Supabase: {e}")
         return False
+
+
+def save_processing_job(job_data: Dict[str, Any]) -> bool:
+    """Insert or update a processing job into Supabase processing_jobs table."""
+    client = get_supabase_client()
+    if not client:
+        return False
+    try:
+        payload = {
+            "job_id": job_data.get("job_id"),
+            "task_type": job_data.get("task_type", "document_verification"),
+            "status": job_data.get("status", "processing"),
+            "progress": int(job_data.get("progress", 0)),
+            "email_id": job_data.get("email_id"),
+            "shipment_id": job_data.get("shipment_id"),
+            "reviewer_id": job_data.get("reviewer_id"),
+            "created_at": job_data.get("created_at"),
+            "updated_at": job_data.get("updated_at"),
+            "completed_at": job_data.get("completed_at"),
+            "result_summary": job_data.get("result_summary") or {},
+            "error_message": job_data.get("error_message"),
+        }
+        client.table("processing_jobs").upsert(payload).execute()
+        return True
+    except Exception as e:
+        logger.error(f"Failed to save job to Supabase: {e}")
+        return False
+
+
+def fetch_processing_job(job_id: str) -> Optional[Dict[str, Any]]:
+    """Retrieve a single processing job from Supabase by job_id."""
+    client = get_supabase_client()
+    if not client:
+        return None
+    try:
+        res = client.table("processing_jobs").select("*").eq("job_id", job_id).execute()
+        if res.data and len(res.data) > 0:
+            return res.data[0]
+        return None
+    except Exception as e:
+        logger.error(f"Failed to fetch job from Supabase: {e}")
+        return None
+

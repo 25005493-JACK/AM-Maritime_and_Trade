@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { AlertCircle, CheckCircle2, FileText, RefreshCw, Search, ScanText } from 'lucide-react';
+import { apiFetch } from '../api.js';
 
 const statusLabel = {
   ready: 'Ready',
@@ -104,7 +105,7 @@ export default function OcrDashboard() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/ocr/dashboard');
+      const response = await apiFetch('/api/ocr/dashboard');
       if (!response.ok) throw new Error(`Server returned ${response.status}`);
       setData(await response.json());
     } catch (caught) {

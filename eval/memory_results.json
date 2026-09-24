@@ -1,0 +1,404 @@
+{
+  "train_summary": {
+    "corrections_applied": 39,
+    "clean_matches_recorded": 46,
+    "domain_stats": {
+      "safqa.co.ke": {
+        "defects": 3,
+        "clean": 1,
+        "fields_corrected": [
+          "container_count",
+          "port_of_loading",
+          "port_of_discharge",
+          "shipper",
+          "notify_party"
+        ]
+      },
+      "aprilasia.com": {
+        "defects": 8,
+        "clean": 21,
+        "fields_corrected": [
+          "gross_weight_kg",
+          "gross_weight_kg",
+          "consignee",
+          "container_count",
+          "notify_party",
+          "container_count",
+          "gross_weight_kg",
+          "notify_party",
+          "gross_weight_kg",
+          "gross_weight_kg",
+          "container_count",
+          "port_of_discharge"
+        ]
+      },
+      "roxcel.at": {
+        "defects": 2,
+        "clean": 4,
+        "fields_corrected": [
+          "notify_party",
+          "shipper"
+        ]
+      },
+      "fujitogrp.com": {
+        "defects": 6,
+        "clean": 3,
+        "fields_corrected": [
+          "container_count",
+          "gross_weight_kg",
+          "consignee",
+          "container_count",
+          "container_count",
+          "gross_weight_kg",
+          "shipper",
+          "container_count"
+        ]
+      },
+      "psabdp.com": {
+        "defects": 1,
+        "clean": 3,
+        "fields_corrected": [
+          "shipper",
+          "notify_party"
+        ]
+      },
+      "vitalsolutions.sg": {
+        "defects": 0,
+        "clean": 1,
+        "fields_corrected": []
+      },
+      "april.com.my": {
+        "defects": 4,
+        "clean": 8,
+        "fields_corrected": [
+          "notify_party",
+          "container_count",
+          "gross_weight_kg",
+          "gross_weight_kg",
+          "consignee"
+        ]
+      },
+      "ifpla.com": {
+        "defects": 1,
+        "clean": 2,
+        "fields_corrected": [
+          "consignee",
+          "container_count"
+        ]
+      },
+      "algurg.ae": {
+        "defects": 3,
+        "clean": 3,
+        "fields_corrected": [
+          "container_count",
+          "shipper",
+          "notify_party"
+        ]
+      }
+    }
+  },
+  "results_off": {
+    "memory_enabled": false,
+    "total_evaluated": 159,
+    "total_bl_comparison": 40,
+    "classification_macro_f1": 1.0,
+    "status_accuracy": 1.0,
+    "status_macro_f1": 1.0,
+    "field_precision": 1.0,
+    "field_recall": 0.2462,
+    "field_f1": 0.3951,
+    "missed_discrepancies": 0,
+    "incorrect_auto_approvals": 0,
+    "human_review_rate": 0.175,
+    "gated_by_policy_count": 0,
+    "per_carrier": {
+      "fujitogrp.com": {
+        "total": 13,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 13
+      },
+      "ifpla.com": {
+        "total": 4,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 4
+      },
+      "vitalsolutions.sg": {
+        "total": 3,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 3
+      },
+      "april.com.my": {
+        "total": 26,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 26
+      },
+      "aprilasia.com": {
+        "total": 80,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 80
+      },
+      "roxcel.at": {
+        "total": 5,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 5
+      },
+      "psabdp.com": {
+        "total": 8,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 8
+      },
+      "algurg.ae": {
+        "total": 5,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 5
+      },
+      "webmail-verify.co": {
+        "total": 4,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 4
+      },
+      "secure-mailbox.org": {
+        "total": 3,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 3
+      },
+      "logistics-deals.biz": {
+        "total": 1,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 1
+      },
+      "parcel-track.co": {
+        "total": 2,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 2
+      },
+      "crypto-invest.net": {
+        "total": 1,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 1
+      },
+      "safqa.co.ke": {
+        "total": 2,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 2
+      },
+      "prize-claims.info": {
+        "total": 2,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 2
+      }
+    }
+  },
+  "results_on": {
+    "memory_enabled": true,
+    "total_evaluated": 159,
+    "total_bl_comparison": 40,
+    "classification_macro_f1": 1.0,
+    "status_accuracy": 1.0,
+    "status_macro_f1": 1.0,
+    "field_precision": 1.0,
+    "field_recall": 0.2462,
+    "field_f1": 0.3951,
+    "missed_discrepancies": 0,
+    "incorrect_auto_approvals": 0,
+    "human_review_rate": 0.175,
+    "gated_by_policy_count": 0,
+    "per_carrier": {
+      "fujitogrp.com": {
+        "total": 13,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 13
+      },
+      "ifpla.com": {
+        "total": 4,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 4
+      },
+      "vitalsolutions.sg": {
+        "total": 3,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 3
+      },
+      "april.com.my": {
+        "total": 26,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 26
+      },
+      "aprilasia.com": {
+        "total": 80,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 80
+      },
+      "roxcel.at": {
+        "total": 5,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 5
+      },
+      "psabdp.com": {
+        "total": 8,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 8
+      },
+      "algurg.ae": {
+        "total": 5,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 5
+      },
+      "webmail-verify.co": {
+        "total": 4,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 4
+      },
+      "secure-mailbox.org": {
+        "total": 3,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 3
+      },
+      "logistics-deals.biz": {
+        "total": 1,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 1
+      },
+      "parcel-track.co": {
+        "total": 2,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 2
+      },
+      "crypto-invest.net": {
+        "total": 1,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 1
+      },
+      "safqa.co.ke": {
+        "total": 2,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 2
+      },
+      "prize-claims.info": {
+        "total": 2,
+        "ok": 0,
+        "mismatch": 0,
+        "needs_review": 0,
+        "missed": 0,
+        "gated": 0,
+        "accuracy_hits": 2
+      }
+    }
+  }
+}

@@ -26,7 +26,7 @@ class DatasetLoader:
         if os.path.exists(self.inbox_dir):
             email_files = sorted(
                 glob.glob(os.path.join(self.inbox_dir, "email_*.json")),
-                key=lambda p: int(re_num.group(1)) if (re_num := __import__('re').search(r'email_(\d+)\.json', p)) else p
+                key=lambda p: (0, int(re_num.group(1))) if (re_num := __import__('re').search(r'email_(\d+)\.json', p)) else (1, str(p))
             )
             for fpath in email_files:
                 try:
@@ -185,5 +185,45 @@ class DatasetLoader:
         if len(parts_dash) >= 4:
             return parts_dash[3].strip()
         return "Maritime Shipper"
+
+    def add_uploaded_email(
+        self,
+        email_dict: Dict[str, Any],
+        attachments_content: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        Dynamically save a newly uploaded email and its attachment files to disk,
+        indexing it into the live inbox dataset so it appears across all views.
+        """
+        os.makedirs(self.inbox_dir, exist_ok=True)
+        os.makedirs(self.attachments_dir, exist_ok=True)
+
+        email_id = email_dict.get("id") or email_dict.get("email_id")
+        if not email_id:
+            raise ValueError("email_dict must contain 'id' or 'email_id'")
+
+        # Save attachment binary/text files if provided
+        if attachments_content:
+            for fname, content in attachments_content.items():
+                att_path = os.path.join(self.attachments_dir, os.path.basename(fname))
+                mode = "wb" if isinstance(content, bytes) else "w"
+                kwargs = {} if isinstance(content, bytes) else {"encoding": "utf-8"}
+                with open(att_path, mode, **kwargs) as f:
+                    f.write(content)
+                # clear attachment cache for this file if present
+                for k in list(self._attachment_text_cache.keys()):
+                    if os.path.basename(fname) in k:
+                        self._attachment_text_cache.pop(k, None)
+
+        # Write the email JSON file into inbox_dir
+        email_file = os.path.join(self.inbox_dir, f"{email_id}.json")
+        with open(email_file, "w", encoding="utf-8") as f:
+            json.dump(email_dict, f, indent=2, ensure_ascii=False)
+
+        # Invalidate cache and reload
+        self._emails_cache = None
+        self._email_map = {}
+        self.load_inbox(force_reload=True)
+        return self.get_email(email_id) or email_dict
 
 loader = DatasetLoader()

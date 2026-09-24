@@ -2,74 +2,74 @@
   "safqa.co.ke:*": {
     "sender_domain": "safqa.co.ke",
     "field_name": null,
-    "alpha": 5.0,
-    "beta": 7.0,
-    "mean_trust": 0.417,
-    "last_updated": "2026-09-24T04:24:23.308258+00:00"
+    "alpha": 7.0,
+    "beta": 13.0,
+    "mean_trust": 0.35,
+    "last_updated": "2026-09-24T14:20:55.472981+00:00"
   },
   "vitalsolutions.sg:*": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": null,
-    "alpha": 5.0,
+    "alpha": 7.0,
     "beta": 3.0,
-    "mean_trust": 0.625,
-    "last_updated": "2026-09-24T04:24:23.278006+00:00"
+    "mean_trust": 0.7,
+    "last_updated": "2026-09-24T14:20:54.499723+00:00"
   },
   "aprilasia.com:*": {
     "sender_domain": "aprilasia.com",
     "field_name": null,
-    "alpha": 85.0,
-    "beta": 29.0,
-    "mean_trust": 0.746,
-    "last_updated": "2026-09-24T04:24:23.530907+00:00"
+    "alpha": 127.0,
+    "beta": 45.0,
+    "mean_trust": 0.738,
+    "last_updated": "2026-09-24T14:20:56.715432+00:00"
   },
   "roxcel.at:*": {
     "sender_domain": "roxcel.at",
     "field_name": null,
-    "alpha": 11.0,
-    "beta": 9.0,
-    "mean_trust": 0.55,
-    "last_updated": "2026-09-24T04:24:23.090734+00:00"
+    "alpha": 19.0,
+    "beta": 13.0,
+    "mean_trust": 0.594,
+    "last_updated": "2026-09-24T14:20:56.734408+00:00"
   },
   "psabdp.com:*": {
     "sender_domain": "psabdp.com",
     "field_name": null,
-    "alpha": 13.0,
-    "beta": 3.0,
-    "mean_trust": 0.812,
-    "last_updated": "2026-09-24T04:24:22.209832+00:00"
+    "alpha": 19.0,
+    "beta": 5.0,
+    "mean_trust": 0.792,
+    "last_updated": "2026-09-24T14:20:55.605492+00:00"
   },
   "fujitogrp.com:*": {
     "sender_domain": "fujitogrp.com",
     "field_name": null,
-    "alpha": 11.0,
-    "beta": 13.0,
-    "mean_trust": 0.458,
-    "last_updated": "2026-09-24T04:24:23.324004+00:00"
+    "alpha": 17.0,
+    "beta": 25.0,
+    "mean_trust": 0.405,
+    "last_updated": "2026-09-24T14:20:55.769447+00:00"
   },
   "algurg.ae:*": {
     "sender_domain": "algurg.ae",
     "field_name": null,
-    "alpha": 15.0,
-    "beta": 9.0,
-    "mean_trust": 0.625,
-    "last_updated": "2026-09-24T04:24:23.494731+00:00"
+    "alpha": 21.0,
+    "beta": 15.0,
+    "mean_trust": 0.583,
+    "last_updated": "2026-09-24T14:20:56.326668+00:00"
   },
   "april.com.my:*": {
     "sender_domain": "april.com.my",
     "field_name": null,
-    "alpha": 30.0,
-    "beta": 12.0,
-    "mean_trust": 0.714,
-    "last_updated": "2026-09-24T04:24:23.435910+00:00"
+    "alpha": 46.0,
+    "beta": 20.0,
+    "mean_trust": 0.697,
+    "last_updated": "2026-09-24T14:20:56.677718+00:00"
   },
   "ifpla.com:*": {
     "sender_domain": "ifpla.com",
     "field_name": null,
-    "alpha": 11.0,
-    "beta": 5.0,
-    "mean_trust": 0.688,
-    "last_updated": "2026-09-24T04:24:23.166500+00:00"
+    "alpha": 15.0,
+    "beta": 7.0,
+    "mean_trust": 0.682,
+    "last_updated": "2026-09-24T14:20:56.603349+00:00"
   },
   "adaptive-sender.com:*": {
     "sender_domain": "adaptive-sender.com",
@@ -82,18 +82,18 @@
   "vitalsolutions.sg:consignee": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "consignee",
-    "alpha": 7.0,
-    "beta": 7.0,
+    "alpha": 14.0,
+    "beta": 14.0,
     "mean_trust": 0.5,
-    "last_updated": "2026-09-24T05:09:02.240223+00:00"
+    "last_updated": "2026-09-24T14:41:01.182524+00:00"
   },
   "vitalsolutions.sg:notify_party": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "notify_party",
     "alpha": 1.0,
-    "beta": 7.0,
-    "mean_trust": 0.125,
-    "last_updated": "2026-09-24T05:09:02.207896+00:00"
+    "beta": 14.0,
+    "mean_trust": 0.067,
+    "last_updated": "2026-09-24T14:41:01.141251+00:00"
   },
   "adaptive-sender-6847fd94.com:*": {
     "sender_domain": "adaptive-sender-6847fd94.com",
@@ -150,5 +150,293 @@
     "beta": 3.0,
     "mean_trust": 0.4,
     "last_updated": "2026-09-24T05:09:02.442779+00:00"
+  },
+  "adaptive-sender-a6bfdf30.com:*": {
+    "sender_domain": "adaptive-sender-a6bfdf30.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-24T10:27:48.101888+00:00"
+  },
+  "eastasiatrading.com:container_count": {
+    "sender_domain": "eastasiatrading.com",
+    "field_name": "container_count",
+    "alpha": 1.0,
+    "beta": 11.0,
+    "mean_trust": 0.083,
+    "last_updated": "2026-09-24T14:41:07.257268+00:00"
+  },
+  "adaptive-sender-77888502.com:*": {
+    "sender_domain": "adaptive-sender-77888502.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-24T13:52:01.730252+00:00"
+  },
+  "carrier-test-line.com:*": {
+    "sender_domain": "carrier-test-line.com",
+    "field_name": null,
+    "alpha": 7.0,
+    "beta": 19.0,
+    "mean_trust": 0.269,
+    "last_updated": "2026-09-24T14:41:00.790162+00:00"
+  },
+  "fujitogrp.com:container_count": {
+    "sender_domain": "fujitogrp.com",
+    "field_name": "container_count",
+    "alpha": 1.0,
+    "beta": 9.0,
+    "mean_trust": 0.1,
+    "last_updated": "2026-09-24T14:20:55.755919+00:00"
+  },
+  "roxcel.at:notify_party": {
+    "sender_domain": "roxcel.at",
+    "field_name": "notify_party",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:54.407250+00:00"
+  },
+  "safqa.co.ke:container_count": {
+    "sender_domain": "safqa.co.ke",
+    "field_name": "container_count",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:54.571521+00:00"
+  },
+  "aprilasia.com:gross_weight_kg": {
+    "sender_domain": "aprilasia.com",
+    "field_name": "gross_weight_kg",
+    "alpha": 1.0,
+    "beta": 11.0,
+    "mean_trust": 0.083,
+    "last_updated": "2026-09-24T14:20:56.107669+00:00"
+  },
+  "fujitogrp.com:gross_weight_kg": {
+    "sender_domain": "fujitogrp.com",
+    "field_name": "gross_weight_kg",
+    "alpha": 1.0,
+    "beta": 5.0,
+    "mean_trust": 0.167,
+    "last_updated": "2026-09-24T14:20:55.671937+00:00"
+  },
+  "ifpla.com:consignee": {
+    "sender_domain": "ifpla.com",
+    "field_name": "consignee",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:54.835426+00:00"
+  },
+  "ifpla.com:container_count": {
+    "sender_domain": "ifpla.com",
+    "field_name": "container_count",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:54.868593+00:00"
+  },
+  "algurg.ae:container_count": {
+    "sender_domain": "algurg.ae",
+    "field_name": "container_count",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:54.994438+00:00"
+  },
+  "fujitogrp.com:consignee": {
+    "sender_domain": "fujitogrp.com",
+    "field_name": "consignee",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:55.080288+00:00"
+  },
+  "safqa.co.ke:port_of_loading": {
+    "sender_domain": "safqa.co.ke",
+    "field_name": "port_of_loading",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:55.166258+00:00"
+  },
+  "safqa.co.ke:port_of_discharge": {
+    "sender_domain": "safqa.co.ke",
+    "field_name": "port_of_discharge",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:55.200885+00:00"
+  },
+  "algurg.ae:shipper": {
+    "sender_domain": "algurg.ae",
+    "field_name": "shipper",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:55.270148+00:00"
+  },
+  "aprilasia.com:consignee": {
+    "sender_domain": "aprilasia.com",
+    "field_name": "consignee",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:55.351307+00:00"
+  },
+  "aprilasia.com:container_count": {
+    "sender_domain": "aprilasia.com",
+    "field_name": "container_count",
+    "alpha": 1.0,
+    "beta": 7.0,
+    "mean_trust": 0.125,
+    "last_updated": "2026-09-24T14:20:56.455566+00:00"
+  },
+  "safqa.co.ke:shipper": {
+    "sender_domain": "safqa.co.ke",
+    "field_name": "shipper",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:55.433741+00:00"
+  },
+  "safqa.co.ke:notify_party": {
+    "sender_domain": "safqa.co.ke",
+    "field_name": "notify_party",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:55.467661+00:00"
+  },
+  "psabdp.com:shipper": {
+    "sender_domain": "psabdp.com",
+    "field_name": "shipper",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:55.567924+00:00"
+  },
+  "psabdp.com:notify_party": {
+    "sender_domain": "psabdp.com",
+    "field_name": "notify_party",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:55.599310+00:00"
+  },
+  "fujitogrp.com:shipper": {
+    "sender_domain": "fujitogrp.com",
+    "field_name": "shipper",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:55.730353+00:00"
+  },
+  "april.com.my:notify_party": {
+    "sender_domain": "april.com.my",
+    "field_name": "notify_party",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:55.813825+00:00"
+  },
+  "april.com.my:container_count": {
+    "sender_domain": "april.com.my",
+    "field_name": "container_count",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:55.847295+00:00"
+  },
+  "aprilasia.com:notify_party": {
+    "sender_domain": "aprilasia.com",
+    "field_name": "notify_party",
+    "alpha": 1.0,
+    "beta": 5.0,
+    "mean_trust": 0.167,
+    "last_updated": "2026-09-24T14:20:56.025640+00:00"
+  },
+  "roxcel.at:shipper": {
+    "sender_domain": "roxcel.at",
+    "field_name": "shipper",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:56.210810+00:00"
+  },
+  "algurg.ae:notify_party": {
+    "sender_domain": "algurg.ae",
+    "field_name": "notify_party",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:56.321460+00:00"
+  },
+  "april.com.my:gross_weight_kg": {
+    "sender_domain": "april.com.my",
+    "field_name": "gross_weight_kg",
+    "alpha": 1.0,
+    "beta": 5.0,
+    "mean_trust": 0.167,
+    "last_updated": "2026-09-24T14:20:56.568225+00:00"
+  },
+  "aprilasia.com:port_of_discharge": {
+    "sender_domain": "aprilasia.com",
+    "field_name": "port_of_discharge",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:56.529072+00:00"
+  },
+  "april.com.my:consignee": {
+    "sender_domain": "april.com.my",
+    "field_name": "consignee",
+    "alpha": 1.0,
+    "beta": 3.0,
+    "mean_trust": 0.25,
+    "last_updated": "2026-09-24T14:20:56.654655+00:00"
+  },
+  "adaptive-sender-aabf1df8.com:*": {
+    "sender_domain": "adaptive-sender-aabf1df8.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-24T14:18:48.827630+00:00"
+  },
+  "adaptive-sender-b8681b2b.com:*": {
+    "sender_domain": "adaptive-sender-b8681b2b.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-24T14:20:11.534743+00:00"
+  },
+  "adaptive-sender-56743acd.com:*": {
+    "sender_domain": "adaptive-sender-56743acd.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-24T14:33:16.202763+00:00"
+  },
+  "adaptive-sender-a65b6076.com:*": {
+    "sender_domain": "adaptive-sender-a65b6076.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-24T14:36:01.176765+00:00"
+  },
+  "adaptive-sender-5666724f.com:*": {
+    "sender_domain": "adaptive-sender-5666724f.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-24T14:41:01.259643+00:00"
   }
 }

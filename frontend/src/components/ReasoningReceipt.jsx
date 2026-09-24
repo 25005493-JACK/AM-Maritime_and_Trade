@@ -10,6 +10,7 @@ import {
   ShieldCheck,
   UserCheck,
 } from 'lucide-react';
+import { apiFetch } from '../api.js';
 
 const PATH_STYLES = {
   rule: { label: 'RULE', cls: 'bg-slate-800/80 text-slate-300 border-slate-600/60' },
@@ -238,7 +239,7 @@ export default function ReasoningReceipt({ shipmentId, emailId, receipt: provide
     const url = shipmentId
       ? `/api/shipments/${shipmentId}/receipt`
       : `/api/verify/${emailId}/receipt`;
-    fetch(url)
+    apiFetch(url)
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error('failed'))))
       .then((data) => { if (!cancelled) setReceipt(data); })
       .catch(() => { if (!cancelled) setReceipt(null); })
