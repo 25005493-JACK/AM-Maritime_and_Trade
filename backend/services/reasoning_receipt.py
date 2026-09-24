@@ -81,11 +81,16 @@ def _source_evidence(
 
 def _validators(field_key: str, value: Any, source_text: str, evidence: Optional[Dict[str, Any]]) -> List[Dict[str, str]]:
     validators: List[Dict[str, str]] = []
+    has_source = bool(evidence and evidence.get("char_offset") is not None)
+    if has_source:
+        char_info = f"chars {evidence.get('start_char', evidence['char_offset'])}-{evidence.get('end_char', '')}"
+        detail = f"{evidence['document']}#{evidence['char_offset']} ({char_info})"
+    else:
+        detail = "value not located in the source document"
     validators.append({
         "name": "source_match",
-        "status": "pass" if evidence else "fail",
-        "detail": (f"{evidence['document']}#{evidence['char_offset']}" if evidence
-                   else "value not located in the source document"),
+        "status": "pass" if has_source else "fail",
+        "detail": detail,
     })
     wl = field_evidence.check_whitelist(field_key, value, source_text)
     validators.append({

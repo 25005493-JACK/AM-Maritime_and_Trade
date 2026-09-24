@@ -32,12 +32,12 @@ WHITELIST_TABLES = {
 _CONTAINER_RE = re.compile(r'\b[A-Z]{4}\d{7}\b')
 
 
-def locate_span(text: str, value: Any) -> Optional[Dict[str, Any]]:
-    """Locate ``value`` inside ``text`` and return offset, line and quoted text.
+def locate_span(text: str, value: Any, allow_partial: bool = False) -> Optional[Dict[str, Any]]:
+    """Locate full normalized ``value`` inside ``text`` and return start_char, end_char, offset, line, and quoted text.
 
-    Extraction joins multi-line values, so a literal search is tried first and
-    then progressively more tolerant strategies. ``match_type`` records which
-    strategy succeeded - we do not pretend a partial match is an exact one.
+    In strict provenance mode (allow_partial=False, the default), partial matches (e.g. matching
+    only the first token or arbitrary prefix) are strictly rejected. The entire normalized value
+    must appear in the source text.
     """
     if text is None or value is None:
         return None
@@ -46,47 +46,92 @@ def locate_span(text: str, value: Any) -> Optional[Dict[str, Any]]:
         return None
 
     collapsed = re.sub(r'\s+', ' ', needle)
-    tokens = [tok for tok in collapsed.split(' ') if tok]
-    strategies: List[Tuple[str, str]] = [("exact", needle), ("whitespace_collapsed", collapsed)]
+    idx = -1
+    matched_len = 0
+    match_type = "exact"
 
-    if tokens:
-        strategies.append(("line_partial", tokens[0]))
-    if len(tokens) >= 4:
-        strategies.append(("token_prefix", " ".join(tokens[:4])))
+    # Strategy 1: Exact verbatim match
+    idx = text.find(needle)
+    if idx >= 0:
+        matched_len = len(needle)
+        match_type = "exact"
+    else:
+        # Strategy 2: Case-insensitive verbatim match
+        idx = text.upper().find(needle.upper())
+        if idx >= 0:
+            matched_len = len(needle)
+            match_type = "case_insensitive"
 
-    for match_type, candidate in strategies:
-        if not candidate:
-            continue
-        idx = text.find(candidate)
-        if idx < 0:
-            idx = text.upper().find(candidate.upper())
-        if idx < 0 and " " in candidate:
-            pattern = re.compile(r'\s+'.join(re.escape(t) for t in candidate.split(' ')), re.IGNORECASE)
+    # Strategy 3: Whitespace-collapsed verbatim match
+    if idx < 0 and collapsed != needle:
+        idx = text.find(collapsed)
+        if idx >= 0:
+            matched_len = len(collapsed)
+            match_type = "whitespace_collapsed"
+        else:
+            idx = text.upper().find(collapsed.upper())
+            if idx >= 0:
+                matched_len = len(collapsed)
+                match_type = "whitespace_collapsed"
+
+    # Strategy 4: Whitespace-tolerant match (ALL tokens in the value must appear in order)
+    if idx < 0 and " " in collapsed:
+        tokens = [re.escape(tok) for tok in collapsed.split(" ") if tok]
+        if tokens:
+            pattern = re.compile(r'\s+'.join(tokens), re.IGNORECASE)
             found = pattern.search(text)
             if found:
                 idx = found.start()
+                matched_len = found.end() - found.start()
                 match_type = "whitespace_tolerant"
-        if idx < 0:
-            # Numeric values are often formatted differently ("131,058.00 kg" vs
-            # "131,058 KG"): match the digits, tolerating separators between them.
-            digits = re.sub(r'[^0-9]', '', needle)
-            if len(digits) >= 4:
-                pattern = re.compile(r'\D?'.join(re.escape(ch) for ch in digits))
-                found = pattern.search(text)
-                if found:
-                    idx = found.start()
-                    match_type = "digit_tolerant"
-        if idx >= 0:
-            line_start = text.rfind('\n', 0, idx) + 1
-            line_end = text.find('\n', idx)
-            if line_end < 0:
-                line_end = len(text)
-            return {
-                "char_offset": idx,
-                "line_number": text[:idx].count('\n') + 1,
-                "exact_text": text[line_start:line_end].strip(),
-                "match_type": match_type,
-            }
+
+    # Strategy 5: Numeric / Digit-tolerant match (all digits must appear in order)
+    if idx < 0:
+        digits = re.sub(r'[^0-9]', '', needle)
+        if len(digits) >= 4:
+            pattern = re.compile(r'[^0-9\n]*'.join(re.escape(ch) for ch in digits))
+            found = pattern.search(text)
+            if found:
+                idx = found.start()
+                matched_len = found.end() - found.start()
+                match_type = "digit_tolerant"
+
+    # Strategy 6: Partial matching ONLY if explicitly permitted
+    if idx < 0 and allow_partial:
+        tokens = [tok for tok in collapsed.split(' ') if tok]
+        # Check prefix matches
+        for k in range(len(tokens) - 1, 0, -1):
+            cand = " ".join(tokens[:k])
+            if len(cand) >= 3:
+                pos = text.upper().find(cand.upper())
+                if pos >= 0:
+                    idx = pos
+                    matched_len = len(cand)
+                    match_type = "token_prefix" if k > 1 else "line_partial"
+                    break
+        if idx < 0 and tokens:
+            for tok in tokens:
+                if len(tok) >= 3:
+                    pos = text.upper().find(tok.upper())
+                    if pos >= 0:
+                        idx = pos
+                        matched_len = len(tok)
+                        match_type = "line_partial"
+                        break
+
+    if idx >= 0:
+        line_start = text.rfind('\n', 0, idx) + 1
+        line_end = text.find('\n', idx)
+        if line_end < 0:
+            line_end = len(text)
+        return {
+            "char_offset": idx,
+            "start_char": idx,
+            "end_char": idx + matched_len,
+            "line_number": text[:idx].count('\n') + 1,
+            "exact_text": text[line_start:line_end].strip(),
+            "match_type": match_type,
+        }
     return None
 
 
@@ -98,13 +143,15 @@ def _document_name(attachment: Any, fallback: str) -> str:
     return fallback
 
 
-def _build_source(document: str, doc_type: str, raw_text: str, value: Any) -> Dict[str, Any]:
-    span = locate_span(raw_text, value)
+def _build_source(document: str, doc_type: str, raw_text: str, value: Any, allow_partial: bool = False) -> Dict[str, Any]:
+    span = locate_span(raw_text, value, allow_partial=allow_partial)
     return {
         "document": document,
         "document_type": doc_type,
         "value": None if value is None else str(value),
         "char_offset": span["char_offset"] if span else None,
+        "start_char": span["start_char"] if span else None,
+        "end_char": span["end_char"] if span else None,
         "line_number": span["line_number"] if span else None,
         "exact_text": span["exact_text"] if span else None,
         "span_match": span["match_type"] if span else None,

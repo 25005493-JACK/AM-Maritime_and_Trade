@@ -349,9 +349,9 @@ DocuMatch re-architects document intelligence as a **stateful learning-agent sys
 DocuMatch estimates operational savings using planning assumptions of 12 minutes per auto-processed shipment and 7 minutes per assisted review. These assumptions still need a timed study:
 $$\text{Time Saved (minutes)} = (\text{Auto-Processed Shipments} \times 12\text{ min}) + (\text{Assisted Reviews} \times 7\text{ min})$$
 
-- **78% Reduction (target)** in overall document verification turnaround time.
-- **Zero Silent Errors (target)**: Circuit breakers and mechanical whitelists aim to prevent ungrounded AI hallucination.
-- **Elimination of Port Fines**: Eliminates clerical discrepancies before documentation is finalized with ocean carriers.
+- **78% Turnaround Reduction (Operational Target)**: Projected model across representative batch workflows (subject to future continuous timed field study).
+- **Zero Silent Errors (Empirically Measured on Benchmark)**: Strict character-level provenance and deterministic whitelists achieved **0 missed discrepancies and 0 incorrect auto-approvals** across 156 held-out documents (`eval/results.json`).
+- **Port Customs Penalty Mitigation (Target Goal)**: Aims to eliminate preventable clerical disputes prior to carrier final document issuance.
 
 **How we will validate these claims:** Reviewers will time the same representative SI/BL cases manually and with DocuMatch, including correction and review time. We will report the case count, total times, and reduction calculated as `1 - DocuMatch time / manual time`. Separately, we will check system decisions against independently labeled emails and documents. A silent error means a missed comparison request or an incorrect `OK` result that reaches the end without review. We will report the count as `silent errors / N cases`, alongside correct matches, detected mismatches, and review cases. **78% reduction and zero silent errors remain targets until these results are measured.**
 

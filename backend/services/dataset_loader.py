@@ -25,7 +25,7 @@ class DatasetLoader:
 
         if os.path.exists(self.inbox_dir):
             email_files = sorted(
-                glob.glob(os.path.join(self.inbox_dir, "email_*.json")),
+                glob.glob(os.path.join(self.inbox_dir, "*.json")),
                 key=lambda p: (0, int(re_num.group(1))) if (re_num := __import__('re').search(r'email_(\d+)\.json', p)) else (1, str(p))
             )
             for fpath in email_files:
@@ -70,9 +70,41 @@ class DatasetLoader:
                 with open(fallback_file, "r", encoding="utf-8") as f:
                     emails = json.load(f)
 
+        # Prepend dynamically uploaded emails so they appear at the top and survive reload
+        uploads_file = os.path.join(WORKSPACE_ROOT, "data", "uploaded_emails.json")
+        if os.path.exists(uploads_file):
+            try:
+                with open(uploads_file, "r", encoding="utf-8") as f:
+                    uploaded = json.load(f)
+                    if isinstance(uploaded, list):
+                        emails = uploaded + emails
+            except Exception as ex:
+                print(f"[DatasetLoader] Error loading uploaded emails: {ex}")
+
         self._emails_cache = emails
         self._email_map = {e["id"]: e for e in emails}
         return self._emails_cache
+
+    def register_uploaded_email(self, email_dict: Dict[str, Any]) -> None:
+        """Register a new uploaded email document pair persistently."""
+        uploads_file = os.path.join(WORKSPACE_ROOT, "data", "uploaded_emails.json")
+        os.makedirs(os.path.dirname(uploads_file), exist_ok=True)
+        uploaded = []
+        if os.path.exists(uploads_file):
+            try:
+                with open(uploads_file, "r", encoding="utf-8") as f:
+                    uploaded = json.load(f)
+            except Exception:
+                uploaded = []
+        # Replace if existing or prepend
+        uploaded = [e for e in uploaded if e.get("id") != email_dict.get("id")]
+        uploaded.insert(0, email_dict)
+        with open(uploads_file, "w", encoding="utf-8") as f:
+            json.dump(uploaded, f, indent=2, ensure_ascii=False)
+
+        # Invalidate memory cache so next load reflects update
+        self._emails_cache = None
+        self._email_map[email_dict["id"]] = email_dict
 
     def get_email(self, email_id: str) -> Optional[Dict[str, Any]]:
         if self._emails_cache is None:
@@ -90,7 +122,9 @@ class DatasetLoader:
             os.path.join(WORKSPACE_ROOT, clean_path),
             os.path.join(self.attachments_dir, os.path.basename(clean_path)),
             os.path.join(BASE_DIR, "data", clean_path),
-            os.path.join(BASE_DIR, "data", "attachments", os.path.basename(clean_path))
+            os.path.join(BASE_DIR, "data", "attachments", os.path.basename(clean_path)),
+            os.path.join(WORKSPACE_ROOT, "data", "uploads", os.path.basename(clean_path)),
+            os.path.join(WORKSPACE_ROOT, "data", "uploads", clean_path),
         ]
         for c in candidates:
             if os.path.exists(c):

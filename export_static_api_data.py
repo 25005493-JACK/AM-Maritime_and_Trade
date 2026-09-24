@@ -7,7 +7,7 @@ import os
 import urllib.request
 import json
 
-base_url = "http://localhost:8000"
+base_url = "http://127.0.0.1:8000"
 public_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "frontend", "public")
 api_dir = os.path.join(public_dir, "api")
 emails_dir = os.path.join(api_dir, "emails")
@@ -38,10 +38,12 @@ for endpoint, filename in endpoints:
             target_file = os.path.join(api_dir, filename)
             with open(target_file, "wb") as f:
                 f.write(data)
-            # Save as exact endpoint name without .json
+            # Save as exact endpoint name without .json if not a directory
             base_name = os.path.splitext(filename)[0]
-            with open(os.path.join(api_dir, base_name), "wb") as f:
-                f.write(data)
+            target_noext = os.path.join(api_dir, base_name)
+            if not os.path.isdir(target_noext):
+                with open(target_noext, "wb") as f:
+                    f.write(data)
             print(f"Exported {endpoint} -> {target_file}")
     except Exception as e:
         print(f"Error fetching {endpoint}: {e}")

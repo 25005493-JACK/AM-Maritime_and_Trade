@@ -56,7 +56,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Persistent file storage for manual overrides across server restarts / reloads
+# Data directory and persistent storage
+DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 OVERRIDES_FILE = os.path.join(PROJECT_ROOT, "backend", "data", "human_overrides.json")
 
 def load_persisted_overrides() -> Dict[str, Dict[str, Any]]:
@@ -114,6 +115,9 @@ def startup_sync_from_cloud():
                 save_persisted_overrides()
     except Exception as e:
         print(f"[Supabase] Startup sync notice: {e}")
+
+# Compatibility alias for tests
+startup_sync_overrides = startup_sync_from_cloud
 
 @app.get("/")
 def read_root():
@@ -586,12 +590,13 @@ async def upload_documents(
             recipient = data.get("recipient") or recipient
             vessel = data.get("vessel")
             voyage = data.get("voyage")
-            company = data.get("company")
+            custom_email_id = data.get("email_id")
         else:
             try:
                 form = await request.form()
             except Exception as e:
                 raise HTTPException(status_code=400, detail=f"Error parsing form data: {e}")
+            custom_email_id = form.get("email_id")
             subject = str(form.get("subject") or "")
             sender = str(form.get("sender") or sender)
             recipient = str(form.get("recipient") or recipient)
@@ -634,7 +639,7 @@ async def upload_documents(
 
         timestamp_slug = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
         short_uuid = uuid.uuid4().hex[:6]
-        email_id = f"email_upload_{timestamp_slug}_{short_uuid}"
+        email_id = custom_email_id or f"email_upload_{timestamp_slug}_{short_uuid}"
 
         si_ext = os.path.splitext(si_filename)[1] or ".txt"
         bl_ext = os.path.splitext(bl_filename)[1] or ".txt"

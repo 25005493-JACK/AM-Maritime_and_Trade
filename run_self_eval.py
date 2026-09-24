@@ -45,7 +45,8 @@ from backend.services.routing_policy import sample_trust, update_routing_policy,
 
 def run_self_evaluation(source: str = "test data") -> Dict[str, Any]:
     print("=" * 70)
-    print("  RULES-FIRST SHIPPING DOCUMENT VERIFICATION PIPELINE SELF-EVAL  ")
+    print("  PIPELINE CONSISTENCY & REGRESSION SANITY CHECK")
+    print("  (For independent ground-truth benchmark, use eval/evaluate.py)")
     print("=" * 70)
 
     # 1. Initialize Inbox via loader.py interface

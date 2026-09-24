@@ -144,14 +144,22 @@ class AIAgent:
         # A proposal must be a meaningful value, not punctuation left behind by a
         # blurred scan ("?" / "???") - those must fail, not slip through.
         meaningful = bool(value) and len(re.sub(r"[^0-9A-Za-z\u4e00-\u9fff]", "", str(value))) >= 3
-        span = field_evidence.locate_span(doc_text, value) if meaningful else None
+        span = field_evidence.locate_span(doc_text, value, allow_partial=False) if meaningful else None
         if value in (None, ""):
             detail = "no value could be proposed for this required field"
         elif not meaningful:
             detail = "proposed value is not a meaningful value (fewer than 3 readable characters)"
+        elif not span:
+            # Check if this was a partial match that was rejected by strict provenance
+            partial_span = field_evidence.locate_span(doc_text, value, allow_partial=True)
+            if partial_span:
+                detail = (f"partial match rejected: full normalised value not grounded in source text "
+                          f"(only partial token matched at offset {partial_span['char_offset']})")
+            else:
+                detail = "proposed value not found in the source document"
         else:
-            detail = (f"located at offset {span['char_offset']}" if span
-                      else "proposed value not found in the source document")
+            detail = (f"located at offset {span['char_offset']} "
+                      f"(chars {span['start_char']}-{span['end_char']})")
         validators.append({
             "name": "source_match",
             "status": "pass" if (meaningful and span) else "fail",

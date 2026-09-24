@@ -5,6 +5,7 @@ import HumanReviewQueue from './components/HumanReviewQueue.jsx';
 import VesselCalendar from './components/VesselCalendar.jsx';
 import AdminDashboard from './components/AdminDashboard.jsx';
 import HumanReviewModal from './components/HumanReviewModal.jsx';
+import UploadDocsModal from './components/UploadDocsModal.jsx';
 import { apiFetch } from './api.js';
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
   const [evaluationData, setEvaluationData] = useState(null);
   const [loadingEval, setLoadingEval] = useState(false);
   const [showOverrideModal, setShowOverrideModal] = useState(false);
+  const [showUploadModal, setShowUploadModal] = useState(false);
   const [automationLevel, setAutomationLevel] = useState(1);
   const [reflectionsData, setReflectionsData] = useState({ total: 0, by_sender: {} });
 
@@ -255,6 +257,7 @@ export default function App() {
         }}
         theme={theme}
         onToggleTheme={handleToggleTheme}
+        onOpenUpload={() => setShowUploadModal(true)}
       />
 
       {/* Main Active Workspace View */}
@@ -318,6 +321,13 @@ export default function App() {
           onSaveOverride={handleSaveOverride}
         />
       )}
+
+      {/* Dynamic Document Upload Modal */}
+      <UploadDocsModal
+        isOpen={showUploadModal}
+        onClose={() => setShowUploadModal(false)}
+        onUploadSuccess={handleUploadSuccess}
+      />
     </div>
   );
 }

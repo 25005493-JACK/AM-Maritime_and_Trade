@@ -9,10 +9,11 @@ import {
   ChevronRight,
   Sun,
   Moon,
-  RefreshCw
+  RefreshCw,
+  Upload
 } from 'lucide-react';
 
-export default function Sidebar({ activeTab, setActiveTab, stats, healthInfo, onRefresh, theme, onToggleTheme }) {
+export default function Sidebar({ activeTab, setActiveTab, stats, healthInfo, onRefresh, theme, onToggleTheme, onOpenUpload }) {
   const [collapsed, setCollapsed] = useState(false);
 
   const navItems = [
@@ -99,6 +100,20 @@ export default function Sidebar({ activeTab, setActiveTab, stats, healthInfo, on
               Workspace
             </span>
           )}
+        </div>
+
+        {/* Upload Action */}
+        <div className="p-3 pb-1">
+          <button
+            onClick={onOpenUpload}
+            title={collapsed ? "Upload SI / Draft BL" : undefined}
+            className={`w-full flex items-center ${
+              collapsed ? "justify-center p-2.5" : "justify-center space-x-2 px-3 py-2.5"
+            } rounded-xl text-xs font-bold text-white bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 hover:opacity-95 shadow-md shadow-cyan-950/40 transition cursor-pointer`}
+          >
+            <Upload className="w-4 h-4" />
+            {!collapsed && <span>Upload SI / BL</span>}
+          </button>
         </div>
 
         {/* Navigation Options */}
