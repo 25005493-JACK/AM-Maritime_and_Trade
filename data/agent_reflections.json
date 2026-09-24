@@ -2658,5 +2658,125 @@
     "created_at": "2026-09-24T15:44:30.673481+00:00",
     "source_correction_id": "email_upload_20260924_154428_7661b7:container_count",
     "times_retrieved": 0
+  },
+  {
+    "id": "a4992df8-c6b0-49e7-b32c-3d893079afb4",
+    "sender_domain": "prompt-test-carrier.com",
+    "doc_type": "BL",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from prompt-test-carrier.com BL documents, look for 'SINGAPORE (SGSIN)' in the document context instead of accepting 'PORT_A'. Verify keyword delimiters and line boundaries specific to prompt-test-carrier.com's format.",
+    "created_at": "2026-09-24T15:49:08.021016+00:00",
+    "source_correction_id": "dev_test_002",
+    "times_retrieved": 0
+  },
+  {
+    "id": "b797323c-0a77-483c-967b-b970147f3e51",
+    "sender_domain": "carrier-test-line.com",
+    "doc_type": "BL",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from carrier-test-line.com BL documents, look for '3 x 40'HC' in the document context instead of accepting '1'. Verify keyword delimiters and line boundaries specific to carrier-test-line.com's format.",
+    "created_at": "2026-09-24T15:49:08.039008+00:00",
+    "source_correction_id": "dev_test_001",
+    "times_retrieved": 0
+  },
+  {
+    "id": "152d1a99-843f-4f15-98d3-236215f812f8",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "notify_party",
+    "reflection_text": "When extracting notify_party from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC, DUBAI' in the document context instead of accepting 'UAB NOVAKOPA'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T15:49:08.131583+00:00",
+    "source_correction_id": "email_004:notify_party",
+    "times_retrieved": 0
+  },
+  {
+    "id": "965e8c88-453a-43dc-bfd2-f1a298f00746",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from vitalsolutions.sg SI documents, look for 'EAST BRIGHT FZ-LLC RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE' in the document context instead of accepting 'UAB NOVAKOPA RAKEZ AMENITY CENTER; AL HAMRA INDUSTRIAL ZONE, RAK, UAE'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T15:49:08.154510+00:00",
+    "source_correction_id": "email_004:consignee",
+    "times_retrieved": 0
+  },
+  {
+    "id": "57da71f2-5df5-47f6-8086-7da993e42045",
+    "sender_domain": "evergreen-marine.com",
+    "doc_type": "SI",
+    "field_name": "port_of_discharge",
+    "reflection_text": "When extracting port_of_discharge from evergreen-marine.com SI documents, look for 'PORT_KLANG' in the document context instead of accepting 'OLD_PORT'. Verify keyword delimiters and line boundaries specific to evergreen-marine.com's format.",
+    "created_at": "2026-09-24T15:49:08.193305+00:00",
+    "source_correction_id": "corr_test_01",
+    "times_retrieved": 0
+  },
+  {
+    "id": "e306cc5f-a123-42bd-8b2b-75ebc967cae4",
+    "sender_domain": "cap-test-b153f446.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-b153f446.com SI documents, look for 'CORRECT_0' in the document context instead of accepting 'ERR_0'. Verify keyword delimiters and line boundaries specific to cap-test-b153f446.com's format.",
+    "created_at": "2026-09-24T15:49:08.210668+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "8ccca653-4865-4784-ac7f-626dd7b3ba70",
+    "sender_domain": "cap-test-b153f446.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-b153f446.com SI documents, look for 'CORRECT_1' in the document context instead of accepting 'ERR_1'. Verify keyword delimiters and line boundaries specific to cap-test-b153f446.com's format.",
+    "created_at": "2026-09-24T15:49:08.220175+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "2e460fa6-0426-4272-bac8-870515c53194",
+    "sender_domain": "cap-test-b153f446.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-b153f446.com SI documents, look for 'CORRECT_2' in the document context instead of accepting 'ERR_2'. Verify keyword delimiters and line boundaries specific to cap-test-b153f446.com's format.",
+    "created_at": "2026-09-24T15:49:08.228413+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "c52ecfd5-60a9-4fc5-b2a3-e003961c736f",
+    "sender_domain": "cap-test-b153f446.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-b153f446.com SI documents, look for 'CORRECT_3' in the document context instead of accepting 'ERR_3'. Verify keyword delimiters and line boundaries specific to cap-test-b153f446.com's format.",
+    "created_at": "2026-09-24T15:49:08.236846+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "81473a77-c652-4888-a8b9-ab89e2a1ba30",
+    "sender_domain": "cap-test-b153f446.com",
+    "doc_type": "SI",
+    "field_name": "consignee",
+    "reflection_text": "When extracting consignee from cap-test-b153f446.com SI documents, look for 'CORRECT_4' in the document context instead of accepting 'ERR_4'. Verify keyword delimiters and line boundaries specific to cap-test-b153f446.com's format.",
+    "created_at": "2026-09-24T15:49:08.245544+00:00",
+    "source_correction_id": "",
+    "times_retrieved": 0
+  },
+  {
+    "id": "405c95aa-fdd5-42cd-950d-35f2515c5a5d",
+    "sender_domain": "vitalsolutions.sg",
+    "doc_type": "SI",
+    "field_name": "port_of_loading",
+    "reflection_text": "When extracting port_of_loading from vitalsolutions.sg SI documents, look for 'SINGAPORE' in the document context instead of accepting 'WRONG_PORT'. Verify keyword delimiters and line boundaries specific to vitalsolutions.sg's format.",
+    "created_at": "2026-09-24T15:49:08.301477+00:00",
+    "source_correction_id": "email_004",
+    "times_retrieved": 0
+  },
+  {
+    "id": "dd3952a2-4e88-48d0-8e40-82d7c99d597f",
+    "sender_domain": "eastasiatrading.com",
+    "doc_type": "SI",
+    "field_name": "container_count",
+    "reflection_text": "When extracting container_count from eastasiatrading.com SI documents, look for '3' in the document context instead of accepting '4'. Verify keyword delimiters and line boundaries specific to eastasiatrading.com's format.",
+    "created_at": "2026-09-24T15:49:11.123325+00:00",
+    "source_correction_id": "email_upload_20260924_154908_0b05e2:container_count",
+    "times_retrieved": 0
   }
 ]

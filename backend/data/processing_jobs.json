@@ -278,5 +278,45 @@
     },
     "error_message": null,
     "metadata": {}
+  },
+  "job_20260924_154908_741fba3c": {
+    "job_id": "job_20260924_154908_741fba3c",
+    "task_type": "document_verification",
+    "status": "completed",
+    "progress": 100,
+    "email_id": null,
+    "shipment_id": null,
+    "reviewer_id": "Operational Reviewer",
+    "created_at": "2026-09-24T15:49:08.323440+00:00",
+    "updated_at": "2026-09-24T15:49:08.357681+00:00",
+    "completed_at": "2026-09-24T15:49:08.357681+00:00",
+    "result_summary": {
+      "email_id": "email_upload_20260924_154908_0b05e2",
+      "shipment_id": "VV-MSC_ISABELLA_V_2026W",
+      "verification_status": "MISMATCH",
+      "defect_fields": [
+        "container_count"
+      ]
+    },
+    "error_message": null,
+    "metadata": {}
+  },
+  "job_20260924_154924_ed6148c5": {
+    "job_id": "job_20260924_154924_ed6148c5",
+    "task_type": "document_verification",
+    "status": "completed",
+    "progress": 100,
+    "email_id": "email_test_sec_01",
+    "shipment_id": "SHP_SEC_01",
+    "reviewer_id": "Test Reviewer",
+    "created_at": "2026-09-24T15:49:24.604384+00:00",
+    "updated_at": "2026-09-24T15:49:24.605464+00:00",
+    "completed_at": "2026-09-24T15:49:24.605464+00:00",
+    "result_summary": {
+      "verification_status": "OK",
+      "defect_fields": []
+    },
+    "error_message": null,
+    "metadata": {}
   }
 }
