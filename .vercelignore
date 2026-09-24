@@ -1,0 +1,18 @@
+# Databases and runtime files
+*.duckdb
+*.duckdb*
+*.duckdb.wal
+.runtime/
+_logs/
+*.log
+
+# Git & caches
+.git
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Office / OS
+~$*
+.DS_Store
+Thumbs.db

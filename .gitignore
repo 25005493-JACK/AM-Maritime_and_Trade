@@ -24,8 +24,12 @@ __pycache__/
 *.duckdb
 *.duckdb.wal
 backend/data/calendar_google_sync.json
+data/uploaded_emails.json
+data/human_overrides.json
+data/processing_jobs.json
 .runtime/
 
 # Office temporary lock files
 ~$*
 .vercel
+

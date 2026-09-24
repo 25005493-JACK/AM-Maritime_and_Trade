@@ -18,7 +18,9 @@ import ReasoningReceipt from './ReasoningReceipt.jsx';
 
 export default function AdminDashboard({
   analytics,
+  emails = [],
   selectedEmailId,
+  onSelectEmail,
   emailDetail,
   automationLevel,
   onAutomationLevelChange,
@@ -30,6 +32,7 @@ export default function AdminDashboard({
   fetchEmailDetail
 }) {
   const [adminTab, setAdminTab] = useState('analytics'); // 'analytics', 'learning', 'trust', 'benchmark'
+  const effectiveEmailId = selectedEmailId || (emails && emails.length > 0 ? emails[0].id : 'email_001');
 
   const adminTabs = [
     { id: 'analytics', label: 'Vessel & Order Analytics', icon: BarChart3, badge: 'Overview' },
@@ -111,11 +114,39 @@ export default function AdminDashboard({
               }}
             />
 
-            <RedTeamPanel emailId={selectedEmailId} />
+            {/* Active Document Selector for Rehearsal & Receipt */}
+            <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-900/80 border border-blue-900/50">
+              <div className="flex items-center space-x-2">
+                <span className="text-xs font-semibold text-slate-300">Target Document for Adversarial Rehearsal &amp; Audit Receipt:</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <select
+                  value={effectiveEmailId}
+                  onChange={(e) => {
+                    const id = e.target.value;
+                    if (onSelectEmail) onSelectEmail(id);
+                    if (fetchEmailDetail) fetchEmailDetail(id);
+                  }}
+                  className="bg-slate-950 border border-blue-800/80 rounded-lg px-3 py-1.5 text-xs text-cyan-300 font-mono focus:outline-none focus:ring-1 focus:ring-cyan-500 max-w-sm"
+                >
+                  {(emails || []).map((em) => (
+                    <option key={em.id} value={em.id}>
+                      {em.id} - {em.subject?.slice(0, 42) || em.sender}
+                    </option>
+                  ))}
+                  {(!emails || emails.length === 0) && (
+                    <option value="email_001">email_001 (MSC - Booking)</option>
+                  )}
+                </select>
+              </div>
+            </div>
+
+            <RedTeamPanel emailId={effectiveEmailId} />
 
             <ReasoningReceipt
-              emailId={selectedEmailId}
-              shipmentId={emailDetail?.verification?.shipment_id}
+              emailId={effectiveEmailId}
+              shipmentId={effectiveEmailId === selectedEmailId ? emailDetail?.verification?.shipment_id : undefined}
+              defaultOpen={true}
             />
           </div>
         )}

@@ -299,7 +299,12 @@ export default function App() {
         {activeTab === 'admin' && (
           <AdminDashboard
             analytics={analytics}
+            emails={emails}
             selectedEmailId={selectedEmailId}
+            onSelectEmail={(id) => {
+              setSelectedEmailId(id);
+              fetchEmailDetail(id);
+            }}
             emailDetail={emailDetail}
             automationLevel={automationLevel}
             onAutomationLevelChange={(level) => setAutomationLevel(level)}

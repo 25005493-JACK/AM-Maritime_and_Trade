@@ -13,12 +13,13 @@ from backend.services.dataset_loader import loader
 
 class TestLiveEndToEndWorkflow(unittest.TestCase):
     def setUp(self):
-        self.client = TestClient(app)
-        self.auth_headers = {"X-Reviewer-Key": DEFAULT_REVIEWER_KEY}
         self.test_email_id = "upload_test_live_workflow_999"
         self.test_uploads_file = os.path.join(DATA_DIR, "uploaded_emails.json")
         self.test_si_file = os.path.join(DATA_DIR, "uploads", f"{self.test_email_id}_si.txt")
         self.test_bl_file = os.path.join(DATA_DIR, "uploads", f"{self.test_email_id}_bl.txt")
+        self.tearDown()
+        self.client = TestClient(app)
+        self.auth_headers = {"X-Reviewer-Key": DEFAULT_REVIEWER_KEY}
 
     def tearDown(self):
         # Clean up test artifacts
