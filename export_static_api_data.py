@@ -24,6 +24,8 @@ endpoints = [
     ("/api/ocr/dashboard", "ocr_dashboard.json"),
     ("/api/settings/automation-level", "automation_level.json"),
     ("/api/routing-policy", "routing_policy.json"),
+    ("/api/self-evaluate", "self_evaluate.json"),
+    ("/api/submission.json", "submission.json"),
 ]
 
 for endpoint, filename in endpoints:
@@ -32,11 +34,11 @@ for endpoint, filename in endpoints:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         with urllib.request.urlopen(req) as resp:
             data = resp.read()
-            # Also save as both filename and without extension
+            # Save as both filename and without extension
             target_file = os.path.join(api_dir, filename)
             with open(target_file, "wb") as f:
                 f.write(data)
-            # Also save as exact endpoint name without .json
+            # Save as exact endpoint name without .json
             base_name = os.path.splitext(filename)[0]
             with open(os.path.join(api_dir, base_name), "wb") as f:
                 f.write(data)
@@ -44,7 +46,7 @@ for endpoint, filename in endpoints:
     except Exception as e:
         print(f"Error fetching {endpoint}: {e}")
 
-# Also fetch all emails details for top emails / sample emails
+# Fetch all email details for sample emails
 try:
     with open(os.path.join(api_dir, "emails.json"), "r", encoding="utf-8") as f:
         emails = json.load(f)

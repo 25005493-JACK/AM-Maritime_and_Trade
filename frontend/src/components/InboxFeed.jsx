@@ -162,7 +162,7 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
             <span className="text-slate-500 font-medium">Status:</span>
             {[
               { id: 'ALL', label: 'All Status' },
-              { id: 'CIRCUIT_BREAKER', label: '⚡ Circuit Breaker', color: 'bg-rose-950 text-rose-300 border-rose-600' },
+              { id: 'CIRCUIT_BREAKER', label: 'Circuit Breaker', color: 'bg-rose-950 text-rose-300 border-rose-600' },
               { id: 'MISMATCH', label: 'Mismatch Found', color: 'badge-mismatch' },
               { id: 'MATCHED', label: 'No Mismatch', color: 'badge-match' },
               { id: 'HUMAN_REVIEW', label: 'Human Review', color: 'badge-warning' },

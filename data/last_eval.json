@@ -14,14 +14,14 @@
   },
   "status_distribution": {
     "OK": 458,
-    "MISMATCH": 41,
-    "NEEDS_REVIEW": 21
+    "MISMATCH": 40,
+    "NEEDS_REVIEW": 22
   },
   "review_reasons_breakdown": {
     "term_unresolved": 1,
+    "corrupted_file": 3,
     "wrong_doc_type": 5,
     "missing_attachment": 5,
-    "corrupted_file": 2,
     "scanned_not_processed": 3,
     "missing_value": 5
   },
@@ -29,23 +29,23 @@
     "consignee": 6,
     "notify_party": 11,
     "container_count": 18,
-    "gross_weight_kg": 12,
+    "gross_weight_kg": 11,
     "port_of_loading": 1,
     "port_of_discharge": 2,
     "shipper": 6
   },
   "scoreboard": {
     "OK": 67,
-    "MISMATCH": 41,
-    "NEEDS_REVIEW": 21
+    "MISMATCH": 40,
+    "NEEDS_REVIEW": 22
   },
   "message": "Self-evaluation completed successfully across the 520 inbox dataset.",
   "learning_metrics": {
-    "average_trust_score_pct": 61.3,
-    "total_reflections_retrieved": 0,
-    "routed_to_ai": 82,
-    "routed_to_human": 47,
-    "failures_avoided": 11,
-    "failures_avoided_pct": 1100.0
+    "average_trust_score_pct": 51.7,
+    "total_reflections_retrieved": 9,
+    "routed_to_ai": 93,
+    "routed_to_human": 36,
+    "failures_avoided": 14,
+    "failures_avoided_pct": 38.9
   }
 }

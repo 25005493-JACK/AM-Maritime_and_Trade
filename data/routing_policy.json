@@ -2,74 +2,74 @@
   "safqa.co.ke:*": {
     "sender_domain": "safqa.co.ke",
     "field_name": null,
-    "alpha": 3.0,
-    "beta": 4.0,
-    "mean_trust": 0.429,
-    "last_updated": "2026-09-21T09:07:52.843026+00:00"
+    "alpha": 5.0,
+    "beta": 7.0,
+    "mean_trust": 0.417,
+    "last_updated": "2026-09-24T04:24:23.308258+00:00"
   },
   "vitalsolutions.sg:*": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": null,
-    "alpha": 3.0,
-    "beta": 2.0,
-    "mean_trust": 0.6,
-    "last_updated": "2026-09-21T09:07:52.801529+00:00"
+    "alpha": 5.0,
+    "beta": 3.0,
+    "mean_trust": 0.625,
+    "last_updated": "2026-09-24T04:24:23.278006+00:00"
   },
   "aprilasia.com:*": {
     "sender_domain": "aprilasia.com",
     "field_name": null,
-    "alpha": 43.0,
-    "beta": 15.0,
-    "mean_trust": 0.741,
-    "last_updated": "2026-09-21T09:07:53.137193+00:00"
+    "alpha": 85.0,
+    "beta": 29.0,
+    "mean_trust": 0.746,
+    "last_updated": "2026-09-24T04:24:23.530907+00:00"
   },
   "roxcel.at:*": {
     "sender_domain": "roxcel.at",
     "field_name": null,
-    "alpha": 6.0,
-    "beta": 5.0,
-    "mean_trust": 0.545,
-    "last_updated": "2026-09-21T09:07:52.454657+00:00"
+    "alpha": 11.0,
+    "beta": 9.0,
+    "mean_trust": 0.55,
+    "last_updated": "2026-09-24T04:24:23.090734+00:00"
   },
   "psabdp.com:*": {
     "sender_domain": "psabdp.com",
     "field_name": null,
-    "alpha": 7.0,
-    "beta": 2.0,
-    "mean_trust": 0.778,
-    "last_updated": "2026-09-21T09:07:51.019590+00:00"
+    "alpha": 13.0,
+    "beta": 3.0,
+    "mean_trust": 0.812,
+    "last_updated": "2026-09-24T04:24:22.209832+00:00"
   },
   "fujitogrp.com:*": {
     "sender_domain": "fujitogrp.com",
     "field_name": null,
-    "alpha": 6.0,
-    "beta": 7.0,
-    "mean_trust": 0.462,
-    "last_updated": "2026-09-21T09:07:52.863144+00:00"
+    "alpha": 11.0,
+    "beta": 13.0,
+    "mean_trust": 0.458,
+    "last_updated": "2026-09-24T04:24:23.324004+00:00"
   },
   "algurg.ae:*": {
     "sender_domain": "algurg.ae",
     "field_name": null,
-    "alpha": 8.0,
-    "beta": 5.0,
-    "mean_trust": 0.615,
-    "last_updated": "2026-09-21T09:07:53.084684+00:00"
+    "alpha": 15.0,
+    "beta": 9.0,
+    "mean_trust": 0.625,
+    "last_updated": "2026-09-24T04:24:23.494731+00:00"
   },
   "april.com.my:*": {
     "sender_domain": "april.com.my",
     "field_name": null,
-    "alpha": 15.0,
-    "beta": 7.0,
-    "mean_trust": 0.682,
-    "last_updated": "2026-09-21T09:07:53.032624+00:00"
+    "alpha": 30.0,
+    "beta": 12.0,
+    "mean_trust": 0.714,
+    "last_updated": "2026-09-24T04:24:23.435910+00:00"
   },
   "ifpla.com:*": {
     "sender_domain": "ifpla.com",
     "field_name": null,
-    "alpha": 6.0,
-    "beta": 3.0,
-    "mean_trust": 0.667,
-    "last_updated": "2026-09-21T09:07:52.662730+00:00"
+    "alpha": 11.0,
+    "beta": 5.0,
+    "mean_trust": 0.688,
+    "last_updated": "2026-09-24T04:24:23.166500+00:00"
   },
   "adaptive-sender.com:*": {
     "sender_domain": "adaptive-sender.com",
@@ -82,18 +82,18 @@
   "vitalsolutions.sg:consignee": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "consignee",
-    "alpha": 4.0,
-    "beta": 4.0,
+    "alpha": 7.0,
+    "beta": 7.0,
     "mean_trust": 0.5,
-    "last_updated": "2026-09-21T10:25:49.607006+00:00"
+    "last_updated": "2026-09-24T05:09:02.240223+00:00"
   },
   "vitalsolutions.sg:notify_party": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "notify_party",
     "alpha": 1.0,
-    "beta": 4.0,
-    "mean_trust": 0.2,
-    "last_updated": "2026-09-21T10:25:49.567894+00:00"
+    "beta": 7.0,
+    "mean_trust": 0.125,
+    "last_updated": "2026-09-24T05:09:02.207896+00:00"
   },
   "adaptive-sender-6847fd94.com:*": {
     "sender_domain": "adaptive-sender-6847fd94.com",
@@ -126,5 +126,29 @@
     "beta": 3.0,
     "mean_trust": 0.4,
     "last_updated": "2026-09-21T10:25:49.687437+00:00"
+  },
+  "adaptive-sender-c7218a74.com:*": {
+    "sender_domain": "adaptive-sender-c7218a74.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-24T04:26:19.659380+00:00"
+  },
+  "adaptive-sender-0bfc0f53.com:*": {
+    "sender_domain": "adaptive-sender-0bfc0f53.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-24T04:32:20.789099+00:00"
+  },
+  "adaptive-sender-2adac363.com:*": {
+    "sender_domain": "adaptive-sender-2adac363.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-24T05:09:02.442779+00:00"
   }
 }
