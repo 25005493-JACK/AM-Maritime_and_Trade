@@ -82,18 +82,18 @@
   "vitalsolutions.sg:consignee": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "consignee",
-    "alpha": 25.0,
-    "beta": 25.0,
+    "alpha": 29.0,
+    "beta": 29.0,
     "mean_trust": 0.5,
-    "last_updated": "2026-09-25T05:30:18.786941+00:00"
+    "last_updated": "2026-09-25T06:37:32.405035+00:00"
   },
   "vitalsolutions.sg:notify_party": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "notify_party",
     "alpha": 1.0,
-    "beta": 25.0,
-    "mean_trust": 0.038,
-    "last_updated": "2026-09-25T05:30:18.761804+00:00"
+    "beta": 29.0,
+    "mean_trust": 0.033,
+    "last_updated": "2026-09-25T06:37:32.378521+00:00"
   },
   "adaptive-sender-6847fd94.com:*": {
     "sender_domain": "adaptive-sender-6847fd94.com",
@@ -163,9 +163,9 @@
     "sender_domain": "eastasiatrading.com",
     "field_name": "container_count",
     "alpha": 1.0,
-    "beta": 27.0,
-    "mean_trust": 0.036,
-    "last_updated": "2026-09-25T05:30:21.506085+00:00"
+    "beta": 31.0,
+    "mean_trust": 0.031,
+    "last_updated": "2026-09-25T06:37:35.512808+00:00"
   },
   "adaptive-sender-77888502.com:*": {
     "sender_domain": "adaptive-sender-77888502.com",
@@ -178,10 +178,10 @@
   "carrier-test-line.com:*": {
     "sender_domain": "carrier-test-line.com",
     "field_name": null,
-    "alpha": 23.0,
-    "beta": 67.0,
-    "mean_trust": 0.256,
-    "last_updated": "2026-09-25T05:30:18.577695+00:00"
+    "alpha": 27.0,
+    "beta": 79.0,
+    "mean_trust": 0.255,
+    "last_updated": "2026-09-25T06:37:32.234772+00:00"
   },
   "fujitogrp.com:container_count": {
     "sender_domain": "fujitogrp.com",
@@ -499,9 +499,9 @@
     "sender_domain": "oceanic-exports.com",
     "field_name": "container_count",
     "alpha": 1.0,
-    "beta": 13.0,
-    "mean_trust": 0.071,
-    "last_updated": "2026-09-25T05:30:22.749111+00:00"
+    "beta": 17.0,
+    "mean_trust": 0.056,
+    "last_updated": "2026-09-25T06:37:37.167453+00:00"
   },
   "adaptive-sender-2fbb2899.com:*": {
     "sender_domain": "adaptive-sender-2fbb2899.com",
@@ -558,5 +558,37 @@
     "beta": 3.0,
     "mean_trust": 0.4,
     "last_updated": "2026-09-25T05:30:18.838797+00:00"
+  },
+  "adaptive-sender-e76540a0.com:*": {
+    "sender_domain": "adaptive-sender-e76540a0.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-25T06:03:51.447860+00:00"
+  },
+  "adaptive-sender-f5b05af5.com:*": {
+    "sender_domain": "adaptive-sender-f5b05af5.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-25T06:05:31.664438+00:00"
+  },
+  "adaptive-sender-ff6ff517.com:*": {
+    "sender_domain": "adaptive-sender-ff6ff517.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-25T06:30:42.489730+00:00"
+  },
+  "adaptive-sender-1597becf.com:*": {
+    "sender_domain": "adaptive-sender-1597becf.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-25T06:37:32.454045+00:00"
   }
 }
