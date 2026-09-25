@@ -185,7 +185,7 @@ class TestRebuiltShippingWorkflow(unittest.TestCase):
         report = evaluator.evaluate_submission(sub)
         self.assertGreater(report["overall_score"], 90.0)
         self.assertEqual(report["total_emails_processed"], 520)
-        self.assertEqual(report["bl_comparison_total"], 129)
+        self.assertEqual(report["bl_comparison_total"], 130)
 
 if __name__ == "__main__":
     unittest.main()

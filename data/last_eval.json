@@ -1,24 +1,23 @@
 {
   "overall_score": 99.2,
   "total_emails_processed": 520,
-  "bl_comparison_total": 129,
+  "bl_comparison_total": 130,
   "stage1_classification_f1": 100.0,
   "stage3_defect_f1": 100.0,
-  "reliability_pct": 100.0,
+  "reliability_pct": 83.3,
   "category_distribution": {
-    "BL_COMPARISON": 129,
+    "BL_COMPARISON": 130,
     "INVOICE_QUERY": 83,
-    "GENERAL": 130,
+    "GENERAL": 129,
     "SI_REQUEST": 141,
     "SPAM": 37
   },
   "status_distribution": {
-    "OK": 458,
-    "MISMATCH": 40,
-    "NEEDS_REVIEW": 22
+    "OK": 452,
+    "MISMATCH": 47,
+    "NEEDS_REVIEW": 21
   },
   "review_reasons_breakdown": {
-    "term_unresolved": 1,
     "corrupted_file": 3,
     "wrong_doc_type": 5,
     "missing_attachment": 5,
@@ -26,26 +25,26 @@
     "missing_value": 5
   },
   "defect_field_counts": {
-    "consignee": 6,
+    "consignee": 7,
     "notify_party": 11,
-    "container_count": 18,
+    "port_of_discharge": 13,
+    "container_count": 19,
     "gross_weight_kg": 11,
-    "port_of_loading": 1,
-    "port_of_discharge": 2,
-    "shipper": 6
+    "port_of_loading": 6,
+    "shipper": 7
   },
   "scoreboard": {
-    "OK": 67,
-    "MISMATCH": 40,
-    "NEEDS_REVIEW": 22
+    "OK": 62,
+    "MISMATCH": 47,
+    "NEEDS_REVIEW": 21
   },
   "message": "Self-evaluation completed successfully across the 520 inbox dataset.",
   "learning_metrics": {
-    "average_trust_score_pct": 51.7,
+    "average_trust_score_pct": 35.1,
     "total_reflections_retrieved": 9,
-    "routed_to_ai": 93,
-    "routed_to_human": 36,
-    "failures_avoided": 14,
-    "failures_avoided_pct": 38.9
+    "routed_to_ai": 98,
+    "routed_to_human": 32,
+    "failures_avoided": 16,
+    "failures_avoided_pct": 50.0
   }
 }

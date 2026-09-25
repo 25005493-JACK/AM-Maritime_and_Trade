@@ -835,6 +835,13 @@ class DocumentComparator:
         si_tokens = set(si_canon.split())
         bl_tokens = set(bl_canon.split())
         if si_tokens and bl_tokens:
+            # Check for entity/branch qualifier mismatch before accepting fuzzy/containment match
+            for term in ["FZE", "FREE ZONE", "MIDDLE EAST", "FAR EAST"]:
+                if (term in si_canon) != (term in bl_canon):
+                    meta = {"match_type": "MISMATCH", "status": "MISMATCH", "reason": "entity_qualifier_mismatch",
+                            "normalization_notes": f"Entity/branch qualifier mismatch ({term})", "is_formatting_difference": False}
+                    return (False, si_str, bl_str, meta)
+
             intersection = si_tokens & bl_tokens
             union = si_tokens | bl_tokens
             jaccard = len(intersection) / len(union) if union else 0.0

@@ -92,7 +92,7 @@ class DocumentExtractor:
     # "Consignee (Non-Negotiable)" and Chinese (发货人/收货人/通知方/通知人) variants.
     HEADER_MAP = build_header_map()
     STOP_HEADERS = re.compile(
-        r'^(?:ocean\s*vessel|vessel\s*name|vessel|export\s*carrier|voy\.\s*no|voyage|voy\b|commodity|description|description\s*of\s*goods|kinds\s*of\s*packages|hs\s*code|booking\s*ref|booking\s*no|booking\s*reference|oc\s*no|freight|bill\s*of\s*lading\s*no|b/l\s*no|b/l\s*number|bl\s*no|order\s*no|bl\s*instruction|bill\s*of\s*lading|container\s*no\b|container\s*no\.|tel\b|fax\b|email\b|p\.?o\.?\s*box|date\b|invoice\s*date|invoice\s*no|inv\s*no|certificate\s*no|country\s*of\s*origin|buyer\b|issuing\s*authority|new\s*no|net\s*weight|tare\s*weight|payment|incoterms|remarks)\b',
+        r'^(?:document\s*ref|doc\s*ref|document\s*reference|carrier|carrier\s*name|freight\s*status|freight\s*terms|payment\s*terms|payment|terms|date|ocean\s*vessel|vessel\s*name|vessel|export\s*carrier|voy\.\s*no|voyage|voy\b|commodity|description|description\s*of\s*goods|kinds\s*of\s*packages|hs\s*code|booking\s*ref|booking\s*no|booking\s*reference|oc\s*no|freight|bill\s*of\s*lading\s*no|b/l\s*no|b/l\s*number|bl\s*no|order\s*no|bl\s*instruction|bill\s*of\s*lading|container\s*no\b|container\s*no\.|tel\b|fax\b|email\b|p\.?o\.?\s*box|date\b|invoice\s*date|invoice\s*no|inv\s*no|certificate\s*no|country\s*of\s*origin|buyer\b|issuing\s*authority|new\s*no|net\s*weight|tare\s*weight|payment|incoterms|remarks|particulars\s*furnished\s*by\s*shipper)\b',
         re.I
     )
 
@@ -375,7 +375,7 @@ class DocumentExtractor:
                     # Sub-line belonging to address
                     curr_val.append(line_s)
                     continue
-                elif len(cand_label) <= 40 and not any(cand_label.lower().startswith(x) for x in ["vessel", "voyage", "booking", "order", "ref", "b/l", "bl ", "attn", "http"]):
+                elif len(cand_label) <= 40 and not any(cand_label.lower().startswith(x) for x in ["vessel", "voyage", "booking", "order", "ref", "b/l", "bl ", "attn", "http", "document", "carrier", "freight", "payment", "terms", "date"]):
                     # Unresolved candidate term
                     if rem and rem.upper() not in ("N/A", "NONE", "BLANK", "-"):
                         unresolved_terms.append({"label": cand_label, "value": rem})
@@ -441,8 +441,7 @@ class DocumentExtractor:
         res.unresolved_terms = unresolved_terms
 
         # Determine review status and reason code
-        if unresolved_terms and not res.missing_fields:
-            # Term was encountered that could not be resolved
+        if res.missing_fields and unresolved_terms:
             res.status = "NEEDS_REVIEW"
             res.reason_code = "term_unresolved"
             res.confidence = 0.75

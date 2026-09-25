@@ -61,6 +61,15 @@ export default function App() {
       return;
     }
     try {
+      // Check client-side uploaded emails store first (for static Vercel host retention)
+      try {
+        const customUploads = JSON.parse(localStorage.getItem('documatch_uploaded_emails') || '{}');
+        if (customUploads[id]) {
+          setEmailDetail(customUploads[id]);
+          return;
+        }
+      } catch (e) {}
+
       const res = await apiFetch(`/api/emails/${id}`);
       if (res.ok) {
         const data = await res.json();

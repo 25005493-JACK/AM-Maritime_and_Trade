@@ -61,7 +61,9 @@ class PortLookup:
         "yangon": "MMRGN",
         "hamburg": "DEHAM",
         "le havre": "FRLEH",
-        "antwerp": "BEANR"
+        "antwerp": "BEANR",
+        "tuticorin": "INTUT",
+        "thoothukudi": "INTUT"
     }
 
     def __init__(self, csv_path: Optional[str] = None):
