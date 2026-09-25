@@ -68,7 +68,7 @@ export default function AdminDashboard({
                 onClick={() => setAdminTab(t.id)}
                 className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 ${
                   isActive
-                    ? 'bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 text-white border border-cyan-400 shadow-lg shadow-cyan-950/60 ring-1 ring-cyan-500/40'
+                    ? 'bg-cyan-600 hover:bg-cyan-500 text-white border border-cyan-400 shadow-lg shadow-cyan-950/60 ring-1 ring-cyan-500/40'
                     : 'bg-slate-900/80 text-slate-400 hover:text-slate-100 hover:bg-slate-800 border border-blue-900/40'
                 }`}
               >

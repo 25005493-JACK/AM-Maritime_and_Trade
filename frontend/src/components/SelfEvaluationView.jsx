@@ -60,7 +60,7 @@ export default function SelfEvaluationView({ onRunSelfEvaluate, evaluationData, 
           <button
             onClick={onRunSelfEvaluate}
             disabled={isEvaluating}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-500 hover:from-amber-500 hover:to-yellow-400 text-slate-950 font-extrabold text-xs flex items-center space-x-2 shadow-lg shadow-amber-950/40 transition disabled:opacity-50 active:scale-95 cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs flex items-center space-x-2 shadow-lg shadow-amber-950/40 transition disabled:opacity-50 active:scale-95 cursor-pointer"
           >
             {isEvaluating ? (
               <RefreshCw className="w-4 h-4 animate-spin" />
@@ -77,7 +77,7 @@ export default function SelfEvaluationView({ onRunSelfEvaluate, evaluationData, 
         {report ? (
           <>
             {/* Top Score Banner */}
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-slate-900 via-amber-950/30 to-slate-900 border border-amber-500/50 shadow-xl flex items-center justify-between">
+            <div className="p-6 rounded-2xl bg-slate-900 border border-amber-500/50 shadow-xl flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="w-20 h-20 rounded-2xl bg-amber-500/20 border border-amber-500/50 text-amber-400 flex flex-col items-center justify-center font-mono font-extrabold text-3xl shadow-inner">
                   <span>{report.overall_score}%</span>

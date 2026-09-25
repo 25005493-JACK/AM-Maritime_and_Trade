@@ -290,7 +290,7 @@ export default function InboxWorkspace({
                   onClick={() => setSelectedStatus(st.id)}
                   className={`px-3 py-1 rounded-lg font-mono text-xs font-semibold whitespace-nowrap transition ${
                     selectedStatus === st.id
-                      ? 'bg-gradient-to-r from-blue-700 to-cyan-600 text-white border border-cyan-400 shadow-md'
+                      ? 'bg-cyan-600 hover:bg-cyan-500 text-white border border-cyan-400 shadow-md'
                       : 'bg-slate-900/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-blue-900/40'
                   }`}
                 >
@@ -538,7 +538,7 @@ export default function InboxWorkspace({
 
               <button
                 onClick={() => setShowUploadModal(true)}
-                className="w-full py-2 px-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 hover:from-blue-500 hover:to-cyan-400 text-slate-950 font-extrabold text-xs flex items-center justify-center space-x-2 shadow-lg shadow-cyan-950/60 transition active:scale-95 cursor-pointer"
+                className="w-full py-2 px-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold text-xs flex items-center justify-center space-x-2 shadow-lg shadow-cyan-950/60 transition active:scale-95 cursor-pointer"
               >
                 <Upload className="w-4 h-4" />
                 <span>Upload SI + BL Pair</span>
@@ -551,7 +551,7 @@ export default function InboxWorkspace({
                 onClick={() => setActiveRightTab('si_vs_bl')}
                 className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition ${
                   activeRightTab === 'si_vs_bl'
-                    ? 'bg-gradient-to-r from-blue-700 to-cyan-600 text-white border border-cyan-400 shadow-md'
+                    ? 'bg-cyan-600 hover:bg-cyan-500 text-white border border-cyan-400 shadow-md'
                     : 'bg-slate-900/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
                 }`}
               >
@@ -563,7 +563,7 @@ export default function InboxWorkspace({
                 onClick={() => setActiveRightTab('timeline')}
                 className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition ${
                   activeRightTab === 'timeline'
-                    ? 'bg-gradient-to-r from-blue-700 to-cyan-600 text-white border border-cyan-400 shadow-md'
+                    ? 'bg-cyan-600 hover:bg-cyan-500 text-white border border-cyan-400 shadow-md'
                     : 'bg-slate-900/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
                 }`}
               >
@@ -594,7 +594,7 @@ export default function InboxWorkspace({
 
                   {/* AI Recommendation Banner */}
                   {verif.recommended_action && (
-                    <div className="p-4 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-indigo-500/30 flex items-start justify-between shadow-lg">
+                    <div className="p-4 rounded-xl bg-slate-900 border border-indigo-500/30 flex items-start justify-between shadow-lg">
                       <div className="flex items-start space-x-3">
                         <Sparkles className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
                         <div>

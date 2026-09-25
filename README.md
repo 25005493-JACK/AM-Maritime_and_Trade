@@ -13,7 +13,7 @@
 [![Vercel](https://img.shields.io/badge/Vercel-Live_Production-black?logo=vercel&logoColor=white)](https://averishack.vercel.app)
 [![Supabase](https://img.shields.io/badge/Cloud-Supabase_PostgreSQL-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/)
 [![DCSA](https://img.shields.io/badge/Standard-DCSA_eBL_v3.0.3-0052CC)](https://dcsa.org/)
-[![License](https://img.shields.io/badge/Status-Working_Prototype-success)](#working-core-prototype)
+[![Tests](https://img.shields.io/badge/Tests-138_Passing-success)](#5-automated-unit--integration-testing-suite)
 
 > 🚀 **Live Demo on Vercel**:  
 > - **Operations Dashboard**: [https://averishack.vercel.app](https://averishack.vercel.app)  
@@ -228,16 +228,19 @@ DocuMatch is a fully functional, live-tested enterprise prototype ready for oper
 
 ### Core Interface Components
 1. **Intelligent Inbox Triage View**: Categorizes operational messages in real time with visual category tags (`BL_COMPARISON`, `SI_REQUEST`, `INVOICE_QUERY`, `GENERAL`, `SPAM`).
-2. **Split-Screen Discrepancy Inspector**: Side-by-side inspection showing the reference Shipping Instruction on the left, draft Bill of Lading on the right, and highlighted character differences.
-3. **Interactive Propose-and-Confirm Panel**: Reviewers can review both candidate values, select the correct source, or provide an amended value. Resolutions are saved directly to Supabase Cloud.
+2. **Split-Screen Discrepancy Inspector**: Side-by-side inspection showing reference Shipping Instruction on the left, draft Bill of Lading on the right, and highlighted character differences.
+3. **Interactive Propose-and-Confirm Panel**: Reviewers can inspect candidate values, select correct sources, or provide amended values. Resolutions are saved directly to Supabase Cloud.
 4. **Company-Scoped Live Document Verification Upload**: Upload custom SI and draft BL document pairs bound to any specific company (e.g., *Pacific Merchandise Exports*, *April Fine Paper Trading FZE*), automatically classified, extracted, and compared through the live pipeline.
 5. **Shipment Lifecycle Timeline Wheel**: Visualizes the 7 sequential stages of ocean freight documentation (`Booking` &rarr; `SI Ingest` &rarr; `AI Draft` &rarr; `Comparison` &rarr; `Review` &rarr; `Approval` &rarr; `Dispatched`).
 6. **Vessel Assignment & Container Calendar**: Schedules vessel allocations across major ports (Rotterdam, Singapore, Hamburg, LA) and synchronizes with Google Calendar.
-7. **Automation License Slider**: Grants operations managers fine-grained control over system autonomy:
-   - **Level 0**: Read-only extraction; human must manually approve every single field.
-   - **Level 1 (Default)**: Automated comparison; all discrepancies and uncertain fields require human sign-off.
-   - **Level 2**: Auto-approves high-confidence matching fields; queues verified records for sampling audit.
-   - **Level 3**: Full autonomous straight-through processing for trusted carrier domains.
+7. **Trust & AI Control Panel (4-Level Automation)**:
+   Operations managers exercise fine-grained control over system autonomy with live recalculations for **Automation Rate**, **Error Exposure**, **Time Saved**, and **Files Sent for Review**:
+   - **L0 (Manual Control)**: Zero auto-write; 100% of documents & fields are queued for Human Review.
+   - **L1 (Conservative Triage)**: Auto-writes strict 100% exact matches; non-exact & ungrounded fields go to human review.
+   - **L2 (Balanced Agent + Audit)**: Auto-writes agreeing fields with confidence $\ge 0.90$; mismatches go to review with post-hoc audit.
+   - **L3 (Full Autonomous STP)**: High-autonomy straight-through processing for trusted carriers; auto-writes all valid extracted fields without audit.
+8. **Human Review Queue**: Standardized rightmost tags (`w-56 h-7`) displaying escalation reason codes (`missing_attachment`, `missing_value`, `unreadable`, `wrong_doc_type`, `scanned_not_processed`, `term_unresolved`).
+9. **Solid UI Color System**: High-contrast, clean solid color palette (solid slates, blues, emeralds, ambers) optimized for operator readability without distracting gradients or neon glows.
 
 ---
 
@@ -248,13 +251,13 @@ DocuMatch is a fully functional, live-tested enterprise prototype ready for oper
 | **Backend Engine** | **FastAPI** | `^0.110.0` | Asynchronous REST orchestration, auto-generating OpenAPI documentation and hosting business logic. |
 | **Frontend Platform** | **React** | `19.0.0` | Reactive component architecture, modular view management, and split-screen document diffing. |
 | **Build Tooling** | **Vite** | `^6.1.0` | Instant HMR development server and optimized production bundler. |
-| **Styling Framework**| **Tailwind CSS** | `^4.3.3` | Custom design system with full dark/light theme support. |
+| **Styling Framework**| **Tailwind CSS** | `^4.3.3` | Custom solid-color design system with full dark/light theme support. |
 | **Cloud Database** | **Supabase (PostgreSQL)** | `v2.31.0` | Cloud-hosted relational database with Row Level Security (RLS) for multi-tenant data safety. |
 | **Embedded Analytics**| **DuckDB** | `^1.0.0` | In-process analytical database executing SQL aggregations on operational pipeline metrics. |
 | **Document Processing**| **PyMuPDF & pdfplumber**| `^1.24.0` | Vector font extraction, line layout analysis, and embedded coordinate mapping. |
 | **OCR Fallback** | **Tesseract OCR Engine** | Bundled | OCR engine for processing legacy scanned PDFs without native text layers. |
 | **String Metrics** | **RapidFuzz** | `^3.0.0` | C++ accelerated Levenshtein string distance calculations for party and address normalization. |
-| **Industry Standards**| **DCSA OpenAPI Standard**| `v3.0.3` | Canonical data schemas matching the Digital Container Shipping Association electronic BL specification. |
+| **Industry Standards**| **DCSA OpenAPI Standard**| `v3.0.3` | Canonical data schemas matching Digital Container Shipping Association electronic BL specifications. |
 
 ---
 
@@ -289,10 +292,11 @@ DocuMatch was benchmarked by replaying the complete **520 operational email data
 
 ### 5. Automated Unit & Integration Testing Suite
 
-**131 automated tests** across 14 test suites pass cleanly with 100% success rate (`python -m pytest`):
+**138 automated tests** across 15 test suites pass cleanly with 100% success rate (`python -m unittest discover tests`):
 
 | Test Suite | Coverage & Target Architecture | Result |
 |:---|:---|:---|
+| `test_trust_features.py` | AI Circuit Breaker, Refusal Certificates, Reasoning Receipts, Red Team suite, and L0–L3 Automation Levels | **Pass** |
 | `test_verification_pipeline.py` | Email triage, document comparison, and human review escalation | **Pass** |
 | `test_dcsa_alignment.py` | DCSA eBL v3.0.3 schema mapping, OpenAPI compliance, and evidence anchors | **Pass** |
 | `test_intent_document_decoupling.py` | Checkpoint 1: Task pre-validation and document-intent decoupling | **Pass** |
@@ -305,8 +309,8 @@ DocuMatch was benchmarked by replaying the complete **520 operational email data
 | `test_rules_first_pipeline.py` | Bounded agency, evidence verification, and refusal of ungrounded extractions | **Pass** |
 | `test_security_and_jobs.py` | Role-based authentication, RLS, and durable job store | **Pass** |
 | `test_shipment_timeline.py` | 7-stage shipment lifecycle timeline wheel tracking | **Pass** |
-| `test_trust_features.py` | AI Circuit Breaker, Refusal Certificates, Reasoning Receipts, and Red Team suite | **Pass** |
 | `test_correction_memory.py` | Continuous human correction learning and memory persistence | **Pass** |
+| `test_automation_preview.py` | Live L0–L3 metrics calculation for automation rate, error exposure, time saved, and files sent for review | **Pass** |
 
 ---
 
@@ -355,30 +359,7 @@ $$\text{Time Saved (minutes)} = (\text{Auto-Processed Shipments} \times 12\text{
 - **Zero Silent Errors (Empirically Measured on Benchmark)**: Strict character-level provenance and deterministic whitelists achieved **0 missed discrepancies and 0 incorrect auto-approvals** across 156 held-out documents (`eval/results.json`).
 - **Port Customs Penalty Mitigation (Target Goal)**: Aims to eliminate preventable clerical disputes prior to carrier final document issuance.
 
-**How we will validate these claims:** Reviewers will time the same representative SI/BL cases manually and with DocuMatch, including correction and review time. We will report the case count, total times, and reduction calculated as `1 - DocuMatch time / manual time`. Separately, we will check system decisions against independently labeled emails and documents. A silent error means a missed comparison request or an incorrect `OK` result that reaches the end without review. We will report the count as `silent errors / N cases`, alongside correct matches, detected mismatches, and review cases. **78% reduction and zero silent errors remain targets until these results are measured.**
-
-### Commercial Roadmap
-- **Phase 1 (Completed)**: Core prototype with FastAPI, React 19, Supabase Cloud PostgreSQL, multi-format OCR, and DCSA alignment.
-- **Phase 2 (Enterprise Pilot)**: Automated ingestion via IMAP/Microsoft Graph API webhooks connecting directly to operational Outlook/Gmail inboxes.
-- **Phase 3 (Carrier Integration)**: Direct API integration with global carriers (Maersk, MSC, CMA CGM) via DCSA eBL REST endpoints for one-click amendment submissions.
-
-### Technical Scalability Plan
-
-The current prototype processes document requests synchronously. To handle a larger inbox, we plan to:
-
-1. Put extraction and OCR in a job queue so slow scans do not block inbox requests, then add workers as document volume grows.
-2. Store job state, extracted evidence, and reviewer decisions durably so work survives restarts and can run across multiple servers.
-3. Retry temporary failures with limits, and send jobs that still fail to a visible human-review queue.
-4. Load-test mixed document types and monitor queue wait time, processing time, throughput, and error rate before increasing traffic.
-
----
-
-## Challenges Faced and How We Addressed Them
-
-- **Four-day build window:** We prioritized one working end-to-end path: classify an email, read its SI and draft BL, compare the seven required fields, and show the result for review. We built the wider operations views around that core flow.
-- **Different document formats and poor scans:** The attachment reader handles TXT, DOCX, XLSX, and PDF. PyMuPDF reads searchable PDF text and runs OCR on image-only pages; unreadable results are sent to human review.
-- **Inconsistent field labels and formatting:** A field dictionary and normalization rules align terms such as `Load Port` and `Port of Loading`. Guarded comparisons distinguish common formatting differences from shipment discrepancies.
-- **Uncertain or incomplete evidence:** Missing values, wrong document types, and failed validation produce `NEEDS_REVIEW`. The inspector shows source values, and a reviewer can correct them before the comparison is recalculated.
+**How we will validate these claims:** Reviewers will time the same representative SI/BL cases manually and with DocuMatch, including correction and review time. We will report the case count, total times, and reduction calculated as $1 - \frac{\text{DocuMatch time}}{\text{manual time}}$. Separately, we will check system decisions against independently labeled emails and documents. A silent error means a missed comparison request or an incorrect `OK` result that reaches the end without review. We will report the count as $\frac{\text{silent errors}}{N \text{ cases}}$, alongside correct matches, detected mismatches, and review cases. **78% reduction and zero silent errors remain targets until these results are measured.**
 
 ---
 
@@ -408,7 +389,7 @@ cd frontend && npm install && cd ..
 ```
 
 ### 2. Environment Configuration
-Copy the template and configure your credentials:
+Copy template and configure credentials:
 ```bash
 cp .env.example .env
 ```
@@ -421,8 +402,8 @@ DOCUMATCH_LLM_MODE=off
 PORT=8000
 ```
 
-### 3. Run the Full Test Suite (131 Tests)
-Verify that all unit, integration, memory, and security tests pass offline:
+### 3. Run the Full Test Suite (138 Tests)
+Verify that all unit, integration, memory, trust, and security tests pass offline:
 ```bash
 python -m unittest discover tests
 ```
@@ -454,7 +435,7 @@ python run_app.py
 
 ## Interactive Demos & Automated Tests
 
-Run our specialized walkthrough scripts to verify key platform capabilities:
+Run specialized walkthrough scripts to verify key platform capabilities:
 
 ```bash
 # 1. Full Dataset Self-Evaluation Scoreboard (Replays 520 emails end-to-end)
@@ -469,7 +450,7 @@ python demo_trust_features.py
 # 4. Bayesian Thompson Sampling & Reflexion Demo
 python demo_self_learning.py
 
-# 5. Comprehensive Unit & Integration Test Suite (131 tests)
+# 5. Comprehensive Unit & Integration Test Suite (138 tests)
 python -m unittest discover tests
 ```
 
@@ -480,4 +461,4 @@ python -m unittest discover tests
 ## Authors & Acknowledgements
 
 Developed for the **Averis x Monash Hackathon 2026**.  
-Engineered in compliance with the **Digital Container Shipping Association (DCSA)** open specifications.
+Engineered in compliance with **Digital Container Shipping Association (DCSA)** open specifications.

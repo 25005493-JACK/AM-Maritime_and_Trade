@@ -188,7 +188,7 @@ export default function AgentLearningDashboard() {
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 shadow-md shadow-indigo-900/40">
+            <div className="p-2 rounded-xl bg-blue-600 shadow-md">
               <TrendingUp className="w-5 h-5 text-white" />
             </div>
             <h2 className="text-xl font-bold tracking-tight text-slate-100">
@@ -221,7 +221,7 @@ export default function AgentLearningDashboard() {
           </div>
           <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2">
             <div
-              className="bg-gradient-to-r from-indigo-500 to-cyan-400 h-full rounded-full transition-all duration-500"
+              className="bg-blue-500 h-full rounded-full transition-all duration-500"
               style={{ width: `${avgTrust}%` }}
             />
           </div>

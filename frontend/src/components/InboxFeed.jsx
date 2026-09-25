@@ -16,7 +16,7 @@ import {
   AlertOctagon
 } from 'lucide-react';
 
-export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOpenInspector }) {
+export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOpenInspector, showToast }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [selectedStatus, setSelectedStatus] = useState('ALL');
@@ -71,12 +71,16 @@ export default function InboxFeed({ emails, selectedEmailId, onSelectEmail, onOp
   };
 
   const handleBatchApprove = () => {
-    alert(`Batch Approved ${selectedEmailIds.length} clean match shipment(s)! Draft Bills of Lading released.`);
+    const msg = `Batch Approved ${selectedEmailIds.length} clean match shipment(s)! Draft Bills of Lading released.`;
+    if (showToast) showToast(msg, 'success');
+    else alert(msg);
     setSelectedEmailIds([]);
   };
 
   const handleBatchEscalate = () => {
-    alert(`Batch Escalated ${selectedEmailIds.length} shipment(s) to Human Review Queue.`);
+    const msg = `Batch Escalated ${selectedEmailIds.length} shipment(s) to Human Review Queue.`;
+    if (showToast) showToast(msg, 'warning');
+    else alert(msg);
     setSelectedEmailIds([]);
   };
 

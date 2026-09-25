@@ -460,10 +460,6 @@ export default function TimelineWheel({ theme }) {
           </div>
         ) : (
           <div className="relative w-full min-w-0 overflow-hidden">
-            {/* Left/Right subtle gradient fade */}
-            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-slate-950 to-transparent z-10" />
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-950 to-transparent z-10" />
-
             <div
               ref={railScrollRef}
               className="flex gap-3 overflow-x-auto pb-1.5 pt-0.5 scroll-smooth no-scrollbar w-full min-w-0"

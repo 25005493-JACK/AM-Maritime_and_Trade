@@ -82,18 +82,18 @@
   "vitalsolutions.sg:consignee": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "consignee",
-    "alpha": 15.0,
-    "beta": 15.0,
+    "alpha": 23.0,
+    "beta": 23.0,
     "mean_trust": 0.5,
-    "last_updated": "2026-09-24T16:03:38.134128+00:00"
+    "last_updated": "2026-09-25T04:02:32.176914+00:00"
   },
   "vitalsolutions.sg:notify_party": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "notify_party",
     "alpha": 1.0,
-    "beta": 15.0,
-    "mean_trust": 0.062,
-    "last_updated": "2026-09-24T16:03:38.104583+00:00"
+    "beta": 23.0,
+    "mean_trust": 0.042,
+    "last_updated": "2026-09-25T04:02:32.156599+00:00"
   },
   "adaptive-sender-6847fd94.com:*": {
     "sender_domain": "adaptive-sender-6847fd94.com",
@@ -163,9 +163,9 @@
     "sender_domain": "eastasiatrading.com",
     "field_name": "container_count",
     "alpha": 1.0,
-    "beta": 17.0,
-    "mean_trust": 0.056,
-    "last_updated": "2026-09-24T16:03:41.558497+00:00"
+    "beta": 25.0,
+    "mean_trust": 0.038,
+    "last_updated": "2026-09-25T04:02:34.814883+00:00"
   },
   "adaptive-sender-77888502.com:*": {
     "sender_domain": "adaptive-sender-77888502.com",
@@ -178,10 +178,10 @@
   "carrier-test-line.com:*": {
     "sender_domain": "carrier-test-line.com",
     "field_name": null,
-    "alpha": 13.0,
-    "beta": 37.0,
-    "mean_trust": 0.26,
-    "last_updated": "2026-09-24T16:03:37.907328+00:00"
+    "alpha": 21.0,
+    "beta": 61.0,
+    "mean_trust": 0.256,
+    "last_updated": "2026-09-25T04:02:32.039539+00:00"
   },
   "fujitogrp.com:container_count": {
     "sender_domain": "fujitogrp.com",
@@ -486,5 +486,53 @@
     "beta": 3.0,
     "mean_trust": 0.4,
     "last_updated": "2026-09-24T16:03:38.303375+00:00"
+  },
+  "adaptive-sender-fe8506f0.com:*": {
+    "sender_domain": "adaptive-sender-fe8506f0.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-25T03:42:50.200974+00:00"
+  },
+  "oceanic-exports.com:container_count": {
+    "sender_domain": "oceanic-exports.com",
+    "field_name": "container_count",
+    "alpha": 1.0,
+    "beta": 11.0,
+    "mean_trust": 0.083,
+    "last_updated": "2026-09-25T04:02:36.051436+00:00"
+  },
+  "adaptive-sender-2fbb2899.com:*": {
+    "sender_domain": "adaptive-sender-2fbb2899.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-25T03:49:19.078964+00:00"
+  },
+  "adaptive-sender-797415dc.com:*": {
+    "sender_domain": "adaptive-sender-797415dc.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-25T03:52:05.756006+00:00"
+  },
+  "adaptive-sender-c43a39fc.com:*": {
+    "sender_domain": "adaptive-sender-c43a39fc.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-25T03:52:40.778716+00:00"
+  },
+  "adaptive-sender-be45e7c2.com:*": {
+    "sender_domain": "adaptive-sender-be45e7c2.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-25T04:02:32.217217+00:00"
   }
 }

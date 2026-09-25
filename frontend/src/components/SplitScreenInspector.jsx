@@ -328,7 +328,7 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
 
             {/* AI Recommended Next Action Box */}
             {verif.recommended_action && (
-              <div className="p-4 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-indigo-500/30 flex items-start justify-between shadow-lg">
+              <div className="p-4 rounded-xl bg-slate-900 border border-indigo-500/30 flex items-start justify-between shadow-lg">
                 <div className="flex items-start space-x-3">
                   <div className="w-9 h-9 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/40">
                     <Sparkles className="w-5 h-5" />
@@ -351,7 +351,10 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
                 <div className="flex items-center space-x-2 shrink-0">
                   {isMatch ? (
                     <button 
-                      onClick={() => alert("Approved! Draft Bill of Lading released to Shipper.")}
+                      onClick={() => {
+                        if (showToast) showToast("Approved! Draft Bill of Lading released to Shipper.", "success");
+                        else alert("Approved! Draft Bill of Lading released to Shipper.");
+                      }}
                       className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow transition"
                     >
                       <ShieldCheck className="w-4 h-4" />
@@ -363,7 +366,7 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
                         onClick={() => {
                           const el = document.getElementById('conflict-resolution-panel');
                           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                          else onOpenOverrideModal();
+                          else onOpenOverrideModal?.();
                         }}
                         className="px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow transition cursor-pointer"
                       >
@@ -371,7 +374,10 @@ export default function SplitScreenInspector({ emailDetail, onOpenOverrideModal 
                         <span>Resolve Discrepancy</span>
                       </button>
                       <button 
-                        onClick={() => alert("Revision Request draft generated and sent to Carrier.")}
+                        onClick={() => {
+                          if (showToast) showToast("Revision Request draft generated and sent to Carrier.", "info");
+                          else alert("Revision Request draft generated and sent to Carrier.");
+                        }}
                         className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs flex items-center space-x-1.5 shadow transition"
                       >
                         <Send className="w-4 h-4" />

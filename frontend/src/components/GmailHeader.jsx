@@ -152,7 +152,7 @@ export default function GmailHeader({
         {/* User Profile Avatar */}
         <div className="pl-1">
           <button 
-            className="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-medium text-sm flex items-center justify-center shadow-inner hover:ring-4 hover:ring-blue-500/20 transition"
+            className="w-9 h-9 rounded-full bg-blue-600 text-white font-medium text-sm flex items-center justify-center shadow-sm hover:bg-blue-500 transition"
             title="Google Account: DocuMatch Ops (ops@documatch.ai)"
           >
             D

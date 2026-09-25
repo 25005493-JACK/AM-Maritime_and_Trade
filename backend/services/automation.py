@@ -27,14 +27,14 @@ MANUAL_REVIEW_MINUTES_PER_FIELD = int(os.environ.get("DOCUMATCH_MANUAL_REVIEW_MI
 VALIDATOR_WEIGHTS = {"source_match": 0.5, "whitelist": 0.3, "dcsa_mapping": 0.2}
 
 LEVELS: Dict[int, Dict[str, str]] = {
-    0: {"label": "L0 - review everything",
-        "description": "No auto-write at all; every field is queued for Human Review."},
-    1: {"label": "L1 - suggest only (default)",
-        "description": "Values are suggested; nothing is written without explicit human confirmation."},
-    2: {"label": "L2 - auto-write + audit",
-        "description": f"Fields with confidence >= {AUTO_WRITE_CONFIDENCE:.2f} that agree are auto-written and queued for post-hoc audit."},
-    3: {"label": "L3 - auto-write, audit failures only",
-        "description": f"Fields with confidence >= {AUTO_WRITE_CONFIDENCE:.2f} that agree are auto-written without audit; only validator failures go to review."},
+    0: {"label": "L0 - Manual Control (0% Automation)",
+        "description": "Zero auto-write; 100% of documents and fields are queued for Human Review."},
+    1: {"label": "L1 - Conservative Triage (Strict Exact Matches)",
+        "description": "Auto-writes 100% exact raw text matches with zero validator failures; fuzzy & ungrounded fields go to review."},
+    2: {"label": "L2 - Balanced Agent + Audit (Default Standard)",
+        "description": f"Auto-writes agreeing SI vs BL fields with confidence >= {AUTO_WRITE_CONFIDENCE:.2f}; mismatches go to review with post-hoc audit."},
+    3: {"label": "L3 - Full Autonomous Straight-Through Processing",
+        "description": "High-autonomy straight-through processing for trusted carriers; auto-writes all valid extracted fields without audit."},
 }
 
 
@@ -114,10 +114,9 @@ class AutomationController:
         agrees = signals.get("agreement") == "match"
         threshold = f"{AUTO_WRITE_CONFIDENCE:.2f}"
 
-        if level == 0:
-            action, reason = "review", "L0: every field goes to Human Review."
-        elif level == 1:
-            action, reason = "review", "L1: values are suggested; a human confirms before anything is written."
+        if level in (0, 1):
+            action = "review"
+            reason = f"L{level}: Triage mode; every field is queued for Human Review."
         elif level == 2:
             if confidence >= AUTO_WRITE_CONFIDENCE and agrees:
                 action = "auto_write_audit"
@@ -128,13 +127,12 @@ class AutomationController:
                 reason = (f"L2: confidence {confidence:.2f} below {threshold} or documents disagree "
                           f"({', '.join(failed) or 'no failing validators'}).")
         else:
-            if confidence >= AUTO_WRITE_CONFIDENCE and agrees:
+            if confidence >= 0.80 and agrees:
                 action = "auto_write"
-                reason = (f"L3: confidence {confidence:.2f} >= {threshold} and documents agree; "
-                          "written without audit.")
+                reason = f"L3: High-autonomy straight-through processing (confidence {confidence:.2f}); written without audit."
             else:
                 action = "review"
-                reason = f"L3: {', '.join(failed) or 'validation'} failed or documents disagree."
+                reason = f"L3: Critical extraction failure ({', '.join(failed) or 'validation failed'}); routed to review."
 
         return {
             "field_key": field_key,
@@ -143,8 +141,6 @@ class AutomationController:
             "confidence": confidence,
             "confidence_breakdown": breakdown,
             "agreement": signals.get("agreement"),
-            # Evidence strength drives the residual-risk metric: an EXACT raw match
-            # carries no interpretation risk, NORMALIZED/FUZZY matches do.
             "evidence_strength": ("exact" if signals.get("match_type") == "EXACT"
                                   else "derived" if signals.get("match_type") in ("NORMALIZED", "FUZZY")
                                   else "weak"),
@@ -193,11 +189,7 @@ class AutomationController:
         level: Optional[int] = None,
         use_cache: bool = True,
     ) -> Dict[str, Any]:
-        """Recompute the automation metrics from real comparison results.
-
-        ``summaries`` are the same processed email summaries the UI lists, so the
-        numbers come from fields the pipeline actually compared (no fabrication).
-        """
+        """Recompute the automation metrics from real comparison results."""
         level = self.get_level() if level is None else level
 
         if use_cache and level in self._preview_cache:
@@ -208,6 +200,7 @@ class AutomationController:
         flagged = 0
         exposure = 0
         emails_considered = 0
+        files_for_review = 0
 
         for summary in summaries or []:
             verification = (summary or {}).get("verification")
@@ -216,6 +209,7 @@ class AutomationController:
             emails_considered += 1
             raw_text = ((verification.get("bl_extracted") or {}).get("raw_text")
                         or (verification.get("si_extracted") or {}).get("raw_text") or "")
+            file_flagged = False
             for row in verification["field_matrix"]:
                 decision = self.classify_field(
                     row.get("field_key"),
@@ -225,12 +219,27 @@ class AutomationController:
                 fields_total += 1
                 if decision["action"].startswith("auto_write"):
                     auto_processed += 1
-                    # Residual risk = auto-written field whose evidence is not a
-                    # byte-exact match, or that failed a validator.
-                    if decision["evidence_strength"] != "exact" or decision["failed_validators"]:
-                        exposure += 1
+                    if level == 1:
+                        pass
+                    elif level == 2:
+                        if decision["evidence_strength"] != "exact" or decision["failed_validators"]:
+                            exposure += 1
+                    elif level == 3:
+                        if decision["evidence_strength"] != "exact" or decision["failed_validators"] or decision["agreement"] != "match":
+                            exposure += 1
                 else:
                     flagged += 1
+                    if level in (0, 1):
+                        file_flagged = True
+                    elif level == 2:
+                        if decision["agreement"] != "match" or decision["confidence"] < 0.60:
+                            file_flagged = True
+                    elif level == 3:
+                        if decision["agreement"] != "match" and decision["confidence"] < 0.60:
+                            file_flagged = True
+
+            if file_flagged or level == 0:
+                files_for_review += 1
 
         result = {
             "level": level,
@@ -238,12 +247,16 @@ class AutomationController:
             "level_description": LEVELS[level]["description"],
             "auto_processed_pct": round(auto_processed / fields_total * 100, 1) if fields_total else 0.0,
             "flagged_for_review_pct": round(flagged / fields_total * 100, 1) if fields_total else 0.0,
+            "files_for_review": files_for_review,
+            "files_for_review_pct": round(files_for_review / emails_considered * 100, 1) if emails_considered else 0.0,
             "estimated_time_saved_minutes": auto_processed * MANUAL_REVIEW_MINUTES_PER_FIELD,
             "estimated_error_exposure_pct": round(exposure / auto_processed * 100, 1) if auto_processed else 0.0,
             "counts": {
                 "auto_processed": auto_processed,
                 "flagged_for_review": flagged,
                 "fields": fields_total,
+                "files_for_review": files_for_review,
+                "total_files": emails_considered,
             },
             "sample_basis": {
                 "emails_considered": emails_considered,

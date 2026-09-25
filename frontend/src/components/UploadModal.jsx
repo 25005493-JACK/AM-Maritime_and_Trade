@@ -3,30 +3,12 @@ import { Upload, X, FileText, CheckCircle2, AlertCircle, Loader2 } from 'lucide-
 import { apiFetch } from '../api.js';
 
 export default function UploadModal({ isOpen, onClose, onUploadSuccess }) {
-  const [vessel, setVessel] = useState('EVER ULYSSES');
-  const [voyage, setVoyage] = useState('V.104W');
-  const [company, setCompany] = useState('Oceanic Freight Logistics');
-  const [sender, setSender] = useState('ops@oceanic-freight.com');
-  const [siText, setSiText] = useState(
-`SHIPPING INSTRUCTIONS
-Shipper: Oceanic Freight Logistics Ltd
-Consignee: Global Import Partners LLC
-Notify Party: Mediterranean Transhipment Desk
-Port of Loading: Shanghai (CNSHA)
-Port of Discharge: Rotterdam (NLRTM)
-Container Count: 6 Units
-Gross Weight: 28,400 KGS`
-  );
-  const [blText, setBlText] = useState(
-`DRAFT BILL OF LADING
-Shipper: Oceanic Freight Logistics Ltd
-Consignee: Global Import Partners LLC
-Notify Party: Mediterranean Transhipment Desk
-Port of Loading: Shanghai (CNSHA)
-Port of Discharge: Rotterdam (NLRTM)
-Container Count: 5 Units
-Gross Weight: 28,400 KGS`
-  );
+  const [vessel, setVessel] = useState('');
+  const [voyage, setVoyage] = useState('');
+  const [company, setCompany] = useState('');
+  const [sender, setSender] = useState('');
+  const [siText, setSiText] = useState('');
+  const [blText, setBlText] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -196,7 +178,7 @@ Gross Weight: 28,400 KGS`
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 hover:opacity-95 shadow-lg shadow-cyan-900/40 transition flex items-center space-x-2 cursor-pointer disabled:opacity-50"
+              className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-cyan-600 hover:bg-cyan-500 shadow-lg shadow-cyan-900/40 transition flex items-center space-x-2 cursor-pointer disabled:opacity-50"
             >
               {loading ? (
                 <>

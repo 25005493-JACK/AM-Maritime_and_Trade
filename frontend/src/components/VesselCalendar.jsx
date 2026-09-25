@@ -276,7 +276,7 @@ export default function VesselCalendar({
               if (schedule.length > 0) setTargetVesselId(schedule[0].id);
               setShowAssignModal(true);
             }}
-            className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-xs flex items-center space-x-1.5 shadow-lg shadow-cyan-950/50 transition active:scale-95 cursor-pointer"
+            className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center space-x-1.5 shadow-lg shadow-cyan-950/50 transition active:scale-95 cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Assign Container</span>
@@ -360,7 +360,7 @@ export default function VesselCalendar({
 
         {/* 2. AUTOMATED BOOKING INTEGRATION BANNER */}
         {pendingBookings.length > 0 && (
-          <div className="p-4 rounded-xl bg-gradient-to-r from-slate-900 via-indigo-950/50 to-slate-900 border border-indigo-500/40 shadow-xl flex items-center justify-between">
+          <div className="p-4 rounded-xl bg-slate-900 border border-indigo-500/40 shadow-xl flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <Sparkles className="w-6 h-6 text-indigo-400 shrink-0" />
               <div>
@@ -795,7 +795,7 @@ export default function VesselCalendar({
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold shadow-lg shadow-cyan-950/50 cursor-pointer"
+                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg shadow-cyan-950/50 cursor-pointer"
                 >
                   Assign & Generate Confirmation Email
                 </button>
@@ -890,7 +890,7 @@ export default function VesselCalendar({
                     setEmailDraftModal(null);
                   }, 1800);
                 }}
-                className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-extrabold text-xs flex items-center space-x-2 shadow-lg shadow-cyan-950/60 cursor-pointer"
+                className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs flex items-center space-x-2 shadow-lg shadow-cyan-950/60 cursor-pointer"
               >
                 <Send className="w-4 h-4" />
                 <span>Send Confirmation Email</span>

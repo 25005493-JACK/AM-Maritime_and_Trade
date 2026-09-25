@@ -9,8 +9,7 @@ import {
   ChevronRight,
   Sun,
   Moon,
-  RefreshCw,
-  Upload
+  RefreshCw
 } from 'lucide-react';
 
 export default function Sidebar({ activeTab, setActiveTab, stats, healthInfo, onRefresh, theme, onToggleTheme, onOpenUpload }) {
@@ -57,7 +56,7 @@ export default function Sidebar({ activeTab, setActiveTab, stats, healthInfo, on
           {!collapsed ? (
             <>
               <div className="flex items-center space-x-3 overflow-hidden min-w-0">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-cyan-500 to-indigo-600 flex items-center justify-center shrink-0 shadow-lg shadow-cyan-950/50">
+                <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-md">
                   <Ship className="w-6 h-6 text-white" />
                 </div>
                 <div className="min-w-0">
@@ -81,7 +80,7 @@ export default function Sidebar({ activeTab, setActiveTab, stats, healthInfo, on
             <button
               onClick={() => setCollapsed(false)}
               title="Expand Sidebar"
-              className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-cyan-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-950/50 hover:opacity-90 transition relative group cursor-pointer"
+              className="w-10 h-10 rounded-xl bg-blue-600 hover:bg-blue-500 flex items-center justify-center shadow-lg shadow-cyan-950/50 transition relative group cursor-pointer"
             >
               <Ship className="w-5 h-5 text-white group-hover:hidden" />
               <ChevronRight className="w-5 h-5 text-white hidden group-hover:block" />
@@ -102,19 +101,6 @@ export default function Sidebar({ activeTab, setActiveTab, stats, healthInfo, on
           )}
         </div>
 
-        {/* Upload Action */}
-        <div className="p-3 pb-1">
-          <button
-            onClick={onOpenUpload}
-            title={collapsed ? "Upload SI / Draft BL" : undefined}
-            className={`w-full flex items-center ${
-              collapsed ? "justify-center p-2.5" : "justify-center space-x-2 px-3 py-2.5"
-            } rounded-xl text-xs font-bold text-white bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 hover:opacity-95 shadow-md shadow-cyan-950/40 transition cursor-pointer`}
-          >
-            <Upload className="w-4 h-4" />
-            {!collapsed && <span>Upload SI / BL</span>}
-          </button>
-        </div>
 
         {/* Navigation Options */}
         <nav className="p-3 space-y-2">
@@ -130,7 +116,7 @@ export default function Sidebar({ activeTab, setActiveTab, stats, healthInfo, on
                   collapsed ? 'justify-center py-3' : 'justify-between px-3 py-3'
                 } rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'bg-gradient-to-r from-blue-700/40 via-cyan-600/30 to-indigo-700/40 text-cyan-300 border border-cyan-500/50 shadow-lg shadow-cyan-950/60'
+                    ? 'bg-blue-900/80 text-cyan-300 border border-cyan-500/50 shadow-lg shadow-cyan-950/60'
                     : 'text-slate-400 hover:text-slate-100 hover:bg-blue-950/50 border border-transparent'
                 }`}
               >

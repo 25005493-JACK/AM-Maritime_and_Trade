@@ -40,7 +40,7 @@ export default function AutomationSlider({ onLevelChange, level: controlledLevel
         body: JSON.stringify({ level: next }),
       });
     } catch (err) {
-      /* the preview still reflects the requested level */
+      /* preview reflects requested level */
     }
     onLevelChange?.(next);
   };
@@ -50,6 +50,9 @@ export default function AutomationSlider({ onLevelChange, level: controlledLevel
     { level: 2, label: 'L2' }, { level: 3, label: 'L3' },
   ];
 
+  const filesForReview = preview?.files_for_review ?? preview?.counts?.files_for_review ?? 0;
+  const filesForReviewPct = preview?.files_for_review_pct ?? 0;
+
   const tiles = [
     {
       key: 'auto_processed_pct',
@@ -57,51 +60,51 @@ export default function AutomationSlider({ onLevelChange, level: controlledLevel
       value: `${preview?.auto_processed_pct ?? 0}%`,
       hint: `${preview?.counts?.auto_processed ?? 0} fields auto-written`,
       Icon: Gauge,
-      tone: 'text-emerald-300',
+      tone: 'text-emerald-400',
     },
     {
       key: 'estimated_error_exposure_pct',
-      label: 'Estimated error exposure',
+      label: 'Error exposure',
       value: `${preview?.estimated_error_exposure_pct ?? 0}%`,
-      hint: 'non-exact evidence or failed validator',
+      hint: 'non-exact evidence or validator failures',
       Icon: ShieldAlert,
-      tone: 'text-amber-300',
+      tone: 'text-amber-400',
     },
     {
       key: 'time',
       label: 'Time saved',
       value: `${preview?.estimated_time_saved_minutes ?? 0} min`,
-      hint: 'review minutes avoided (documented constant)',
+      hint: 'manual review minutes avoided',
       Icon: Clock,
-      tone: 'text-cyan-300',
+      tone: 'text-blue-400',
     },
     {
-      key: 'review',
-      label: 'Fields sent to review',
-      value: `${preview?.counts?.flagged_for_review ?? 0}`,
-      hint: `${preview?.flagged_for_review_pct ?? 0}% of compared fields`,
+      key: 'files_for_review',
+      label: 'Files sent for review',
+      value: `${filesForReview} files`,
+      hint: `${filesForReviewPct}% of inbox files (${preview?.counts?.flagged_for_review ?? 0} fields)`,
       Icon: Users,
-      tone: 'text-slate-300',
+      tone: 'text-slate-200',
     },
   ];
 
   return (
-    <div className="glass-card rounded-xl border border-cyan-600/40 overflow-hidden">
-      <div className="p-3 bg-cyan-950/20 border-b border-cyan-600/30 flex items-center justify-between gap-3">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-cyan-200 flex items-center space-x-2">
-          <Activity className="w-4 h-4 text-cyan-400" />
-          <span>Automation level - "AI license"</span>
+    <div className="rounded-xl border border-slate-800 bg-slate-900 overflow-hidden shadow-lg">
+      <div className="p-3 bg-slate-900 border-b border-slate-800 flex items-center justify-between gap-3">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200 flex items-center space-x-2">
+          <Activity className="w-4 h-4 text-blue-400" />
+          <span>Trust &amp; AI Control - 4-Level Automation</span>
         </h3>
         <span className="font-mono text-[10px] text-slate-400">
           {loading ? 'recalculating…' : preview?.level_label}
         </span>
       </div>
 
-      <div className="p-4 space-y-4">
+      <div className="p-4 space-y-4 bg-slate-950">
         <div>
           <div className="flex justify-between text-[10px] font-mono text-slate-400 mb-1">
             {levels.map((entry) => (
-              <span key={entry.level} className={entry.level === level ? 'text-cyan-300 font-semibold' : ''}>
+              <span key={entry.level} className={entry.level === level ? 'text-blue-400 font-semibold' : ''}>
                 {entry.label}
               </span>
             ))}
@@ -113,26 +116,26 @@ export default function AutomationSlider({ onLevelChange, level: controlledLevel
             step={1}
             value={level}
             onChange={(e) => applyLevel(Number(e.target.value))}
-            className="w-full accent-cyan-500"
+            className="w-full accent-blue-500 cursor-pointer"
           />
           <p className="text-[11px] text-slate-400 mt-1">{preview?.level_description}</p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {tiles.map(({ key, label, value, hint, Icon, tone }) => (
-            <div key={key} className="rounded-xl border border-slate-800 bg-slate-900/50 p-3">
+            <div key={key} className="rounded-xl border border-slate-800 bg-slate-900 p-3 shadow-sm">
               <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wide text-slate-400">
                 <Icon className={`w-3.5 h-3.5 ${tone}`} />
                 <span>{label}</span>
               </div>
-              <div className={`mt-1 text-lg font-semibold ${tone}`}>{value}</div>
-              <div className="text-[10px] text-slate-500">{hint}</div>
+              <div className={`mt-1 text-lg font-bold ${tone}`}>{value}</div>
+              <div className="text-[10px] text-slate-400 mt-0.5">{hint}</div>
             </div>
           ))}
         </div>
 
         {preview && (
-          <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-2 text-[10px] text-slate-400 font-mono space-y-0.5">
+          <div className="rounded-lg border border-slate-800 bg-slate-900 p-2.5 text-[10px] text-slate-400 font-mono space-y-0.5">
             <div>
               basis: {preview.sample_basis.emails_considered} emails /{' '}
               {preview.sample_basis.fields_considered} compared fields — {preview.sample_basis.source}
