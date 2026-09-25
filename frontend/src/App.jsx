@@ -49,7 +49,7 @@ export default function App() {
         const data = await res.json();
         const approvedIds = JSON.parse(localStorage.getItem('documatch_approved_emails') || '[]');
         const updated = data.map((e) => {
-          if (approvedIds.includes(e.id)) {
+          if (approvedIds.includes(e.id) && e.verification?.status !== 'NEEDS_REVIEW') {
             return {
               ...e,
               verification: {
@@ -76,23 +76,23 @@ export default function App() {
       return;
     }
     try {
-      // Check client-side uploaded emails store first (for static Vercel host retention)
-      try {
-        const customUploads = JSON.parse(localStorage.getItem('documatch_uploaded_emails') || '{}');
-        if (customUploads[id]) {
-          setEmailDetail(customUploads[id]);
-          return;
-        }
-      } catch (e) {}
-
       const res = await apiFetch(`/api/emails/${id}`);
       if (res.ok) {
         const data = await res.json();
         setEmailDetail(data);
+        return;
       }
     } catch (err) {
-      console.error('Failed to fetch email detail:', err);
+      console.error('Failed to fetch email detail from API:', err);
     }
+
+    // Check client-side uploaded emails store as fallback (for static Vercel host retention)
+    try {
+      const customUploads = JSON.parse(localStorage.getItem('documatch_uploaded_emails') || '{}');
+      if (customUploads[id]) {
+        setEmailDetail(customUploads[id]);
+      }
+    } catch (e) {}
   };
 
   // Fetch analytics
@@ -262,6 +262,39 @@ export default function App() {
     }
   };
 
+  // Undo Human Review Approval & Revert to Queue
+  const handleUndoApproveEmail = async (emailId) => {
+    try {
+      await apiFetch(`/api/override/${emailId}`, { method: 'DELETE' });
+      const approvedIds = JSON.parse(localStorage.getItem('documatch_approved_emails') || '[]');
+      const updatedApproved = approvedIds.filter((id) => id !== emailId);
+      localStorage.setItem('documatch_approved_emails', JSON.stringify(updatedApproved));
+
+      await fetchEmails();
+      await fetchAnalytics();
+      await fetchReflections();
+      showToast(`Reverted approval for ${emailId}! Item returned to Human Review Queue.`, 'info');
+    } catch (err) {
+      console.error('Failed to undo approval:', err);
+      showToast(`Failed to undo approval for ${emailId}.`, 'error');
+    }
+  };
+
+  // Reset All Approvals & Restore All Escalated Emails to Queue
+  const handleResetAllApprovals = async () => {
+    try {
+      await apiFetch('/api/overrides/reset', { method: 'POST' });
+      localStorage.removeItem('documatch_approved_emails');
+      await fetchEmails();
+      await fetchAnalytics();
+      await fetchReflections();
+      showToast('Reset all human approvals! All 18 escalated emails returned to review queue.', 'info');
+    } catch (err) {
+      console.error('Failed to reset all approvals:', err);
+      showToast('Failed to reset approvals.', 'error');
+    }
+  };
+
   // Save Human-in-the-Loop Override
   const handleSaveOverride = async (emailId, siOverrides, blOverrides) => {
     try {
@@ -361,10 +394,9 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    setEmailDetail(null);
     if (selectedEmailId) {
       fetchEmailDetail(selectedEmailId);
-    } else {
-      setEmailDetail(null);
     }
   }, [selectedEmailId]);
 
@@ -381,6 +413,7 @@ export default function App() {
       <Sidebar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        emails={emails}
         stats={analytics?.summary_stats}
         healthInfo={healthInfo}
         onRefresh={() => {
@@ -413,6 +446,8 @@ export default function App() {
             emails={emails}
             onReviewEmail={handleOpenOverrideModal}
             onApproveEmail={handleApproveEmail}
+            onUndoApproveEmail={handleUndoApproveEmail}
+            onResetAllApprovals={handleResetAllApprovals}
             reflectionsData={reflectionsData}
             onRefreshReflections={fetchReflections}
           />

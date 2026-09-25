@@ -12,22 +12,36 @@ import {
   RefreshCw
 } from 'lucide-react';
 
-export default function Sidebar({ activeTab, setActiveTab, stats, healthInfo, onRefresh, theme, onToggleTheme, onOpenUpload }) {
+export default function Sidebar({ activeTab, setActiveTab, stats, healthInfo, onRefresh, theme, onToggleTheme, onOpenUpload, emails = [] }) {
   const [collapsed, setCollapsed] = useState(false);
+
+  // Dynamic live email count & human review count matching top workspace headers
+  const liveTotalCount = emails.length > 0 ? emails.length : (stats?.total_emails || 0);
+
+  const liveHumanReviewCount = emails.length > 0
+    ? emails.filter((e) => {
+        const status = e.verification?.status;
+        if (status === 'OK' || status === 'Approved' || status === 'Passed' || status === 'Completed') {
+          return false;
+        }
+        const hasReason = e.verification?.review_reason || (e.verification?.human_review_reasons && e.verification.human_review_reasons.length > 0);
+        return status === 'HUMAN_REVIEW_REQUIRED' || status === 'NEEDS_REVIEW' || hasReason;
+      }).length
+    : (stats?.human_review_count || 0);
 
   const navItems = [
     { 
       id: 'inbox', 
       label: 'Inbox', 
       icon: Inbox, 
-      count: stats?.total_emails || 0,
+      count: liveTotalCount,
       badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
     },
     { 
       id: 'human_review', 
       label: 'Human Review Queue', 
       icon: AlertTriangle, 
-      count: stats?.human_review_count || 0, 
+      count: liveHumanReviewCount, 
       badgeColor: 'bg-amber-500/20 text-amber-400 border-amber-500/30' 
     },
     { 

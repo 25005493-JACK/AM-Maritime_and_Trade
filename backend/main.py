@@ -260,6 +260,18 @@ def get_override_for_email(email_id: str, current_reviewer: ReviewerUser = Depen
         raise HTTPException(status_code=404, detail=f"No overrides found for {email_id}")
     return HUMAN_OVERRIDES[email_id]
 
+@app.delete("/api/overrides")
+@app.post("/api/overrides/reset")
+def reset_all_overrides(current_reviewer: ReviewerUser = Depends(get_current_reviewer)):
+    """Clears all human overrides and restores all emails to original verification states."""
+    global HUMAN_OVERRIDES, PROCESSED_SUMMARY_CACHE
+    HUMAN_OVERRIDES = {}
+    save_persisted_overrides()
+    PROCESSED_SUMMARY_CACHE = None
+    return {"status": "success", "message": "All human overrides cleared successfully"}
+
+
+
 
 
 def _get_refusal_certificate_for_email(email_id: str) -> Optional[Dict[str, Any]]:
@@ -538,6 +550,27 @@ def apply_human_override(
         print(f"Failed to append to corrections.csv: {ex}")
 
     return {"status": "success", "updated_verification": res}
+
+
+@app.delete("/api/override/{email_id}")
+@app.delete("/api/overrides/{email_id}")
+def delete_human_override(
+    email_id: str,
+    current_reviewer: ReviewerUser = Depends(get_current_reviewer)
+):
+    """Deletes/reverts a human override for an email, sending it back to human review queue if applicable."""
+    global PROCESSED_SUMMARY_CACHE
+    if email_id in HUMAN_OVERRIDES:
+        del HUMAN_OVERRIDES[email_id]
+        save_persisted_overrides()
+        if supabase_service.is_supabase_enabled():
+            try:
+                supabase_service.delete_human_override(email_id)
+            except Exception as ex:
+                print(f"[Supabase] Error deleting human override: {ex}")
+        PROCESSED_SUMMARY_CACHE = None
+        return {"status": "success", "message": f"Override for {email_id} deleted successfully", "email_id": email_id}
+    return {"status": "not_found", "message": f"No override found for {email_id}", "email_id": email_id}
 
 
 @app.post("/api/upload")

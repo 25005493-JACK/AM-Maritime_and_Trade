@@ -82,18 +82,18 @@
   "vitalsolutions.sg:consignee": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "consignee",
-    "alpha": 34.0,
-    "beta": 34.0,
+    "alpha": 35.0,
+    "beta": 35.0,
     "mean_trust": 0.5,
-    "last_updated": "2026-09-25T14:53:49.464960+00:00"
+    "last_updated": "2026-09-25T15:27:55.247709+00:00"
   },
   "vitalsolutions.sg:notify_party": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "notify_party",
     "alpha": 1.0,
-    "beta": 34.0,
-    "mean_trust": 0.029,
-    "last_updated": "2026-09-25T14:53:49.434568+00:00"
+    "beta": 35.0,
+    "mean_trust": 0.028,
+    "last_updated": "2026-09-25T15:27:55.218873+00:00"
   },
   "adaptive-sender-6847fd94.com:*": {
     "sender_domain": "adaptive-sender-6847fd94.com",
@@ -163,9 +163,9 @@
     "sender_domain": "eastasiatrading.com",
     "field_name": "container_count",
     "alpha": 1.0,
-    "beta": 36.0,
-    "mean_trust": 0.027,
-    "last_updated": "2026-09-25T14:53:52.216348+00:00"
+    "beta": 37.0,
+    "mean_trust": 0.026,
+    "last_updated": "2026-09-25T15:27:58.047992+00:00"
   },
   "adaptive-sender-77888502.com:*": {
     "sender_domain": "adaptive-sender-77888502.com",
@@ -178,10 +178,10 @@
   "carrier-test-line.com:*": {
     "sender_domain": "carrier-test-line.com",
     "field_name": null,
-    "alpha": 33.0,
-    "beta": 97.0,
+    "alpha": 34.0,
+    "beta": 100.0,
     "mean_trust": 0.254,
-    "last_updated": "2026-09-25T15:15:22.960384+00:00"
+    "last_updated": "2026-09-25T15:27:55.037562+00:00"
   },
   "fujitogrp.com:container_count": {
     "sender_domain": "fujitogrp.com",
@@ -499,9 +499,9 @@
     "sender_domain": "oceanic-exports.com",
     "field_name": "container_count",
     "alpha": 1.0,
-    "beta": 22.0,
-    "mean_trust": 0.043,
-    "last_updated": "2026-09-25T14:53:53.668383+00:00"
+    "beta": 23.0,
+    "mean_trust": 0.042,
+    "last_updated": "2026-09-25T15:27:59.549531+00:00"
   },
   "adaptive-sender-2fbb2899.com:*": {
     "sender_domain": "adaptive-sender-2fbb2899.com",
@@ -710,5 +710,13 @@
     "beta": 3.0,
     "mean_trust": 0.4,
     "last_updated": "2026-09-25T15:15:22.853523+00:00"
+  },
+  "adaptive-sender-67be8aaa.com:*": {
+    "sender_domain": "adaptive-sender-67be8aaa.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-25T15:27:55.300401+00:00"
   }
 }

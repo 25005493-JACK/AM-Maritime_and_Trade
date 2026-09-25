@@ -631,6 +631,15 @@ export default function InboxWorkspace({
                           <FileCheck2 className="w-4 h-4 text-cyan-400" />
                           <span>7-Field Comparison Matrix (Click row to highlight line in raw document below)</span>
                         </h3>
+                        <button
+                          onClick={() => {
+                            const el = document.getElementById('raw-attachment-section');
+                            if (el) el.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                          className="px-2 py-1 rounded bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-800 font-mono text-[10px] font-semibold shrink-0 cursor-pointer transition"
+                        >
+                          ↓ Jump to Raw Text
+                        </button>
                       </div>
 
                       <div className="divide-y divide-blue-900/40 text-xs font-mono">
@@ -668,7 +677,7 @@ export default function InboxWorkspace({
                   )}
 
                   {/* Raw Attachment Side-by-Side Text Comparison */}
-                  <div className="grid grid-cols-2 gap-4 pt-2">
+                  <div id="raw-attachment-section" className="grid grid-cols-2 gap-4 pt-2">
                     {/* Left Panel: SI Text */}
                     <div className="rounded-xl border border-blue-900/60 bg-slate-900/80 p-4 space-y-2.5 shadow-lg">
                       <div className="flex items-center justify-between border-b border-blue-900/60 pb-2">
@@ -681,7 +690,9 @@ export default function InboxWorkspace({
                         </span>
                       </div>
                       <div className="font-mono text-xs text-slate-300 bg-slate-950 p-3 rounded-xl border border-slate-900 overflow-x-auto leading-relaxed max-h-72 space-y-1">
-                        {(emailDetail?.si_text || currentEmail?.si_text || 'No SI file text available.').split('\n').map((line, idx) => {
+                        {!emailDetail && selectedEmailId ? (
+                          <div className="text-slate-500 py-4 text-center animate-pulse">Loading SI raw attachment text...</div>
+                        ) : (emailDetail?.si_text || currentEmail?.si_text || 'No SI file text available for this document.').split('\n').map((line, idx) => {
                           const isSelected = selectedFieldKey && line.toLowerCase().includes(selectedFieldKey.replace('_', ' '));
                           return (
                             <div key={idx} className={isSelected ? 'bg-cyan-950 text-cyan-300 font-bold px-1 rounded border-l-2 border-cyan-400' : ''}>
@@ -704,7 +715,9 @@ export default function InboxWorkspace({
                         </span>
                       </div>
                       <div className="font-mono text-xs text-slate-300 bg-slate-950 p-3 rounded-xl border border-slate-900 overflow-x-auto leading-relaxed max-h-72 space-y-1">
-                        {(emailDetail?.bl_text || currentEmail?.bl_text || 'No BL file text available.').split('\n').map((line, idx) => {
+                        {!emailDetail && selectedEmailId ? (
+                          <div className="text-slate-500 py-4 text-center animate-pulse">Loading BL raw attachment text...</div>
+                        ) : (emailDetail?.bl_text || currentEmail?.bl_text || 'No BL file text available for this document.').split('\n').map((line, idx) => {
                           const isSelected = selectedFieldKey && line.toLowerCase().includes(selectedFieldKey.replace('_', ' '));
                           return (
                             <div key={idx} className={isSelected ? 'bg-cyan-950 text-cyan-300 font-bold px-1 rounded border-l-2 border-cyan-400' : ''}>
