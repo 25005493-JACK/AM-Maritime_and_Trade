@@ -590,13 +590,13 @@ async def upload_documents(
             recipient = data.get("recipient") or recipient
             vessel = data.get("vessel")
             voyage = data.get("voyage")
-            custom_email_id = data.get("email_id")
+            custom_email_id = data.get("target_email_id") or data.get("email_id")
         else:
             try:
                 form = await request.form()
             except Exception as e:
                 raise HTTPException(status_code=400, detail=f"Error parsing form data: {e}")
-            custom_email_id = form.get("email_id")
+            custom_email_id = str(form.get("target_email_id")) if form.get("target_email_id") else (str(form.get("email_id")) if form.get("email_id") else None)
             subject = str(form.get("subject") or "")
             sender = str(form.get("sender") or sender)
             recipient = str(form.get("recipient") or recipient)
@@ -637,6 +637,8 @@ async def upload_documents(
         if not bl_text and not bl_bytes:
             raise HTTPException(status_code=400, detail="Bill of Lading (BL) text or file is required.")
 
+        existing_email = loader.get_email(custom_email_id) if custom_email_id else None
+
         timestamp_slug = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
         short_uuid = uuid.uuid4().hex[:6]
         email_id = custom_email_id or f"email_upload_{timestamp_slug}_{short_uuid}"
@@ -651,7 +653,14 @@ async def upload_documents(
             target_bl_name: bl_bytes if bl_bytes is not None else bl_text.encode("utf-8")
         }
 
-        if not subject:
+        if existing_email:
+            subject = subject or existing_email.get("subject") or f"RE: TO CONFIRM DOCS _ LIVE UPLOAD _ {email_id}"
+            sender = sender or existing_email.get("sender") or existing_email.get("from") or sender
+            recipient = recipient or existing_email.get("recipient") or existing_email.get("to") or recipient
+            vessel = vessel or existing_email.get("vessel")
+            voyage = voyage or existing_email.get("voyage")
+            company = company or existing_email.get("company")
+        elif not subject:
             subject = f"RE: TO CONFIRM DOCS _ LIVE UPLOAD _ {email_id} _ {company or 'Maritime Client'}"
 
         email_dict = {
