@@ -10,14 +10,14 @@
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)](https://react.dev/)
-[![Vercel](https://img.shields.io/badge/Vercel-Live_Production-black?logo=vercel&logoColor=white)](https://averishack.vercel.app)
+[![Vercel](https://img.shields.io/badge/Vercel-Live_Production-black?logo=vercel&logoColor=white)](https://am-maritime-and-trade-zvxb-5wppwh8jm-jack-s-projects123.vercel.app/)
 [![Supabase](https://img.shields.io/badge/Cloud-Supabase_PostgreSQL-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/)
 [![DCSA](https://img.shields.io/badge/Standard-DCSA_eBL_v3.0.3-0052CC)](https://dcsa.org/)
 [![Tests](https://img.shields.io/badge/Tests-138_Passing-success)](#5-automated-unit--integration-testing-suite)
 
 > 🚀 **Live Demo on Vercel**:  
-> - **Operations Dashboard**: [https://averishack.vercel.app](https://averishack.vercel.app)  
-> - **Presentation & Pitch Slides**: [https://averishack.vercel.app/presentation](https://averishack.vercel.app/presentation)
+> - **Operations Dashboard**: [https://am-maritime-and-trade-zvxb-5wppwh8jm-jack-s-projects123.vercel.app/](https://am-maritime-and-trade-zvxb-5wppwh8jm-jack-s-projects123.vercel.app/)  
+> - **Presentation & Pitch Slides**: [https://am-maritime-and-trade-zvxb-5wppwh8jm-jack-s-projects123.vercel.app/presentation](https://am-maritime-and-trade-zvxb-5wppwh8jm-jack-s-projects123.vercel.app/presentation)
 
 ---
 
