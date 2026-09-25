@@ -431,6 +431,19 @@ python run_app.py
 - **Supabase Cloud Health Check**: [http://localhost:8000/api/supabase/status](http://localhost:8000/api/supabase/status)
 - **System Health & Mode Check**: [http://localhost:8000/api/health](http://localhost:8000/api/health)
 
+### 6. Cloud & Production Deployment (Vercel & GitHub)
+
+DocuMatch is deployed live on Vercel with automatic continuous integration and deployment linked to the `main` branch of the GitHub repository:
+
+- **GitHub Repository**: [https://github.com/25005493-JACK/AM-Maritime_and_Trade](https://github.com/25005493-JACK/AM-Maritime_and_Trade)
+- **Live Operations Dashboard (Vercel)**: [https://am-maritime-and-trade-zvxb-5wppwh8jm-jack-s-projects123.vercel.app/](https://am-maritime-and-trade-zvxb-5wppwh8jm-jack-s-projects123.vercel.app/)
+- **Live Presentation & Pitch Slides**: [https://am-maritime-and-trade-zvxb-5wppwh8jm-jack-s-projects123.vercel.app/presentation](https://am-maritime-and-trade-zvxb-5wppwh8jm-jack-s-projects123.vercel.app/presentation)
+
+#### Deployment Architecture & Static API Rewrites
+- **Vercel Build Configuration**: [`vercel.json`](vercel.json) specifies Vite build settings (`npm --prefix frontend run build`), output directory (`frontend/dist`), and route rewrites.
+- **Static API Dataset Fallbacks**: Pre-rendered static JSON API endpoints (`/api/emails`, `/api/analytics`, `/api/ocr_dashboard`, `/api/automation_level`) ensure full dashboard interactivity and email exploration in cloud production without requiring a local Python server.
+- **Continuous Deployment (CD)**: Every push to the `main` branch on GitHub automatically builds and deploys to the Vercel production environment.
+
 ---
 
 ## Interactive Demos & Automated Tests
