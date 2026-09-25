@@ -50,22 +50,48 @@ export default function AutomationSlider({ onLevelChange, level: controlledLevel
     { level: 2, label: 'L2' }, { level: 3, label: 'L3' },
   ];
 
-  const filesForReview = preview?.files_for_review ?? preview?.counts?.files_for_review ?? 0;
-  const filesForReviewPct = preview?.files_for_review_pct ?? 0;
+  const isL1 = level === 1;
+  const autoProcessedPct = isL1 && (preview?.triage_auto_processed_pct !== undefined)
+    ? preview.triage_auto_processed_pct
+    : (preview?.auto_processed_pct ?? 0);
+
+  const errorExposurePct = isL1 && (preview?.triage_estimated_error_exposure_pct !== undefined)
+    ? preview.triage_estimated_error_exposure_pct
+    : (preview?.estimated_error_exposure_pct ?? 0);
+
+  const timeSavedMinutes = isL1 && (preview?.triage_estimated_time_saved_minutes !== undefined)
+    ? preview.triage_estimated_time_saved_minutes
+    : (preview?.estimated_time_saved_minutes ?? 0);
+
+  const filesForReview = isL1 && (preview?.triage_files_for_review !== undefined)
+    ? preview.triage_files_for_review
+    : (preview?.files_for_review ?? preview?.counts?.files_for_review ?? 0);
+
+  const filesForReviewPct = isL1 && (preview?.triage_files_for_review_pct !== undefined)
+    ? preview.triage_files_for_review_pct
+    : (preview?.files_for_review_pct ?? 0);
+
+  const autoProcessedFields = isL1 && (preview?.triage_auto_processed_fields !== undefined)
+    ? preview.triage_auto_processed_fields
+    : (preview?.counts?.auto_processed ?? 0);
+
+  const flaggedFields = isL1 && (preview?.triage_flagged_fields !== undefined)
+    ? preview.triage_flagged_fields
+    : (preview?.counts?.flagged_for_review ?? 0);
 
   const tiles = [
     {
       key: 'auto_processed_pct',
       label: 'Automation rate',
-      value: `${preview?.auto_processed_pct ?? 0}%`,
-      hint: `${preview?.counts?.auto_processed ?? 0} fields auto-written`,
+      value: `${autoProcessedPct}%`,
+      hint: `${autoProcessedFields} fields auto-written`,
       Icon: Gauge,
       tone: 'text-emerald-400',
     },
     {
       key: 'estimated_error_exposure_pct',
       label: 'Error exposure',
-      value: `${preview?.estimated_error_exposure_pct ?? 0}%`,
+      value: `${errorExposurePct}%`,
       hint: 'non-exact evidence or validator failures',
       Icon: ShieldAlert,
       tone: 'text-amber-400',
@@ -73,7 +99,7 @@ export default function AutomationSlider({ onLevelChange, level: controlledLevel
     {
       key: 'time',
       label: 'Time saved',
-      value: `${preview?.estimated_time_saved_minutes ?? 0} min`,
+      value: `${timeSavedMinutes} min`,
       hint: 'manual review minutes avoided',
       Icon: Clock,
       tone: 'text-blue-400',
@@ -82,7 +108,7 @@ export default function AutomationSlider({ onLevelChange, level: controlledLevel
       key: 'files_for_review',
       label: 'Files sent for review',
       value: `${filesForReview} files`,
-      hint: `${filesForReviewPct}% of inbox files (${preview?.counts?.flagged_for_review ?? 0} fields)`,
+      hint: `${filesForReviewPct}% of inbox files (${flaggedFields} fields)`,
       Icon: Users,
       tone: 'text-slate-200',
     },

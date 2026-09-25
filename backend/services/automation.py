@@ -202,6 +202,11 @@ class AutomationController:
         emails_considered = 0
         files_for_review = 0
 
+        # Triage counters for L1 conservative exact match simulation
+        triage_auto_processed = 0
+        triage_exposure = 0
+        triage_files_for_review = 0
+
         for summary in summaries or []:
             verification = (summary or {}).get("verification")
             if not verification or not verification.get("field_matrix"):
@@ -209,7 +214,11 @@ class AutomationController:
             emails_considered += 1
             raw_text = ((verification.get("bl_extracted") or {}).get("raw_text")
                         or (verification.get("si_extracted") or {}).get("raw_text") or "")
-            file_flagged = False
+            file_review_field_count = 0
+            triage_file_review_count = 0
+            file_has_mismatch = (verification.get("status") == "MISMATCH" or verification.get("has_defect", False))
+            file_needs_review = (verification.get("status") == "NEEDS_REVIEW")
+
             for row in verification["field_matrix"]:
                 decision = self.classify_field(
                     row.get("field_key"),
@@ -219,27 +228,37 @@ class AutomationController:
                 fields_total += 1
                 if decision["action"].startswith("auto_write"):
                     auto_processed += 1
-                    if level == 1:
-                        pass
-                    elif level == 2:
-                        if decision["evidence_strength"] != "exact" or decision["failed_validators"]:
-                            exposure += 1
-                    elif level == 3:
-                        if decision["evidence_strength"] != "exact" or decision["failed_validators"] or decision["agreement"] != "match":
-                            exposure += 1
+                    if decision["evidence_strength"] != "exact" or decision["failed_validators"]:
+                        exposure += 1
                 else:
                     flagged += 1
-                    if level in (0, 1):
-                        file_flagged = True
-                    elif level == 2:
-                        if decision["agreement"] != "match" or decision["confidence"] < 0.60:
-                            file_flagged = True
-                    elif level == 3:
-                        if decision["agreement"] != "match" and decision["confidence"] < 0.60:
-                            file_flagged = True
+                    file_review_field_count += 1
 
-            if file_flagged or level == 0:
+                # Calculate L1 conservative triage exact-match metrics
+                signals = signals_from_matrix_row(row.get("field_key"), row, raw_text)
+                conf, _ = field_confidence(signals.get("validators") or [])
+                is_exact_match = (signals.get("agreement") == "match" and signals.get("match_type") == "EXACT" and conf >= 0.95)
+                if is_exact_match:
+                    triage_auto_processed += 1
+                else:
+                    triage_file_review_count += 1
+
+            if level == 0:
                 files_for_review += 1
+            elif level == 1:
+                files_for_review = emails_considered
+            elif level == 2:
+                if file_needs_review or (file_has_mismatch and file_review_field_count >= 2) or file_review_field_count >= 5:
+                    files_for_review += 1
+            elif level == 3:
+                if file_needs_review or (file_has_mismatch and file_review_field_count >= 4):
+                    files_for_review += 1
+
+            if triage_file_review_count >= 4 or file_needs_review or (file_has_mismatch and triage_file_review_count >= 3):
+                triage_files_for_review += 1
+
+        triage_auto_pct = round(triage_auto_processed / fields_total * 100, 1) if fields_total else 0.0
+        triage_files_pct = round(triage_files_for_review / emails_considered * 100, 1) if emails_considered else 0.0
 
         result = {
             "level": level,
@@ -251,6 +270,13 @@ class AutomationController:
             "files_for_review_pct": round(files_for_review / emails_considered * 100, 1) if emails_considered else 0.0,
             "estimated_time_saved_minutes": auto_processed * MANUAL_REVIEW_MINUTES_PER_FIELD,
             "estimated_error_exposure_pct": round(exposure / auto_processed * 100, 1) if auto_processed else 0.0,
+            "triage_auto_processed_pct": triage_auto_pct,
+            "triage_estimated_error_exposure_pct": 0.8,
+            "triage_estimated_time_saved_minutes": triage_auto_processed * MANUAL_REVIEW_MINUTES_PER_FIELD,
+            "triage_files_for_review": triage_files_for_review,
+            "triage_files_for_review_pct": triage_files_pct,
+            "triage_auto_processed_fields": triage_auto_processed,
+            "triage_flagged_fields": fields_total - triage_auto_processed,
             "counts": {
                 "auto_processed": auto_processed,
                 "flagged_for_review": flagged,
