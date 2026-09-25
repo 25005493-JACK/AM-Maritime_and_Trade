@@ -42,5 +42,25 @@ export async function apiFetch(path, options = {}) {
     'Authorization': `Bearer ${token}`,
     'X-Reviewer-Key': token,
   };
-  return fetch(url, { ...options, headers });
+
+  let res = await fetch(url, { ...options, headers });
+
+  // Fallback for static host deployments (e.g. Vercel) where API routes map to static .json files
+  const method = (options.method || 'GET').toUpperCase();
+  if (!res.ok && method === 'GET' && !API_BASE && !path.endsWith('.json')) {
+    const jsonPath = path.includes('?')
+      ? path.replace(/(\?.*)$/, '.json$1')
+      : `${path}.json`;
+    try {
+      const fallbackUrl = apiUrl(jsonPath);
+      const fallbackRes = await fetch(fallbackUrl, { ...options, headers });
+      if (fallbackRes.ok) {
+        return fallbackRes;
+      }
+    } catch (e) {
+      // ignore fallback error and return original response
+    }
+  }
+
+  return res;
 }
