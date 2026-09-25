@@ -244,10 +244,8 @@ class DatasetLoader:
                 kwargs = {} if isinstance(content, bytes) else {"encoding": "utf-8"}
                 with open(att_path, mode, **kwargs) as f:
                     f.write(content)
-                # clear attachment cache for this file if present
-                for k in list(self._attachment_text_cache.keys()):
-                    if os.path.basename(fname) in k:
-                        self._attachment_text_cache.pop(k, None)
+        # Clear attachment cache for fresh text extraction of newly uploaded files
+        self._attachment_text_cache.clear()
 
         # Write the email JSON file into inbox_dir
         email_file = os.path.join(self.inbox_dir, f"{email_id}.json")

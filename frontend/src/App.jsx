@@ -215,7 +215,21 @@ export default function App() {
     }
     await fetchAnalytics();
     await fetchHealth();
-    showToast(`Processed ${uploadData?.email_id || 'document pair'} live through real pipeline!`, 'success');
+
+    const verif = uploadData?.verification || {};
+    const status = verif.status || uploadData?.verification_status;
+    const defects = verif.defect_fields || uploadData?.defect_fields || [];
+
+    if (status === 'MISMATCH') {
+      const fieldList = defects.length > 0 ? defects.join(', ') : 'fields';
+      showToast(`Uploaded & compared live: MISMATCH detected in ${fieldList}`, 'warning');
+    } else if (status === 'OK') {
+      showToast(`Uploaded & compared live: OK (All 7 required fields match!)`, 'success');
+    } else if (status === 'NEEDS_REVIEW') {
+      showToast(`Uploaded & compared live: NEEDS REVIEW (${verif.review_reason || 'Human review required'})`, 'info');
+    } else {
+      showToast(`Processed ${uploadData?.email_id || 'document pair'} live through real pipeline!`, 'success');
+    }
   };
 
   useEffect(() => {
