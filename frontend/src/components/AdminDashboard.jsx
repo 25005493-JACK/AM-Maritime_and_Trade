@@ -3,40 +3,24 @@ import {
   BarChart3, 
   TrendingUp, 
   ShieldCheck, 
-  Award, 
-  Sliders,
-  Terminal,
-  Brain
+  Award
 } from 'lucide-react';
 
 import AnalyticsDashboard from './AnalyticsDashboard.jsx';
 import AgentLearningDashboard from './AgentLearningDashboard.jsx';
 import SelfEvaluationView from './SelfEvaluationView.jsx';
-import AutomationSlider from './AutomationSlider.jsx';
-import RedTeamPanel from './RedTeamPanel.jsx';
 
 export default function AdminDashboard({
   analytics,
-  emails = [],
-  selectedEmailId,
-  onSelectEmail,
-  emailDetail,
-  automationLevel,
-  onAutomationLevelChange,
   onRunSelfEvaluate,
   evaluationData,
-  loadingEval,
-  showToast,
-  fetchEmails,
-  fetchEmailDetail
+  loadingEval
 }) {
-  const [adminTab, setAdminTab] = useState('analytics'); // 'analytics', 'learning', 'trust', 'benchmark'
-  const effectiveEmailId = selectedEmailId || (emails && emails.length > 0 ? emails[0].id : 'email_001');
+  const [adminTab, setAdminTab] = useState('analytics'); // 'analytics', 'learning', 'benchmark'
 
   const adminTabs = [
     { id: 'analytics', label: 'Vessel & Order Analytics', icon: BarChart3, badge: 'Overview' },
     { id: 'learning', label: 'Agent Self Learning', icon: TrendingUp, badge: 'Reflexion & Bayes' },
-    { id: 'trust', label: 'Trust & AI Controls', icon: ShieldCheck, badge: 'L0-L3 Controls' },
     { id: 'benchmark', label: 'Self Evaluation Board', icon: Award, badge: 'Scoreboard' }
   ];
 
@@ -51,7 +35,7 @@ export default function AdminDashboard({
               <span>Admin & System Governance Control Center</span>
             </h2>
             <p className="text-xs text-slate-400 mt-0.5">
-              Consolidated governance covering Vessel Analytics, Self-Learning Memory, Trust Controls, and Benchmark Evaluation.
+              Consolidated governance covering Vessel Analytics, Self-Learning Memory, and Benchmark Evaluation.
             </p>
           </div>
         </div>
@@ -92,56 +76,6 @@ export default function AdminDashboard({
 
         {adminTab === 'learning' && (
           <AgentLearningDashboard />
-        )}
-
-        {adminTab === 'trust' && (
-          <div className="p-6 space-y-6 bg-slate-950">
-            <div>
-              <h2 className="text-sm font-bold text-slate-100">Trust &amp; AI Controls</h2>
-              <p className="text-xs text-slate-400 mt-1">
-                Auditable reasoning, adversarial rehearsal, and the automation license. All metrics derived directly from validator outcomes and loaded inbox data.
-              </p>
-            </div>
-
-            <AutomationSlider
-              level={automationLevel}
-              onLevelChange={async (level) => {
-                onAutomationLevelChange(level);
-                await fetchEmails();
-                if (selectedEmailId) fetchEmailDetail(selectedEmailId);
-                showToast(`Automation level set to L${level} - inbox states recalculated`, 'info');
-              }}
-            />
-
-            {/* Active Document Selector for Rehearsal */}
-            <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-900/80 border border-blue-900/50">
-              <div className="flex items-center space-x-2">
-                <span className="text-xs font-semibold text-slate-300">Target Document for Adversarial Rehearsal:</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <select
-                  value={effectiveEmailId}
-                  onChange={(e) => {
-                    const id = e.target.value;
-                    if (onSelectEmail) onSelectEmail(id);
-                    if (fetchEmailDetail) fetchEmailDetail(id);
-                  }}
-                  className="bg-slate-950 border border-blue-800/80 rounded-lg px-3 py-1.5 text-xs text-cyan-300 font-mono focus:outline-none focus:ring-1 focus:ring-cyan-500 max-w-sm"
-                >
-                  {(emails || []).map((em) => (
-                    <option key={em.id} value={em.id}>
-                      {em.id} - {em.subject?.slice(0, 42) || em.sender}
-                    </option>
-                  ))}
-                  {(!emails || emails.length === 0) && (
-                    <option value="email_001">email_001 (MSC - Booking)</option>
-                  )}
-                </select>
-              </div>
-            </div>
-
-            <RedTeamPanel emailId={effectiveEmailId} />
-          </div>
         )}
 
         {adminTab === 'benchmark' && (
