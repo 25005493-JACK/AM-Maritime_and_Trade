@@ -47,7 +47,22 @@ export default function App() {
       const res = await apiFetch('/api/emails');
       if (res.ok) {
         const data = await res.json();
-        setEmails(data);
+        const approvedIds = JSON.parse(localStorage.getItem('documatch_approved_emails') || '[]');
+        const updated = data.map((e) => {
+          if (approvedIds.includes(e.id)) {
+            return {
+              ...e,
+              verification: {
+                ...(e.verification || {}),
+                status: 'OK',
+                human_review_reasons: [],
+                review_reason: null
+              }
+            };
+          }
+          return e;
+        });
+        setEmails(updated);
       }
     } catch (err) {
       console.error('Failed to fetch emails:', err);
@@ -174,6 +189,79 @@ export default function App() {
     }
   };
 
+  // Open Override Modal safely by pre-fetching detail
+  const handleOpenOverrideModal = async (emailId) => {
+    setSelectedEmailId(emailId);
+    await fetchEmailDetail(emailId);
+    setShowOverrideModal(true);
+  };
+
+  // Direct Approve & Advance to Next Step
+  const handleApproveEmail = async (emailId) => {
+    try {
+      // 1. Post to API override endpoint to register approval
+      await apiFetch('/api/override', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email_id: emailId,
+          reviewer_name: 'Human Reviewer',
+          si_overrides: {},
+          bl_overrides: {},
+          corrections: []
+        })
+      });
+
+      // 2. Persist to localStorage for static host / offline compatibility
+      const approvedIds = JSON.parse(localStorage.getItem('documatch_approved_emails') || '[]');
+      if (!approvedIds.includes(emailId)) {
+        approvedIds.push(emailId);
+        localStorage.setItem('documatch_approved_emails', JSON.stringify(approvedIds));
+      }
+
+      try {
+        const customUploads = JSON.parse(localStorage.getItem('documatch_uploaded_emails') || '{}');
+        if (customUploads[emailId]) {
+          customUploads[emailId].verification = {
+            ...(customUploads[emailId].verification || {}),
+            status: 'OK',
+            human_review_reasons: [],
+            review_reason: null
+          };
+          localStorage.setItem('documatch_uploaded_emails', JSON.stringify(customUploads));
+        }
+      } catch (e) {}
+
+      // 3. Immediately update emails in local state
+      setEmails((prevEmails) =>
+        prevEmails.map((e) => {
+          if (e.id === emailId) {
+            return {
+              ...e,
+              verification: {
+                ...(e.verification || {}),
+                status: 'OK',
+                human_review_reasons: [],
+                review_reason: null
+              }
+            };
+          }
+          return e;
+        })
+      );
+
+      // 4. Refresh data from server / backend
+      await fetchEmails();
+      await fetchAnalytics();
+      await fetchReflections();
+
+      showToast(`Approved ${emailId}! Status advanced to OK & released for dispatch.`, 'success');
+    } catch (err) {
+      console.error('Failed to approve email:', err);
+      showToast(`Failed to approve ${emailId}. Please try again.`, 'error');
+    }
+  };
+
   // Save Human-in-the-Loop Override
   const handleSaveOverride = async (emailId, siOverrides, blOverrides) => {
     try {
@@ -187,16 +275,39 @@ export default function App() {
         })
       });
 
-      if (res.ok) {
-        await fetchEmails();
-        await fetchEmailDetail(emailId);
-        await fetchAnalytics();
-        await fetchReflections();
-        setShowOverrideModal(false);
-        showToast(`Saved reviewer override for ${emailId}!`, 'success');
+      // Save to local storage for static host
+      const approvedIds = JSON.parse(localStorage.getItem('documatch_approved_emails') || '[]');
+      if (!approvedIds.includes(emailId)) {
+        approvedIds.push(emailId);
+        localStorage.setItem('documatch_approved_emails', JSON.stringify(approvedIds));
       }
+
+      setEmails((prevEmails) =>
+        prevEmails.map((e) => {
+          if (e.id === emailId) {
+            return {
+              ...e,
+              verification: {
+                ...(e.verification || {}),
+                status: 'OK',
+                human_review_reasons: [],
+                review_reason: null
+              }
+            };
+          }
+          return e;
+        })
+      );
+
+      await fetchEmails();
+      await fetchEmailDetail(emailId);
+      await fetchAnalytics();
+      await fetchReflections();
+      setShowOverrideModal(false);
+      showToast(`Saved reviewer override for ${emailId}! Status advanced to OK.`, 'success');
     } catch (err) {
       console.error('Failed to save override:', err);
+      showToast(`Failed to save override for ${emailId}.`, 'error');
     }
   };
 
@@ -300,10 +411,8 @@ export default function App() {
         {activeTab === 'human_review' && (
           <HumanReviewQueue
             emails={emails}
-            onReviewEmail={(id) => {
-              setSelectedEmailId(id);
-              setShowOverrideModal(true);
-            }}
+            onReviewEmail={handleOpenOverrideModal}
+            onApproveEmail={handleApproveEmail}
             reflectionsData={reflectionsData}
             onRefreshReflections={fetchReflections}
           />

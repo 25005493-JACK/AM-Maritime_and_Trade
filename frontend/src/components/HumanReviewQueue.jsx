@@ -18,16 +18,20 @@ import { ReflectionsPanel } from './AgentLearningDashboard.jsx';
 export default function HumanReviewQueue({ 
   emails, 
   onReviewEmail, 
+  onApproveEmail,
   reflectionsData, 
   onRefreshReflections 
 }) {
   const [expandedId, setExpandedId] = useState(null);
 
-  // Filter emails requiring human review
+  // Filter emails requiring human review (exclude already approved items)
   const reviewEmails = emails.filter((e) => {
     const status = e.verification?.status;
+    if (status === 'OK' || status === 'Approved' || status === 'Passed' || status === 'Completed') {
+      return false;
+    }
     const hasReason = e.verification?.review_reason || (e.verification?.human_review_reasons && e.verification.human_review_reasons.length > 0);
-    return status === 'HUMAN_REVIEW_REQUIRED' || status === 'NEEDS_REVIEW' || hasReason || e.id === 'email_004';
+    return status === 'HUMAN_REVIEW_REQUIRED' || status === 'NEEDS_REVIEW' || hasReason;
   });
 
   const getReasonExplanation = (reason) => {
@@ -171,19 +175,41 @@ export default function HumanReviewQueue({
                       </div>
                     </div>
 
-                    {/* ACTION BUTTON: APPROVE & ADVANCE TO NEXT STEP */}
-                    <div className="flex items-center justify-between pt-2 border-t border-slate-800">
+                    {/* ACTION BUTTONS: INSPECT / OVERRIDE & APPROVE & ADVANCE TO NEXT STEP */}
+                    <div className="flex items-center justify-between pt-3 border-t border-slate-800">
                       <span className="text-xs text-slate-400 font-mono">
                         Reviewer action will advance document status to OK and release for dispatch.
                       </span>
 
-                      <button
-                        onClick={() => onReviewEmail(email.id)}
-                        className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs flex items-center space-x-2 shadow-lg shadow-amber-950/60 transition active:scale-95"
-                      >
-                        <UserCheck className="w-4 h-4" />
-                        <span>Approve & Advance to Next Step</span>
-                      </button>
+                      <div className="flex items-center space-x-2">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onReviewEmail(email.id);
+                          }}
+                          className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs flex items-center space-x-1.5 border border-slate-700 transition active:scale-95"
+                        >
+                          <FileText className="w-4 h-4 text-cyan-400" />
+                          <span>Inspect & Override</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (onApproveEmail) {
+                              onApproveEmail(email.id);
+                            } else {
+                              onReviewEmail(email.id);
+                            }
+                          }}
+                          className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs flex items-center space-x-2 shadow-lg shadow-emerald-950/60 transition active:scale-95"
+                        >
+                          <UserCheck className="w-4 h-4" />
+                          <span>Approve & Advance to Next Step</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 )}
