@@ -72,7 +72,7 @@ class TestRulesFirstPipeline(unittest.TestCase):
         """Verify UN/LOCODE normalization and fallback auditing."""
         # Parenthetical code extraction
         self.assertEqual(port_lookup.resolve_port_code("SINGAPORE (SGSIN)"), "SGSIN")
-        self.assertEqual(port_lookup.resolve_port_code("BALTIMORE, US (NGAPP)"), "NGAPP")
+        self.assertEqual(port_lookup.resolve_port_code("APAPA, NIGERIA (NGAPP)"), "NGAPP")
 
         # Port name resolution
         self.assertEqual(port_lookup.resolve_port_code("BUATAN, INDONESIA"), "IDBUA")
@@ -84,7 +84,7 @@ class TestRulesFirstPipeline(unittest.TestCase):
         self.assertEqual(audit["method"], "unlocode")
 
         # Port mismatch by code
-        mismatched, audit2 = port_lookup.compare_ports("BALTIMORE, US (USBAL)", "BALTIMORE, US (NGAPP)")
+        mismatched, audit2 = port_lookup.compare_ports("BALTIMORE, US (USBAL)", "APAPA, NIGERIA (NGAPP)")
         self.assertFalse(mismatched)
         self.assertEqual(audit2["si_code"], "USBAL")
         self.assertEqual(audit2["bl_code"], "NGAPP")

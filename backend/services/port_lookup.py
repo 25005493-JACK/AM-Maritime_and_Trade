@@ -110,45 +110,44 @@ class PortLookup:
         if not raw or raw.upper() in ("N/A", "TBA", "BLANK", "[BLANK]"):
             return None
 
-        # 1. Check parenthetical UN/LOCODE e.g. "SINGAPORE (SGSIN)" or "BALTIMORE, US (USBAL)"
-        m_code = re.search(r'\(([A-Z]{2}[A-Z0-9]{3})\)', raw)
-        if m_code:
-            code_cand = m_code.group(1).upper()
-            return code_cand
-
-        # 2. Check if the string itself is just a UN/LOCODE
+        # Check if the string itself is just a 5-char UN/LOCODE (e.g. "MYPKG", "AUFRE")
         raw_clean = re.sub(r'[^A-Za-z0-9]', '', raw).upper()
         if len(raw_clean) == 5 and (raw_clean in self.by_code or raw_clean in self.ALIAS_MAP.values()):
             return raw_clean
 
-        # 3. Strip parenthetical expressions
+        # Extract text city/port name without parenthetical expressions
         stripped = re.sub(r'\(.*?\)', '', raw).strip()
-
-        # Split city from country (e.g. "BUATAN, INDONESIA" -> city="BUATAN")
         parts = [p.strip() for p in stripped.split(',') if p.strip()]
         city_part = parts[0] if parts else stripped
 
         norm_city = self.normalize_text(city_part)
         norm_full = self.normalize_text(stripped)
 
-        # Check in alias map
+        city_code = None
         if norm_city in self.ALIAS_MAP:
-            return self.ALIAS_MAP[norm_city]
-        if norm_full in self.ALIAS_MAP:
-            return self.ALIAS_MAP[norm_full]
+            city_code = self.ALIAS_MAP[norm_city]
+        elif norm_full in self.ALIAS_MAP:
+            city_code = self.ALIAS_MAP[norm_full]
+        elif norm_city in self.by_name:
+            city_code = self.by_name[norm_city]
+        elif norm_full in self.by_name:
+            city_code = self.by_name[norm_full]
+        else:
+            for k, code in self.ALIAS_MAP.items():
+                if k in norm_city or k in norm_full:
+                    city_code = code
+                    break
 
-        # Check by_name from CSV
-        if norm_city in self.by_name:
-            return self.by_name[norm_city]
-        if norm_full in self.by_name:
-            return self.by_name[norm_full]
+        # Check parenthetical UN/LOCODE e.g. "SINGAPORE (SGSIN)" or "BUSAN, SOUTH KOREA (AUFRE)"
+        m_code = re.search(r'\(([A-Z]{2}[A-Z0-9]{3})\)', raw)
+        if m_code:
+            parenthetical_code = m_code.group(1).upper()
+            # If explicit city name resolved to a code and conflicts with parenthetical code, prioritize city name
+            if city_code and city_code != parenthetical_code:
+                return city_code
+            return parenthetical_code
 
-        # Check partial word matches in alias map
-        for k, code in self.ALIAS_MAP.items():
-            if k in norm_city or k in norm_full:
-                return code
-
-        return None
+        return city_code
 
     def compare_ports(self, si_val: Any, bl_val: Any) -> Tuple[bool, Dict[str, Any]]:
         """

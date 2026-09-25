@@ -82,18 +82,18 @@
   "vitalsolutions.sg:consignee": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "consignee",
-    "alpha": 23.0,
-    "beta": 23.0,
+    "alpha": 25.0,
+    "beta": 25.0,
     "mean_trust": 0.5,
-    "last_updated": "2026-09-25T04:02:32.176914+00:00"
+    "last_updated": "2026-09-25T05:30:18.786941+00:00"
   },
   "vitalsolutions.sg:notify_party": {
     "sender_domain": "vitalsolutions.sg",
     "field_name": "notify_party",
     "alpha": 1.0,
-    "beta": 23.0,
-    "mean_trust": 0.042,
-    "last_updated": "2026-09-25T04:02:32.156599+00:00"
+    "beta": 25.0,
+    "mean_trust": 0.038,
+    "last_updated": "2026-09-25T05:30:18.761804+00:00"
   },
   "adaptive-sender-6847fd94.com:*": {
     "sender_domain": "adaptive-sender-6847fd94.com",
@@ -163,9 +163,9 @@
     "sender_domain": "eastasiatrading.com",
     "field_name": "container_count",
     "alpha": 1.0,
-    "beta": 25.0,
-    "mean_trust": 0.038,
-    "last_updated": "2026-09-25T04:02:34.814883+00:00"
+    "beta": 27.0,
+    "mean_trust": 0.036,
+    "last_updated": "2026-09-25T05:30:21.506085+00:00"
   },
   "adaptive-sender-77888502.com:*": {
     "sender_domain": "adaptive-sender-77888502.com",
@@ -178,10 +178,10 @@
   "carrier-test-line.com:*": {
     "sender_domain": "carrier-test-line.com",
     "field_name": null,
-    "alpha": 21.0,
-    "beta": 61.0,
+    "alpha": 23.0,
+    "beta": 67.0,
     "mean_trust": 0.256,
-    "last_updated": "2026-09-25T04:02:32.039539+00:00"
+    "last_updated": "2026-09-25T05:30:18.577695+00:00"
   },
   "fujitogrp.com:container_count": {
     "sender_domain": "fujitogrp.com",
@@ -499,9 +499,9 @@
     "sender_domain": "oceanic-exports.com",
     "field_name": "container_count",
     "alpha": 1.0,
-    "beta": 11.0,
-    "mean_trust": 0.083,
-    "last_updated": "2026-09-25T04:02:36.051436+00:00"
+    "beta": 13.0,
+    "mean_trust": 0.071,
+    "last_updated": "2026-09-25T05:30:22.749111+00:00"
   },
   "adaptive-sender-2fbb2899.com:*": {
     "sender_domain": "adaptive-sender-2fbb2899.com",
@@ -534,5 +534,29 @@
     "beta": 3.0,
     "mean_trust": 0.4,
     "last_updated": "2026-09-25T04:02:32.217217+00:00"
+  },
+  "adaptive-sender-c43e732a.com:*": {
+    "sender_domain": "adaptive-sender-c43e732a.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-25T04:36:47.279629+00:00"
+  },
+  "adaptive-sender-3f47a18f.com:*": {
+    "sender_domain": "adaptive-sender-3f47a18f.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-25T04:41:50.095489+00:00"
+  },
+  "adaptive-sender-4dd558c9.com:*": {
+    "sender_domain": "adaptive-sender-4dd558c9.com",
+    "field_name": null,
+    "alpha": 2.0,
+    "beta": 3.0,
+    "mean_trust": 0.4,
+    "last_updated": "2026-09-25T05:30:18.838797+00:00"
   }
 }
