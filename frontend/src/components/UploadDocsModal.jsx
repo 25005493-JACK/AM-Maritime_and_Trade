@@ -76,19 +76,97 @@ Vessel & Voyage: MSC ISABELLA V.2601E
 B/L Reference: BL-MATCH-8812
 `;
 
+const SAMPLE_EMAIL_006_SI = `SHIPPING INSTRUCTION (SI)
+========================================
+DOCUMENT REF: SI-GT-2026-99214
+BOOKING NO: BK-99214
+DATE: 2026-09-18
+
+SHIPPER:
+GLOBAL TRADERS INC
+100 HARBOR DRIVE, SUITE 500,
+LONG BEACH, CA 90802, UNITED STATES
+
+CONSIGNEE:
+EURO RETAIL LOGISTICS B.V.
+COOLHAVEN 110, 3024 AK ROTTERDAM, NETHERLANDS
+
+NOTIFY PARTY:
+EURO RETAIL LOGISTICS B.V.
+COOLHAVEN 110, 3024 AK ROTTERDAM, NETHERLANDS
+
+VESSEL & VOYAGE: MSC ISABELLA V.240E
+PORT OF LOADING: LOS ANGELES, US (USLAX)
+PORT OF DISCHARGE: ROTTERDAM, NETHERLANDS (NLRTM)
+
+CONTAINER COUNT: 3 x 40'HC
+GROSS WEIGHT: 52,100 KG
+COMMODITY: SOLAR PANEL INVERTERS AND MOUNTING HARDWARE
+
+TERMS: FREIGHT PREPAID
+DESCRIPTION OF GOODS:
+3 X 40' HIGH CUBE CONTAINERS
+SOLAR PANEL INVERTERS AND STAINLESS MOUNTING BRACKETS
+`;
+
+const SAMPLE_EMAIL_006_BL = `BILL OF LADING (DRAFT)
+========================================
+B/L NUMBER: BL-OTC-2026-601
+BOOKING REF: BK-OTC-2026-601
+CARRIER: EVERGREEN LINE
+
+SHIPPER:
+OCEANIC TRADE CORP
+SUITE 808, EAST TOWER, 1200 CENTURY AVENUE,
+PUDONG, SHANGHAI 200120, CHINA
+
+CONSIGNEE:
+ROTTERDAM LOGISTICS DIRECT B.V.
+PARKLAAN 24, 3016 BB ROTTERDAM, NETHERLANDS
+
+NOTIFY PARTY:
+ROTTERDAM LOGISTICS DIRECT B.V.
+PARKLAAN 24, 3016 BB ROTTERDAM, NETHERLANDS
+
+VESSEL & VOYAGE: EVER GIVEN V.045E
+PORT OF LOADING: SHANGHAI (CNSHA)
+PORT OF DISCHARGE: ROTTERDAM (NLRTM)
+
+CONTAINER COUNT: 5 x 40'HC
+GROSS WEIGHT: 87,500 KG
+COMMODITY: INDUSTRIAL AUTOMATION SENSORS & VALVES
+
+FREIGHT STATUS: FREIGHT PREPAID
+PARTICULARS FURNISHED BY SHIPPER:
+5 CONTAINER(S) 40' HC CONTAINING AUTOMATION SENSORS AND HYDRAULIC VALVES
+CLEAN ON BOARD
+`;
+
 const parseDocFields = (text) => {
-  const getField = (pattern) => {
-    const match = text ? text.match(pattern) : null;
-    return match ? match[1].trim() : '';
+  if (!text) return {};
+
+  const extractField = (labelPattern) => {
+    // 1. Try inline single-line match: "Shipper: Global Traders"
+    const singleMatch = text.match(new RegExp(`${labelPattern}:\\s*([^\\r\\n]+)`, 'i'));
+    if (singleMatch && singleMatch[1].trim()) {
+      return singleMatch[1].trim();
+    }
+    // 2. Try multiline block match: "SHIPPER:\nLine 1\nLine 2" until blank line or next label
+    const multiMatch = text.match(new RegExp(`${labelPattern}:[\\r\\n]+((?:[^\\r\\n]+[\\r\\n]*)+?)(?=[\\r\\n]{2}|[A-Z\\s]{3,}:|$)`, 'i'));
+    if (multiMatch && multiMatch[1].trim()) {
+      return multiMatch[1].trim().replace(/[\r\n]+/g, ' ');
+    }
+    return '';
   };
+
   return {
-    shipper: getField(/Shipper:\s*(.+)/i),
-    consignee: getField(/Consignee:\s*(.+)/i),
-    notify_party: getField(/Notify Party:\s*(.+)/i),
-    port_of_loading: getField(/Port of Loading:\s*(.+)/i),
-    port_of_discharge: getField(/Port of Discharge:\s*(.+)/i),
-    container_count: getField(/Container Count:\s*(.+)/i),
-    gross_weight_kg: getField(/Gross Weight:\s*(.+)/i),
+    shipper: extractField('SHIPPER(?:\\s+NAME(?:\\s+&\\s+ADDRESS)?)?'),
+    consignee: extractField('CONSIGNEE'),
+    notify_party: extractField('NOTIFY\\s+PARTY'),
+    port_of_loading: extractField('PORT\\s+OF\\s+LOADING(?:\\s*\\(POL\\))?'),
+    port_of_discharge: extractField('PORT\\s+OF\\s+DISCHARGE(?:\\s*\\(POD\\))?'),
+    container_count: extractField('CONTAINER\\s+COUNT'),
+    gross_weight_kg: extractField('GROSS\\s+WEIGHT(?:\\s*\\(KG\\))?'),
   };
 };
 
@@ -205,6 +283,10 @@ export default function UploadDocsModal({ isOpen, onClose, onUploadSuccess, targ
       if (targetEmail.company) setCompany(targetEmail.company);
       if (targetEmail.vessel) setVessel(targetEmail.vessel);
       if (targetEmail.voyage) setVoyage(targetEmail.voyage);
+      if (targetEmail.si_text) setSiText(targetEmail.si_text);
+      else if (targetEmail.id === 'email_006') setSiText(SAMPLE_EMAIL_006_SI);
+      if (targetEmail.bl_text) setBlText(targetEmail.bl_text);
+      else if (targetEmail.id === 'email_006') setBlText(SAMPLE_EMAIL_006_BL);
     }
   }, [targetEmail, isOpen]);
 
@@ -416,6 +498,21 @@ export default function UploadDocsModal({ isOpen, onClose, onUploadSuccess, targ
                 className="px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/80 text-emerald-300 border border-emerald-700/60 font-semibold text-[11px] transition"
               >
                 April Fine Paper (Clean Match)
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setCompany('Maritime Shipper');
+                  setSubject('Draft BL MMSS 2507 V.257087E NHAVA SHEVA - amend BL 058');
+                  setSender('guancheng_lee@april.com.my');
+                  setVessel('MMSS 2507');
+                  setVoyage('V.257087E');
+                  setSiText(SAMPLE_EMAIL_006_SI);
+                  setBlText(SAMPLE_EMAIL_006_BL);
+                }}
+                className="px-2.5 py-1 rounded-lg bg-blue-950/60 hover:bg-blue-900/80 text-blue-300 border border-blue-700/60 font-semibold text-[11px] transition"
+              >
+                Email 006 (Global Traders vs Oceanic)
               </button>
             </div>
           </div>
