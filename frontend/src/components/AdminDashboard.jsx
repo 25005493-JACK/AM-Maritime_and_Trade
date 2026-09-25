@@ -14,7 +14,6 @@ import AgentLearningDashboard from './AgentLearningDashboard.jsx';
 import SelfEvaluationView from './SelfEvaluationView.jsx';
 import AutomationSlider from './AutomationSlider.jsx';
 import RedTeamPanel from './RedTeamPanel.jsx';
-import ReasoningReceipt from './ReasoningReceipt.jsx';
 
 export default function AdminDashboard({
   analytics,
@@ -114,10 +113,10 @@ export default function AdminDashboard({
               }}
             />
 
-            {/* Active Document Selector for Rehearsal & Receipt */}
+            {/* Active Document Selector for Rehearsal */}
             <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-900/80 border border-blue-900/50">
               <div className="flex items-center space-x-2">
-                <span className="text-xs font-semibold text-slate-300">Target Document for Adversarial Rehearsal &amp; Audit Receipt:</span>
+                <span className="text-xs font-semibold text-slate-300">Target Document for Adversarial Rehearsal:</span>
               </div>
               <div className="flex items-center space-x-2">
                 <select
@@ -142,12 +141,6 @@ export default function AdminDashboard({
             </div>
 
             <RedTeamPanel emailId={effectiveEmailId} />
-
-            <ReasoningReceipt
-              emailId={effectiveEmailId}
-              shipmentId={effectiveEmailId === selectedEmailId ? emailDetail?.verification?.shipment_id : undefined}
-              defaultOpen={true}
-            />
           </div>
         )}
 
